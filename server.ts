@@ -255,7 +255,7 @@ const server = Bun.serve({
         <a href="/demo" class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1"><span>🚀</span> Live Demos</a>
         <a href="/docs/components/introduction" class="hover:text-foreground transition-colors">Documentation</a>
         <a href="/docs/components/button" class="hover:text-foreground transition-colors">Components</a>
-        <a href="https://github.com/hyperlibs/htmxUI" target="_blank" class="hover:text-foreground transition-colors">GitHub</a>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-foreground transition-colors">GitHub</a>
       </nav>
     </div>
   </header>

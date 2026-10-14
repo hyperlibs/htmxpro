@@ -4,7 +4,7 @@
   version: 1.0.0
   runtime: hmlr@1.0
   repo: github.com/hyperlibs/HMLR
-  ecosystem_host: github.com/hyperlibs/htmxUI
+  ecosystem_host: github.com/hyperlibs/htmxpro
   ecosystem_spatial: github.com/hyperlibs/htmfx
   sync_bus: https://raw.githubusercontent.com/hyperlibs/htmxUI/master/docs/UPDATE.mx
 

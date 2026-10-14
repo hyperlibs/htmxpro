@@ -4,7 +4,7 @@
   <p><strong>A hyperreactive, lean, hypermedia-first frontend platform built for backend engineers and AI agent swarms.</strong></p>
   <p><em>Zero Virtual DOM. Zero Hydration Mismatches. Zero Node/NPM build step required. Server remains the single source of truth.</em></p>
   <p>
-    <a href="https://github.com/hyperlibs/htmxUI/actions/workflows/ci.yml"><img src="https://github.com/hyperlibs/htmxUI/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
+    <a href="https://github.com/hyperlibs/htmxpro/actions/workflows/ci.yml"><img src="https://github.com/hyperlibs/htmxpro/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
     <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/release-v0.10.30-blue?style=flat-square" alt="Release"></a>
     <a href="https://htmxui.cgb.workers.dev/demo/"><img src="https://img.shields.io/badge/Cloudflare-Live_Deployment-F38020?logo=cloudflare&style=flat-square" alt="Cloudflare Deployment"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-purple?style=flat-square" alt="License"></a>
@@ -14,7 +14,7 @@
     <a href="https://htmxui.cgb.workers.dev/demo/"><strong>⚡ Live Demos on Cloudflare</strong></a> &nbsp;•&nbsp; 
     <a href="https://htmxui.cgb.workers.dev/docs/components/introduction/"><strong>📖 Documentation</strong></a> &nbsp;•&nbsp; 
     <a href="#-about-us--the-hyperlibs-mission"><strong>👥 About Us</strong></a> &nbsp;•&nbsp; 
-    <a href="https://github.com/hyperlibs/htmxUI"><strong>⭐ GitHub</strong></a>
+    <a href="https://github.com/hyperlibs/htmxpro"><strong>⭐ GitHub</strong></a>
   </p>
 </div>
 
@@ -289,7 +289,7 @@ sha256sum -c CHECKSUMS.sha256
 
 - 🚀 **Live Previews**: [Verifiable Live Demos — HTMX PRO](https://htmxui.cgb.workers.dev/demo/)
 - 📖 **Read More**: [Introduction & Architecture Documentation](https://htmxui.cgb.workers.dev/docs/components/introduction/)
-- 💬 **Community & Discussions**: [GitHub Discussions](https://github.com/hyperlibs/htmxUI/discussions)
+- 💬 **Community & Discussions**: [GitHub Discussions](https://github.com/hyperlibs/htmxpro/discussions)
 - 🤝 **Organization**: [github.com/hyperlibs](https://github.com/hyperlibs)
 
 ---

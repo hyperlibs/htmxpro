@@ -215,6 +215,6 @@ When generating code for HTMX PRO:
 
 - **Live Documentation & Demo Hub**: [https://htmxui.cgb.workers.dev/](https://htmxui.cgb.workers.dev/)
 - **Interactive Component Gallery**: [https://htmxui.cgb.workers.dev/demo/](https://htmxui.cgb.workers.dev/demo/)
-- **GitHub Repository**: [https://github.com/hyperlibs/htmxUI](https://github.com/hyperlibs/htmxUI)
+- **GitHub Repository**: [https://github.com/hyperlibs/htmxpro](https://github.com/hyperlibs/htmxpro)
 - **Attribute Schema**: `/schema/htmxui.json`
 - **Security Policy**: `/docs/SECURITY.md`

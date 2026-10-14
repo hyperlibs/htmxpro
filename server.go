@@ -126,7 +126,7 @@ func buildComponentPage(slug string) string {
           <h1 class="font-semibold text-base">%s</h1>
           <a href="/demo" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
         </div>
-        <a href="https://github.com/hyperlibs/htmxUI" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
       </header>
       <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
         <div class="space-y-2">

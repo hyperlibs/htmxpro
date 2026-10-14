@@ -66,7 +66,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hyperlibs/htmxUI.git"
+    "url": "https://github.com/hyperlibs/htmxpro.git"
   },
   "type": "commonjs",
   "dependencies": {
