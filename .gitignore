@@ -25,5 +25,5 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
-
-
+# Binaries
+*.exe
