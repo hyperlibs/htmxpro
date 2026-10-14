@@ -2904,6 +2904,7 @@ if (typeof window !== 'undefined') {
       return engine;
     }
   };
+  (window as any).HTMXPRO = (window as any).HTMXUI;
 
   // Server-driven sync
   document.addEventListener('hxStateUpdate', function (evt: any) {

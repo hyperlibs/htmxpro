@@ -1,9 +1,9 @@
-# HTMXUI — Hyper Reactive Lean Framework Suite for Humans and AI Agents
+# HTMX PRO — Hyper Reactive Lean Framework Suite for Humans and AI Agents
 > A hyperreactive, lean hypermedia-first application suite. Sub-48KB total footprint, zero Virtual DOM, zero NPM build step for logic.
 
 ## 🏛️ Core Philosophy
 1. **Hypermedia First**: HTML is the primary medium over the wire; the server remains the authoritative source of truth.
-2. **Deterministic & Agent-Native**: Machine-readable grammar (`/schema/htmxui.json`), numbered error codes (`HTMXUI-BOLT-001..050`) with actionable fixes, and zero hallucination risk.
+2. **Deterministic & Agent-Native**: Machine-readable grammar (`/schema/htmxui.json`), numbered error codes (`HTMX PRO-BOLT-001..050`) with actionable fixes, and zero hallucination risk.
 3. **Hyperreactive**: Fine-grained reactive signals, in-memory fuzzy search, 2D viewport virtualization, topological DAG formula calculations, and 60fps FLIP animations.
 4. **Zero NPM Logic Runtime**: No React, no ReactDOM, no Redux/Zustand boilerplate, no hydration mismatches. Works with any backend (Python, Go, Rust, PHP, Bun, Node, Elixir).
 
@@ -22,7 +22,7 @@
 | **HxGrid** | `htmx-grid.js` | ~3.2KB | Enterprise Data Grid (`<div hx-grid>`), interactive column resize handles, drag-and-drop column reordering, bulk actions, CSV export. |
 | **HxCalc** | `htmx-calc.js` | ~2.1KB | Zero-dependency reactive formula engine with topological sorting DAG (Kahn's algorithm), cycle detection (`#CYCLE!`), coordinate resolver (`A1` $\leftrightarrow$ `(0, 0)`). |
 | **HxOffline** | `htmx-offline.js` | ~1.6KB | IndexedDB offline mutation queue, optimistic local persistence, automatic sync on reconnect, 409 conflict resolution. |
-| **HxDevTools**| `htmx-devtools.js`| ~1.2KB | In-browser visualizer (`HTMXUI.devtools`), reactive signal inspector, mutation timeline profiler. |
+| **HxDevTools**| `htmx-devtools.js`| ~1.2KB | In-browser visualizer (`HTMX PRO.devtools`), reactive signal inspector, mutation timeline profiler. |
 
 ---
 
@@ -76,12 +76,12 @@
 ---
 
 ## 🚨 Deterministic Error Codes for AI Self-Repair
-- `HTMXUI-BOLT-001`: Invalid JSON syntax in `hx-state` $\rightarrow$ Fix: Verify JSON quotes or use `<script type="application/json" hx-state>`.
-- `HTMXUI-BOLT-002`: Circular dependency in `hx-computed` $\rightarrow$ Fix: Remove self-referencing properties.
-- `HTMXUI-BOLT-003`: Invalid `hx-for` syntax $\rightarrow$ Fix: Use `item in items` or `(item, index) in items` on `<template>` tag.
-- `HTMXUI-BOLT-004`: Undefined property or global store $\rightarrow$ Fix: Register via `HxBolt.store('name', initial)` or declare in local `hx-state`.
-- `HTMXUI-BOLT-005`: Attribute typo detected $\rightarrow$ Fix: Check suggestion in warning (e.g. did you mean `hx-show` instead of `hx-showw`?).
-- `HTMXUI-CALC-002`: Circular reference `#CYCLE!` in formula $\rightarrow$ Fix: Break cyclic cell dependency.
+- `HTMX PRO-BOLT-001`: Invalid JSON syntax in `hx-state` $\rightarrow$ Fix: Verify JSON quotes or use `<script type="application/json" hx-state>`.
+- `HTMX PRO-BOLT-002`: Circular dependency in `hx-computed` $\rightarrow$ Fix: Remove self-referencing properties.
+- `HTMX PRO-BOLT-003`: Invalid `hx-for` syntax $\rightarrow$ Fix: Use `item in items` or `(item, index) in items` on `<template>` tag.
+- `HTMX PRO-BOLT-004`: Undefined property or global store $\rightarrow$ Fix: Register via `HxBolt.store('name', initial)` or declare in local `hx-state`.
+- `HTMX PRO-BOLT-005`: Attribute typo detected $\rightarrow$ Fix: Check suggestion in warning (e.g. did you mean `hx-show` instead of `hx-showw`?).
+- `HTMX PRO-CALC-002`: Circular reference `#CYCLE!` in formula $\rightarrow$ Fix: Break cyclic cell dependency.
 
 ---
 
@@ -104,7 +104,7 @@
   <div class="max-w-md p-6 border rounded-xl bg-card shadow-sm space-y-4"
        hx-state='{ "count": 0, "starred": false }'>
     
-    <h2 class="text-xl font-bold">HTMXUI Reactive Card</h2>
+    <h2 class="text-xl font-bold">HTMX PRO Reactive Card</h2>
     <p class="text-sm text-muted-foreground">Count: <span hx-text="count" class="font-mono font-bold">0</span></p>
 
     <div class="flex gap-2">

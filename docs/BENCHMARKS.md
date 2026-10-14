@@ -1,6 +1,6 @@
-# HTMXUI Official Performance & Benchmark Suite
+# HTMX PRO Official Performance & Benchmark Suite
 
-> Automated, reproducible benchmarks measured using un run benchmark across all 10 HTMXUI micro-engines and core algorithms.
+> Automated, reproducible benchmarks measured using un run benchmark across all 10 HTMX PRO micro-engines and core algorithms.
 
 ---
 

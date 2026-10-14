@@ -1,4 +1,4 @@
-# HTMXUI — Complete Machine-Readable API Specification & Pattern Fixtures
+# HTMX PRO — Complete Machine-Readable API Specification & Pattern Fixtures
 
 ## 1. Syntax & Attribute Reference
 
@@ -112,4 +112,4 @@ Declarative client-side validation rules.
    ✅ ALWAYS write `<script type="application/json" hx-state>` inside the component wrapper.
 
 5. ❌ DO NOT import client-side frameworks (`import React`, `import Vue`, `import Alpine`).
-   ✅ HTMXUI runs natively via `<script src="/htmx-bolt.js"></script>`.
+   ✅ HTMX PRO runs natively via `<script src="/htmx-bolt.js"></script>`.

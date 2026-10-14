@@ -65,7 +65,7 @@
       <div class="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="font-bold text-slate-100">HTMXUI DevTools</span>
+          <span class="font-bold text-slate-100">HTMX PRO DevTools</span>
         </div>
         <div class="flex items-center gap-2">
           <button class="hx-dev-btn-undo px-2 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-[10px]">Undo</button>

@@ -61,7 +61,7 @@ function buildComponentPage(slug: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${name} — HTMXUI</title>
+  <title>${name} — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -87,7 +87,7 @@ function buildComponentPage(slug: string): string {
       <div class="flex h-14 items-center border-b border-border px-4">
         <a href="/" class="flex items-center gap-2">
           <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          <span class="font-bold text-lg tracking-tight">HTMXUI</span>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
         </a>
       </div>
       <div class="flex-1 p-3 overflow-y-auto">${sidebar}</div>
@@ -103,7 +103,7 @@ function buildComponentPage(slug: string): string {
       <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
         <div class="space-y-2">
           <h1 class="text-3xl font-extrabold tracking-tight">${name}</h1>
-          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMXUI.</p>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
         </div>
         <div class="space-y-4">
           <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
@@ -128,7 +128,7 @@ function writePage(relPath: string, content: string) {
   fs.writeFileSync(fullPath, content, "utf8");
 }
 
-console.log("Building static HTMXUI site for Cloudflare Pages...");
+console.log("Building static HTMX PRO site for Cloudflare Pages...");
 
 // 1. Root Landing Page (No automatic redirect)
 const landingHtml = fs.readFileSync(path.join(__dirname, "..", "views", "landing.html"), "utf8");

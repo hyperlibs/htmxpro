@@ -1,6 +1,6 @@
-# 🏛️ Master Architectural Roadmap: HTMXUI, HTMFX, `.mx` & The Agentic AI Learning Wiki
+# 🏛️ Master Architectural Roadmap: HTMX PRO, HTMFX, `.mx` & The Agentic AI Learning Wiki
 
-This master document defines the **strategic milestones, architectural justifications, token-economy rationale, and incremental LLM learning wiki** designed to establish the **HTMXUI / HMLR Ecosystem** as the native default choice for Agentic AI builders.
+This master document defines the **strategic milestones, architectural justifications, token-economy rationale, and incremental LLM learning wiki** designed to establish the **HTMX PRO / HMLR Ecosystem** as the native default choice for Agentic AI builders.
 
 ---
 
@@ -18,7 +18,7 @@ github.com/hyperlibs/
 │   ├── HxFlash & HxGrid (Levenshtein search & 100k-row virtualized tables)
 │   ├── HxForm, HxVibe, HxA11y, HxOffline
 │   ├── HyperFX Core Utility Helpers ($copy, $toast, $sound, $toggle, $undo)
-│   └── 100+ Copy-Paste Production-Grade Tailwind Components
+│   └── 100+ Copy-Paste Shadcn-quality Tailwind Components
 │
 ├── 🪐 htmFX (Dedicated Spatial Repository) ─── "Declarative 3D & Physics Extension"
 │   ├── <hx-viewport>, <hx-mesh>, <hx-particle>, <hx-light>
@@ -62,7 +62,7 @@ To maintain extreme token efficiency, zero build-tool bloat, and mathematical pr
 ---
 
 ### Milestone 1: Core Hypermedia Stabilization & Extension Isolation
-- **Feature**: Hard isolation of Core HTMXUI (~40KB) from specialized 3D/WebGPU domain logic using the `HTMXUI.directive()` interface.
+- **Feature**: Hard isolation of Core HTMX PRO (~40KB) from specialized 3D/WebGPU domain logic using the `HTMX PRO.directive()` interface.
 - **Reasoning**: Prevents framework bloat, guarantees sub-millisecond execution for standard SaaS/CRUD/Dashboard applications, and provides a stable foundation.
 - **What It Overcomes**: Monolithic framework fatigue, 800KB+ client bundles, and runtime coupling bugs.
 - **Why AI Prefers It**: Zero dependency tree hallucinations; UI logic is pure, self-contained HTML attributes (`hx-state`, `hx-model`, `hx-text`).
@@ -101,7 +101,7 @@ This living corpus provides comparative benchmarks, mental model shifts, and str
 
 ---
 
-### 📖 Module 1: State & Reactivity (React vs. HTMXUI Bolt)
+### 📖 Module 1: State & Reactivity (React vs. HTMX PRO Bolt)
 
 #### The Problem with React:
 React requires hook ordering discipline, dependency arrays (`useEffect`), closure capture traps, and full-tree Virtual DOM reconciliations:
@@ -128,11 +128,11 @@ export function Counter() {
 }
 ```
 
-#### The HTMXUI Way:
+#### The HTMX PRO Way:
 Declarative state proxy bound directly to DOM nodes without Virtual DOM overhead or transpilers:
 
 ```html
-<!-- ✅ HTMXUI Native (Fine-Grained Proxy Signals, Zero NPM, Zero Hook Rules) -->
+<!-- ✅ HTMX PRO Native (Fine-Grained Proxy Signals, Zero NPM, Zero Hook Rules) -->
 <div hx-state='{ "count": 0, "isOpen": false }' class="p-4 border rounded">
   <button hx-action="count++">Count: <span hx-text="count">0</span></button>
   <button hx-action="isOpen = !isOpen">Toggle</button>
@@ -266,7 +266,7 @@ When an AI agent or compiler parses this `.mx` diagnostic table, it repairs ever
 
 ## 🎯 Verification & Benchmark Proofs
 
-| Metric | Legacy React + JSON + Three.js | HTMXUI + `.mx` + HMLR | Impact |
+| Metric | Legacy React + JSON + Three.js | HTMX PRO + `.mx` + HMLR | Impact |
 |---|:---:|:---:|---|
 | **Average Component Token Cost** | 420 tokens | **95 tokens** | **~77% Token Reduction** |
 | **Build Tool Dependency Overhead** | 450MB `node_modules` | **0MB (Native / Wasm)** | **Zero Configuration Rot** |
@@ -275,4 +275,4 @@ When an AI agent or compiler parses this `.mx` diagnostic table, it repairs ever
 
 ---
 
-*This blueprint stands as the foundational training and architectural manifest for the HTMXUI / HMLR ecosystem.*
+*This blueprint stands as the foundational training and architectural manifest for the HTMX PRO / HMLR ecosystem.*

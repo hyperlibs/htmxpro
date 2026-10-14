@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hollywood Webfx — HTMXUI</title>
+  <title>Hollywood Webfx — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -29,7 +29,7 @@
       <div class="flex h-14 items-center border-b border-border px-4">
         <a href="/" class="flex items-center gap-2">
           <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          <span class="font-bold text-lg tracking-tight">HTMXUI</span>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
         </a>
       </div>
       <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
@@ -164,7 +164,7 @@
       <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
         <div class="space-y-2">
           <h1 class="text-3xl font-extrabold tracking-tight">Hollywood Webfx</h1>
-          <p class="text-muted-foreground text-sm">Interactive production-grade hypermedia component for HTMXUI.</p>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
         </div>
         <div class="space-y-4">
           <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
@@ -259,13 +259,13 @@
 
   <!-- Community Extension Guide -->
   <section class="space-y-4">
-    <h2 class="text-xl font-bold tracking-tight">4. Extending HTMXUI: Building Community 3D / Game Engines</h2>
+    <h2 class="text-xl font-bold tracking-tight">4. Extending HTMX PRO: Building Community 3D / Game Engines</h2>
     <p class="text-xs text-muted-foreground">Community developers can connect external WebGL / Three.js / Canvas engines in under 15 lines of code:</p>
 
     <div class="bg-[#1e293b] text-[#e2e8f0] rounded-xl p-5 font-mono text-xs overflow-x-auto space-y-2 border border-slate-700">
       <span class="text-slate-400">// Register a custom declarative 3D directive</span>
-      <div><span class="text-purple-400">HTMXUI</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-cube'</span>, (el, config, { state }) =&gt; {</div>
-      <div class="pl-4"><span class="text-slate-400">// Hook into HTMXUI's 120 FPS high-frequency game loop</span></div>
+      <div><span class="text-purple-400">HTMX PRO</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-cube'</span>, (el, config, { state }) =&gt; {</div>
+      <div class="pl-4"><span class="text-slate-400">// Hook into HTMX PRO's 120 FPS high-frequency game loop</span></div>
       <div class="pl-4"><span class="text-purple-400">HxBolt</span>.<span class="text-sky-400">ticker</span>.<span class="text-sky-400">subscribe</span>((dt) =&gt; {</div>
       <div class="pl-8">mesh.rotation.x += <span class="text-amber-400">0.01</span>;</div>
       <div class="pl-8">mesh.position.y = state.height; <span class="text-slate-400">// Reactive 2-way sync</span></div>
@@ -369,13 +369,13 @@
 
   &lt;!-- Community Extension Guide --&gt;
   &lt;section class=&quot;space-y-4&quot;&gt;
-    &lt;h2 class=&quot;text-xl font-bold tracking-tight&quot;&gt;4. Extending HTMXUI: Building Community 3D / Game Engines&lt;/h2&gt;
+    &lt;h2 class=&quot;text-xl font-bold tracking-tight&quot;&gt;4. Extending HTMX PRO: Building Community 3D / Game Engines&lt;/h2&gt;
     &lt;p class=&quot;text-xs text-muted-foreground&quot;&gt;Community developers can connect external WebGL / Three.js / Canvas engines in under 15 lines of code:&lt;/p&gt;
 
     &lt;div class=&quot;bg-[#1e293b] text-[#e2e8f0] rounded-xl p-5 font-mono text-xs overflow-x-auto space-y-2 border border-slate-700&quot;&gt;
       &lt;span class=&quot;text-slate-400&quot;&gt;// Register a custom declarative 3D directive&lt;/span&gt;
-      &lt;div&gt;&lt;span class=&quot;text-purple-400&quot;&gt;HTMXUI&lt;/span&gt;.&lt;span class=&quot;text-sky-400&quot;&gt;directive&lt;/span&gt;(&lt;span class=&quot;text-emerald-400&quot;&gt;'hx-three-cube'&lt;/span&gt;, (el, config, { state }) =&amp;gt; {&lt;/div&gt;
-      &lt;div class=&quot;pl-4&quot;&gt;&lt;span class=&quot;text-slate-400&quot;&gt;// Hook into HTMXUI's 120 FPS high-frequency game loop&lt;/span&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;span class=&quot;text-purple-400&quot;&gt;HTMX PRO&lt;/span&gt;.&lt;span class=&quot;text-sky-400&quot;&gt;directive&lt;/span&gt;(&lt;span class=&quot;text-emerald-400&quot;&gt;'hx-three-cube'&lt;/span&gt;, (el, config, { state }) =&amp;gt; {&lt;/div&gt;
+      &lt;div class=&quot;pl-4&quot;&gt;&lt;span class=&quot;text-slate-400&quot;&gt;// Hook into HTMX PRO's 120 FPS high-frequency game loop&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;pl-4&quot;&gt;&lt;span class=&quot;text-purple-400&quot;&gt;HxBolt&lt;/span&gt;.&lt;span class=&quot;text-sky-400&quot;&gt;ticker&lt;/span&gt;.&lt;span class=&quot;text-sky-400&quot;&gt;subscribe&lt;/span&gt;((dt) =&amp;gt; {&lt;/div&gt;
       &lt;div class=&quot;pl-8&quot;&gt;mesh.rotation.x += &lt;span class=&quot;text-amber-400&quot;&gt;0.01&lt;/span&gt;;&lt;/div&gt;
       &lt;div class=&quot;pl-8&quot;&gt;mesh.position.y = state.height; &lt;span class=&quot;text-slate-400&quot;&gt;// Reactive 2-way sync&lt;/span&gt;&lt;/div&gt;

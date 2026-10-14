@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HyperAdmin Dashboard — Built with HTMXUI</title>
+  <title>HyperAdmin Dashboard — Built with HTMX PRO</title>
   
-  <!-- HTMX & HTMXUI Micro-Engines -->
+  <!-- HTMX & HTMX PRO Micro-Engines -->
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -68,7 +68,7 @@
     ],
     "chatMessages": [
       { "sender": "Sarah Connor", "time": "10:14 AM", "msg": "Hey David! Did the latest shipment metrics sync with the warehouse?", "isMe": false },
-      { "sender": "You", "time": "10:15 AM", "msg": "Yes! All 10,000 invoice records synced in 0ms via HTMXUI.", "isMe": true }
+      { "sender": "You", "time": "10:15 AM", "msg": "Yes! All 10,000 invoice records synced in 0ms via HTMX PRO.", "isMe": true }
     ],
     "tableUsers": [
       { "name": "Sarah Connor", "role": "Frontend Architect", "email": "sarah@hyperadmin.io", "status": "Active", "date": "Sep 01, 2026" },
@@ -101,7 +101,7 @@
               <span class="font-extrabold text-base tracking-tight text-white">HyperAdmin</span>
               <span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-mono border border-emerald-500/30 font-bold">v0.10.30</span>
             </div>
-            <span class="text-[10px] font-mono text-blue-400 uppercase">HTMXUI Edition</span>
+            <span class="text-[10px] font-mono text-blue-400 uppercase">HTMX PRO Edition</span>
           </div>
         </a>
       </div>
@@ -347,7 +347,7 @@
         <!-- Mode Indicator Badge -->
         <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono">
           <span>⚡</span>
-          <span>HTMXUI Engine Active</span>
+          <span>HTMX PRO Engine Active</span>
         </div>
 
       </div>
@@ -728,7 +728,7 @@
                 </div>
                 <div class="space-y-0.5">
                   <h1 class="text-xl font-bold text-white">David Admin</h1>
-                  <p class="text-xs text-slate-400">Principal Systems Architect &amp; HTMXUI Core</p>
+                  <p class="text-xs text-slate-400">Principal Systems Architect &amp; HTMX PRO Core</p>
                 </div>
               </div>
               <button @click="activePage = 'settings'" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors">
@@ -747,7 +747,7 @@
               </div>
               <div class="space-y-1">
                 <span class="text-slate-500 uppercase font-mono text-[10px]">Engine Stack</span>
-                <p class="text-blue-400 font-mono font-semibold">Go + Rust + HTMXUI</p>
+                <p class="text-blue-400 font-mono font-semibold">Go + Rust + HTMX PRO</p>
               </div>
             </div>
           </div>
@@ -930,7 +930,7 @@
               H
             </div>
             <h2 class="text-xl font-bold text-white" hx-text="activePage === 'signin' ? 'Sign in to HyperAdmin' : 'Create HyperAdmin Account'"></h2>
-            <p class="text-xs text-slate-400">Zero Node.js • Powered by HTMXUI</p>
+            <p class="text-xs text-slate-400">Zero Node.js • Powered by HTMX PRO</p>
           </div>
 
           <div class="space-y-4 text-xs">
@@ -942,7 +942,7 @@
               <label class="text-slate-400">Password</label>
               <input type="password" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-slate-200">
             </div>
-            <button onclick="alert('Authenticated successfully via HTMXUI!')" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
+            <button onclick="alert('Authenticated successfully via HTMX PRO!')" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
               Continue →
             </button>
           </div>
@@ -1029,35 +1029,35 @@
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
-            <button @click="activeRole = 'admin'; window.HTMXUI && window.HTMXUI.setRole('admin', ['trade:execute', 'admin:access', 'wire:transfer', 'ledger:read'])"
+            <button @click="activeRole = 'admin'; (window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole('admin', ['trade:execute', 'admin:access', 'wire:transfer', 'ledger:read'])"
                     hx-class="{ 'ring-2 ring-emerald-500 bg-emerald-600/20 text-emerald-300': activeRole === 'admin', 'bg-slate-900 text-slate-300 hover:bg-slate-800': activeRole !== 'admin' }"
                     class="p-3 rounded-xl border border-slate-800 text-left transition-all">
               <div class="font-bold text-xs">👑 Admin</div>
               <div class="text-[10px] text-slate-400 mt-1">Full Root Access</div>
             </button>
 
-            <button @click="activeRole = 'compliance'; window.HTMXUI && window.HTMXUI.setRole('compliance', ['ledger:read', 'audit:export'])"
+            <button @click="activeRole = 'compliance'; (window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole('compliance', ['ledger:read', 'audit:export'])"
                     hx-class="{ 'ring-2 ring-emerald-500 bg-emerald-600/20 text-emerald-300': activeRole === 'compliance', 'bg-slate-900 text-slate-300 hover:bg-slate-800': activeRole !== 'compliance' }"
                     class="p-3 rounded-xl border border-slate-800 text-left transition-all">
               <div class="font-bold text-xs">📋 Compliance</div>
               <div class="text-[10px] text-slate-400 mt-1">Audit &amp; Oversight</div>
             </button>
 
-            <button @click="activeRole = 'trader'; window.HTMXUI && window.HTMXUI.setRole('trader', ['trade:execute', 'ledger:read'])"
+            <button @click="activeRole = 'trader'; (window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole('trader', ['trade:execute', 'ledger:read'])"
                     hx-class="{ 'ring-2 ring-emerald-500 bg-emerald-600/20 text-emerald-300': activeRole === 'trader', 'bg-slate-900 text-slate-300 hover:bg-slate-800': activeRole !== 'trader' }"
                     class="p-3 rounded-xl border border-slate-800 text-left transition-all">
               <div class="font-bold text-xs">📈 Trader</div>
               <div class="text-[10px] text-slate-400 mt-1">Order Execution</div>
             </button>
 
-            <button @click="activeRole = 'auditor'; window.HTMXUI && window.HTMXUI.setRole('auditor', ['ledger:read'])"
+            <button @click="activeRole = 'auditor'; (window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole('auditor', ['ledger:read'])"
                     hx-class="{ 'ring-2 ring-emerald-500 bg-emerald-600/20 text-emerald-300': activeRole === 'auditor', 'bg-slate-900 text-slate-300 hover:bg-slate-800': activeRole !== 'auditor' }"
                     class="p-3 rounded-xl border border-slate-800 text-left transition-all">
               <div class="font-bold text-xs">🔍 Auditor</div>
               <div class="text-[10px] text-slate-400 mt-1">Read-Only Logs</div>
             </button>
 
-            <button @click="activeRole = 'guest'; window.HTMXUI && window.HTMXUI.setRole('guest', [])"
+            <button @click="activeRole = 'guest'; (window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole('guest', [])"
                     hx-class="{ 'ring-2 ring-emerald-500 bg-emerald-600/20 text-emerald-300': activeRole === 'guest', 'bg-slate-900 text-slate-300 hover:bg-slate-800': activeRole !== 'guest' }"
                     class="p-3 rounded-xl border border-slate-800 text-left transition-all">
               <div class="font-bold text-xs">👤 Guest</div>

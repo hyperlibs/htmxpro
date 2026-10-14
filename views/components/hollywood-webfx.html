@@ -88,13 +88,13 @@
 
   <!-- Community Extension Guide -->
   <section class="space-y-4">
-    <h2 class="text-xl font-bold tracking-tight">4. Extending HTMXUI: Building Community 3D / Game Engines</h2>
+    <h2 class="text-xl font-bold tracking-tight">4. Extending HTMX PRO: Building Community 3D / Game Engines</h2>
     <p class="text-xs text-muted-foreground">Community developers can connect external WebGL / Three.js / Canvas engines in under 15 lines of code:</p>
 
     <div class="bg-[#1e293b] text-[#e2e8f0] rounded-xl p-5 font-mono text-xs overflow-x-auto space-y-2 border border-slate-700">
       <span class="text-slate-400">// Register a custom declarative 3D directive</span>
-      <div><span class="text-purple-400">HTMXUI</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-cube'</span>, (el, config, { state }) =&gt; {</div>
-      <div class="pl-4"><span class="text-slate-400">// Hook into HTMXUI's 120 FPS high-frequency game loop</span></div>
+      <div><span class="text-purple-400">HTMX PRO</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-cube'</span>, (el, config, { state }) =&gt; {</div>
+      <div class="pl-4"><span class="text-slate-400">// Hook into HTMX PRO's 120 FPS high-frequency game loop</span></div>
       <div class="pl-4"><span class="text-purple-400">HxBolt</span>.<span class="text-sky-400">ticker</span>.<span class="text-sky-400">subscribe</span>((dt) =&gt; {</div>
       <div class="pl-8">mesh.rotation.x += <span class="text-amber-400">0.01</span>;</div>
       <div class="pl-8">mesh.position.y = state.height; <span class="text-slate-400">// Reactive 2-way sync</span></div>

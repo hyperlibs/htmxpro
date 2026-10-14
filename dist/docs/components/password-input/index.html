@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Input — HTMXUI</title>
+  <title>Password Input — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -29,7 +29,7 @@
       <div class="flex h-14 items-center border-b border-border px-4">
         <a href="/" class="flex items-center gap-2">
           <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          <span class="font-bold text-lg tracking-tight">HTMXUI</span>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
         </a>
       </div>
       <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
@@ -164,7 +164,7 @@
       <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
         <div class="space-y-2">
           <h1 class="text-3xl font-extrabold tracking-tight">Password Input</h1>
-          <p class="text-muted-foreground text-sm">Interactive production-grade hypermedia component for HTMXUI.</p>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
         </div>
         <div class="space-y-4">
           <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
@@ -176,7 +176,7 @@
 -->
 <div hx-ext="reactive" hx-state="{ themeColor: \'primary\', size: \'md\', isOpen: false }"  class="relative">
   <input type="password" id="{id}" name="{name}" placeholder="••••••••" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50" />
-  <!-- A true zero-JS toggle would require a sibling checkbox hack, but for HTMXUI we supply the input structural shell -->
+  <!-- A true zero-JS toggle would require a sibling checkbox hack, but for HTMX PRO we supply the input structural shell -->
   <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground" aria-label="Toggle password visibility">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
   </button>
@@ -192,7 +192,7 @@
 --&gt;
 &lt;div hx-ext=&quot;reactive&quot; hx-state=&quot;{ themeColor: \'primary\', size: \'md\', isOpen: false }&quot;  class=&quot;relative&quot;&gt;
   &lt;input type=&quot;password&quot; id=&quot;{id}&quot; name=&quot;{name}&quot; placeholder=&quot;••••••••&quot; class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50&quot; /&gt;
-  &lt;!-- A true zero-JS toggle would require a sibling checkbox hack, but for HTMXUI we supply the input structural shell --&gt;
+  &lt;!-- A true zero-JS toggle would require a sibling checkbox hack, but for HTMX PRO we supply the input structural shell --&gt;
   &lt;button type=&quot;button&quot; class=&quot;absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground&quot; aria-label=&quot;Toggle password visibility&quot;&gt;
     &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;/svg&gt;
   &lt;/button&gt;

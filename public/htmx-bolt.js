@@ -2914,6 +2914,7 @@
         return engine;
       }
     };
+    window.HTMXPRO = window.HTMXUI;
     document.addEventListener("hxStateUpdate", function(evt) {
       const detail = evt.detail;
       if (detail && detail.target && detail.state) {

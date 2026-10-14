@@ -1,4 +1,4 @@
-# HTMXUI — The Hypermedia Platform for Go, Rust, Python & .NET
+# HTMX PRO — The Hypermedia Platform for Go, Rust, Python & .NET
 
 <div align="center">
   <p><strong>A hyperreactive, lean, hypermedia-first frontend platform built for backend engineers and AI agent swarms.</strong></p>
@@ -22,10 +22,10 @@
 
 > [!IMPORTANT]
 > ### 📢 The Modern Web Without JavaScript Fatigue
-> **Skip Complex JS. Avoid Node.js Bloat. Build with HTMXUI.**  
-> The web was meant to be simple. While single-page apps (SPAs) introduced 500MB `node_modules`, fragile build steps, and hydration mismatches, **HTMXUI** delivers a hyperreactive, zero-build platform that puts power back into your backend. 
+> **Skip Complex JS. Avoid Node.js Bloat. Build with HTMX PRO.**  
+> The web was meant to be simple. While single-page apps (SPAs) introduced 500MB `node_modules`, fragile build steps, and hydration mismatches, **HTMX PRO** delivers a hyperreactive, zero-build platform that puts power back into your backend. 
 > 
-> Whether you write **Python, Go, C# (.NET), Rust, PHP, or Java**, HTMXUI lets you build high-performance, interactive user interfaces directly from your server with zero client-side glue code.
+> Whether you write **Python, Go, C# (.NET), Rust, PHP, or Java**, HTMX PRO lets you build high-performance, interactive user interfaces directly from your server with zero client-side glue code.
 
 ---
 
@@ -55,11 +55,11 @@
 
 ## 🌌 Ecosystem Companions: When & How to Use `htmFX` & `HMLR`
 
-HTMXUI is augmented by two specialized companions that unlock 3D spatial simulation and deep browser diagnostics:
+HTMX PRO is augmented by two specialized companions that unlock 3D spatial simulation and deep browser diagnostics:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        HTMXUI Core Framework                           │
+│                        HTMX PRO Core Framework                           │
 │     120+ Components • 10 Reactive Micro-Engines • Zero Build           │
 └──────────────────┬─────────────────────────────────┬───────────────────┘
                    │                                 │
@@ -111,7 +111,7 @@ HTMXUI is augmented by two specialized companions that unlock 3D spatial simulat
 ## ⚡ The Equation
 
 ```text
-HTMXUI = HTMX (Hypermedia Core)
+HTMX PRO = HTMX (Hypermedia Core)
        + Bolt (Signal-Based Reactive State & 2D Sparse Matrix)
        + Flash (In-Memory Typo-Tolerant Search & Columnar Store)
        + Form (Declarative Validation & Cell Transaction Rollbacks)
@@ -145,7 +145,7 @@ HTMXUI = HTMX (Hypermedia Core)
 
 ## ⚡ Verified Performance & Automated Benchmarks
 
-HTMXUI includes an automated, reproducible benchmark suite (`bun test`) measuring real runtime throughput and payload efficiency:
+HTMX PRO includes an automated, reproducible benchmark suite (`bun test`) measuring real runtime throughput and payload efficiency:
 
 - **Complete 10-Engine Suite**: **50.08 KB total gzip** (smaller than `react-dom` alone before components or state libraries).
 - **Atomic 2D Sparse Matrix**: **670,000+ cell writes / second** in $O(1)$ coordinate space.
@@ -168,7 +168,7 @@ Experience complete, production-grade applications built with zero React/Node ru
 | Flagship Demo | Live Cloudflare URL | Source View | Capabilities Demonstrated | Stack / Engines |
 | :--- | :--- | :--- | :--- | :--- |
 | **🎯 Verifiable Demos Hub** | [**/demo/**](https://htmxui.cgb.workers.dev/demo/) | [`views/demos-hub.html`](views/demos-hub.html) | Master index of live interactive previews, stress tests, and showcases. | All 10 Engines |
-| **📊 HyperAdmin Dashboard** | [**/demo/tailadmin/**](https://htmxui.cgb.workers.dev/demo/tailadmin/) | [`views/app-tailadmin.html`](views/app-tailadmin.html) | 100% pure HTMXUI enterprise admin panel with zero React/Node runtime. Dynamic sales/profit analytics, recent channels, dark/light theme, and reactive sidebar navigation. | `HxBolt`, `HxFlash`, `HxVibe` |
+| **📊 HyperAdmin Dashboard** | [**/demo/tailadmin/**](https://htmxui.cgb.workers.dev/demo/tailadmin/) | [`views/app-tailadmin.html`](views/app-tailadmin.html) | 100% pure HTMX PRO enterprise admin panel with zero React/Node runtime. Dynamic sales/profit analytics, recent channels, dark/light theme, and reactive sidebar navigation. | `HxBolt`, `HxFlash`, `HxVibe` |
 | **🏢 Enterprise HyperERP** | [**/demo/erp/**](https://htmxui.cgb.workers.dev/demo/erp/) | [`views/app-erp.html`](views/app-erp.html) | 10,000+ virtualized rows, zero-latency in-memory fuzzy search, and multi-tier analytics. | `HxVirtual`, `HxFlash`, `HxGrid` |
 | **📈 HyperSheet Spreadsheet** | [**/demo/hypersheet/**](https://htmxui.cgb.workers.dev/demo/hypersheet/) | [`views/app-hypersheet.html`](views/app-hypersheet.html) | 2D reactive spreadsheet with topological formula DAGs, coordinate resolution (`SUM(A1:B5)`), cycle detection, and roving 2D tabindex navigation. | `HxCalc`, `HxA11y`, `HxBolt.matrix` |
 | **🌌 Cosmic 3D Universe** | [**/demo/universe/**](https://htmxui.cgb.workers.dev/demo/universe/) | [`views/app-universe.html`](views/app-universe.html) | Autonomous procedural universe viewport with domain-warped solar convection shaders and relativistic accretion disk simulations. | `HxBolt`, `HxSim`, `HxVibe` |
@@ -193,7 +193,7 @@ Experience complete, production-grade applications built with zero React/Node ru
 <!-- Core HTMX -->
 <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 
-<!-- HTMXUI Reactive Signal Engine -->
+<!-- HTMX PRO Reactive Signal Engine -->
 <script src="/htmx-bolt.js"></script>
 
 <!-- Optional: Search, Forms, Animations, Accessibility, Virtualization, Grid, Offline, Sim -->
@@ -287,7 +287,7 @@ sha256sum -c CHECKSUMS.sha256
 3. **Deterministic Structure**: Predictable declarative attributes (`hx-state`, `hx-action`, `hx-text`, `hx-show`, `@diag`) make UI easily inspectable and maintainable.
 4. **Backend Freedom**: First-class support for Go, Rust, Python, .NET, PHP, and Bun with zero client build toolchains.
 
-- 🚀 **Live Previews**: [Verifiable Live Demos — HTMXUI](https://htmxui.cgb.workers.dev/demo/)
+- 🚀 **Live Previews**: [Verifiable Live Demos — HTMX PRO](https://htmxui.cgb.workers.dev/demo/)
 - 📖 **Read More**: [Introduction & Architecture Documentation](https://htmxui.cgb.workers.dev/docs/components/introduction/)
 - 💬 **Community & Discussions**: [GitHub Discussions](https://github.com/hyperlibs/htmxUI/discussions)
 - 🤝 **Organization**: [github.com/hyperlibs](https://github.com/hyperlibs)

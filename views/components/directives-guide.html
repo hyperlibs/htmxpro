@@ -6,7 +6,7 @@
     </div>
     <h1 class="text-4xl font-extrabold tracking-tight">Community Directives &amp; Extensions Guide</h1>
     <p class="text-muted-foreground mt-2 text-sm leading-relaxed">
-      Learn how to connect external 3D viewports (Three.js), interactive maps (Leaflet), or custom canvas renderers to HTMXUI in under 15 lines of declarative code.
+      Learn how to connect external 3D viewports (Three.js), interactive maps (Leaflet), or custom canvas renderers to HTMX PRO in under 15 lines of declarative code.
     </p>
   </div>
 
@@ -14,7 +14,7 @@
   <section class="space-y-3">
     <h2 class="text-xl font-bold tracking-tight">Why the Directive Model?</h2>
     <p class="text-sm text-muted-foreground leading-relaxed">
-      HTMXUI is strictly a foundational application runtime (~40KB). Rather than bundling heavy 3rd-party dependencies (like a 600KB Three.js bundle or 150KB Leaflet map engine), HTMXUI provides <code>HTMXUI.directive()</code> and <code>HxBolt.ticker</code>. This gives community developers full reactive signal bindings, lifecycle cleanup, and game-loop synchronization without bloating the core.
+      HTMX PRO is strictly a foundational application runtime (~40KB). Rather than bundling heavy 3rd-party dependencies (like a 600KB Three.js bundle or 150KB Leaflet map engine), HTMX PRO provides <code>HTMX PRO.directive()</code> and <code>HxBolt.ticker</code>. This gives community developers full reactive signal bindings, lifecycle cleanup, and game-loop synchronization without bloating the core.
     </p>
   </section>
 
@@ -25,7 +25,7 @@
 
     <div class="bg-[#1e293b] text-[#e2e8f0] rounded-xl p-5 font-mono text-xs overflow-x-auto space-y-2 border border-slate-700">
       <span class="text-slate-400">// Register custom 3D directive</span>
-      <div><span class="text-purple-400">HTMXUI</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-mesh'</span>, (canvasEl, options, { state, onCleanup }) =&gt; {</div>
+      <div><span class="text-purple-400">HTMX PRO</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-three-mesh'</span>, (canvasEl, options, { state, onCleanup }) =&gt; {</div>
       <div class="pl-4"><span class="text-slate-400">// Initialize Three.js WebGL scene</span></div>
       <div class="pl-4"><span class="text-blue-400">const</span> renderer = <span class="text-blue-400">new</span> THREE.<span class="text-sky-400">WebGLRenderer</span>({ canvas: canvasEl, antialias: <span class="text-amber-400">true</span> });</div>
       <div class="pl-4"><span class="text-blue-400">const</span> scene = <span class="text-blue-400">new</span> THREE.<span class="text-sky-400">Scene</span>();</div>
@@ -33,7 +33,7 @@
       <div class="pl-4"><span class="text-blue-400">const</span> cube = <span class="text-blue-400">new</span> THREE.<span class="text-sky-400">Mesh</span>(<span class="text-blue-400">new</span> THREE.<span class="text-sky-400">BoxGeometry</span>(), <span class="text-blue-400">new</span> THREE.<span class="text-sky-400">MeshNormalMaterial</span>());</div>
       <div class="pl-4">scene.<span class="text-sky-400">add</span>(cube);</div>
       <br>
-      <div class="pl-4"><span class="text-slate-400">// Hook into HTMXUI 120 FPS game ticker</span></div>
+      <div class="pl-4"><span class="text-slate-400">// Hook into HTMX PRO 120 FPS game ticker</span></div>
       <div class="pl-4"><span class="text-blue-400">const</span> unsub = <span class="text-purple-400">HxBolt</span>.<span class="text-sky-400">ticker</span>.<span class="text-sky-400">subscribe</span>((dt) =&gt; {</div>
       <div class="pl-8">cube.rotation.y += <span class="text-amber-400">0.02</span>;</div>
       <div class="pl-8">cube.position.y = state.elevation || <span class="text-amber-400">0</span>; <span class="text-slate-400">// 2-way reactive sync</span></div>
@@ -64,7 +64,7 @@
     <p class="text-xs text-muted-foreground">Register an <code>hx-leaflet-map</code> directive that tracks coordinates and places pins:</p>
 
     <div class="bg-[#1e293b] text-[#e2e8f0] rounded-xl p-5 font-mono text-xs overflow-x-auto space-y-2 border border-slate-700">
-      <div><span class="text-purple-400">HTMXUI</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-leaflet-map'</span>, (mapEl, _, { state, onCleanup }) =&gt; {</div>
+      <div><span class="text-purple-400">HTMX PRO</span>.<span class="text-sky-400">directive</span>(<span class="text-emerald-400">'hx-leaflet-map'</span>, (mapEl, _, { state, onCleanup }) =&gt; {</div>
       <div class="pl-4"><span class="text-blue-400">const</span> map = L.<span class="text-sky-400">map</span>(mapEl).<span class="text-sky-400">setView</span>([state.lat || <span class="text-amber-400">51.505</span>, state.lng || -<span class="text-amber-400">0.09</span>], <span class="text-amber-400">13</span>);</div>
       <div class="pl-4">L.<span class="text-sky-400">tileLayer</span>(<span class="text-emerald-400">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span>).<span class="text-sky-400">addTo</span>(map);</div>
       <div class="pl-4"><span class="text-blue-400">const</span> marker = L.<span class="text-sky-400">marker</span>([state.lat, state.lng]).<span class="text-sky-400">addTo</span>(map);</div>

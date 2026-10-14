@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosmos — 3D Universe Browser &amp; Physics Sandbox — HTMXUI</title>
+  <title>Cosmos — 3D Universe Browser &amp; Physics Sandbox — HTMX PRO</title>
   
   <!-- Tailwind CSS -->
   <link rel="stylesheet" href="/styles.css">
   
-  <!-- HTMX & HTMXUI Suite -->
+  <!-- HTMX & HTMX PRO Suite -->
   <script src="https://unpkg.com/htmx.org@2.0.4"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -50,7 +50,7 @@
       <div>
         <div class="font-extrabold text-sm tracking-tight text-white flex items-center gap-2">
           <span>KOSMOS 3D</span>
-          <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-mono border border-indigo-500/30">HTMXUI + Three.js</span>
+          <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-mono border border-indigo-500/30">HTMX PRO + Three.js</span>
           <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-mono border border-emerald-500/30 font-bold">v0.10.30</span>
         </div>
         <div class="text-[10px] text-slate-400">Interactive 3D Universe Browser &amp; Orbital Physics Sandbox</div>
@@ -276,7 +276,7 @@
 
     <!-- 2. MIDDLE VIEW: 3D WebGL Physics Render Viewport -->
     <main class="flex-1 h-full relative bg-black overflow-hidden">
-      <!-- 3D Canvas mounted via HTMXUI directive -->
+      <!-- 3D Canvas mounted via HTMX PRO directive -->
       <canvas id="cosmos-canvas" hx-cosmos class="w-full h-full block"></canvas>
 
       <!-- Overlay Viewport Guide Tooltip -->
@@ -1859,8 +1859,8 @@
     }
 
     // Register directive & auto-mount on load
-    if (window.HTMXUI && window.HTMXUI.directive) {
-      HTMXUI.directive('hx-cosmos', (el, config, ctx) => {
+    if ((window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).directive) {
+      (window.HTMXPRO || window.HTMXUI).directive('hx-cosmos', (el, config, ctx) => {
         initCosmosUniverse(el, ctx.state, ctx.onCleanup);
       });
     }

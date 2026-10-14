@@ -3,7 +3,7 @@
   <div class="space-y-3">
     <h1 class="text-4xl font-extrabold tracking-tight text-foreground">Common AI Hallucinations &amp; Gotchas</h1>
     <p class="text-lg text-muted-foreground leading-relaxed font-medium">
-      The top 10 pitfalls AI coders and LLMs encounter when generating HTMXUI code, and how to write them correctly.
+      The top 10 pitfalls AI coders and LLMs encounter when generating HTMX PRO code, and how to write them correctly.
     </p>
   </div>
 
@@ -37,7 +37,7 @@
       <div class="font-semibold text-sm text-foreground flex items-center gap-2">
         <span class="text-destructive font-mono">❌ Mistake 3:</span> Using v-for or v-if attributes on regular div tags
       </div>
-      <p class="text-xs text-muted-foreground">Vue's <code class="bg-muted px-1 rounded text-xs">v-for</code> and <code class="bg-muted px-1 rounded text-xs">v-if</code> are not recognized. HTMXUI uses standard HTML <code class="bg-muted px-1 rounded text-xs">&lt;template&gt;</code> tags.</p>
+      <p class="text-xs text-muted-foreground">Vue's <code class="bg-muted px-1 rounded text-xs">v-for</code> and <code class="bg-muted px-1 rounded text-xs">v-if</code> are not recognized. HTMX PRO uses standard HTML <code class="bg-muted px-1 rounded text-xs">&lt;template&gt;</code> tags.</p>
       <div class="p-3 bg-muted/50 rounded font-mono text-xs text-foreground">
         <span class="text-destructive">Bad:</span> &lt;div hx-for="item in items"&gt;...&lt;/div&gt;<br>
         <span class="text-emerald-500 font-bold">Good:</span> &lt;template hx-for="(item, idx) in items"&gt;&lt;div hx-text="item.name"&gt;&lt;/div&gt;&lt;/template&gt;

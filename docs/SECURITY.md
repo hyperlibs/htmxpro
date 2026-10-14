@@ -23,7 +23,7 @@ If user-generated content (e.g. comments, usernames) is rendered raw into server
 When running in high-security enterprise environments, activate strict CSP mode:
 
 ```javascript
-HTMXUI.config.strictCSP = true;
+HTMX PRO.config.strictCSP = true;
 ```
 
 When `strictCSP` is active:

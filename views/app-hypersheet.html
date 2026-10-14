@@ -50,7 +50,7 @@
         <!-- RBAC Role Dropdown Switcher -->
         <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded px-2 py-1">
           <span class="text-[10px] text-slate-400">Role:</span>
-          <select onchange="window.HTMXUI && window.HTMXUI.setRole(this.value, this.value === 'admin' ? ['payroll:execute', 'sheet:edit'] : (this.value === 'payroll' ? ['payroll:execute'] : []))"
+          <select onchange="(window.HTMXPRO || window.HTMXUI) && (window.HTMXPRO || window.HTMXUI).setRole(this.value, this.value === 'admin' ? ['payroll:execute', 'sheet:edit'] : (this.value === 'payroll' ? ['payroll:execute'] : []))"
                   class="bg-transparent text-emerald-400 font-mono text-xs focus:outline-none cursor-pointer">
             <option value="admin" class="bg-slate-900 text-white">Admin (Full Access)</option>
             <option value="payroll" class="bg-slate-900 text-white">Payroll Officer</option>

@@ -62,7 +62,7 @@ async function buildComponentPage(slug: string): Promise<string> {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${name} — HTMXUI</title>
+  <title>${name} — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -88,7 +88,7 @@ async function buildComponentPage(slug: string): Promise<string> {
       <div class="flex h-14 items-center border-b border-border px-4">
         <a href="/" class="flex items-center gap-2">
           <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          <span class="font-bold text-lg tracking-tight">HTMXUI</span>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
         </a>
       </div>
       <div class="flex-1 p-3 overflow-y-auto">
@@ -238,7 +238,7 @@ const server = Bun.serve({
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTMXUI — Hyper Reactive HTMX on Steroids</title>
+  <title>HTMX PRO — Hyper Reactive HTMX on Steroids</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
@@ -249,7 +249,7 @@ const server = Bun.serve({
     <div class="container mx-auto px-4 lg:px-8 h-16 flex items-center justify-between max-w-7xl">
       <div class="flex items-center gap-3 font-bold text-xl tracking-tight">
         <div class="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm shadow-sm font-black">H</div>
-        HTMXUI
+        HTMX PRO
       </div>
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
         <a href="/demo" class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1"><span>🚀</span> Live Demos</a>
@@ -273,7 +273,7 @@ const server = Bun.serve({
           HTMX + Shadcn + <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Reactive Engine</span>
         </h1>
         <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mb-6 leading-relaxed">
-          HTMXUI is not a UI library. It is a <strong class="text-foreground">deliberate fork and reinvention of htmx</strong> into a hyperreactive, lean framework. 100+ Shadcn-quality components. ~2KB reactive engine. Zero NPM bloat.
+          HTMX PRO is not just a UI library. It is a <strong class="text-foreground">deliberate fork and reinvention of htmx</strong> into a hyperreactive, lean framework. 100+ Shadcn-quality components. ~2KB reactive engine. Zero NPM bloat.
         </p>
         <p class="text-base text-muted-foreground max-w-2xl mb-10 leading-relaxed">
           Built for human developers <em>and</em> agentic AI coders who need predictable, composable, server-driven UIs.
@@ -329,7 +329,7 @@ const server = Bun.serve({
       <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-16">
         <div>
           <div class="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-semibold mb-4 text-primary">FOR HUMAN DEVELOPERS</div>
-          <h2 class="text-3xl font-extrabold tracking-tight mb-6">Why developers choose HTMXUI</h2>
+          <h2 class="text-3xl font-extrabold tracking-tight mb-6">Why developers choose HTMX PRO</h2>
           <ol class="space-y-3 text-sm text-foreground">
             <li class="flex gap-3"><span class="font-bold text-primary shrink-0">01.</span><span>Zero NPM, zero Virtual DOM — no node_modules, no React, no webpack</span></li>
             <li class="flex gap-3"><span class="font-bold text-primary shrink-0">02.</span><span>Server remains the source of truth — true hypermedia architecture</span></li>
@@ -345,7 +345,7 @@ const server = Bun.serve({
         </div>
         <div>
           <div class="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-semibold mb-4 text-primary">FOR AGENTIC AI CODERS</div>
-          <h2 class="text-3xl font-extrabold tracking-tight mb-6">Why AI agents prefer HTMXUI</h2>
+          <h2 class="text-3xl font-extrabold tracking-tight mb-6">Why AI agents prefer HTMX PRO</h2>
           <ol class="space-y-3 text-sm text-foreground">
             <li class="flex gap-3"><span class="font-bold text-primary shrink-0">01.</span><span>Highly regular HTML structure — agents parse, generate, and modify UI with high success rates</span></li>
             <li class="flex gap-3"><span class="font-bold text-primary shrink-0">02.</span><span>Declarative attribute-based behavior — no imperative JS to reason about</span></li>
@@ -416,8 +416,8 @@ const server = Bun.serve({
 
   <footer class="border-t border-border py-12 px-4">
     <div class="container mx-auto max-w-7xl text-center">
-      <p class="text-sm text-muted-foreground mb-2">HTMXUI — Hyper Reactive HTMX on Steroids</p>
-      <p class="text-xs text-muted-foreground">Original htmx completed HTML as a hypermedia. HTMXUI completes it as a reactive, agent-friendly, composable application platform.</p>
+      <p class="text-sm text-muted-foreground mb-2">HTMX PRO — Hyper Reactive HTMX on Steroids</p>
+      <p class="text-xs text-muted-foreground">Original htmx completed HTML as a hypermedia. HTMX PRO completes it as a reactive, agent-friendly, composable application platform.</p>
     </div>
   </footer>
 
@@ -504,4 +504,4 @@ const server = Bun.serve({
   }
 });
 
-console.log(`HTMXUI Docs running at http://localhost:${server.port}`);
+console.log(`⚡ HTMX PRO Docs running at http://localhost:${server.port}`);

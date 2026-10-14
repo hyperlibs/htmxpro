@@ -32,7 +32,7 @@ func Page(p PageProps) Component {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>%s — HTMXUI</title>
+  <title>%s — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -180,7 +180,7 @@ func NavMenu(items []NavItem) Component {
   <div class="space-y-6">
     <div class="flex items-center gap-2 px-2">
       <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">H</div>
-      <span class="font-bold text-base text-white tracking-tight">HTMXUI <span class="text-xs font-normal text-indigo-400">Go</span></span>
+      <span class="font-bold text-base text-white tracking-tight">HTMX PRO <span class="text-xs font-normal text-indigo-400">Go</span></span>
     </div>
     <nav class="space-y-1">`)
 
@@ -194,7 +194,7 @@ func NavMenu(items []NavItem) Component {
 
 	sb.WriteString(`</nav></div>
   <div class="px-2 py-3 border-t border-slate-800 text-xs text-slate-500">
-    HTMXUI Go Runtime v1.0
+    HTMX PRO Go Runtime v1.0
   </div>
 </aside>`)
 	return Component{html: sb.String()}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Common Ai Hallucinations — HTMXUI</title>
+  <title>Common Ai Hallucinations — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -29,7 +29,7 @@
       <div class="flex h-14 items-center border-b border-border px-4">
         <a href="/" class="flex items-center gap-2">
           <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-          <span class="font-bold text-lg tracking-tight">HTMXUI</span>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
         </a>
       </div>
       <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
@@ -164,7 +164,7 @@
       <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
         <div class="space-y-2">
           <h1 class="text-3xl font-extrabold tracking-tight">Common Ai Hallucinations</h1>
-          <p class="text-muted-foreground text-sm">Interactive production-grade hypermedia component for HTMXUI.</p>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
         </div>
         <div class="space-y-4">
           <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
@@ -174,7 +174,7 @@
   <div class="space-y-3">
     <h1 class="text-4xl font-extrabold tracking-tight text-foreground">Common AI Hallucinations &amp; Gotchas</h1>
     <p class="text-lg text-muted-foreground leading-relaxed font-medium">
-      The top 10 pitfalls AI coders and LLMs encounter when generating HTMXUI code, and how to write them correctly.
+      The top 10 pitfalls AI coders and LLMs encounter when generating HTMX PRO code, and how to write them correctly.
     </p>
   </div>
 
@@ -208,7 +208,7 @@
       <div class="font-semibold text-sm text-foreground flex items-center gap-2">
         <span class="text-destructive font-mono">❌ Mistake 3:</span> Using v-for or v-if attributes on regular div tags
       </div>
-      <p class="text-xs text-muted-foreground">Vue's <code class="bg-muted px-1 rounded text-xs">v-for</code> and <code class="bg-muted px-1 rounded text-xs">v-if</code> are not recognized. HTMXUI uses standard HTML <code class="bg-muted px-1 rounded text-xs">&lt;template&gt;</code> tags.</p>
+      <p class="text-xs text-muted-foreground">Vue's <code class="bg-muted px-1 rounded text-xs">v-for</code> and <code class="bg-muted px-1 rounded text-xs">v-if</code> are not recognized. HTMX PRO uses standard HTML <code class="bg-muted px-1 rounded text-xs">&lt;template&gt;</code> tags.</p>
       <div class="p-3 bg-muted/50 rounded font-mono text-xs text-foreground">
         <span class="text-destructive">Bad:</span> &lt;div hx-for="item in items"&gt;...&lt;/div&gt;<br>
         <span class="text-emerald-500 font-bold">Good:</span> &lt;template hx-for="(item, idx) in items"&gt;&lt;div hx-text="item.name"&gt;&lt;/div&gt;&lt;/template&gt;
@@ -238,7 +238,7 @@
   &lt;div class=&quot;space-y-3&quot;&gt;
     &lt;h1 class=&quot;text-4xl font-extrabold tracking-tight text-foreground&quot;&gt;Common AI Hallucinations &amp;amp; Gotchas&lt;/h1&gt;
     &lt;p class=&quot;text-lg text-muted-foreground leading-relaxed font-medium&quot;&gt;
-      The top 10 pitfalls AI coders and LLMs encounter when generating HTMXUI code, and how to write them correctly.
+      The top 10 pitfalls AI coders and LLMs encounter when generating HTMX PRO code, and how to write them correctly.
     &lt;/p&gt;
   &lt;/div&gt;
 
@@ -272,7 +272,7 @@
       &lt;div class=&quot;font-semibold text-sm text-foreground flex items-center gap-2&quot;&gt;
         &lt;span class=&quot;text-destructive font-mono&quot;&gt;❌ Mistake 3:&lt;/span&gt; Using v-for or v-if attributes on regular div tags
       &lt;/div&gt;
-      &lt;p class=&quot;text-xs text-muted-foreground&quot;&gt;Vue's &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;v-for&lt;/code&gt; and &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;v-if&lt;/code&gt; are not recognized. HTMXUI uses standard HTML &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;&amp;lt;template&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
+      &lt;p class=&quot;text-xs text-muted-foreground&quot;&gt;Vue's &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;v-for&lt;/code&gt; and &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;v-if&lt;/code&gt; are not recognized. HTMX PRO uses standard HTML &lt;code class=&quot;bg-muted px-1 rounded text-xs&quot;&gt;&amp;lt;template&amp;gt;&lt;/code&gt; tags.&lt;/p&gt;
       &lt;div class=&quot;p-3 bg-muted/50 rounded font-mono text-xs text-foreground&quot;&gt;
         &lt;span class=&quot;text-destructive&quot;&gt;Bad:&lt;/span&gt; &amp;lt;div hx-for=&quot;item in items&quot;&amp;gt;...&amp;lt;/div&amp;gt;&lt;br&gt;
         &lt;span class=&quot;text-emerald-500 font-bold&quot;&gt;Good:&lt;/span&gt; &amp;lt;template hx-for=&quot;(item, idx) in items&quot;&amp;gt;&amp;lt;div hx-text=&quot;item.name&quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/template&amp;gt;

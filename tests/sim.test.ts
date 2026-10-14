@@ -8,7 +8,7 @@ import {
   Vec2 
 } from '../src/index';
 
-describe('HTMXUI Kinetic Simulations & Particle Physics Suite', () => {
+describe('HTMX PRO Kinetic Simulations & Particle Physics Suite', () => {
   test('Vec2 basic vector algebra functions properly', () => {
     const v1 = new Vec2(3, 4);
     expect(v1.mag()).toBe(5);
