@@ -1,4 +1,4 @@
-package htmxui
+package htmxpro
 
 import (
 	"encoding/json"
@@ -9,16 +9,16 @@ import (
 	"time"
 )
 
-// Context wraps http.ResponseWriter and *http.Request with HTMXUI-specific hypermedia utilities.
+// Context wraps http.ResponseWriter and *http.Request with HTMX PRO-specific hypermedia utilities.
 type Context struct {
 	Response http.ResponseWriter
 	Request  *http.Request
 }
 
-// HandlerFunc defines the signature for HTMXUI route handlers.
+// HandlerFunc defines the signature for HTMX PRO route handlers.
 type HandlerFunc func(c *Context) error
 
-// App represents the lightweight HTMXUI Go web application.
+// App represents the lightweight HTMX PRO Go web application.
 type App struct {
 	mux      *http.ServeMux
 	routes   map[string]map[string]HandlerFunc
@@ -26,7 +26,7 @@ type App struct {
 	mu       sync.RWMutex
 }
 
-// New creates a new HTMXUI App instance.
+// New creates a new HTMX PRO App instance.
 func New() *App {
 	return &App{
 		mux:      http.NewServeMux(),

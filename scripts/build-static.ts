@@ -203,8 +203,13 @@ if (fs.existsSync(path.join(__dirname, "..", "public", "styles", "output.css")))
 }
 
 // 7. Schema files
-if (fs.existsSync(path.join(__dirname, "..", "schema", "htmxui.json"))) {
-  writePage("schema/htmxui.json", fs.readFileSync(path.join(__dirname, "..", "schema", "htmxui.json"), "utf8"));
+const schemaSrc = fs.existsSync(path.join(__dirname, "..", "schema", "htmxpro.json"))
+  ? path.join(__dirname, "..", "schema", "htmxpro.json")
+  : path.join(__dirname, "..", "schema", "htmxui.json");
+if (fs.existsSync(schemaSrc)) {
+  const schemaContent = fs.readFileSync(schemaSrc, "utf8");
+  writePage("schema/htmxpro.json", schemaContent);
+  writePage("schema/htmxui.json", schemaContent);
 }
 
 console.log("✅ Static build complete! Output generated in dist/");

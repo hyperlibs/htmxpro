@@ -48,7 +48,7 @@ When building features, mobile systems, or UI components, adhere strictly to thi
 | File Type | Source Rule | Distribution Rule |
 |---|---|---|
 | **Client Engines** | **100% Strict TypeScript** in `src/*.ts` | Compiled via `bun build` to `public/*.js` (IIFE). |
-| **Backend & DSL** | **100% Go** in `go/components/*.go`, `server.go` | Native Go binary (`htmxui-server.exe`). |
+| **Backend & DSL** | **100% Go** in `go/components/*.go`, `server.go` | Native Go binary (`htmxpro-server.exe`). |
 | **Dev Server** | **100% TypeScript** in `server.ts` | Executed directly via `bun run server.ts`. |
 | **HTML Templates** | Semantic HTML in `views/components/*.html` | Injected into layouts or rendered via Go/Bun. |
 | **Raw `.js` in Source** | ❌ **FORBIDDEN** | Never create loose `.js` files in root or `src/`. |
@@ -107,6 +107,6 @@ All servers (`server.ts` and `server.go`) **MUST normalize pathnames by trimming
 Before reporting any task as completed:
 1. **Build all engines**: Run `bun run build:engines` (all 13 engines must compile cleanly).
 2. **Run all test suites**: Run `bun test tests/` (must achieve **100% pass rate**).
-3. **Verify Go compilation**: Run `go build -o htmxui-server.exe server.go`.
+3. **Verify Go compilation**: Run `go build -o htmxpro-server.exe server.go`.
 4. **Test live endpoints**: Never assume localhost works; test with `bun -e "fetch(...)"` or automated HTTP checks.
-5. **Sync repository**: Copy updated files to `htmxUI_repo`, commit with conventional commit messages, and push to `master` and `main`.
+5. **Sync repository**: Commit with conventional commit messages and push to `master` and `main`.

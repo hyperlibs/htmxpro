@@ -468,8 +468,9 @@ const server = Bun.serve({
       return new Response(JSON.stringify(invoices), { headers: { "Content-Type": "application/json" } });
     }
 
-    if (url.pathname === "/schema/htmxui.json") {
-      return new Response(Bun.file("schema/htmxui.json"), { headers: { "Content-Type": "application/json" } });
+    if (url.pathname === "/schema/htmxpro.json" || url.pathname === "/schema/htmxui.json") {
+      const filePath = fs.existsSync("schema/htmxpro.json") ? "schema/htmxpro.json" : "schema/htmxui.json";
+      return new Response(Bun.file(filePath), { headers: { "Content-Type": "application/json" } });
     }
 
     // Universal public file serving

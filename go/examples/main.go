@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/hyperlibs/htmxui/go/components"
-	"github.com/hyperlibs/htmxui/go/htmxui"
+	"github.com/hyperlibs/htmxpro/go/components"
+	"github.com/hyperlibs/htmxpro/go/htmxpro"
 )
 
 func main() {
-	app := htmxui.New()
+	app := htmxpro.New()
 
-	app.GET("/", func(c *htmxui.Context) error {
+	app.GET("/", func(c *htmxpro.Context) error {
 		return c.Render(components.Page(components.PageProps{
 			Title: "Operations Cockpit",
 			Sidebar: components.NavMenu([]components.NavItem{

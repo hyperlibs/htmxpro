@@ -93,7 +93,7 @@
     },
     "HTMXUI-BOLT-005": {
       title: "Unrecognized hx-* attribute detected (potential AI hallucination or typo).",
-      fix: "Check the attribute spelling against the official HTMXUI schema in /schema/htmxui.json."
+      fix: "Check the attribute spelling against the official HTMX PRO schema in /schema/htmxpro.json."
     },
     "HTMXUI-BOLT-006": {
       title: "CSP EvalError blocked dynamic evaluation. Automatic fallback engaged.",
@@ -164,7 +164,7 @@
     diagnosticHistory.length = 0;
   }
   function formatDiag(code, detail, el = null) {
-    const meta = ERROR_CATALOG[code] || { title: "Unknown runtime error", fix: "Consult /schema/htmxui.json" };
+    const meta = ERROR_CATALOG[code] || { title: "Unknown runtime error", fix: "Consult /schema/htmxpro.json" };
     const tag = el ? `<${el.tagName.toLowerCase()}${el.id ? "#" + el.id : ""}${el.className ? "." + el.className.split(" ").slice(0, 2).join(".") : ""}>` : "[Element]";
     return `[@diag ${code}] ${meta.title}
   Target: ${tag}
@@ -172,7 +172,7 @@
   Fix: ${meta.fix}`;
   }
   function reportError(code, detail, el = null) {
-    const meta = ERROR_CATALOG[code] || { title: "Unknown runtime error", fix: "Consult /schema/htmxui.json" };
+    const meta = ERROR_CATALOG[code] || { title: "Unknown runtime error", fix: "Consult /schema/htmxpro.json" };
     const message = formatDiag(code, detail, el);
     const diagRecord = {
       code,

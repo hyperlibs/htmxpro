@@ -3,7 +3,7 @@
 
 ## 🏛️ Core Philosophy
 1. **Hypermedia First**: HTML is the primary medium over the wire; the server remains the authoritative source of truth.
-2. **Deterministic & Agent-Native**: Machine-readable grammar (`/schema/htmxui.json`), numbered error codes (`HTMX PRO-BOLT-001..050`) with actionable fixes, and zero hallucination risk.
+2. **Deterministic & Agent-Native**: Machine-readable grammar (`/schema/htmxpro.json`), numbered error codes (`HTMX PRO-BOLT-001..050`) with actionable fixes, and zero hallucination risk.
 3. **Hyperreactive**: Fine-grained reactive signals, in-memory fuzzy search, 2D viewport virtualization, topological DAG formula calculations, and 60fps FLIP animations.
 4. **Zero NPM Logic Runtime**: No React, no ReactDOM, no Redux/Zustand boilerplate, no hydration mismatches. Works with any backend (Python, Go, Rust, PHP, Bun, Node, Elixir).
 

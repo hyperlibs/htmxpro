@@ -40,7 +40,7 @@ export const ERROR_CATALOG: Record<string, { title: string; fix: string }> = {
   },
   'HTMXUI-BOLT-005': {
     title: 'Unrecognized hx-* attribute detected (potential AI hallucination or typo).',
-    fix: 'Check the attribute spelling against the official HTMXUI schema in /schema/htmxui.json.'
+    fix: 'Check the attribute spelling against the official HTMX PRO schema in /schema/htmxpro.json.'
   },
   'HTMXUI-BOLT-006': {
     title: 'CSP EvalError blocked dynamic evaluation. Automatic fallback engaged.',
@@ -124,13 +124,13 @@ export function clearDiagnostics(): void {
 }
 
 export function formatDiag(code: keyof typeof ERROR_CATALOG, detail: string, el: HTMLElement | null = null): string {
-  const meta = ERROR_CATALOG[code] || { title: 'Unknown runtime error', fix: 'Consult /schema/htmxui.json' };
+  const meta = ERROR_CATALOG[code] || { title: 'Unknown runtime error', fix: 'Consult /schema/htmxpro.json' };
   const tag = el ? `<${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}${el.className ? '.' + el.className.split(' ').slice(0, 2).join('.') : ''}>` : '[Element]';
   return `[@diag ${code}] ${meta.title}\n  Target: ${tag}\n  Detail: ${detail}\n  Fix: ${meta.fix}`;
 }
 
 export function reportError(code: keyof typeof ERROR_CATALOG, detail: string, el: HTMLElement | null = null): void {
-  const meta = ERROR_CATALOG[code] || { title: 'Unknown runtime error', fix: 'Consult /schema/htmxui.json' };
+  const meta = ERROR_CATALOG[code] || { title: 'Unknown runtime error', fix: 'Consult /schema/htmxpro.json' };
   const message = formatDiag(code, detail, el);
 
   const diagRecord: DiagnosticRecord = {

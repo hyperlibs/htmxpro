@@ -1,5 +1,5 @@
 ---
-name: htmxui
+name: htmxpro
 description: "Author, inspect, validate, and debug high-performance reactive web applications using HTMX PRO — the hyperreactive lean framework for human and AI agentic developers."
 version: 1.0.0
 author: "Hyperlibs Engineering"
@@ -105,7 +105,7 @@ When HTMX PRO encounters a syntax error, invalid state, or potential AI typo, it
 [@diag HTMX PRO-BOLT-005] Unrecognized hx-* attribute detected (potential AI hallucination or typo).
   Target: <button.btn.btn-primary>
   Detail: Element has unknown attribute 'hx-click'. Did you mean 'hx-action'?
-  Fix: Check the attribute spelling against the official HTMX PRO schema in /schema/htmxui.json.
+  Fix: Check the attribute spelling against the official HTMX PRO schema in /schema/htmxpro.json.
 ```
 
 ### 3.1 Catalog Index
@@ -216,5 +216,5 @@ When generating code for HTMX PRO:
 - **Live Documentation & Demo Hub**: [https://htmxui.cgb.workers.dev/](https://htmxui.cgb.workers.dev/)
 - **Interactive Component Gallery**: [https://htmxui.cgb.workers.dev/demo/](https://htmxui.cgb.workers.dev/demo/)
 - **GitHub Repository**: [https://github.com/hyperlibs/htmxpro](https://github.com/hyperlibs/htmxpro)
-- **Attribute Schema**: `/schema/htmxui.json`
+- **Attribute Schema**: `/schema/htmxpro.json`
 - **Security Policy**: `/docs/SECURITY.md`
