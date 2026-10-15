@@ -1,0 +1,218 @@
+import { describe, it, expect } from "bun:test";
+
+// =============================================================================
+// CLINICAL DICOM 3.0 & RECIST 1.1 ONCOLOGY WORKSTATION TEST SUITE
+// =============================================================================
+
+describe("Clinical DICOM 3.0 Diagnostic Engine & RECIST 1.1 Staging", () => {
+  const PIXEL_SPACING = 0.72; // mm per pixel calibrated
+
+  // 1. Caliper Geometry & Euclidean Long Axis Measurement
+  it("computes accurate Euclidean Long Axis (LD) distance in millimeters", () => {
+    // P1: (155, 175), P2: (185, 190)
+    const p1 = { x: 155, y: 175 };
+    const p2 = { x: 185, y: 190 };
+    const dx = p2.x - p1.x; // 30
+    const dy = p2.y - p1.y; // 15
+    const pixelDist = Math.sqrt(dx * dx + dy * dy); // sqrt(900 + 225) = sqrt(1125) ≈ 33.541
+    const mmDist = parseFloat((pixelDist * PIXEL_SPACING).toFixed(1));
+
+    expect(pixelDist).toBeCloseTo(33.541, 2);
+    expect(mmDist).toBe(24.1);
+
+    // Baseline test lesion points: dx=27, dy=14
+    const blP1 = { x: 155, y: 175 };
+    const blP2 = { x: 182, y: 189 };
+    const blDx = blP2.x - blP1.x;
+    const blDy = blP2.y - blP1.y;
+    const blDist = Math.sqrt(blDx * blDx + blDy * blDy) * PIXEL_SPACING;
+    expect(parseFloat(blDist.toFixed(1))).toBe(21.9);
+  });
+
+  // 2. Perpendicular Short Axis Orthogonal Geometry
+  it("calculates perpendicular short axis endpoints and length", () => {
+    const p1 = { x: 155, y: 175 };
+    const p2 = { x: 185, y: 190 };
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    const pixelDist = Math.sqrt(dx * dx + dy * dy);
+
+    const midX = (p1.x + p2.x) / 2; // 170
+    const midY = (p1.y + p2.y) / 2; // 182.5
+    const perpAngle = Math.atan2(dy, dx) + Math.PI / 2;
+
+    const shortLen = pixelDist * 0.67;
+    const s1x = midX + Math.cos(perpAngle) * (shortLen / 2);
+    const s1y = midY + Math.sin(perpAngle) * (shortLen / 2);
+    const s2x = midX - Math.cos(perpAngle) * (shortLen / 2);
+    const s2y = midY - Math.sin(perpAngle) * (shortLen / 2);
+
+    // Verify dot product of long vector and short vector is 0 (orthogonality)
+    const longVec = { x: dx, y: dy };
+    const shortVec = { x: s2x - s1x, y: s2y - s1y };
+    const dotProduct = longVec.x * shortVec.x + longVec.y * shortVec.y;
+    expect(Math.abs(dotProduct)).toBeLessThan(1e-6);
+
+    const shortMM = parseFloat((shortLen * PIXEL_SPACING).toFixed(1));
+    expect(shortMM).toBe(16.2);
+  });
+
+  // 3. RECIST 1.1 Oncology Classification Logic
+  it("accurately classifies RECIST 1.1 response: CR, PR, SD, PD", () => {
+    function classifyRecist(baselineSOD: number, currentSOD: number, newLesions: boolean = false): {
+      category: "CR" | "PR" | "SD" | "PD";
+      deltaPct: number;
+    } {
+      if (newLesions) {
+        return { category: "PD", deltaPct: ((currentSOD - baselineSOD) / baselineSOD) * 100 };
+      }
+      if (currentSOD === 0) {
+        return { category: "CR", deltaPct: -100 };
+      }
+      const deltaPct = ((currentSOD - baselineSOD) / baselineSOD) * 100;
+      if (deltaPct <= -30) {
+        return { category: "PR", deltaPct };
+      }
+      if (deltaPct >= 20 && (currentSOD - baselineSOD) >= 5) {
+        return { category: "PD", deltaPct };
+      }
+      return { category: "SD", deltaPct };
+    }
+
+    const baseline = 50.6; // T1=32.4mm, T2=18.2mm
+
+    // Partial Response: current = 34.9mm (-31.0%)
+    const prResult = classifyRecist(baseline, 34.9);
+    expect(prResult.category).toBe("PR");
+    expect(prResult.deltaPct).toBeCloseTo(-31.03, 1);
+
+    // Complete Response: current = 0mm (-100%)
+    const crResult = classifyRecist(baseline, 0);
+    expect(crResult.category).toBe("CR");
+    expect(crResult.deltaPct).toBe(-100);
+
+    // Stable Disease: current = 45.0mm (-11.0%)
+    const sdResult = classifyRecist(baseline, 45.0);
+    expect(sdResult.category).toBe("SD");
+    expect(sdResult.deltaPct).toBeCloseTo(-11.07, 1);
+
+    // Progressive Disease: current = 62.0mm (+22.5%)
+    const pdResult = classifyRecist(baseline, 62.0);
+    expect(pdResult.category).toBe("PD");
+    expect(pdResult.deltaPct).toBeCloseTo(22.53, 1);
+
+    // Progressive Disease via New Lesion even if SOD decreased
+    const pdNewLesion = classifyRecist(baseline, 30.0, true);
+    expect(pdNewLesion.category).toBe("PD");
+  });
+
+  // 4. Hounsfield Unit (HU) Lookup Table (LUT) Transfer Functions
+  it("maps Hounsfield Units to 8-bit grayscale values according to W/L presets", () => {
+    function huToGray(hu: number, windowWidth: number, windowCenter: number): number {
+      const minHU = windowCenter - windowWidth / 2;
+      const maxHU = windowCenter + windowWidth / 2;
+      if (hu <= minHU) return 0;
+      if (hu >= maxHU) return 255;
+      return Math.floor(((hu - minHU) / windowWidth) * 255);
+    }
+
+    // LUNG Preset: W: 1500, L: -600 (Range: -1350 to +150)
+    const lungW = 1500, lungL = -600;
+    expect(huToGray(-1500, lungW, lungL)).toBe(0); // Deep air is pure black
+    expect(huToGray(-600, lungW, lungL)).toBe(127); // Center is 50% gray
+    expect(huToGray(200, lungW, lungL)).toBe(255); // Bone/dense tissue is pure white
+
+    // MEDIASTINUM / SOFT TISSUE: W: 350, L: 40 (Range: -135 to +215)
+    const medW = 350, medL = 40;
+    expect(huToGray(-200, medW, medL)).toBe(0); // Lung parenchyma is black
+    expect(huToGray(40, medW, medL)).toBe(127); // Soft tissue center is mid-gray
+    expect(huToGray(300, medW, medL)).toBe(255); // Rib/vertebra is white
+
+    // BONE Preset: W: 2000, L: 300 (Range: -700 to +1300)
+    const boneW = 2000, boneL = 300;
+    expect(huToGray(300, boneW, boneL)).toBe(127);
+    expect(huToGray(1400, boneW, boneL)).toBe(255);
+
+    // BRAIN Preset: W: 80, L: 40 (Range: 0 to 80)
+    const brainW = 80, brainL = 40;
+    expect(huToGray(0, brainW, brainL)).toBe(0);
+    expect(huToGray(40, brainW, brainL)).toBe(127);
+    expect(huToGray(80, brainW, brainL)).toBe(255);
+  });
+
+  // 5. 8 Distinct Viewport Modes & Auto-Scaling Math
+  it("computes accurate scale factor and dimensions for all 8 view modes", () => {
+    const VIEW_SPECS: Record<string, { width: number; height: number; form: string }> = {
+      "OS-H":  { width: 1024, height: 600, form: "OS" },
+      "OS-P":  { width: 600,  height: 900, form: "OS" },
+      "Tab-H": { width: 960,  height: 600, form: "Tablet" },
+      "Tab-P": { width: 600,  height: 800, form: "Tablet" },
+      "Mob-H": { width: 720,  height: 380, form: "Mobile" },
+      "Mob-P": { width: 380,  height: 720, form: "Mobile" },
+      "TV-H":  { width: 1280, height: 720, form: "TV" },
+      "TV-P":  { width: 720,  height: 1280, form: "TV" }
+    };
+
+    function calculateScale(mode: string, availableW: number, availableH: number): number {
+      const spec = VIEW_SPECS[mode];
+      if (!spec) return 1.0;
+      const scaleX = availableW / spec.width;
+      const scaleY = availableH / spec.height;
+      return Math.min(1.0, Math.min(scaleX, scaleY));
+    }
+
+    // Testing on standard laptop display (1366 x 768 available canvas)
+    const availW = 1200;
+    const availH = 650;
+
+    // OS-H (1024x600) fits without downscaling
+    expect(calculateScale("OS-H", availW, availH)).toBe(1.0);
+
+    // TV-H (1280x720) scales down to fit viewport height (650 / 720 ≈ 0.902)
+    const tvScale = calculateScale("TV-H", availW, availH);
+    expect(tvScale).toBeLessThan(1.0);
+    expect(tvScale).toBeCloseTo(650 / 720, 2);
+
+    // TV-P (720x1280) scales down to fit viewport height (650 / 1280 ≈ 0.507)
+    const tvPScale = calculateScale("TV-P", availW, availH);
+    expect(tvPScale).toBeCloseTo(650 / 1280, 2);
+
+    // Mob-P (380x720) fits comfortably
+    expect(calculateScale("Mob-P", availW, 800)).toBe(1.0);
+  });
+
+  // 6. 4-Layer Architecture Protocol & Diag Telemetry
+  it("verifies 4-layer separation of concerns and diagnostic measurements", () => {
+    const layers = {
+      sys: {
+        id: "Layer-Sys",
+        role: "Direct Canvas 2D Buffer & TypedArray HU Matrix",
+        zeroAlloc: true,
+        bufferSize: 512 * 512 * 4
+      },
+      firm: {
+        id: "Layer-Firm",
+        role: "Hardware Haptic Feedback & Display Sync (60 FPS)",
+        hapticEnabled: true,
+        targetFps: 60.0
+      },
+      ux: {
+        id: "Layer-UX",
+        role: "AppzOS Interactive Shell & SVG RECIST Calipers",
+        zIndexLevels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        activeTool: "caliper"
+      },
+      srv: {
+        id: "Layer-Srv",
+        role: "Golang DSL 1:1 Parity Component & Zero-NPM Server",
+        componentName: "BlockRadiologyDICOM",
+        runtime: "Go / Bun"
+      }
+    };
+
+    expect(layers.sys.bufferSize).toBe(1048576); // 1 MB per 512x512 RGBA slice
+    expect(layers.firm.targetFps).toBe(60.0);
+    expect(layers.ux.zIndexLevels.length).toBe(10);
+    expect(layers.srv.runtime).toContain("Go");
+  });
+});

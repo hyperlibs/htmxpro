@@ -52,31 +52,31 @@
     <!-- 8 Distinct Viewport Modes Switcher -->
     <div class="flex flex-wrap items-center bg-slate-900/90 border border-slate-800 p-1 rounded-2xl gap-1 text-xs font-bold">
       <!-- OS Modes -->
-      <button data-view-btn="OS-H" hx-action="$appz.setViewMode('OS-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-H</button>
-      <button data-view-btn="OS-P" hx-action="$appz.setViewMode('OS-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-P</button>
+      <button data-view-btn="OS-H" onclick="$appz.setViewMode('OS-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-H</button>
+      <button data-view-btn="OS-P" onclick="$appz.setViewMode('OS-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
       <!-- Tablet Modes -->
-      <button data-view-btn="Tab-H" hx-action="$appz.setViewMode('Tab-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-H</button>
-      <button data-view-btn="Tab-P" hx-action="$appz.setViewMode('Tab-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-P</button>
+      <button data-view-btn="Tab-H" onclick="$appz.setViewMode('Tab-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-H</button>
+      <button data-view-btn="Tab-P" onclick="$appz.setViewMode('Tab-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
       <!-- Mobile Modes -->
-      <button data-view-btn="Mob-H" hx-action="$appz.setViewMode('Mob-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-H</button>
-      <button data-view-btn="Mob-P" hx-action="$appz.setViewMode('Mob-P')" class="px-2.5 py-1.5 rounded-xl bg-indigo-600 text-white transition-all">Mob-P</button>
+      <button data-view-btn="Mob-H" onclick="$appz.setViewMode('Mob-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-H</button>
+      <button data-view-btn="Mob-P" onclick="$appz.setViewMode('Mob-P')" class="px-2.5 py-1.5 rounded-xl bg-indigo-600 text-white transition-all">Mob-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
       <!-- TV Modes -->
-      <button data-view-btn="TV-H" hx-action="$appz.setViewMode('TV-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-H</button>
-      <button data-view-btn="TV-P" hx-action="$appz.setViewMode('TV-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-P</button>
+      <button data-view-btn="TV-H" onclick="$appz.setViewMode('TV-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-H</button>
+      <button data-view-btn="TV-P" onclick="$appz.setViewMode('TV-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-P</button>
     </div>
 
     <!-- Quick OS Action Buttons -->
     <div class="flex items-center gap-2">
-      <button hx-action="$appz.toggleControlCenter()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5">
+      <button onclick="$appz.toggleControlCenter()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5">
         <span>⚙️</span> Quick Settings
       </button>
-      <button hx-action="$appz.toggleMultitask()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5">
+      <button onclick="$appz.toggleMultitask()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs flex items-center gap-1.5">
         <span>📑</span> Tasks
       </button>
-      <button hx-action="$appz.lock()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 font-bold text-xs flex items-center gap-1.5">
+      <button onclick="$appz.lock()" class="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 font-bold text-xs flex items-center gap-1.5">
         <span>🔒</span> Lock OS
       </button>
     </div>
@@ -94,7 +94,36 @@
         <!-- LAYER-UX: System Shell Root -->
         <app-shellui view-mode="Mob-P" form-factor="Mob" orientation="P" 
                      class="flex-1 flex flex-col overflow-hidden relative select-none"
-                     hx-state='{ "activeDomain": "cockpit", "researchTab": "pathology", "industrialTab": "civil", "gridPower": 4820, "thermostatTemp": 21.5, "otaProgress": 0 }'>
+                     hx-state='{
+                       "activeDomain": "cockpit",
+                       "researchTab": "pathology",
+                       "industrialTab": "civil",
+                       "gridPower": 4820,
+                       "thermostatTemp": 21.5,
+                       "otaProgress": 0,
+                       "speed": 104,
+                       "vol": 65,
+                       "muted": false,
+                       "mag": "40x",
+                       "ki67": 34.2,
+                       "mitoticCount": 18,
+                       "slice": 142,
+                       "roiMean": 42.5,
+                       "gene": "TNNT2",
+                       "cluster": "Cardiomyocytes",
+                       "pct": 48.2,
+                       "onTarget": 88,
+                       "offTarget": 94,
+                       "targetGene": "HBB",
+                       "variant": "rs334",
+                       "area": 842.5,
+                       "deflect": 4.2,
+                       "sog": 14.2,
+                       "cog": 248,
+                       "ukc": 18.4,
+                       "ndvi": 0.78,
+                       "moist": 28.4
+                     }'>
 
           <!-- 1. LAYER-UX: System Status Bar with Live Clock, RSSI, Battery, Dynamic Island -->
           <app-statusbar class="h-9 bg-slate-950/90 backdrop-blur border-b border-slate-900 px-4 flex items-center justify-between shrink-0 z-50 text-[11px] font-semibold text-slate-300">

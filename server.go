@@ -207,6 +207,11 @@ func main() {
 			return
 		}
 
+		if p == "/app/dicom" || p == "/demo/dicom" || p == "/dicom" {
+			http.ServeFile(w, r, filepath.Join("views", "app-dicom.html"))
+			return
+		}
+
 		if p == "/styles.css" {
 			w.Header().Set("Content-Type", "text/css")
 			http.ServeFile(w, r, filepath.Join("public", "styles", "output.css"))

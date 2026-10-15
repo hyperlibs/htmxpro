@@ -165,6 +165,11 @@ writePage("demo/mobile/index.html", mobileHtml);
 writePage("app/mobile/index.html", mobileHtml);
 writePage("mobile/index.html", mobileHtml);
 
+const dicomHtml = fs.readFileSync(path.join(__dirname, "..", "views", "app-dicom.html"), "utf8");
+writePage("demo/dicom/index.html", dicomHtml);
+writePage("app/dicom/index.html", dicomHtml);
+writePage("dicom/index.html", dicomHtml);
+
 // 4. Docs Component Pages
 [...GETTING_STARTED, ...COMPONENTS].forEach(slug => {
   const pageHtml = buildComponentPage(slug);

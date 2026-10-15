@@ -232,8 +232,12 @@
       </div>
 
       <!-- PACS Audit Footer Action -->
-      <div class="pt-3 border-t border-slate-800/80">
-        <button class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-cyan-600/20"
+      <div class="pt-3 border-t border-slate-800/80 space-y-2">
+        <a href="/demo/dicom" target="_blank"
+           class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-black text-xs transition-all shadow-lg shadow-teal-600/20 flex items-center justify-center gap-2 text-center">
+          <span>🩻</span> Launch Full Interactive Workstation ↗
+        </a>
+        <button class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs active:scale-95 transition-all"
                 hx-action="$appz.haptic('success')">
           Save Morphometry to PACS DICOM SR
         </button>

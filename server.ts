@@ -451,6 +451,10 @@ const server = Bun.serve({
       return new Response(Bun.file("views/app-mobile.html"), { headers: { "Content-Type": "text/html; charset=utf-8" } });
     }
 
+    if (url.pathname === "/app/dicom" || url.pathname === "/demo/dicom" || url.pathname === "/dicom") {
+      return new Response(Bun.file("views/app-dicom.html"), { headers: { "Content-Type": "text/html; charset=utf-8" } });
+    }
+
     if (url.pathname === "/styles.css") {
       return new Response(Bun.file("public/styles/output.css"), { headers: { "Content-Type": "text/css" } });
     }

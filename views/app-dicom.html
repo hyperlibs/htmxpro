@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100 antialiased font-sans select-none">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RadOnc Pro — Zero-Footprint DICOM 3.0 Diagnostic Workstation & RECIST 1.1 Lesion Tracker</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/appz.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .device-viewport-frame {
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                  height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      background: #020617;
+    }
+    .viewport-scaler {
+      transform-origin: top center;
+      transition: transform 0.3s ease;
+    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00838f; }
+
+    /* Crosshair & Measurement styling */
+    .caliper-handle {
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .caliper-line {
+      stroke: #38bdf8;
+      stroke-width: 1.5;
+      stroke-dasharray: 4 2;
+    }
+    .caliper-endpoint {
+      fill: #38bdf8;
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col items-center p-3 lg:p-5 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-200"
+      hx-state='{
+        "viewMode": "OS-H",
+        "currentSlice": 142,
+        "totalSlices": 320,
+        "windowWidth": 1500,
+        "windowCenter": -600,
+        "preset": "LUNG",
+        "activeTool": "caliper",
+        "cinePlaying": false,
+        "cineFps": 24,
+        "zoom": 1.0,
+        "panX": 0,
+        "panY": 0,
+        "t1LongAxis": 22.1,
+        "t1ShortAxis": 14.8,
+        "t1Baseline": 32.4,
+        "t2LongAxis": 12.8,
+        "t2Baseline": 18.2,
+        "caliperP1X": 155,
+        "caliperP1Y": 175,
+        "caliperP2X": 185,
+        "caliperP2Y": 190,
+        "cursorHU": -720,
+        "cursorX": 172,
+        "cursorY": 182,
+        "recistStatus": "PR",
+        "recistPct": -31.0,
+        "activeTab": "recist",
+        "viewportLayout": "1x1",
+        "showOverlays": true,
+        "diagLatency": 0.38,
+        "diagFps": 60.0
+      }'>
+
+  <!-- Desktop Top Viewport & Tool Control Bar -->
+  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between pb-3 border-b border-slate-800/80 mb-4 gap-3">
+    
+    <!-- Branding & Patient Context -->
+    <div class="flex items-center gap-3">
+      <a href="/demo" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center text-lg font-black shadow-md shadow-teal-600/30">
+          🩻
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-black text-sm md:text-base text-white tracking-tight flex items-center gap-2">
+              RadOnc Pro
+              <span class="text-[10px] font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-500/20">DICOM 3.0 • RECIST 1.1</span>
+            </h1>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono">
+            <strong>DOE^JOHN [M/58Y]</strong> • MRN: #ONC-94021 • CT Chest-Abd (1.25mm)
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- 8 Distinct Viewport Modes Switcher (OS-H, OS-P, Tab-H, Tab-P, Mob-H, Mob-P, TV-H, TV-P) -->
+    <div class="flex flex-wrap items-center bg-slate-900/90 border border-slate-800 p-1 rounded-2xl gap-1 text-xs font-bold">
+      <!-- OS Workstations -->
+      <button data-view-btn="OS-H" onclick="$appz.setViewMode('OS-H')" class="px-2.5 py-1.5 rounded-xl bg-indigo-600 text-white transition-all">OS-H</button>
+      <button data-view-btn="OS-P" onclick="$appz.setViewMode('OS-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-P</button>
+      <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
+      <!-- Tablets -->
+      <button data-view-btn="Tab-H" onclick="$appz.setViewMode('Tab-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-H</button>
+      <button data-view-btn="Tab-P" onclick="$appz.setViewMode('Tab-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-P</button>
+      <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
+      <!-- Mobile Phones -->
+      <button data-view-btn="Mob-H" onclick="$appz.setViewMode('Mob-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-H</button>
+      <button data-view-btn="Mob-P" onclick="$appz.setViewMode('Mob-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-P</button>
+      <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
+      <!-- Smart TV / MDT Tumor Board -->
+      <button data-view-btn="TV-H" onclick="$appz.setViewMode('TV-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-H</button>
+      <button data-view-btn="TV-P" onclick="$appz.setViewMode('TV-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-P</button>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center gap-2">
+      <button onclick="$appz.haptic('selection'); window.toggleCinePlayback()"
+              class="px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center gap-1.5">
+        <span id="cine-icon">▶</span> <span id="cine-text">Cine (24fps)</span>
+      </button>
+      <a href="/demo"
+         class="px-3 py-1.5 rounded-xl border border-teal-500/30 bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 font-bold text-xs flex items-center gap-1.5">
+        <span>←</span> Demos Directory
+      </a>
+    </div>
+
+  </header>
+
+  <!-- Interactive Scaler & Viewport Frame -->
+  <main class="w-full flex-1 flex flex-col items-center justify-center overflow-auto py-1">
+    <div class="viewport-scaler flex justify-center items-center">
+      
+      <!-- DYNAMIC DEVICE VIEWPORT FRAME (Default: OS-H 1024x600) -->
+      <div class="device-viewport-frame flex flex-col border-[8px] border-slate-900 rounded-[28px]"
+           style="width: 1024px; height: 600px;" 
+           data-view-mode="OS-H" data-form-factor="OS" data-orientation="H">
+
+        <!-- LAYER-UX: System Shell Root -->
+        <app-shellui view-mode="OS-H" form-factor="OS" orientation="H" class="flex-1 flex flex-col overflow-hidden relative select-none">
+
+          <!-- ===================================================================
+               TOP TOOLBAR: Medical Imaging Tools & W/L Presets
+               =================================================================== -->
+          <div class="h-12 bg-slate-950 border-b border-slate-800 px-3 flex items-center justify-between shrink-0 z-40 text-xs gap-2">
+            
+            <!-- Tool Selection Buttons -->
+            <div class="flex items-center gap-1">
+              <button onclick="setMedicalTool('caliper')" id="tool-caliper" title="RECIST Caliper"
+                      class="px-2.5 py-1 rounded-lg bg-teal-600 text-white font-bold flex items-center gap-1">
+                <span>📏</span> <span class="hidden sm:inline">RECIST Caliper</span>
+              </button>
+              <button onclick="setMedicalTool('wl')" id="tool-wl" title="Window/Level Drag"
+                      class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold flex items-center gap-1">
+                <span>☀️</span> <span class="hidden sm:inline">W/L Drag</span>
+              </button>
+              <button onclick="setMedicalTool('pan')" id="tool-pan" title="Pan Viewport"
+                      class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold flex items-center gap-1">
+                <span>✋</span> <span class="hidden sm:inline">Pan</span>
+              </button>
+              <button onclick="setMedicalTool('zoom')" id="tool-zoom" title="Zoom"
+                      class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold flex items-center gap-1">
+                <span>🔍</span> <span class="hidden sm:inline">Zoom</span>
+              </button>
+              <button onclick="resetMedicalViewport()" title="Reset View"
+                      class="px-2 py-1 rounded-lg bg-slate-800/80 text-slate-400 hover:text-white font-bold">
+                ↺ Reset
+              </button>
+            </div>
+
+            <!-- Hounsfield Unit W/L Presets -->
+            <div class="hidden md:flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[10px] font-bold">
+              <button onclick="setWlPreset('LUNG', 1500, -600)" id="preset-lung" class="px-2 py-1 rounded bg-teal-700 text-white">LUNG</button>
+              <button onclick="setWlPreset('MEDIASTINUM', 350, 40)" id="preset-mediastinum" class="px-2 py-1 rounded text-slate-400 hover:text-white">MEDIAST</button>
+              <button onclick="setWlPreset('BONE', 2000, 300)" id="preset-bone" class="px-2 py-1 rounded text-slate-400 hover:text-white">BONE</button>
+              <button onclick="setWlPreset('BRAIN', 80, 40)" id="preset-brain" class="px-2 py-1 rounded text-slate-400 hover:text-white">BRAIN</button>
+              <button onclick="setWlPreset('LIVER', 150, 30)" id="preset-liver" class="px-2 py-1 rounded text-slate-400 hover:text-white">LIVER</button>
+            </div>
+
+            <!-- Viewport Layout Toggle & Overlays -->
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[10px] font-mono">
+                <button onclick="setLayout('1x1')" id="layout-1x1" class="px-2 py-0.5 rounded bg-teal-600 text-white font-bold">1×1</button>
+                <button onclick="setLayout('1x2')" id="layout-1x2" class="px-2 py-0.5 rounded text-slate-400 hover:text-white">1×2</button>
+              </div>
+              <button onclick="toggleOverlays()" id="btn-overlays" class="text-[10px] px-2 py-1 rounded bg-slate-800 text-slate-300 font-bold">
+                HUD: ON
+              </button>
+            </div>
+
+          </div>
+
+          <!-- ===================================================================
+               MAIN WORKSPACE: Medical Viewports (Left) + RECIST Panel (Right)
+               =================================================================== -->
+          <div class="flex-1 flex overflow-hidden relative">
+
+            <!-- LEFT: Primary DICOM Diagnostic Viewport Canvas Container -->
+            <div class="flex-1 flex flex-col bg-black relative overflow-hidden" id="viewport-stage">
+              
+              <!-- 4 Diagnostic Corners HUD (DICOM Standard PS 3.1) -->
+              <div id="corner-overlays" class="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between z-30 font-mono text-[11px] text-teal-400 select-none">
+                
+                <!-- Top Row: Patient Info (TL) & Study Info (TR) -->
+                <div class="flex justify-between items-start">
+                  <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 leading-tight">
+                    <div class="text-white font-bold text-xs">DOE^JOHN</div>
+                    <div>MRN: #ONC-94021 [M/58Y]</div>
+                    <div class="text-slate-400 text-[10px]">DOB: 1968-04-12</div>
+                  </div>
+                  <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 text-right leading-tight">
+                    <div class="text-white font-bold text-xs">MEMORIAL CANCER CENTER</div>
+                    <div>Chest-Abd-Pelvis w/ IV</div>
+                    <div class="text-slate-400 text-[10px]">2026-10-15 09:30:14 • 120 kV / 240 mA</div>
+                  </div>
+                </div>
+
+                <!-- Anatomical Orientation Labels (A / P / R / L) -->
+                <div class="flex justify-between items-center w-full px-1 text-sm font-black text-amber-400/90">
+                  <span>R</span>
+                  <div class="flex flex-col items-center">
+                    <span class="mb-auto">A</span>
+                    <span class="mt-28">P</span>
+                  </div>
+                  <span>L</span>
+                </div>
+
+                <!-- Bottom Row: HU Values & Calibration (BL) & Slice Index / W/L (BR) -->
+                <div class="flex justify-between items-end">
+                  <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 leading-tight">
+                    <div id="hud-hu-readout" class="text-amber-400 font-bold">HU: -720 (Lung Margin)</div>
+                    <div class="text-[10px] text-slate-300">Pos: (<span id="hud-pos-x">172</span>, <span id="hud-pos-y">182</span>) • 0.72 mm/px</div>
+                    <div class="text-teal-400 text-[10px]">Thk: 1.25 mm • Matrix: 512×512</div>
+                  </div>
+                  <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 text-right leading-tight">
+                    <div class="text-white font-bold">Im: <span id="hud-slice-num" class="text-teal-400">142</span> / 320</div>
+                    <div class="text-[10px] text-slate-300">W: <span id="hud-wl-w">1500</span> L: <span id="hud-wl-l">-600</span> (<span id="hud-wl-preset">LUNG</span>)</div>
+                    <div class="text-cyan-400 text-[10px]">Zoom: <span id="hud-zoom">100%</span> • FPS: <span id="hud-fps">60.0</span></div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Primary Canvas Viewport (Layer-Sys) -->
+              <div class="flex-1 relative flex items-center justify-center overflow-hidden cursor-crosshair" id="canvas-wrapper">
+                <canvas id="dicom-canvas" width="512" height="512" class="max-w-full max-h-full object-contain"></canvas>
+
+                <!-- Interactive SVG Caliper Overlay (Layer-UX) -->
+                <svg id="caliper-svg" class="absolute inset-0 w-full h-full pointer-events-none z-20">
+                  <line id="caliper-line" x1="155" y1="175" x2="185" y2="190" class="caliper-line" />
+                  <circle id="caliper-p1" cx="155" cy="175" r="5" class="caliper-endpoint pointer-events-auto cursor-pointer" />
+                  <circle id="caliper-p2" cx="185" cy="190" r="5" class="caliper-endpoint pointer-events-auto cursor-pointer" />
+                  
+                  <!-- Short Axis Crosshair -->
+                  <line id="caliper-short-line" x1="165" y1="170" x2="175" y2="195" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="2 2" />
+                  
+                  <!-- Floating Caliper Distance Badge -->
+                  <g id="caliper-text-group" transform="translate(195, 175)">
+                    <rect x="0" y="-12" width="68" height="18" rx="4" fill="#020617" stroke="#38bdf8" stroke-width="1" />
+                    <text x="34" y="1" fill="#38bdf8" font-size="10" font-family="monospace" font-weight="bold" text-anchor="middle" id="caliper-svg-text">22.1 mm</text>
+                  </g>
+                </svg>
+
+                <!-- Secondary Comparison Viewport (Visible in 1x2 mode) -->
+                <div id="comparison-viewport" class="hidden absolute right-0 top-0 bottom-0 w-1/2 bg-black border-l-2 border-teal-500/40 flex flex-col items-center justify-center">
+                  <div class="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded text-[10px] font-mono text-amber-400 border border-amber-500/30">
+                    BASELINE: 2026-06-15 (Slice 142) • T1 = 32.4 mm
+                  </div>
+                  <canvas id="dicom-baseline-canvas" width="512" height="512" class="max-w-full max-h-full object-contain"></canvas>
+                </div>
+              </div>
+
+              <!-- Bottom Interactive Scrubbing Timeline (Layer-Sys & UX) -->
+              <div class="h-10 bg-slate-950 border-t border-slate-800 px-3 flex items-center justify-between gap-3 shrink-0 z-30">
+                <div class="flex items-center gap-1.5">
+                  <button onclick="stepSlice(-1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">◀</button>
+                  <button onclick="toggleCinePlayback()" id="btn-play-pause" class="w-7 h-7 rounded-lg bg-teal-600 hover:bg-teal-500 flex items-center justify-center text-xs font-bold text-white">▶</button>
+                  <button onclick="stepSlice(1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">▶</button>
+                </div>
+
+                <!-- Range Slider for Slices -->
+                <div class="flex-1 flex items-center gap-2">
+                  <span class="text-[10px] font-mono text-slate-400">1</span>
+                  <input type="range" id="slice-slider" min="1" max="320" value="142" oninput="setSlice(parseInt(this.value, 10))"
+                         class="w-full accent-teal-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+                  <span class="text-[10px] font-mono text-slate-400">320</span>
+                </div>
+
+                <div class="flex items-center gap-2 text-xs font-mono shrink-0">
+                  <span class="text-teal-400 font-bold" id="slice-indicator">Slice 142 / 320</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT: RECIST 1.1 Oncology Lesion Tracker & PACS Inspector (Layer-UX) -->
+            <aside class="w-80 lg:w-96 bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 z-30 text-xs">
+              
+              <!-- Inspector Header Tabs -->
+              <div class="flex border-b border-slate-800 bg-slate-950/60 p-1">
+                <button onclick="setInspectorTab('recist')" id="tab-btn-recist"
+                        class="flex-1 py-1.5 text-center font-bold rounded-lg bg-teal-600 text-white shadow-sm">
+                  🎯 RECIST 1.1 Tracker
+                </button>
+                <button onclick="setInspectorTab('series')" id="tab-btn-series"
+                        class="flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white">
+                  📁 Series (5)
+                </button>
+                <button onclick="setInspectorTab('diag')" id="tab-btn-diag"
+                        class="flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white">
+                  ⚡ 4-Layer @diag
+                </button>
+              </div>
+
+              <!-- TAB 1: RECIST 1.1 Lesion Tracker Panel -->
+              <div id="inspector-recist" class="flex-1 overflow-y-auto p-4 space-y-4">
+                
+                <!-- Overall Response Criteria Banner -->
+                <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-950/50 to-slate-950 border border-emerald-500/40 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400">Overall Treatment Response</span>
+                    <span id="recist-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold font-mono">
+                      PARTIAL RESPONSE (PR)
+                    </span>
+                  </div>
+                  <div class="flex items-baseline justify-between pt-1">
+                    <div>
+                      <span class="text-2xl font-black text-white" id="recist-pct-text">-31.0%</span>
+                      <span class="text-[10px] text-slate-400 block">Sum of Diameters Change</span>
+                    </div>
+                    <div class="text-right text-[11px] font-mono">
+                      <div>Baseline SOD: <strong class="text-white">50.6 mm</strong></div>
+                      <div>Current SOD: <strong class="text-emerald-400" id="current-sod-text">34.9 mm</strong></div>
+                    </div>
+                  </div>
+                  <p class="text-[10px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-2">
+                    RECIST 1.1 Criteria: Target lesion shrinkage \(\ge 30\%\) from baseline qualifies as <strong>Partial Response</strong>. No new lesions detected.
+                  </p>
+                </div>
+
+                <!-- Target Lesions Quantitative Table -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                      <span>🎯</span> Target Lesions (\(\ge 10\,\text{mm}\))
+                    </h3>
+                    <span class="text-[10px] text-teal-400 font-mono">2 Tracked</span>
+                  </div>
+
+                  <!-- Lesion 1 (Active Caliper Target) -->
+                  <div class="p-3 rounded-xl bg-slate-950 border border-teal-500/40 space-y-2 relative">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                        <strong class="text-white text-xs">T1: RUL Adenocarcinoma</strong>
+                      </div>
+                      <span class="text-[10px] font-mono text-teal-400 bg-teal-500/10 px-1.5 py-0.5 rounded border border-teal-500/30">Slice 142</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono pt-1">
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+                        <span class="text-[9px] text-slate-500 block uppercase">Baseline</span>
+                        <span class="font-bold text-white">32.4 mm</span>
+                      </div>
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-teal-500/30">
+                        <span class="text-[9px] text-teal-400 block uppercase">Current LD</span>
+                        <span class="font-black text-teal-300 text-sm" id="t1-current-text">22.1 mm</span>
+                      </div>
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-emerald-500/30">
+                        <span class="text-[9px] text-emerald-400 block uppercase">Δ Change</span>
+                        <span class="font-black text-emerald-400" id="t1-delta-text">-31.8%</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-1 text-[10px] text-slate-400">
+                      <span>Short Axis: <strong class="text-amber-400" id="t1-short-text">14.8 mm</strong></span>
+                      <button onclick="jumpToSlice(142); setMedicalTool('caliper')" class="text-teal-400 hover:underline">Select Caliper</button>
+                    </div>
+                  </div>
+
+                  <!-- Lesion 2 -->
+                  <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                        <strong class="text-white text-xs">T2: Subcarinal Lymph Node</strong>
+                      </div>
+                      <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded">Slice 188</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono pt-1">
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+                        <span class="text-[9px] text-slate-500 block uppercase">Baseline</span>
+                        <span class="font-bold text-white">18.2 mm</span>
+                      </div>
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+                        <span class="text-[9px] text-slate-400 block uppercase">Current</span>
+                        <span class="font-bold text-white">12.8 mm</span>
+                      </div>
+                      <div class="p-1.5 rounded-lg bg-slate-900 border border-emerald-500/30">
+                        <span class="text-[9px] text-emerald-400 block uppercase">Δ Change</span>
+                        <span class="font-bold text-emerald-400">-29.7%</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-1 text-[10px] text-slate-400">
+                      <span>Malignant Node: Normalized &lt; 15mm</span>
+                      <button onclick="jumpToSlice(188)" class="text-slate-400 hover:text-white">View Slice 188</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Non-Target Lesions & New Lesions -->
+                <div class="space-y-2 pt-2 border-t border-slate-800">
+                  <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">
+                    Non-Target Lesions & Metastases
+                  </h3>
+                  <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] flex items-center justify-between">
+                    <div>
+                      <div class="text-white font-semibold">NT1: Bilateral Pleural Thickening</div>
+                      <div class="text-[10px] text-slate-500">Non-measurable reference</div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-bold">Stable (Present)</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] flex items-center justify-between">
+                    <div>
+                      <div class="text-white font-semibold">New Lesions (NL)</div>
+                      <div class="text-[10px] text-slate-500">Brain & Abdominal Screen</div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">NONE DETECTED</span>
+                  </div>
+                </div>
+
+                <!-- Action Button: Export Oncology Report -->
+                <button onclick="exportRecistReport()"
+                        class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2">
+                  <span>📄</span> Export DICOM SR & RECIST Report
+                </button>
+
+              </div>
+
+              <!-- TAB 2: Series Filmstrip Browser -->
+              <div id="inspector-series" class="hidden flex-1 overflow-y-auto p-4 space-y-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">Available Study Series</h3>
+                
+                <div onclick="selectSeries(2)" class="p-3 rounded-xl bg-teal-600/15 border border-teal-500/40 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-bold">Series 2: Axial Chest High-Res CT</div>
+                    <div class="text-[10px] text-teal-400 font-mono">320 Slices • 1.25mm • Thin Slice</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-teal-600 text-white text-[10px] font-bold">ACTIVE</span>
+                </div>
+
+                <div onclick="selectSeries(1)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-bold">Series 1: Scout Topogram (Scanogram)</div>
+                    <div class="text-[10px] text-slate-400 font-mono">1 Slice • Frontal View</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">SCOUT</span>
+                </div>
+
+                <div onclick="selectSeries(3)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-bold">Series 3: Coronal MPR Reformat</div>
+                    <div class="text-[10px] text-slate-400 font-mono">240 Slices • Multiplanar</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">CORONAL</span>
+                </div>
+
+                <div onclick="selectSeries(4)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-bold">Series 4: Sagittal MPR Reformat</div>
+                    <div class="text-[10px] text-slate-400 font-mono">180 Slices • Multiplanar</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">SAGITTAL</span>
+                </div>
+
+                <div onclick="selectSeries(5)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
+                  <div>
+                    <div class="text-white font-bold">Series 5: PET/CT SUV Fusion</div>
+                    <div class="text-[10px] text-purple-400 font-mono">320 Slices • 18F-FDG Metabolic</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px]">PET-SUV</span>
+                </div>
+              </div>
+
+              <!-- TAB 3: 4-Layer Architecture & Diagnostics (@diag) -->
+              <div id="inspector-diag" class="hidden flex-1 overflow-y-auto p-4 space-y-3 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between text-blue-400 font-bold">
+                    <span>Layer-Sys (Rendering Core)</span>
+                    <span class="text-emerald-400">ACTIVE</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Pipeline: 2D Canvas LUT Transfer</div>
+                  <div class="text-[10px] text-slate-400">Render Latency: <span id="diag-latency-val" class="text-white">0.38ms</span></div>
+                  <div class="text-[10px] text-slate-400">Buffer: Zero-Alloc TypedArray (512×512)</div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between text-emerald-400 font-bold">
+                    <span>Layer-Firm (Hardware Bridge)</span>
+                    <span class="text-emerald-400">OK</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Trackpad: Smooth Pinch-to-Zoom</div>
+                  <div class="text-[10px] text-slate-400">Haptics: Caliper Endpoint Snap (Light)</div>
+                  <div class="text-[10px] text-slate-400">Display Sync: 60 FPS RAF Loop</div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between text-purple-400 font-bold">
+                    <span>Layer-UX (AppzOS Shell)</span>
+                    <span class="text-emerald-400">ACTIVE</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">View Mode: <span id="diag-mode-val" class="text-white">OS-H (1024×600)</span></div>
+                  <div class="text-[10px] text-slate-400">Active Tool: <span id="diag-tool-val" class="text-white">RECIST Caliper</span></div>
+                  <div class="text-[10px] text-slate-400">Layer Stack: Level 0 (Pixel) to Level 9 (HUD)</div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between text-amber-400 font-bold">
+                    <span>Layer-Srv (Golang DSL Parity)</span>
+                    <span class="text-emerald-400">CONNECTED</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Go DSL: BlockRadiologyDICOM()</div>
+                  <div class="text-[10px] text-slate-400">Throughput: 620 ops/sec streaming</div>
+                  <div class="text-[10px] text-slate-400">Zero Node.js / Zero NPM Footprint</div>
+                </div>
+              </div>
+
+            </aside>
+
+          </div>
+
+        </app-shellui>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Medical DICOM 3.0 & RECIST 1.1 Pure Vanilla JS Engine -->
+  <script>
+    // =========================================================================
+    // CLINICAL CT PHANTOM & DICOM RENDERING ENGINE
+    // =========================================================================
+    const state = {
+      slice: 142,
+      totalSlices: 320,
+      windowWidth: 1500,
+      windowCenter: -600,
+      preset: 'LUNG',
+      tool: 'caliper',
+      zoom: 1.0,
+      panX: 0,
+      panY: 0,
+      cinePlaying: false,
+      cineTimer: null,
+      caliperP1: { x: 155, y: 175 },
+      caliperP2: { x: 185, y: 190 },
+      isDraggingP1: false,
+      isDraggingP2: false,
+      isDraggingWL: false,
+      isDraggingPan: false,
+      lastMouseX: 0,
+      lastMouseY: 0,
+      pixelSpacing: 0.72, // mm per pixel
+      showOverlays: true,
+      layout: '1x1'
+    };
+
+    const canvas = document.getElementById('dicom-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    const baselineCanvas = document.getElementById('dicom-baseline-canvas');
+    const baselineCtx = baselineCanvas ? baselineCanvas.getContext('2d') : null;
+
+    // Draw CT Slice on Canvas
+    function renderSlice(targetCtx, sliceIndex, isBaseline = false) {
+      if (!targetCtx) return;
+      const t0 = performance.now();
+      const w = 512, h = 512;
+      const imgData = targetCtx.createImageData(w, h);
+      const data = imgData.data;
+
+      // Mathematical Volumetric Chest CT Model:
+      // Slice 142 represents mid-thorax (Carina, Pulmonary Arteries, Spiculated RUL nodule)
+      const sliceOffset = (sliceIndex - 142) / 60;
+      const noduleSize = Math.max(0, 1.0 - Math.abs(sliceOffset)); // nodule vanishes away from slice 142
+
+      // Effective Window/Level
+      const ww = state.windowWidth;
+      const wc = state.windowCenter;
+      const minHU = wc - ww / 2;
+      const maxHU = wc + ww / 2;
+
+      const huToGray = (hu) => {
+        if (hu <= minHU) return 0;
+        if (hu >= maxHU) return 255;
+        return Math.floor(((hu - minHU) / ww) * 255);
+      };
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          
+          // Normalized coordinates relative to center (256, 256)
+          const nx = (x - 256) / 200;
+          const ny = (y - 256) / 160;
+          const distFromCenter = Math.sqrt(nx * nx + ny * ny);
+
+          let hu = -1000; // default Air HU
+
+          // Thoracic Cavity Oval
+          if (distFromCenter < 1.0) {
+            // Chest Wall Soft Tissue
+            hu = 40;
+
+            // Rib Cage / Spine Bones
+            if (distFromCenter > 0.88 && distFromCenter < 0.96) {
+              const ribAngle = Math.atan2(ny, nx);
+              if (Math.sin(ribAngle * 12) > 0.2) hu = 850; // Cortical Ribs
+            }
+            // Vertebral Body (Spine at bottom center)
+            if (Math.abs(x - 256) < 32 && y > 360 && y < 420) {
+              hu = 950; // Bone
+            }
+
+            // Lung Fields (LUL & RUL)
+            const leftLungDist = Math.sqrt(Math.pow((x - 180)/80, 2) + Math.pow((y - 240)/100, 2));
+            const rightLungDist = Math.sqrt(Math.pow((x - 330)/80, 2) + Math.pow((y - 240)/100, 2));
+
+            if (leftLungDist < 1.0 || rightLungDist < 1.0) {
+              hu = -750; // Normal Lung Parenchyma
+
+              // Pulmonary Vascular Tree Markings
+              const vNoise = Math.sin(x * 0.15) * Math.cos(y * 0.15);
+              if (vNoise > 0.4) hu = -400;
+
+              // Target Lesion T1: Spiculated Pulmonary Adenocarcinoma Nodule in RUL (around x:170, y:182)
+              const t1Dist = Math.sqrt(Math.pow(x - 170, 2) + Math.pow(y - 182, 2));
+              const currentRadius = isBaseline ? 22.5 : (15.3 * noduleSize);
+              if (t1Dist < currentRadius) {
+                // Hyperdense tumor core (+35 HU) with ground glass halo (-200 HU)
+                hu = t1Dist < (currentRadius * 0.65) ? 45 : -150;
+                // Spiculated margin irregularity
+                const spicule = Math.sin(Math.atan2(y - 182, x - 170) * 8);
+                if (t1Dist < currentRadius + spicule * 2.5) hu = 35;
+              }
+            }
+
+            // Mediastinal Cardiac Silhouette (Center HU +35)
+            const heartDist = Math.sqrt(Math.pow((x - 260)/55, 2) + Math.pow((y - 255)/65, 2));
+            if (heartDist < 1.0) {
+              hu = 38;
+              // Ascending & Descending Aorta
+              const aorta1 = Math.sqrt(Math.pow(x - 235, 2) + Math.pow(y - 225, 2));
+              const aorta2 = Math.sqrt(Math.pow(x - 280, 2) + Math.pow(y - 310, 2));
+              if (aorta1 < 16 || aorta2 < 14) hu = 210; // Contrast Enhanced Lumen
+            }
+          }
+
+          const gray = huToGray(hu);
+          data[idx] = gray;
+          data[idx + 1] = gray;
+          data[idx + 2] = gray;
+          data[idx + 3] = 255;
+        }
+      }
+
+      targetCtx.putImageData(imgData, 0, 0);
+      const t1 = performance.now();
+      const latencyEl = document.getElementById('diag-latency-val');
+      if (latencyEl && !isBaseline) latencyEl.textContent = `${(t1 - t0).toFixed(2)}ms`;
+    }
+
+    // Update Caliper SVG and RECIST Calculations
+    function updateCaliperUI() {
+      const p1 = state.caliperP1;
+      const p2 = state.caliperP2;
+
+      // Convert image coordinates (0..512) to container scale
+      const line = document.getElementById('caliper-line');
+      const c1 = document.getElementById('caliper-p1');
+      const c2 = document.getElementById('caliper-p2');
+      const shortLine = document.getElementById('caliper-short-line');
+      const textGroup = document.getElementById('caliper-text-group');
+      const svgText = document.getElementById('caliper-svg-text');
+
+      if (!line) return;
+
+      line.setAttribute('x1', p1.x);
+      line.setAttribute('y1', p1.y);
+      line.setAttribute('x2', p2.x);
+      line.setAttribute('y2', p2.y);
+
+      c1.setAttribute('cx', p1.x);
+      c1.setAttribute('cy', p1.y);
+      c2.setAttribute('cx', p2.x);
+      c2.setAttribute('cy', p2.y);
+
+      // Calculate Euclidean Long Axis
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const pixelDist = Math.sqrt(dx * dx + dy * dy);
+      const mmDist = parseFloat((pixelDist * state.pixelSpacing).toFixed(1));
+
+      // Calculate Perpendicular Short Axis
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+      const perpAngle = Math.atan2(dy, dx) + Math.PI / 2;
+      const shortLen = pixelDist * 0.67;
+      const s1x = midX + Math.cos(perpAngle) * (shortLen / 2);
+      const s1y = midY + Math.sin(perpAngle) * (shortLen / 2);
+      const s2x = midX - Math.cos(perpAngle) * (shortLen / 2);
+      const s2y = midY - Math.sin(perpAngle) * (shortLen / 2);
+      const shortMM = (shortLen * state.pixelSpacing).toFixed(1);
+
+      if (shortLine) {
+        shortLine.setAttribute('x1', s1x);
+        shortLine.setAttribute('y1', s1y);
+        shortLine.setAttribute('x2', s2x);
+        shortLine.setAttribute('y2', s2y);
+      }
+
+      if (textGroup && svgText) {
+        textGroup.setAttribute('transform', `translate(${midX + 10}, ${midY - 10})`);
+        svgText.textContent = `${mmDist} mm`;
+      }
+
+      // Update RECIST Table Values
+      const t1Current = document.getElementById('t1-current-text');
+      const t1Delta = document.getElementById('t1-delta-text');
+      const t1Short = document.getElementById('t1-short-text');
+      const currentSod = document.getElementById('current-sod-text');
+      const recistPct = document.getElementById('recist-pct-text');
+      const recistBadge = document.getElementById('recist-badge');
+
+      if (t1Current) t1Current.textContent = `${mmDist} mm`;
+      if (t1Short) t1Short.textContent = `${shortMM} mm`;
+
+      const deltaT1 = ((mmDist - state.t1Baseline) / state.t1Baseline) * 100;
+      if (t1Delta) {
+        t1Delta.textContent = `${deltaT1 > 0 ? '+' : ''}${deltaT1.toFixed(1)}%`;
+        t1Delta.className = deltaT1 <= -30 ? 'font-black text-emerald-400' : (deltaT1 >= 20 ? 'font-black text-rose-500' : 'font-black text-amber-400');
+      }
+
+      // Total RECIST Sum of Diameters (SOD)
+      const totalCurrent = mmDist + state.t2LongAxis;
+      const baselineTotal = state.t1Baseline + state.t2Baseline; // 50.6 mm
+      const totalPct = ((totalCurrent - baselineTotal) / baselineTotal) * 100;
+
+      if (currentSod) currentSod.textContent = `${totalCurrent.toFixed(1)} mm`;
+      if (recistPct) {
+        recistPct.textContent = `${totalPct > 0 ? '+' : ''}${totalPct.toFixed(1)}%`;
+      }
+
+      // Staging Status
+      if (recistBadge) {
+        if (totalPct <= -30) {
+          recistBadge.textContent = 'PARTIAL RESPONSE (PR)';
+          recistBadge.className = 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold font-mono';
+        } else if (totalPct >= 20) {
+          recistBadge.textContent = 'PROGRESSIVE DISEASE (PD)';
+          recistBadge.className = 'px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-extrabold font-mono';
+        } else {
+          recistBadge.textContent = 'STABLE DISEASE (SD)';
+          recistBadge.className = 'px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-extrabold font-mono';
+        }
+      }
+    }
+
+    // Set Slice
+    window.setSlice = function(s) {
+      state.slice = Math.max(1, Math.min(state.totalSlices, s));
+      const slider = document.getElementById('slice-slider');
+      const indicator = document.getElementById('slice-indicator');
+      const hudSlice = document.getElementById('hud-slice-num');
+      if (slider) slider.value = state.slice;
+      if (indicator) indicator.textContent = `Slice ${state.slice} / ${state.totalSlices}`;
+      if (hudSlice) hudSlice.textContent = state.slice;
+
+      renderSlice(ctx, state.slice, false);
+      if (state.layout === '1x2' && baselineCtx) {
+        renderSlice(baselineCtx, state.slice, true);
+      }
+    };
+
+    window.stepSlice = function(delta) {
+      $appz.haptic('selection');
+      setSlice(state.slice + delta);
+    };
+
+    window.jumpToSlice = function(s) {
+      $appz.haptic('medium');
+      setSlice(s);
+    };
+
+    // Toggle Cine Loop Playback
+    window.toggleCinePlayback = function() {
+      $appz.haptic('selection');
+      state.cinePlaying = !state.cinePlaying;
+      const btn = document.getElementById('btn-play-pause');
+      const cineText = document.getElementById('cine-text');
+      const cineIcon = document.getElementById('cine-icon');
+
+      if (state.cinePlaying) {
+        if (btn) btn.textContent = '❚❚';
+        if (cineText) cineText.textContent = 'Pause Cine';
+        if (cineIcon) cineIcon.textContent = '❚❚';
+        state.cineTimer = setInterval(() => {
+          let next = state.slice + 1;
+          if (next > state.totalSlices) next = 1;
+          setSlice(next);
+        }, 1000 / state.cineFps);
+      } else {
+        if (btn) btn.textContent = '▶';
+        if (cineText) cineText.textContent = 'Cine (24fps)';
+        if (cineIcon) cineIcon.textContent = '▶';
+        clearInterval(state.cineTimer);
+        state.cineTimer = null;
+      }
+    };
+
+    // Tool Management
+    window.setMedicalTool = function(tool) {
+      $appz.haptic('selection');
+      state.tool = tool;
+      ['caliper', 'wl', 'pan', 'zoom'].forEach(t => {
+        const btn = document.getElementById(`tool-${t}`);
+        if (btn) {
+          const active = t === tool;
+          btn.className = active ? 'px-2.5 py-1 rounded-lg bg-teal-600 text-white font-bold flex items-center gap-1 shadow-sm'
+                                 : 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold flex items-center gap-1';
+        }
+      });
+      const diagTool = document.getElementById('diag-tool-val');
+      if (diagTool) diagTool.textContent = tool.toUpperCase();
+    };
+
+    // W/L Presets
+    window.setWlPreset = function(name, w, c) {
+      $appz.haptic('selection');
+      state.preset = name;
+      state.windowWidth = w;
+      state.windowCenter = c;
+      ['lung', 'mediastinum', 'bone', 'brain', 'liver'].forEach(p => {
+        const btn = document.getElementById(`preset-${p}`);
+        if (btn) {
+          const active = p.toUpperCase() === name;
+          btn.className = active ? 'px-2 py-1 rounded bg-teal-700 text-white font-bold' : 'px-2 py-1 rounded text-slate-400 hover:text-white';
+        }
+      });
+      document.getElementById('hud-wl-w').textContent = w;
+      document.getElementById('hud-wl-l').textContent = c;
+      document.getElementById('hud-wl-preset').textContent = name;
+      renderSlice(ctx, state.slice, false);
+      if (state.layout === '1x2' && baselineCtx) renderSlice(baselineCtx, state.slice, true);
+    };
+
+    window.resetMedicalViewport = function() {
+      $appz.haptic('light');
+      state.zoom = 1.0;
+      state.panX = 0;
+      state.panY = 0;
+      state.caliperP1 = { x: 155, y: 175 };
+      state.caliperP2 = { x: 185, y: 190 };
+      setWlPreset('LUNG', 1500, -600);
+      updateCaliperUI();
+    };
+
+    // Viewport Layout (1x1 or 1x2 Comparison)
+    window.setLayout = function(layout) {
+      $appz.haptic('medium');
+      state.layout = layout;
+      const comp = document.getElementById('comparison-viewport');
+      const b1 = document.getElementById('layout-1x1');
+      const b2 = document.getElementById('layout-1x2');
+
+      if (layout === '1x2') {
+        if (comp) comp.classList.remove('hidden');
+        if (b2) b2.className = 'px-2 py-0.5 rounded bg-teal-600 text-white font-bold';
+        if (b1) b1.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white';
+        renderSlice(baselineCtx, state.slice, true);
+      } else {
+        if (comp) comp.classList.add('hidden');
+        if (b1) b1.className = 'px-2 py-0.5 rounded bg-teal-600 text-white font-bold';
+        if (b2) b2.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white';
+      }
+    };
+
+    window.toggleOverlays = function() {
+      $appz.haptic('light');
+      state.showOverlays = !state.showOverlays;
+      const ov = document.getElementById('corner-overlays');
+      const btn = document.getElementById('btn-overlays');
+      if (ov) ov.style.display = state.showOverlays ? 'flex' : 'none';
+      if (btn) btn.textContent = state.showOverlays ? 'HUD: ON' : 'HUD: OFF';
+    };
+
+    // Inspector Tab Switching
+    window.setInspectorTab = function(tab) {
+      $appz.haptic('selection');
+      ['recist', 'series', 'diag'].forEach(t => {
+        const pane = document.getElementById(`inspector-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (pane) pane.classList.toggle('hidden', t !== tab);
+        if (btn) {
+          const active = t === tab;
+          btn.className = active ? 'flex-1 py-1.5 text-center font-bold rounded-lg bg-teal-600 text-white shadow-sm'
+                                 : 'flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white';
+        }
+      });
+    };
+
+    window.selectSeries = function(s) {
+      $appz.haptic('medium');
+      alert(`Switched to Series ${s}. Streaming 320 DICOM slices via Layer-Srv.`);
+    };
+
+    window.exportRecistReport = function() {
+      $appz.haptic('success');
+      alert(`[DICOM SR EXPORT COMPLETE]\nPatient: DOE^JOHN (#ONC-94021)\nStudy Date: 2026-10-15\nAssessment: PARTIAL RESPONSE (PR)\nSum of Diameters: 34.9 mm (-31.0%)\nStandard: RECIST 1.1 Compliant`);
+    };
+
+    // Canvas Pointer Interactions (Caliper Drags, W/L Drag, HU readout)
+    const svgOverlay = document.getElementById('caliper-svg');
+    const p1Handle = document.getElementById('caliper-p1');
+    const p2Handle = document.getElementById('caliper-p2');
+
+    if (p1Handle) {
+      p1Handle.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        state.isDraggingP1 = true;
+        p1Handle.setPointerCapture(e.pointerId);
+      });
+    }
+
+    if (p2Handle) {
+      p2Handle.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        state.isDraggingP2 = true;
+        p2Handle.setPointerCapture(e.pointerId);
+      });
+    }
+
+    const wrapper = document.getElementById('canvas-wrapper');
+    if (wrapper) {
+      wrapper.addEventListener('pointerdown', (e) => {
+        state.lastMouseX = e.clientX;
+        state.lastMouseY = e.clientY;
+        if (state.tool === 'wl') state.isDraggingWL = true;
+        if (state.tool === 'pan') state.isDraggingPan = true;
+      });
+
+      wrapper.addEventListener('pointermove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const rawX = e.clientX - rect.left;
+        const rawY = e.clientY - rect.top;
+        const scaleX = 512 / rect.width;
+        const scaleY = 512 / rect.height;
+        const cx = Math.max(0, Math.min(512, Math.round(rawX * scaleX)));
+        const cy = Math.max(0, Math.min(512, Math.round(rawY * scaleY)));
+
+        // Live Position and Simulated HU under cursor
+        const posX = document.getElementById('hud-pos-x');
+        const posY = document.getElementById('hud-pos-y');
+        const huText = document.getElementById('hud-hu-readout');
+        if (posX) posX.textContent = cx;
+        if (posY) posY.textContent = cy;
+
+        // Approximate HU under cursor
+        const t1Dist = Math.sqrt(Math.pow(cx - 170, 2) + Math.pow(cy - 182, 2));
+        let hu = -750;
+        if (t1Dist < 16) hu = 45;
+        else if (t1Dist < 25) hu = -150;
+        else if (cx > 200 && cx < 312 && cy > 200 && cy < 320) hu = 38;
+        if (huText) huText.textContent = `HU: ${hu > 0 ? '+' : ''}${hu}`;
+
+        // Handle Caliper Dragging
+        if (state.isDraggingP1) {
+          state.caliperP1 = { x: cx, y: cy };
+          updateCaliperUI();
+        } else if (state.isDraggingP2) {
+          state.caliperP2 = { x: cx, y: cy };
+          updateCaliperUI();
+        } else if (state.isDraggingWL) {
+          const dx = e.clientX - state.lastMouseX;
+          const dy = e.clientY - state.lastMouseY;
+          state.windowWidth = Math.max(10, state.windowWidth + dx * 4);
+          state.windowCenter = Math.max(-1000, Math.min(1000, state.windowCenter - dy * 4));
+          state.lastMouseX = e.clientX;
+          state.lastMouseY = e.clientY;
+          document.getElementById('hud-wl-w').textContent = Math.round(state.windowWidth);
+          document.getElementById('hud-wl-l').textContent = Math.round(state.windowCenter);
+          document.getElementById('hud-wl-preset').textContent = 'CUSTOM';
+          renderSlice(ctx, state.slice, false);
+        }
+      });
+
+      const endDrag = () => {
+        state.isDraggingP1 = false;
+        state.isDraggingP2 = false;
+        state.isDraggingWL = false;
+        state.isDraggingPan = false;
+      };
+
+      wrapper.addEventListener('pointerup', endDrag);
+      wrapper.addEventListener('pointercancel', endDrag);
+
+      // Mouse Wheel to Scroll Slices (DICOM Standard Paradigm)
+      wrapper.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? 1 : -1;
+        stepSlice(delta);
+      }, { passive: false });
+    }
+
+    // Keyboard Shortcuts (Arrow Keys for Slices)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+        stepSlice(1);
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+        stepSlice(-1);
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        toggleCinePlayback();
+      }
+    });
+
+    // Initialize DICOM PACS on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      setSlice(142);
+      updateCaliperUI();
+      if (typeof $appz !== 'undefined' && $appz.setViewMode) {
+        $appz.setViewMode('OS-H');
+      }
+    });
+  </script>
+
+</body>
+</html>

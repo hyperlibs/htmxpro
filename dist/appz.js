@@ -493,6 +493,18 @@
           frame.setAttribute("data-form-factor", spec.formFactor);
           frame.setAttribute("data-orientation", spec.orientation);
         }
+        const scaler = document.querySelector(".viewport-scaler");
+        if (scaler && frame) {
+          const availableW = Math.max(320, window.innerWidth - 48);
+          const availableH = Math.max(320, window.innerHeight - 150);
+          const scaleW = spec.width > availableW ? availableW / spec.width : 1;
+          const scaleH = spec.height > availableH ? availableH / spec.height : 1;
+          const scale = Math.min(1, Math.min(scaleW, scaleH));
+          scaler.style.transform = `scale(${scale})`;
+          scaler.style.transformOrigin = "top center";
+          scaler.style.height = `${spec.height * scale}px`;
+          scaler.style.width = `${spec.width * scale}px`;
+        }
         document.querySelectorAll("app-shellui, [app-shellui]").forEach((el) => {
           el.setAttribute("view-mode", mode);
           el.setAttribute("form-factor", spec.formFactor);
@@ -653,6 +665,19 @@
       root.querySelectorAll("app-thermostat, [app-thermostat]").forEach((el) => {
         this.bindThermostat(el);
       });
+      root.querySelectorAll("[data-view-btn]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-view-btn");
+          if (mode)
+            LayerUX.setViewMode(mode);
+        });
+      });
+      if (typeof window !== "undefined" && !window.__appzResizeBound) {
+        window.__appzResizeBound = true;
+        window.addEventListener("resize", () => {
+          LayerUX.setViewMode(LayerUX.currentViewMode);
+        });
+      }
     }
     bindPullToRefresh(el) {
       let startY = 0;

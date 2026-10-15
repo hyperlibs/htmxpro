@@ -610,6 +610,20 @@ export class LayerPresentation {
         frame.setAttribute('data-orientation', spec.orientation);
       }
 
+      // Responsive Auto-Scaling so TV-H, TV-P, OS-H, OS-P, Tab-H fit any screen size
+      const scaler = document.querySelector('.viewport-scaler') as HTMLElement;
+      if (scaler && frame) {
+        const availableW = Math.max(320, window.innerWidth - 48);
+        const availableH = Math.max(320, window.innerHeight - 150);
+        const scaleW = spec.width > availableW ? availableW / spec.width : 1;
+        const scaleH = spec.height > availableH ? availableH / spec.height : 1;
+        const scale = Math.min(1, Math.min(scaleW, scaleH));
+        scaler.style.transform = `scale(${scale})`;
+        scaler.style.transformOrigin = 'top center';
+        scaler.style.height = `${spec.height * scale}px`;
+        scaler.style.width = `${spec.width * scale}px`;
+      }
+
       document.querySelectorAll('app-shellui, [app-shellui]').forEach(el => {
         el.setAttribute('view-mode', mode);
         el.setAttribute('form-factor', spec.formFactor);
@@ -804,6 +818,21 @@ export class AppzEngine {
     root.querySelectorAll('app-thermostat, [app-thermostat]').forEach(el => {
       this.bindThermostat(el as HTMLElement);
     });
+
+    // 11. Viewport Mode Switcher Buttons Global Listener
+    root.querySelectorAll('[data-view-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-view-btn') as AppzViewMode;
+        if (mode) LayerUX.setViewMode(mode);
+      });
+    });
+
+    if (typeof window !== 'undefined' && !(window as any).__appzResizeBound) {
+      (window as any).__appzResizeBound = true;
+      window.addEventListener('resize', () => {
+        LayerUX.setViewMode(LayerUX.currentViewMode);
+      });
+    }
   }
 
   bindPullToRefresh(el: HTMLElement): void {
