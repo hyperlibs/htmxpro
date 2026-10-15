@@ -16,10 +16,12 @@
   <script src="/htmx-devtools.js"></script>
   <script src="/htmx-calc.js"></script>
   <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
   <script src="/htmx-canvas.js"></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-background text-foreground antialiased min-h-screen flex flex-col font-sans selection:bg-primary/20">
+<body class="bg-background text-foreground antialiased min-h-screen flex flex-col font-sans selection:bg-primary/20"
+      hx-state='{ "activeFilter": "all" }'>
 
   <!-- Header -->
   <header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
@@ -30,10 +32,11 @@
           <span>HTMX PRO</span>
         </a>
         <span class="text-xs uppercase font-mono px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">Live Demos</span>
-        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 text-xs font-mono border border-emerald-500/30 font-bold">v0.10.30</span>
+        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 text-xs font-mono border border-emerald-500/30 font-bold">v1.0.0</span>
       </div>
       <nav class="flex items-center gap-6 text-sm font-medium text-muted-foreground">
         <a href="/docs/components/introduction" class="hover:text-foreground transition-colors">Documentation</a>
+        <a href="/demo/mobile" class="hover:text-foreground transition-colors text-indigo-400 font-semibold">Mobile AppzOS</a>
         <a href="/docs/components/simulation" class="hover:text-foreground transition-colors text-cyan-400 font-semibold">Sim Engine</a>
         <a href="/docs/components/button" class="hover:text-foreground transition-colors">120+ Components</a>
         <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-foreground transition-colors">GitHub</a>
@@ -42,26 +45,355 @@
   </header>
 
   <main class="flex-1 py-12 px-4">
-    <div class="container mx-auto max-w-6xl space-y-12">
+    <div class="container mx-auto max-w-7xl space-y-12">
 
       <!-- Hero Header -->
-      <div class="text-center space-y-4 max-w-3xl mx-auto">
+      <div class="text-center space-y-4 max-w-4xl mx-auto">
         <div class="inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1 text-xs font-semibold text-primary">
-          🧪 ZERO VIRTUAL DOM • STRICT ZERO-EVAL CSP • BANK-GRADE RBAC • 11 ENGINES
+          🧪 ZERO VIRTUAL DOM • ZERO NODE.JS • 13 MICRO-ENGINES • RESEARCH & ENGINEERING DESIGN BLOCKS
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
           Verifiable Interactive Showcases
         </h1>
         <p class="text-lg text-muted-foreground leading-relaxed">
-          Experience the 11 micro-engines running live in the browser. Zero Node.js. Zero React. Pure server-authoritative hypermedia with microtask-batched signals and decoupled 120Hz physics.
+          Experience 13 micro-engines running live in the browser. Zero React bloat. Pure server-authoritative hypermedia with microtask-batched signals, 4-layer OS architecture, research-grade science blocks, and heavy engineering simulations.
         </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2 pb-2">
+        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                hx-class='{ "bg-primary text-primary-foreground shadow-md": activeFilter === "all", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "all" }'
+                hx-action="activeFilter = 'all'; $appz.haptic('selection')">
+          All Showcases (16)
+        </button>
+        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                hx-class='{ "bg-indigo-600 text-white shadow-md shadow-indigo-600/30": activeFilter === "mobile", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "mobile" }'
+                hx-action="activeFilter = 'mobile'; $appz.haptic('selection')">
+          📱 Mobile & Spatial OS (8 Modes)
+        </button>
+        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": activeFilter === "research", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "research" }'
+                hx-action="activeFilter = 'research'; $appz.haptic('selection')">
+          🔬 Research Science (5 Blocks)
+        </button>
+        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeFilter === "industrial", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "industrial" }'
+                hx-action="activeFilter = 'industrial'; $appz.haptic('selection')">
+          🏗️ Heavy Engineering (5 Blocks)
+        </button>
+        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": activeFilter === "enterprise", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "enterprise" }'
+                hx-action="activeFilter = 'enterprise'; $appz.haptic('selection')">
+          💼 Enterprise ERP & FinTech
+        </button>
       </div>
 
       <!-- Flagship Demo Cards Grid -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <!-- Flagship: HyperAdmin -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+        <!-- ===================================================================
+             FLAGSHIP: AppzOS Mobile & Spatial Simulator
+             =================================================================== -->
+        <div class="rounded-2xl border-2 border-indigo-500/40 bg-card p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'mobile'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">📱</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">4-Layer OS Stack</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight text-white">AppzOS Mobile & Spatial Simulator</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Native-grade PWA mobile/spatial shell with <strong>8 distinct viewport modes</strong> (<code>OS-H</code>, <code>OS-P</code>, <code>Tab-H</code>, <code>Tab-P</code>, <code>Mob-H</code>, <code>Mob-P</code>, <code>TV-H</code>, <code>TV-P</code>). Features Photoshop-style 0–9 Z-index layer stacking, tactile PIN lock screen, multitasking switcher, and 100 Smart Components.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">8 Viewport Modes</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Layer-Sys/Firm/UX</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">@diag Stream</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/demo/mobile" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md shadow-indigo-600/30">
+              Launch AppzOS Mobile Simulator →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             RESEARCH BLOCK 1: Virtual Pathology Lab
+             =================================================================== -->
+        <div class="rounded-2xl border border-violet-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'research'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🔬</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-violet-500/10 text-violet-400 border border-violet-500/20 font-bold">Research Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Virtual Pathology Lab Simulator</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Whole Slide Imaging (WSI) virtual microscope with 4x–100x oil objective turret, H&E staining intensity gain, Z-stack focus dial, AI nuclear segmentation masks, Ki-67 proliferation index (34.2%), and Nottingham Grade III scoring.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">WSI 100x Oil</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Ki-67 Scoring</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Tumor Margin</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-pathology-lab" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore Pathology Lab Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             RESEARCH BLOCK 2: Radiology PACS DICOM Studio
+             =================================================================== -->
+        <div class="rounded-2xl border border-cyan-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'research'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">☢️</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">Research Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Radiology DICOM MPR Studio</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Multi-Planar Reconstruction (MPR) with synchronized Axial, Coronal, and Sagittal orthogonal slice navigation. Includes Hounsfield Unit (HU) window/level presets (Lung, Soft Tissue, Bone) and RECIST 1.1 progression tracking.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">DICOM 16-Bit</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HU Windowing</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">RECIST 1.1</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-radiology-dicom" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore Radiology DICOM Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             RESEARCH BLOCK 3: Human Biology Cellular Atlas
+             =================================================================== -->
+        <div class="rounded-2xl border border-emerald-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'research'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🧬</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Research Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Human Biology Cellular Atlas</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Spatial transcriptomics (Visium 55 µm spot array) and single-cell scRNA-seq expression heatmaps. Features marker gene exploration (<code>TNNT2</code>, <code>MYH6</code>), cell clustering, and UBERON/CL ontology graph linkages.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">55µm Visium Array</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">scRNA-seq</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Cell Ontologies</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-biology-atlas" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore Biology Atlas Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             RESEARCH BLOCK 4: CRISPR Gene Editing Studio
+             =================================================================== -->
+        <div class="rounded-2xl border border-purple-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'research'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">✂️</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-bold">Research Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">CRISPR-Cas Precision Studio</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Dual-strand nucleotide sequence ribbon showing 20 nt protospacer, SpCas9 (NGG PAM) motif, -3 bp double-strand break (DSB) scissor cleavage site, Doench on-target scoring (88/100), CFD off-target risk, and ssODN HDR repair.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">SpCas9 (NGG)</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">DSB Scissor Ribbon</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HDR ssODN</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-crispr-studio" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore CRISPR Studio Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             RESEARCH BLOCK 5: Genomic Map & Synteny Dashboard
+             =================================================================== -->
+        <div class="rounded-2xl border border-amber-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'research'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🗺️</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Research Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Genomic Map & Synteny Browser</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              GRCh38.p14 multi-track browser with chromosome ideogram G-banding, GENCODE v46 exon/intron models, continuous RNA-seq read depth (bigWig), and ClinVar pathogenic SNV pins (<code>rs334</code> HbS Sickle Cell A>T).
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">GRCh38 Ideogram</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">GENCODE v46</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ClinVar SNVs</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-genomic-map" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
+              Explore Genomic Map Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             INDUSTRIAL BLOCK 1: Civil, Architectural & Landscape BIM
+             =================================================================== -->
+        <div class="rounded-2xl border border-orange-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">📐</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20 font-bold">Engineering Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Civil, Architecture & BIM Studio</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              ISO 19650 BIM Level 2 CAD floorplan with reinforced concrete column grid, Eurocode 2 deflection verification (4.2 mm < L/500), embodied carbon metrics ($248\,\text{kg CO}_2\text{e/m}^2$), 1m contour interval topography, and bioswale drainage.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ISO 19650 BIM</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Slab Deflection</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">1m Topo Contours</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-civil-architect" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore Civil BIM Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             INDUSTRIAL BLOCK 2: Marine, ECDIS & GPS Navigation
+             =================================================================== -->
+        <div class="rounded-2xl border border-blue-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">⚓</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold">Engineering Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">ECDIS Marine Navigation System</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              IMO/SOLAS compliant Electronic Chart Display & Information System with S-57 bathymetric depth isobaths, AIS vessel collision avoidance (CPA/TCPA), under-keel clearance (18.4 m UKC), 360° compass rose ring, and NMEA 2000 bus telemetry.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">IMO/SOLAS ECDIS</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">AIS Collision (CPA)</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Bathymetry 20m</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-marine-navigation" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
+              Explore Marine ECDIS Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             INDUSTRIAL BLOCK 3: Precision Agriculture & Agronomy
+             =================================================================== -->
+        <div class="rounded-2xl border border-lime-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">🌾</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-lime-500/10 text-lime-400 border border-lime-500/20 font-bold">Engineering Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Precision Agronomy & Telemetry</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Sentinel-2 multispectral NDVI vegetative vigor mapping (0.78 high vigor), 7-tower electric center-pivot sweep ($142.5^\circ$ angle, $1,850\,\text{L/min}$), autonomous tractor RTK path tracking ($\pm 1.5\,\text{cm}$), and multi-depth soil moisture mesh.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Sentinel-2 NDVI</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Center-Pivot Sweep</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ISOBUS 11783</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-agriculture-precision" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-lime-600 hover:bg-lime-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
+              Explore Precision Agri Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             INDUSTRIAL BLOCK 4: Electricity, Oil & Gas Energy SCADA
+             =================================================================== -->
+        <div class="rounded-2xl border border-amber-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">⚡</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Engineering Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Energy & SCADA Grid Automation</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              IEC 61850 GOOSE high-voltage Single-Line Diagram (SLD) with energized 230kV busbars, remote CB-101 circuit breaker trip/close interlocking, 150 MVA transformer monitoring, and offshore wellhead tubing pressure ($2,840\,\text{PSI}$).
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">IEC 61850 GOOSE</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">230kV / 69kV SLD</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Wellhead 2840 PSI</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-energy-scada" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
+              Explore Energy SCADA Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             INDUSTRIAL BLOCK 5: PCB EDA & Semiconductor Fab
+             =================================================================== -->
+        <div class="rounded-2xl border border-teal-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-3xl">💻</span>
+              <span class="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20 font-bold">Engineering Block</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">PCB EDA & Semiconductor Fab</h2>
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              12-layer Megtron 6 stackup with PCIe Gen 5 ($32\,\text{GT/s}$) serpentine matched-length delay tuning ($\Delta 0.04\,\text{mm}, 0.28\,\text{ps}$ skew), BGA-1156 dog-bone escape vias, SMT 0201 AOI inspection, and 300mm silicon wafer die yield map (94.8% yield).
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">12-Layer Megtron 6</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">PCIe Gen 5 (90Ω)</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">300mm Wafer Map</span>
+            </div>
+          </div>
+          <div class="pt-6">
+            <a href="/docs/components/block-pcb-semiconductor" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-teal-600 hover:bg-teal-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
+              Explore PCB & Semiconductor Block →
+            </a>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             ENTERPRISE: HyperAdmin
+             =================================================================== -->
+        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-3xl">🎛️</span>
@@ -84,8 +416,11 @@
           </div>
         </div>
 
-        <!-- Flagship 1: ERP -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+        <!-- ===================================================================
+             ENTERPRISE: Apex Logistics ERP
+             =================================================================== -->
+        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-3xl">📊</span>
@@ -108,8 +443,11 @@
           </div>
         </div>
 
-        <!-- Flagship 2: Hypersheet -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+        <!-- ===================================================================
+             ENTERPRISE: Hypersheet Reactive Matrix
+             =================================================================== -->
+        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-3xl">📑</span>
@@ -132,8 +470,11 @@
           </div>
         </div>
 
-        <!-- Flagship 3: Kosmos Universe -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+        <!-- ===================================================================
+             ENTERPRISE: Kosmos Spatial Universe
+             =================================================================== -->
+        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
+             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-3xl">🌌</span>
@@ -156,8 +497,11 @@
           </div>
         </div>
 
-        <!-- Flagship 4: Kinetic Physics & Sim -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group border-cyan-500/30">
+        <!-- ===================================================================
+             ENTERPRISE: Kinetic Physics & Sim
+             =================================================================== -->
+        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group border-cyan-500/30"
+             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-3xl">⚛️</span>
@@ -180,30 +524,6 @@
           </div>
         </div>
 
-        <!-- Flagship 5: 120+ UI Components -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🧩</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20 font-semibold">120+ Components</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Component Sandbox & ScaleUI</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              100% copy-paste HTML components with dark mode theming, WAI-ARIA accessibility compliance, and interactive <strong>Fluid ScaleUI Resizing</strong> directly in the browser.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Copy-Paste HTML</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ScaleUI Resizer</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Zero Node/NPM</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/button" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore 120+ Components →
-            </a>
-          </div>
-        </div>
-
       </div>
 
       <!-- Live Interactive Engine Health & Diagnostics Widget with Sim Preview -->
@@ -222,24 +542,21 @@
             <p class="text-xs text-muted-foreground">Test HxBolt signal reactivity, HxCalc topological DAG formulas, and HxSim 120Hz physics live.</p>
           </div>
           <div class="text-xs font-mono text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-            ● 11 Engines Active • Strict CSP Level 3
+            ● 13 Engines Active • Strict CSP Level 3
           </div>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6 text-sm">
-          <!-- Input A -->
           <div class="space-y-1.5">
             <label class="font-medium text-xs text-muted-foreground">Cell A1 (Units Sold):</label>
             <input type="number" hx-model.number="calcA1" class="w-full px-3 py-2 rounded-md border border-input bg-background font-mono text-sm">
           </div>
 
-          <!-- Input B -->
           <div class="space-y-1.5">
             <label class="font-medium text-xs text-muted-foreground">Cell B1 (Unit Price $):</label>
             <input type="number" hx-model.number="calcB1" class="w-full px-3 py-2 rounded-md border border-input bg-background font-mono text-sm">
           </div>
 
-          <!-- Reactive Calculation Output -->
           <div class="p-4 rounded-xl bg-card border border-border flex flex-col justify-between">
             <span class="text-xs text-muted-foreground font-medium">Formula = A1 * B1:</span>
             <div class="text-2xl font-black text-primary font-mono pt-1">
