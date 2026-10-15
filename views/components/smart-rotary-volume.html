@@ -1,0 +1,16 @@
+<!-- Smart Rotary Volume Controller -->
+<div class="smart-rotary-volume p-5 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col items-center gap-3 shadow-xl"
+     hx-state='{ "vol": 65, "muted": false }'>
+  <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Audio Master Level</span>
+  <div class="relative w-32 h-32 flex items-center justify-center">
+    <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-slate-950 via-slate-800 to-slate-900 border-4 border-indigo-500/40 shadow-inner flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-all"
+         hx-action="muted = !muted; $appz.haptic('medium')">
+      <span class="text-2xl font-black text-white" hx-text="muted ? 'MUTED' : vol + '%'">65%</span>
+      <span class="text-[9px] text-slate-400 font-bold">Bang & Olufsen</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <button class="px-3 py-1 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 active:scale-90 transition-all" hx-action="vol = Math.max(0, vol - 10); $appz.haptic('selection')">-10</button>
+    <button class="px-3 py-1 rounded-xl bg-indigo-600 text-xs font-bold text-white active:scale-90 transition-all" hx-action="vol = Math.min(100, vol + 10); $appz.haptic('selection')">+10</button>
+  </div>
+</div>

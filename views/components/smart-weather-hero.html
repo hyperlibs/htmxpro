@@ -1,0 +1,21 @@
+<!-- Smart Weather Hero Component -->
+<div class="smart-weather-hero p-5 rounded-3xl bg-gradient-to-br from-indigo-900/60 via-slate-900 to-slate-950 border border-indigo-700/40 shadow-xl flex flex-col justify-between"
+     hx-state='{ "temp": 21.4, "condition": "Partly Cloudy" }'>
+  <div class="flex items-start justify-between">
+    <div>
+      <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Atmospheric Telemetry</span>
+      <h2 class="text-xl font-black text-white mt-0.5">San Francisco</h2>
+      <p class="text-xs text-slate-400" hx-text="condition">Partly Cloudy</p>
+    </div>
+    <span class="text-3xl">⛅</span>
+  </div>
+  <div class="flex items-baseline gap-2 my-3">
+    <span class="text-5xl font-black text-white tracking-tighter" hx-text="temp">21.4</span>
+    <span class="text-lg font-bold text-slate-400">°C</span>
+  </div>
+  <div class="grid grid-cols-3 gap-2 pt-3 border-t border-slate-800/80 text-[10px] text-slate-300">
+    <div><span class="text-slate-500 block">Feels</span><span class="font-bold">20.8°C</span></div>
+    <div><span class="text-slate-500 block">Humidity</span><span class="font-bold">54%</span></div>
+    <div><span class="text-slate-500 block">Wind</span><span class="font-bold">14.2 km/h</span></div>
+  </div>
+</div>

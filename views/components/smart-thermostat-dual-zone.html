@@ -1,0 +1,27 @@
+<!-- Smart Dual-Zone Climate Thermostat -->
+<div class="smart-thermostat-dual-zone p-5 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col items-center gap-4 shadow-xl"
+     hx-state='{ "tempA": 21.5, "tempB": 23.0, "mode": "cool" }'>
+  <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Dual-Zone Climate Control</span>
+  <div class="grid grid-cols-2 gap-4 w-full">
+    <!-- Zone A -->
+    <div class="flex flex-col items-center p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[10px] font-extrabold text-slate-400">Zone A: Master Suite</span>
+      <div class="flex items-center gap-2 my-2">
+        <button class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold text-sm active:scale-90 transition-all" hx-action="tempA -= 0.5; $appz.haptic('selection')">-</button>
+        <span class="text-2xl font-black text-white" hx-text="tempA.toFixed(1)">21.5</span>
+        <button class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold text-sm active:scale-90 transition-all" hx-action="tempA += 0.5; $appz.haptic('selection')">+</button>
+      </div>
+      <span class="text-[9px] text-indigo-400 font-bold">● Active Cooling</span>
+    </div>
+    <!-- Zone B -->
+    <div class="flex flex-col items-center p-3 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[10px] font-extrabold text-slate-400">Zone B: Living Room</span>
+      <div class="flex items-center gap-2 my-2">
+        <button class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold text-sm active:scale-90 transition-all" hx-action="tempB -= 0.5; $appz.haptic('selection')">-</button>
+        <span class="text-2xl font-black text-white" hx-text="tempB.toFixed(1)">23.0</span>
+        <button class="w-8 h-8 rounded-full bg-slate-800 text-white font-bold text-sm active:scale-90 transition-all" hx-action="tempB += 0.5; $appz.haptic('selection')">+</button>
+      </div>
+      <span class="text-[9px] text-emerald-400 font-bold">● Eco Auto</span>
+    </div>
+  </div>
+</div>

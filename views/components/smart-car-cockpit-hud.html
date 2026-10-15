@@ -1,0 +1,37 @@
+<!-- Smart Car Infotainment Cockpit HUD -->
+<div class="smart-car-cockpit-hud p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl flex flex-col justify-between"
+     hx-state='{ "speed": 104, "gear": "D" }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-900">
+    <div class="flex items-center gap-2">
+      <span class="text-xs font-black text-indigo-400">TESLA-DRIVE</span>
+      <span class="text-[10px] font-bold text-slate-500">AUTONOMOUS L4</span>
+    </div>
+    <div class="flex items-center gap-3 text-xs font-black">
+      <span class="text-slate-500">P</span>
+      <span class="text-slate-500">R</span>
+      <span class="text-slate-500">N</span>
+      <span class="text-indigo-400 px-2 py-0.5 rounded-lg bg-indigo-500/20 border border-indigo-500/30">D</span>
+    </div>
+  </div>
+  
+  <div class="flex items-center justify-around py-6">
+    <div class="flex flex-col items-center">
+      <span class="text-6xl font-black text-white tracking-tight" hx-text="speed">104</span>
+      <span class="text-[11px] font-extrabold uppercase tracking-widest text-slate-400 mt-1">KM / H</span>
+    </div>
+    <div class="w-10 h-10 rounded-full border-4 border-rose-600 bg-white text-black flex items-center justify-center font-black text-xs shadow-md">
+      100
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-900 text-xs">
+    <div class="flex items-center gap-2">
+      <span class="text-emerald-400">🔋</span>
+      <span class="font-bold text-white">82% Battery</span>
+    </div>
+    <div class="flex items-center justify-end gap-1 font-bold text-indigo-400">
+      <span>428 km</span>
+      <span class="text-[10px] text-slate-500 uppercase">Est. Range</span>
+    </div>
+  </div>
+</div>

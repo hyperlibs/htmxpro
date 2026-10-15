@@ -1,0 +1,19 @@
+<!-- Swipeout Action List Item Component -->
+<app-swipeout id="alarm-item-1" class="relative overflow-hidden rounded-2xl bg-slate-900 border border-slate-800 block">
+  <div class="swipeout-actions-left absolute inset-y-0 left-0 flex items-center px-4 bg-emerald-600 text-white text-xs font-bold">
+    ✓ Ack
+  </div>
+  <div class="swipeout-content relative bg-slate-900 p-3 z-10 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span class="text-xl">⚠️</span>
+      <div>
+        <p class="text-xs font-bold text-white">Substation Alpha Temp: 58°C</p>
+        <p class="text-[10px] text-slate-400">Coolant cycle active</p>
+      </div>
+    </div>
+    <span class="text-[10px] font-extrabold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">Warning</span>
+  </div>
+  <div class="swipeout-actions-right absolute inset-y-0 right-0 flex items-center px-4 bg-rose-600 text-white text-xs font-bold">
+    ✕ Mute
+  </div>
+</app-swipeout>

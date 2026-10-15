@@ -1,0 +1,19 @@
+<!-- Status Bar with Clock, Network RSSI, Battery and Dynamic Island -->
+<app-statusbar class="h-8 bg-slate-950/90 backdrop-blur border-b border-slate-900/80 px-3 flex items-center justify-between shrink-0 z-50 text-[11px] font-semibold text-slate-300">
+  <div class="flex items-center gap-1.5">
+    <span class="status-time font-bold text-white">12:00</span>
+    <span class="text-[9px] text-slate-500 uppercase tracking-wider">5G</span>
+  </div>
+  <div class="dynamic-island h-6 px-3 bg-black rounded-full flex items-center gap-1.5 border border-slate-800 text-[10px] font-bold text-slate-300 transition-all cursor-pointer"
+       hx-action="$appz.haptic('selection')">
+    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+    <span>IoT Normal</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <span title="Wi-Fi Signal" class="text-xs text-indigo-400 font-mono">▅</span>
+    <div class="flex items-center gap-1">
+      <span class="text-[10px] font-bold">94%</span>
+      <span class="text-xs text-emerald-400">🔋</span>
+    </div>
+  </div>
+</app-statusbar>

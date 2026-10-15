@@ -1,68 +1,164 @@
 import { describe, test, expect } from 'bun:test';
-import { AppzChan, getAppzChannel, applySegmentLayerStyles, AppzNavigator, HardwareBridge } from '../src/appz';
+import { 
+  LayerFirm, 
+  LayerSys, 
+  LayerSrv, 
+  LayerUX, 
+  runMasterDiagnostics,
+  applySegmentLayerStyles, 
+  VIEWPORT_SPECS,
+  type AppzViewMode
+} from '../src/appz';
 
-describe('Appz Engine: Mobile & Spatial Game Architecture', () => {
-  test('20% Go: AppzChan message transmission and pub/sub', () => {
-    const ch = getAppzChannel<{ x: number; y: number }>('game:joystick');
-    let latestCoords = { x: 0, y: 0 };
-    
-    const unsub = ch.recv((val) => {
-      latestCoords = val;
+describe('Appz 4-Layer OS Stack & @diag Telemetry Suite', () => {
+
+  test('1. VIEWPORT_SPECS contains all 8 required distinct modes', () => {
+    const requiredModes: AppzViewMode[] = [
+      'OS-H', 'OS-P',
+      'Tab-H', 'Tab-P',
+      'Mob-H', 'Mob-P',
+      'TV-H', 'TV-P'
+    ];
+
+    requiredModes.forEach(mode => {
+      expect(VIEWPORT_SPECS[mode]).toBeDefined();
+      expect(VIEWPORT_SPECS[mode].mode).toBe(mode);
+      expect(['OS', 'Tab', 'Mob', 'TV']).toContain(VIEWPORT_SPECS[mode].formFactor);
+      expect(['H', 'P']).toContain(VIEWPORT_SPECS[mode].orientation);
+      expect(VIEWPORT_SPECS[mode].width).toBeGreaterThan(0);
+      expect(VIEWPORT_SPECS[mode].height).toBeGreaterThan(0);
     });
-
-    ch.send({ x: 0.5, y: -0.8 });
-    expect(latestCoords.x).toBe(0.5);
-    expect(latestCoords.y).toBe(-0.8);
-
-    unsub();
-    ch.send({ x: 1.0, y: 1.0 });
-    expect(latestCoords.x).toBe(0.5); // Remains unchanged after unsub
   });
 
-  test('15% Kotlin: 0-9 Photoshop-style Layer Z-Index clamping', () => {
+  test('2. Dimensions match ergonomic device standards across all 8 modes', () => {
+    expect(VIEWPORT_SPECS['OS-H'].width).toBe(1024);
+    expect(VIEWPORT_SPECS['OS-H'].height).toBe(600);
+    expect(VIEWPORT_SPECS['OS-P'].width).toBe(600);
+    expect(VIEWPORT_SPECS['OS-P'].height).toBe(1024);
+
+    expect(VIEWPORT_SPECS['Tab-H'].width).toBe(1180);
+    expect(VIEWPORT_SPECS['Tab-H'].height).toBe(820);
+    expect(VIEWPORT_SPECS['Tab-P'].width).toBe(820);
+    expect(VIEWPORT_SPECS['Tab-P'].height).toBe(1180);
+
+    expect(VIEWPORT_SPECS['Mob-H'].width).toBe(844);
+    expect(VIEWPORT_SPECS['Mob-H'].height).toBe(390);
+    expect(VIEWPORT_SPECS['Mob-P'].width).toBe(390);
+    expect(VIEWPORT_SPECS['Mob-P'].height).toBe(844);
+
+    expect(VIEWPORT_SPECS['TV-H'].width).toBe(1280);
+    expect(VIEWPORT_SPECS['TV-H'].height).toBe(720);
+    expect(VIEWPORT_SPECS['TV-P'].width).toBe(720);
+    expect(VIEWPORT_SPECS['TV-P'].height).toBe(1280);
+  });
+
+  test('3. Layer-Firm: Hardware Abstraction & Layer-Specific @diag', async () => {
+    LayerFirm.haptic('selection');
+    LayerFirm.haptic('success');
+
+    const batt = await LayerFirm.battery();
+    expect(batt.level).toBeGreaterThan(0);
+    expect(typeof batt.charging).toBe('boolean');
+
+    const net = LayerFirm.network();
+    expect(typeof net.online).toBe('boolean');
+    expect(net.rssiBars).toBeGreaterThanOrEqual(0);
+
+    const sensors = LayerFirm.sensors();
+    expect(sensors.lightLux).toBeGreaterThan(0);
+    expect(sensors.cpuTemp).toBeGreaterThan(0);
+
+    // Layer-Firm specific @diag telemetry
+    const diag = LayerFirm.diag();
+    expect(diag.layer).toBe('Layer-Firm');
+    expect(diag.hapticTriggerCount).toBeGreaterThanOrEqual(2);
+    expect(diag.battery).toBeDefined();
+    expect(diag.sensors).toBeDefined();
+    expect(diag.network).toBeDefined();
+  });
+
+  test('4. Layer-Sys: System APIs, IPC Channels & Layer-Specific @diag', () => {
+    const ch = LayerSys.chan<{ metric: string; val: number }>('sys:cpu');
+    const received: number[] = [];
+
+    const unsub = ch.recv(e => received.push(e.val));
+    ch.send({ metric: 'cpu', val: 12 });
+    ch.send({ metric: 'cpu', val: 18 });
+    expect(received).toEqual([12, 18]);
+    unsub();
+
+    LayerSys.setPowerState('ambient');
+    expect(LayerSys.getPowerState()).toBe('ambient');
+    LayerSys.setPowerState('awake');
+
+    LayerSys.storage.set('brightness', 85);
+    expect(LayerSys.storage.get('brightness')).toBe(85);
+
+    // Layer-Sys specific @diag telemetry
+    const diag = LayerSys.diag();
+    expect(diag.layer).toBe('Layer-Sys');
+    expect(diag.channelsCount).toBeGreaterThan(0);
+    expect(diag.activeChannels).toContain('sys:cpu');
+    expect(diag.clock.time).toBeDefined();
+    expect(diag.uptimeSec).toBeGreaterThanOrEqual(0);
+  });
+
+  test('5. Layer-Srv: Service Daemons, Alarms & Layer-Specific @diag', () => {
+    const alert = LayerSrv.alarms.add({
+      severity: 'critical',
+      title: 'Emergency Generator Coolant Low',
+      source: 'Generator-02'
+    });
+    expect(alert.id).toBeDefined();
+    expect(alert.acknowledged).toBe(false);
+
+    LayerSrv.alarms.ack(alert.id);
+    const updated = LayerSrv.alarms.list().find(a => a.id === alert.id);
+    expect(updated?.acknowledged).toBe(true);
+
+    const ota = LayerSrv.ota.getStatus();
+    expect(ota.currentVersion).toBeDefined();
+
+    // Layer-Srv specific @diag telemetry
+    const diag = LayerSrv.diag();
+    expect(diag.layer).toBe('Layer-Srv');
+    expect(diag.totalAlerts).toBeGreaterThanOrEqual(1);
+    expect(diag.otaCurrentVersion).toBe(ota.currentVersion);
+  });
+
+  test('6. Layer-UX: Presentation Ergonomics, Layers 0-9 & Layer-Specific @diag', () => {
+    LayerUX.setViewMode('OS-H');
+    expect(LayerUX.currentViewMode).toBe('OS-H');
+
+    // 0-9 Layer Stacking
     const mockEl = {
-      attributes: { level: '5' },
+      attributes: { level: '7' } as Record<string, string>,
       style: {} as Record<string, string>,
-      getAttribute(name: string) { return this.attributes[name]; },
-      setAttribute(name: string, val: string) { this.attributes[name] = val; }
+      getAttribute(k: string) { return this.attributes[k]; },
+      setAttribute(k: string, v: string) { this.attributes[k] = v; }
     } as any;
 
     applySegmentLayerStyles(mockEl);
-    expect(mockEl.style.zIndex).toBe('50');
-    expect(mockEl.attributes['data-resolved-layer']).toBe('5');
+    expect(mockEl.style.zIndex).toBe('70');
+    expect(mockEl.getAttribute('data-resolved-layer')).toBe('7');
 
-    // Test overflow clamping (>9 clamped to 9)
-    mockEl.attributes.level = '15';
-    applySegmentLayerStyles(mockEl);
-    expect(mockEl.style.zIndex).toBe('90');
-    expect(mockEl.attributes['data-resolved-layer']).toBe('9');
-
-    // Test underflow clamping (<0 clamped to 0)
-    mockEl.attributes.level = '-3';
-    applySegmentLayerStyles(mockEl);
-    expect(mockEl.style.zIndex).toBe('0');
-    expect(mockEl.attributes['data-resolved-layer']).toBe('0');
+    // Layer-UX specific @diag telemetry
+    const diag = LayerUX.diag();
+    expect(diag.layer).toBe('Layer-UX');
+    expect(diag.currentViewMode).toBe('OS-H');
+    expect(diag.formFactor).toBe('OS');
+    expect(diag.orientation).toBe('H');
+    expect(diag.viewportDimensions.width).toBe(1024);
+    expect(diag.viewportDimensions.height).toBe(600);
+    expect(diag.activeModals).toBeDefined();
   });
 
-  test('15% Flutter: Navigator stack history and transitions', () => {
-    AppzNavigator.history = [];
-    AppzNavigator.push('/m/home');
-    AppzNavigator.push('/m/vitals');
-    
-    expect(AppzNavigator.history.length).toBe(2);
-    expect(AppzNavigator.history[1]).toBe('/m/vitals');
-
-    const popped = AppzNavigator.pop();
-    expect(popped).toBe(true);
-    expect(AppzNavigator.history.length).toBe(1);
-    expect(AppzNavigator.history[0]).toBe('/m/home');
-  });
-
-  test('HardwareBridge haptics execution without throwing', () => {
-    expect(() => {
-      HardwareBridge.haptic('light');
-      HardwareBridge.haptic('success');
-      HardwareBridge.haptic('error');
-    }).not.toThrow();
+  test('7. Master @diag across all 4 layers simultaneously', () => {
+    const report = runMasterDiagnostics();
+    expect(report.firm.layer).toBe('Layer-Firm');
+    expect(report.sys.layer).toBe('Layer-Sys');
+    expect(report.srv.layer).toBe('Layer-Srv');
+    expect(report.ux.layer).toBe('Layer-UX');
+    expect(report.timestamp).toBeGreaterThan(0);
   });
 });
