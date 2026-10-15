@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Pcb Semiconductor — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Pcb Semiconductor</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Pcb Semiconductor</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: ELECTRONICS, MULTI-LAYER PCB & SEMICONDUCTOR FAB
+     12-Layer High-Speed EDA Gerber Layout, BGA Escape Routing & Silicon Wafer Map
+     ========================================================================= -->
+<div class="block-pcb-semiconductor rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "activeLayer": "l1", "zDiff": 90.2, "skewPs": 0.28, "dieYield": 94.8, "drcViolations": 0, "showWafer": false }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-teal-600/20 border border-teal-500/40 flex items-center justify-center text-teal-400 font-black text-sm">
+        💻
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-teal-400">PCB EDA & Semiconductor Fab</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-teal-500/10 text-teal-400 border border-teal-500/20">IPC CLASS 3</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>BGA-1156 SoC Board (Rev D4)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">12-Layer Megtron 6 (3nm FinFET Co-Design)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Technical EDA Parameters -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">DRC: <span class="text-emerald-400 font-mono font-black" hx-text="drcViolations + ' Violations'">0 Violations</span></span>
+      <span class="text-slate-600">•</span>
+      <span class="text-teal-400 font-mono font-black">Min Trace: 3.5 mil</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & LAYER STACKUP TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- PCB Stackup Layer Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Layer Stack</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30": activeLayer === "l1", "bg-slate-900 text-slate-400": activeLayer !== "l1" }'
+              hx-action="activeLayer = 'l1'; showWafer = false; $appz.haptic('selection')">
+        L1 Top Copper
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30": activeLayer === "l2", "bg-slate-900 text-slate-400": activeLayer !== "l2" }'
+              hx-action="activeLayer = 'l2'; showWafer = false; $appz.haptic('selection')">
+        L2 GND Plane
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30": activeLayer === "l3", "bg-slate-900 text-slate-400": activeLayer !== "l3" }'
+              hx-action="activeLayer = 'l3'; showWafer = false; $appz.haptic('selection')">
+        L3 PCIe Gen 5 Stripline
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30": activeLayer === "aoi", "bg-slate-900 text-slate-400": activeLayer !== "aoi" }'
+              hx-action="activeLayer = 'aoi'; showWafer = false; $appz.haptic('selection')">
+        AOI Solder Fillet
+      </button>
+    </div>
+
+    <!-- Silicon 300mm Wafer Map Mode Toggle -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": showWafer, "bg-slate-900 text-slate-400": !showWafer }'
+              hx-action="showWafer = !showWafer; $appz.haptic('medium')">
+        <span hx-text="showWafer ? '✓ 300mm Silicon Wafer Map' : 'Wafer Die Map'">Wafer Die Map</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: PCB GERBER VIEWPORT & IMPEDANCE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR GERBER/EDA VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-[#061214] p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-teal-400/90 z-10 pointer-events-none">
+        <span>PCB L1 TOP COPPER • 0.5 OZ ED</span>
+        <span>PCIE GEN 5 (32 GT/s) • Z_DIFF: 90Ω TARGET</span>
+      </div>
+
+      <!-- Vector PCB Trace & BGA Escape Simulation via SVG -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <!-- SVG PCB Gerber Layout Canvas -->
+        <svg class="w-full h-full" viewBox="0 0 500 350" hx-show="!showWafer">
+          <defs>
+            <pattern id="pcbGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="0.8" fill="#134e4a" />
+            </pattern>
+          </defs>
+          <rect width="500" height="350" fill="url(#pcbGrid)" />
+
+          <!-- BGA Array Footprint (Center 10x10 Ball Grid Array) -->
+          <g id="bga-pads" fill="#0d9488" stroke="#14b8a6" stroke-width="0.5">
+            <!-- 6x6 BGA Grid representation -->
+            <circle cx="210" cy="130" r="4" /> <circle cx="225" cy="130" r="4" /> <circle cx="240" cy="130" r="4" /> <circle cx="255" cy="130" r="4" /> <circle cx="270" cy="130" r="4" />
+            <circle cx="210" cy="145" r="4" /> <circle cx="225" cy="145" r="4" /> <circle cx="240" cy="145" r="4" /> <circle cx="255" cy="145" r="4" /> <circle cx="270" cy="145" r="4" />
+            <circle cx="210" cy="160" r="4" /> <circle cx="225" cy="160" r="4" /> <circle cx="240" cy="160" r="4" /> <circle cx="255" cy="160" r="4" /> <circle cx="270" cy="160" r="4" />
+            <circle cx="210" cy="175" r="4" /> <circle cx="225" cy="175" r="4" /> <circle cx="240" cy="175" r="4" /> <circle cx="255" cy="175" r="4" /> <circle cx="270" cy="175" r="4" />
+            <circle cx="210" cy="190" r="4" /> <circle cx="225" cy="190" r="4" /> <circle cx="240" cy="190" r="4" /> <circle cx="255" cy="190" r="4" /> <circle cx="270" cy="190" r="4" />
+          </g>
+          <!-- BGA Silkscreen Boundary -->
+          <rect x="195" y="115" width="90" height="90" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="8 4" />
+          <text x="200" y="110" fill="#ffffff" font-size="9" font-family="monospace">U1 SOC BGA-1156</text>
+
+          <!-- High-Speed Differential Pairs with Accordion/Serpentine Delay Tuning -->
+          <!-- Diff Pair 1 Positive -->
+          <path d="M 270,160 L 320,160 L 330,150 L 340,170 L 350,150 L 360,170 L 370,160 L 460,160"
+                fill="none" stroke="#2dd4bf" stroke-width="2.5" />
+          <!-- Diff Pair 1 Negative (Matched length with exact serpentine spacing) -->
+          <path d="M 270,166 L 318,166 L 328,156 L 338,176 L 348,156 L 358,176 L 368,166 L 460,166"
+                fill="none" stroke="#5eead4" stroke-width="2.5" />
+          <text x="380" y="152" fill="#2dd4bf" font-size="8" font-family="monospace">PCIe_TX0_P/N (90.2Ω)</text>
+
+          <!-- Dog-Bone Escape Vias with Annular Rings -->
+          <g id="dogbone-vias" fill="#14b8a6" stroke="#042f2e" stroke-width="1">
+            <line x1="210" y1="130" x2="190" y2="120" stroke="#14b8a6" stroke-width="1.5" />
+            <circle cx="190" cy="120" r="3" />
+            <line x1="210" y1="145" x2="185" y2="140" stroke="#14b8a6" stroke-width="1.5" />
+            <circle cx="185" cy="140" r="3" />
+            <line x1="210" y1="160" x2="180" y2="160" stroke="#14b8a6" stroke-width="1.5" />
+            <circle cx="180" cy="160" r="3" />
+          </g>
+
+          <!-- SMT 0201 Decoupling Capacitor Array with AOI Inspection Box -->
+          <rect x="180" y="240" width="12" height="6" fill="#f59e0b" stroke="#ffffff" stroke-width="1" />
+          <rect x="200" y="240" width="12" height="6" fill="#f59e0b" stroke="#ffffff" stroke-width="1" />
+          <rect x="220" y="240" width="12" height="6" fill="#f59e0b" stroke="#ffffff" stroke-width="1" />
+          <!-- AOI Passed Bounding Box -->
+          <rect x="175" y="235" width="62" height="16" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 1" />
+          <text x="175" y="260" fill="#10b981" font-size="8" font-family="monospace">AOI: SOLDER OK</text>
+        </svg>
+
+        <!-- Silicon 300mm Wafer Die Map View via SVG (when showWafer = true) -->
+        <svg class="w-full h-full" viewBox="0 0 500 350" hx-show="showWafer">
+          <circle cx="250" cy="175" r="140" fill="#0f172a" stroke="#818cf8" stroke-width="3" />
+          <!-- Notch at bottom -->
+          <polygon points="250,315 245,310 255,310" fill="#818cf8" />
+          <!-- Silicon Die Grid (Good Dies in Teal, Defect Dies in Rose) -->
+          <g id="wafer-dies">
+            <!-- Row of Good Dies -->
+            <rect x="190" y="110" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="210" y="110" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="230" y="110" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="250" y="110" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="270" y="110" width="18" height="18" fill="#f43f5e" stroke="#042f2e" /> <!-- Defect Die -->
+            <rect x="290" y="110" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+
+            <rect x="170" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="190" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="210" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="230" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="250" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="270" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="290" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="310" y="130" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+
+            <rect x="170" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="190" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="210" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="230" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="250" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="270" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="290" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+            <rect x="310" y="150" width="18" height="18" fill="#0d9488" stroke="#042f2e" />
+          </g>
+          <text x="180" y="85" fill="#818cf8" font-size="11" font-family="monospace" font-weight="900">300mm Silicon Wafer (3nm FinFET)</text>
+          <text x="180" y="100" fill="#2dd4bf" font-size="9" font-family="monospace">824 Good Dies • 45 Defect Dies (94.8% Yield)</text>
+        </svg>
+
+        <!-- Viewport HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Impedance: <span class="font-bold text-teal-400 font-mono" hx-text="zDiff + ' Ω'">90.2 Ω</span> • Skew: <span class="text-white font-bold font-mono" hx-text="skewPs + ' ps'">0.28 ps</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE IMPEDANCE & YIELD INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-teal-400">High-Speed EDA Telemetry</span>
+          <span class="text-[10px] font-bold text-emerald-400">IPC-2141A</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Differential Impedance Metric -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">PCIe Gen 5 Differential Z_diff</span>
+            <div class="flex items-baseline justify-between">
+              <span class="text-3xl font-black text-white font-mono" hx-text="zDiff + ' Ω'">90.2 Ω</span>
+              <span class="text-xs font-bold text-emerald-400">±2% TOLERANCE</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Trace Width: 4.2 mil • Spacing: 5.8 mil • Dielectric: Megtron 6</p>
+          </div>
+
+          <!-- Skew & Length Matching -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">High-Speed Skew Matching</span>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Intra-Pair Skew:</span>
+              <span class="text-teal-400 font-mono" hx-text="skewPs + ' ps (0.04mm)'">0.28 ps (0.04mm)</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">PCIe Gen 5 Limit:</span>
+              <span class="text-slate-400 font-mono">&lt; 1.00 ps Skew</span>
+            </div>
+          </div>
+
+          <!-- Silicon Wafer Fab Yield -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Wafer Fab Yield:</span>
+              <span class="font-bold text-emerald-400 font-mono" hx-text="dieYield + '%'">94.8% Good Dies</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">SMT Defect Rate:</span>
+              <span class="font-bold text-white font-mono">0.02 DPMO (IPC Class 3)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-teal-600/20"
+                hx-action="$appz.haptic('success')">
+          Generate ODB++ / IPC-2581 Fab Package
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-teal-400">Standard: IPC-A-610 Class 3</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Cleanroom: ISO Class 1</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        EDA Engine: 60.0 FPS
+      </span>
+      <span class="text-slate-500">DRC Rules: 142 Checked</span>
+      <span class="text-teal-400 font-mono">@diag: EDA_DRC_PASS</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: ELECTRONICS, MULTI-LAYER PCB &amp; SEMICONDUCTOR FAB
+     12-Layer High-Speed EDA Gerber Layout, BGA Escape Routing &amp; Silicon Wafer Map
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-pcb-semiconductor rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;activeLayer&quot;: &quot;l1&quot;, &quot;zDiff&quot;: 90.2, &quot;skewPs&quot;: 0.28, &quot;dieYield&quot;: 94.8, &quot;drcViolations&quot;: 0, &quot;showWafer&quot;: false }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-teal-600/20 border border-teal-500/40 flex items-center justify-center text-teal-400 font-black text-sm&quot;&gt;
+        💻
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-teal-400&quot;&gt;PCB EDA &amp; Semiconductor Fab&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-teal-500/10 text-teal-400 border border-teal-500/20&quot;&gt;IPC CLASS 3&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span&gt;BGA-1156 SoC Board (Rev D4)&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;12-Layer Megtron 6 (3nm FinFET Co-Design)&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Technical EDA Parameters --&gt;
+    &lt;div class=&quot;flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs&quot;&gt;
+      &lt;span class=&quot;text-slate-400 font-bold&quot;&gt;DRC: &lt;span class=&quot;text-emerald-400 font-mono font-black&quot; hx-text=&quot;drcViolations + ' Violations'&quot;&gt;0 Violations&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-teal-400 font-mono font-black&quot;&gt;Min Trace: 3.5 mil&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; LAYER STACKUP TOOLBAR --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- PCB Stackup Layer Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Layer Stack&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30&quot;: activeLayer === &quot;l1&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;l1&quot; }'
+              hx-action=&quot;activeLayer = 'l1'; showWafer = false; $appz.haptic('selection')&quot;&gt;
+        L1 Top Copper
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30&quot;: activeLayer === &quot;l2&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;l2&quot; }'
+              hx-action=&quot;activeLayer = 'l2'; showWafer = false; $appz.haptic('selection')&quot;&gt;
+        L2 GND Plane
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30&quot;: activeLayer === &quot;l3&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;l3&quot; }'
+              hx-action=&quot;activeLayer = 'l3'; showWafer = false; $appz.haptic('selection')&quot;&gt;
+        L3 PCIe Gen 5 Stripline
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-teal-600 text-slate-950 font-black shadow-md shadow-teal-600/30&quot;: activeLayer === &quot;aoi&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;aoi&quot; }'
+              hx-action=&quot;activeLayer = 'aoi'; showWafer = false; $appz.haptic('selection')&quot;&gt;
+        AOI Solder Fillet
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Silicon 300mm Wafer Map Mode Toggle --&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white shadow-md shadow-purple-600/30&quot;: showWafer, &quot;bg-slate-900 text-slate-400&quot;: !showWafer }'
+              hx-action=&quot;showWafer = !showWafer; $appz.haptic('medium')&quot;&gt;
+        &lt;span hx-text=&quot;showWafer ? '✓ 300mm Silicon Wafer Map' : 'Wafer Die Map'&quot;&gt;Wafer Die Map&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: PCB GERBER VIEWPORT &amp; IMPEDANCE INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: VECTOR GERBER/EDA VIEWPORT (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-[#061214] p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;!-- Top HUD Data Tags --&gt;
+      &lt;div class=&quot;flex items-center justify-between text-xs font-mono text-teal-400/90 z-10 pointer-events-none&quot;&gt;
+        &lt;span&gt;PCB L1 TOP COPPER • 0.5 OZ ED&lt;/span&gt;
+        &lt;span&gt;PCIE GEN 5 (32 GT/s) • Z_DIFF: 90Ω TARGET&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Vector PCB Trace &amp; BGA Escape Simulation via SVG --&gt;
+      &lt;div class=&quot;relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center&quot;&gt;
+        &lt;!-- SVG PCB Gerber Layout Canvas --&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 500 350&quot; hx-show=&quot;!showWafer&quot;&gt;
+          &lt;defs&gt;
+            &lt;pattern id=&quot;pcbGrid&quot; width=&quot;20&quot; height=&quot;20&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+              &lt;circle cx=&quot;10&quot; cy=&quot;10&quot; r=&quot;0.8&quot; fill=&quot;#134e4a&quot; /&gt;
+            &lt;/pattern&gt;
+          &lt;/defs&gt;
+          &lt;rect width=&quot;500&quot; height=&quot;350&quot; fill=&quot;url(#pcbGrid)&quot; /&gt;
+
+          &lt;!-- BGA Array Footprint (Center 10x10 Ball Grid Array) --&gt;
+          &lt;g id=&quot;bga-pads&quot; fill=&quot;#0d9488&quot; stroke=&quot;#14b8a6&quot; stroke-width=&quot;0.5&quot;&gt;
+            &lt;!-- 6x6 BGA Grid representation --&gt;
+            &lt;circle cx=&quot;210&quot; cy=&quot;130&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;225&quot; cy=&quot;130&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;240&quot; cy=&quot;130&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;255&quot; cy=&quot;130&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;270&quot; cy=&quot;130&quot; r=&quot;4&quot; /&gt;
+            &lt;circle cx=&quot;210&quot; cy=&quot;145&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;225&quot; cy=&quot;145&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;240&quot; cy=&quot;145&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;255&quot; cy=&quot;145&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;270&quot; cy=&quot;145&quot; r=&quot;4&quot; /&gt;
+            &lt;circle cx=&quot;210&quot; cy=&quot;160&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;225&quot; cy=&quot;160&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;240&quot; cy=&quot;160&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;255&quot; cy=&quot;160&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;270&quot; cy=&quot;160&quot; r=&quot;4&quot; /&gt;
+            &lt;circle cx=&quot;210&quot; cy=&quot;175&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;225&quot; cy=&quot;175&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;240&quot; cy=&quot;175&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;255&quot; cy=&quot;175&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;270&quot; cy=&quot;175&quot; r=&quot;4&quot; /&gt;
+            &lt;circle cx=&quot;210&quot; cy=&quot;190&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;225&quot; cy=&quot;190&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;240&quot; cy=&quot;190&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;255&quot; cy=&quot;190&quot; r=&quot;4&quot; /&gt; &lt;circle cx=&quot;270&quot; cy=&quot;190&quot; r=&quot;4&quot; /&gt;
+          &lt;/g&gt;
+          &lt;!-- BGA Silkscreen Boundary --&gt;
+          &lt;rect x=&quot;195&quot; y=&quot;115&quot; width=&quot;90&quot; height=&quot;90&quot; fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1.2&quot; stroke-dasharray=&quot;8 4&quot; /&gt;
+          &lt;text x=&quot;200&quot; y=&quot;110&quot; fill=&quot;#ffffff&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot;&gt;U1 SOC BGA-1156&lt;/text&gt;
+
+          &lt;!-- High-Speed Differential Pairs with Accordion/Serpentine Delay Tuning --&gt;
+          &lt;!-- Diff Pair 1 Positive --&gt;
+          &lt;path d=&quot;M 270,160 L 320,160 L 330,150 L 340,170 L 350,150 L 360,170 L 370,160 L 460,160&quot;
+                fill=&quot;none&quot; stroke=&quot;#2dd4bf&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;!-- Diff Pair 1 Negative (Matched length with exact serpentine spacing) --&gt;
+          &lt;path d=&quot;M 270,166 L 318,166 L 328,156 L 338,176 L 348,156 L 358,176 L 368,166 L 460,166&quot;
+                fill=&quot;none&quot; stroke=&quot;#5eead4&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;text x=&quot;380&quot; y=&quot;152&quot; fill=&quot;#2dd4bf&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;PCIe_TX0_P/N (90.2Ω)&lt;/text&gt;
+
+          &lt;!-- Dog-Bone Escape Vias with Annular Rings --&gt;
+          &lt;g id=&quot;dogbone-vias&quot; fill=&quot;#14b8a6&quot; stroke=&quot;#042f2e&quot; stroke-width=&quot;1&quot;&gt;
+            &lt;line x1=&quot;210&quot; y1=&quot;130&quot; x2=&quot;190&quot; y2=&quot;120&quot; stroke=&quot;#14b8a6&quot; stroke-width=&quot;1.5&quot; /&gt;
+            &lt;circle cx=&quot;190&quot; cy=&quot;120&quot; r=&quot;3&quot; /&gt;
+            &lt;line x1=&quot;210&quot; y1=&quot;145&quot; x2=&quot;185&quot; y2=&quot;140&quot; stroke=&quot;#14b8a6&quot; stroke-width=&quot;1.5&quot; /&gt;
+            &lt;circle cx=&quot;185&quot; cy=&quot;140&quot; r=&quot;3&quot; /&gt;
+            &lt;line x1=&quot;210&quot; y1=&quot;160&quot; x2=&quot;180&quot; y2=&quot;160&quot; stroke=&quot;#14b8a6&quot; stroke-width=&quot;1.5&quot; /&gt;
+            &lt;circle cx=&quot;180&quot; cy=&quot;160&quot; r=&quot;3&quot; /&gt;
+          &lt;/g&gt;
+
+          &lt;!-- SMT 0201 Decoupling Capacitor Array with AOI Inspection Box --&gt;
+          &lt;rect x=&quot;180&quot; y=&quot;240&quot; width=&quot;12&quot; height=&quot;6&quot; fill=&quot;#f59e0b&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;rect x=&quot;200&quot; y=&quot;240&quot; width=&quot;12&quot; height=&quot;6&quot; fill=&quot;#f59e0b&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;rect x=&quot;220&quot; y=&quot;240&quot; width=&quot;12&quot; height=&quot;6&quot; fill=&quot;#f59e0b&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;!-- AOI Passed Bounding Box --&gt;
+          &lt;rect x=&quot;175&quot; y=&quot;235&quot; width=&quot;62&quot; height=&quot;16&quot; fill=&quot;none&quot; stroke=&quot;#10b981&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;2 1&quot; /&gt;
+          &lt;text x=&quot;175&quot; y=&quot;260&quot; fill=&quot;#10b981&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;AOI: SOLDER OK&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Silicon 300mm Wafer Die Map View via SVG (when showWafer = true) --&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 500 350&quot; hx-show=&quot;showWafer&quot;&gt;
+          &lt;circle cx=&quot;250&quot; cy=&quot;175&quot; r=&quot;140&quot; fill=&quot;#0f172a&quot; stroke=&quot;#818cf8&quot; stroke-width=&quot;3&quot; /&gt;
+          &lt;!-- Notch at bottom --&gt;
+          &lt;polygon points=&quot;250,315 245,310 255,310&quot; fill=&quot;#818cf8&quot; /&gt;
+          &lt;!-- Silicon Die Grid (Good Dies in Teal, Defect Dies in Rose) --&gt;
+          &lt;g id=&quot;wafer-dies&quot;&gt;
+            &lt;!-- Row of Good Dies --&gt;
+            &lt;rect x=&quot;190&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;210&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;230&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;250&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;270&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#f43f5e&quot; stroke=&quot;#042f2e&quot; /&gt; &lt;!-- Defect Die --&gt;
+            &lt;rect x=&quot;290&quot; y=&quot;110&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+
+            &lt;rect x=&quot;170&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;190&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;210&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;230&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;250&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;270&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;290&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;310&quot; y=&quot;130&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+
+            &lt;rect x=&quot;170&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;190&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;210&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;230&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;250&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;270&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;290&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+            &lt;rect x=&quot;310&quot; y=&quot;150&quot; width=&quot;18&quot; height=&quot;18&quot; fill=&quot;#0d9488&quot; stroke=&quot;#042f2e&quot; /&gt;
+          &lt;/g&gt;
+          &lt;text x=&quot;180&quot; y=&quot;85&quot; fill=&quot;#818cf8&quot; font-size=&quot;11&quot; font-family=&quot;monospace&quot; font-weight=&quot;900&quot;&gt;300mm Silicon Wafer (3nm FinFET)&lt;/text&gt;
+          &lt;text x=&quot;180&quot; y=&quot;100&quot; fill=&quot;#2dd4bf&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot;&gt;824 Good Dies • 45 Defect Dies (94.8% Yield)&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Viewport HUD Badge --&gt;
+        &lt;div class=&quot;absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400&quot;&gt;
+          Impedance: &lt;span class=&quot;font-bold text-teal-400 font-mono&quot; hx-text=&quot;zDiff + ' Ω'&quot;&gt;90.2 Ω&lt;/span&gt; • Skew: &lt;span class=&quot;text-white font-bold font-mono&quot; hx-text=&quot;skewPs + ' ps'&quot;&gt;0.28 ps&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE IMPEDANCE &amp; YIELD INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-teal-400&quot;&gt;High-Speed EDA Telemetry&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-emerald-400&quot;&gt;IPC-2141A&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- Differential Impedance Metric --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block mb-1&quot;&gt;PCIe Gen 5 Differential Z_diff&lt;/span&gt;
+            &lt;div class=&quot;flex items-baseline justify-between&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white font-mono&quot; hx-text=&quot;zDiff + ' Ω'&quot;&gt;90.2 Ω&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-bold text-emerald-400&quot;&gt;±2% TOLERANCE&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400 mt-1&quot;&gt;Trace Width: 4.2 mil • Spacing: 5.8 mil • Dielectric: Megtron 6&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Skew &amp; Length Matching --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;High-Speed Skew Matching&lt;/span&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Intra-Pair Skew:&lt;/span&gt;
+              &lt;span class=&quot;text-teal-400 font-mono&quot; hx-text=&quot;skewPs + ' ps (0.04mm)'&quot;&gt;0.28 ps (0.04mm)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;PCIe Gen 5 Limit:&lt;/span&gt;
+              &lt;span class=&quot;text-slate-400 font-mono&quot;&gt;&amp;lt; 1.00 ps Skew&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Silicon Wafer Fab Yield --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1&quot;&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Wafer Fab Yield:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-emerald-400 font-mono&quot; hx-text=&quot;dieYield + '%'&quot;&gt;94.8% Good Dies&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;SMT Defect Rate:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;0.02 DPMO (IPC Class 3)&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-teal-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Generate ODB++ / IPC-2581 Fab Package
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-teal-400&quot;&gt;Standard: IPC-A-610 Class 3&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Cleanroom: ISO Class 1&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        EDA Engine: 60.0 FPS
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;DRC Rules: 142 Checked&lt;/span&gt;
+      &lt;span class=&quot;text-teal-400 font-mono&quot;&gt;@diag: EDA_DRC_PASS&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

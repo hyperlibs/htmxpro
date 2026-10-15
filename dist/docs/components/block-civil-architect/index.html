@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Civil Architect — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Civil Architect</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Civil Architect</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: CIVIL, ARCHITECTURAL & LANDSCAPING STUDIO
+     BIM Structural CAD, Space Planning, Photometric Lux & Topography Contours
+     ========================================================================= -->
+<div class="block-civil-architect rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "activeLayer": "structural", "scale": "1:100", "showContours": true, "showLux": false, "totalArea": 842.5, "maxDeflection": 4.2 }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-orange-600/20 border border-orange-500/40 flex items-center justify-center text-orange-400 font-black text-sm">
+        📐
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-orange-400">Civil & Architectural BIM Studio</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-orange-500/10 text-orange-400 border border-orange-500/20">ISO 19650</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Project: Parkview Tower (Level 04)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Reinforced Post-Tensioned Concrete (C35/45)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Drawing Scale & Grid Datum -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">Scale: <span class="text-white font-mono" hx-text="scale">1:100</span></span>
+      <span class="text-slate-600">•</span>
+      <span class="text-orange-400 font-mono font-bold">Axis A1–F8 (UTM-32N)</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & BIM LAYER RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- BIM Layer Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">BIM Layers</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeLayer === "structural", "bg-slate-900 text-slate-400": activeLayer !== "structural" }'
+              hx-action="activeLayer = 'structural'; $appz.haptic('selection')">
+        Structural Columns & Slabs
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeLayer === "interior", "bg-slate-900 text-slate-400": activeLayer !== "interior" }'
+              hx-action="activeLayer = 'interior'; $appz.haptic('selection')">
+        Interior Partitions
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeLayer === "landscape", "bg-slate-900 text-slate-400": activeLayer !== "landscape" }'
+              hx-action="activeLayer = 'landscape'; $appz.haptic('selection')">
+        Landscape Contours
+      </button>
+    </div>
+
+    <!-- Toggles -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": showContours, "bg-slate-900 text-slate-400": !showContours }'
+              hx-action="showContours = !showContours; $appz.haptic('selection')">
+        <span hx-text="showContours ? '✓ Topo Contours (1m)' : '✗ Topo Contours'">✓ Topo Contours (1m)</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-white": showLux, "bg-slate-900 text-slate-400": !showLux }'
+              hx-action="showLux = !showLux; $appz.haptic('selection')">
+        <span hx-text="showLux ? '✓ Lux Heatmap' : '✗ Lux Heatmap'">✗ Lux Heatmap</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: CAD VIEWPORT & STRUCTURAL INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR CAD/BIM VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top Floorplan HUD -->
+      <div class="flex items-center justify-between text-xs font-mono text-orange-400/90 z-10 pointer-events-none">
+        <span>LEVEL 04 PLAN • RL +14.200m</span>
+        <span>LOAD: 3.0 kN/m² LIVE • 4.5 kN/m² DEAD</span>
+      </div>
+
+      <!-- Vector CAD Architectural Plan via SVG -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 500 350">
+          <defs>
+            <!-- CAD Grid Pattern (1m x 1m equivalent) -->
+            <pattern id="cadGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+              <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#1e293b" stroke-width="0.8" />
+            </pattern>
+          </defs>
+          <rect width="500" height="350" fill="url(#cadGrid)" />
+
+          <!-- Topographic Landscape Contours (1m intervals) -->
+          <g id="contours" stroke="#059669" stroke-width="1" fill="none" opacity="0.6">
+            <path d="M 20,330 Q 140,280 260,330 T 480,310" stroke-dasharray="3 2" />
+            <path d="M 20,300 Q 150,250 280,300 T 480,280" />
+            <text x="30" y="295" fill="#10b981" font-size="8" font-family="monospace">+12.0m</text>
+            <path d="M 20,270 Q 160,220 300,270 T 480,250" />
+            <text x="30" y="265" fill="#10b981" font-size="8" font-family="monospace">+13.0m</text>
+          </g>
+
+          <!-- Outer Building Envelope (Curtain Wall Glazing) -->
+          <rect x="70" y="40" width="360" height="200" rx="8" fill="rgba(30, 41, 59, 0.4)" stroke="#94a3b8" stroke-width="2.5" />
+
+          <!-- Reinforced Concrete Columns Grid (Axis A-D, 1-3) -->
+          <!-- Col A1 -->
+          <rect x="80" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <!-- Col A2 -->
+          <rect x="80" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <!-- Col A3 -->
+          <rect x="80" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+
+          <!-- Interior Partitions (Drywall / Glass Enclosures) -->
+          <line x1="80" y1="140" x2="242" y2="140" stroke="#cbd5e1" stroke-width="2" />
+          <line x1="250" y1="50" x2="250" y2="140" stroke="#cbd5e1" stroke-width="2" />
+          <line x1="330" y1="140" x2="330" y2="220" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 2" />
+
+          <!-- Dimension Lines & Annotations -->
+          <line x1="88" y1="28" x2="250" y2="28" stroke="#f97316" stroke-width="1" />
+          <text x="145" y="24" fill="#f97316" font-size="9" font-family="monospace" font-weight="bold">8,000 mm</text>
+          <line x1="250" y1="28" x2="412" y2="28" stroke="#f97316" stroke-width="1" />
+          <text x="310" y="24" fill="#f97316" font-size="9" font-family="monospace" font-weight="bold">8,000 mm</text>
+
+          <!-- Outdoor Green Terrace Landscaping with Trees -->
+          <circle cx="140" cy="285" r="14" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <circle cx="200" cy="295" r="18" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <circle cx="360" cy="280" r="16" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <text x="210" y="325" fill="#22c55e" font-size="10" font-weight="bold">Green Terrace Bioswale</text>
+        </svg>
+
+        <!-- Viewport Scale HUD Tag -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Grid: <span class="text-orange-400 font-bold">1,000mm</span> • Structural Span: <span class="text-white font-bold">8.0m bays</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE STRUCTURAL & CIVIL INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-orange-400">Structural & Spatial Metrics</span>
+          <span class="text-[10px] font-bold text-emerald-400">Eurocode 2 / IBC</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Metric 1: Floor Area & Efficiency -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Gross Internal Area (GIA)</span>
+            <div class="flex items-baseline justify-between">
+              <span class="text-3xl font-black text-white" hx-text="totalArea + ' m²'">842.5 m²</span>
+              <span class="text-xs font-bold text-orange-400">86.4% Efficiency</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Net Usable Area: 728.0 m² • Core/Circulation: 114.5 m²</p>
+          </div>
+
+          <!-- Metric 2: Structural Slab Deflection -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Max Mid-Span Deflection</span>
+              <span class="text-xs font-black text-emerald-400">PASS (&lt; L/500)</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-2xl font-black text-white" hx-text="maxDeflection + ' mm'">4.2 mm</span>
+              <span class="text-[10px] text-slate-400">Limit: 16.0 mm (Span 8.0m)</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 26%;"></div>
+            </div>
+          </div>
+
+          <!-- Metric 3: Embodied Carbon & LEED Autonomy -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Embodied Carbon A1–A3:</span>
+              <span class="font-bold text-emerald-400 font-mono">248 kg CO₂e/m²</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Spatial Daylight Autonomy (sDA):</span>
+              <span class="font-bold text-amber-400 font-mono">78% Daylight</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-orange-600/20"
+                hx-action="$appz.haptic('success')">
+          Export IFC 4.3 Structural Model
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-orange-400">BIM Standard: ISO 19650 Level 2</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Coord: WGS-84 UTM Zone 32N</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        CAD Vector Engine: 60.0 FPS
+      </span>
+      <span class="text-slate-500">Latency: 0.3ms</span>
+      <span class="text-orange-400 font-mono">@diag: BIM_ENGINE_SYNC</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: CIVIL, ARCHITECTURAL &amp; LANDSCAPING STUDIO
+     BIM Structural CAD, Space Planning, Photometric Lux &amp; Topography Contours
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-civil-architect rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;activeLayer&quot;: &quot;structural&quot;, &quot;scale&quot;: &quot;1:100&quot;, &quot;showContours&quot;: true, &quot;showLux&quot;: false, &quot;totalArea&quot;: 842.5, &quot;maxDeflection&quot;: 4.2 }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-orange-600/20 border border-orange-500/40 flex items-center justify-center text-orange-400 font-black text-sm&quot;&gt;
+        📐
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-orange-400&quot;&gt;Civil &amp; Architectural BIM Studio&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-orange-500/10 text-orange-400 border border-orange-500/20&quot;&gt;ISO 19650&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span&gt;Project: Parkview Tower (Level 04)&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;Reinforced Post-Tensioned Concrete (C35/45)&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Active Drawing Scale &amp; Grid Datum --&gt;
+    &lt;div class=&quot;flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs&quot;&gt;
+      &lt;span class=&quot;text-slate-400 font-bold&quot;&gt;Scale: &lt;span class=&quot;text-white font-mono&quot; hx-text=&quot;scale&quot;&gt;1:100&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-orange-400 font-mono font-bold&quot;&gt;Axis A1–F8 (UTM-32N)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; BIM LAYER RIBBON --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- BIM Layer Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;BIM Layers&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-orange-600 text-white shadow-md shadow-orange-600/30&quot;: activeLayer === &quot;structural&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;structural&quot; }'
+              hx-action=&quot;activeLayer = 'structural'; $appz.haptic('selection')&quot;&gt;
+        Structural Columns &amp; Slabs
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-orange-600 text-white shadow-md shadow-orange-600/30&quot;: activeLayer === &quot;interior&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;interior&quot; }'
+              hx-action=&quot;activeLayer = 'interior'; $appz.haptic('selection')&quot;&gt;
+        Interior Partitions
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-emerald-600 text-white shadow-md shadow-emerald-600/30&quot;: activeLayer === &quot;landscape&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;landscape&quot; }'
+              hx-action=&quot;activeLayer = 'landscape'; $appz.haptic('selection')&quot;&gt;
+        Landscape Contours
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Toggles --&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-emerald-600 text-white&quot;: showContours, &quot;bg-slate-900 text-slate-400&quot;: !showContours }'
+              hx-action=&quot;showContours = !showContours; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showContours ? '✓ Topo Contours (1m)' : '✗ Topo Contours'&quot;&gt;✓ Topo Contours (1m)&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-amber-600 text-white&quot;: showLux, &quot;bg-slate-900 text-slate-400&quot;: !showLux }'
+              hx-action=&quot;showLux = !showLux; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showLux ? '✓ Lux Heatmap' : '✗ Lux Heatmap'&quot;&gt;✗ Lux Heatmap&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: CAD VIEWPORT &amp; STRUCTURAL INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: VECTOR CAD/BIM VIEWPORT (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;!-- Top Floorplan HUD --&gt;
+      &lt;div class=&quot;flex items-center justify-between text-xs font-mono text-orange-400/90 z-10 pointer-events-none&quot;&gt;
+        &lt;span&gt;LEVEL 04 PLAN • RL +14.200m&lt;/span&gt;
+        &lt;span&gt;LOAD: 3.0 kN/m² LIVE • 4.5 kN/m² DEAD&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Vector CAD Architectural Plan via SVG --&gt;
+      &lt;div class=&quot;relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center&quot;&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 500 350&quot;&gt;
+          &lt;defs&gt;
+            &lt;!-- CAD Grid Pattern (1m x 1m equivalent) --&gt;
+            &lt;pattern id=&quot;cadGrid&quot; width=&quot;25&quot; height=&quot;25&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+              &lt;path d=&quot;M 25 0 L 0 0 0 25&quot; fill=&quot;none&quot; stroke=&quot;#1e293b&quot; stroke-width=&quot;0.8&quot; /&gt;
+            &lt;/pattern&gt;
+          &lt;/defs&gt;
+          &lt;rect width=&quot;500&quot; height=&quot;350&quot; fill=&quot;url(#cadGrid)&quot; /&gt;
+
+          &lt;!-- Topographic Landscape Contours (1m intervals) --&gt;
+          &lt;g id=&quot;contours&quot; stroke=&quot;#059669&quot; stroke-width=&quot;1&quot; fill=&quot;none&quot; opacity=&quot;0.6&quot;&gt;
+            &lt;path d=&quot;M 20,330 Q 140,280 260,330 T 480,310&quot; stroke-dasharray=&quot;3 2&quot; /&gt;
+            &lt;path d=&quot;M 20,300 Q 150,250 280,300 T 480,280&quot; /&gt;
+            &lt;text x=&quot;30&quot; y=&quot;295&quot; fill=&quot;#10b981&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;+12.0m&lt;/text&gt;
+            &lt;path d=&quot;M 20,270 Q 160,220 300,270 T 480,250&quot; /&gt;
+            &lt;text x=&quot;30&quot; y=&quot;265&quot; fill=&quot;#10b981&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;+13.0m&lt;/text&gt;
+          &lt;/g&gt;
+
+          &lt;!-- Outer Building Envelope (Curtain Wall Glazing) --&gt;
+          &lt;rect x=&quot;70&quot; y=&quot;40&quot; width=&quot;360&quot; height=&quot;200&quot; rx=&quot;8&quot; fill=&quot;rgba(30, 41, 59, 0.4)&quot; stroke=&quot;#94a3b8&quot; stroke-width=&quot;2.5&quot; /&gt;
+
+          &lt;!-- Reinforced Concrete Columns Grid (Axis A-D, 1-3) --&gt;
+          &lt;!-- Col A1 --&gt;
+          &lt;rect x=&quot;80&quot; y=&quot;50&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;242&quot; y=&quot;50&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;404&quot; y=&quot;50&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;!-- Col A2 --&gt;
+          &lt;rect x=&quot;80&quot; y=&quot;132&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;242&quot; y=&quot;132&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;404&quot; y=&quot;132&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;!-- Col A3 --&gt;
+          &lt;rect x=&quot;80&quot; y=&quot;214&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;242&quot; y=&quot;214&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;rect x=&quot;404&quot; y=&quot;214&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;#f97316&quot; stroke=&quot;#ea580c&quot; stroke-width=&quot;1.5&quot; /&gt;
+
+          &lt;!-- Interior Partitions (Drywall / Glass Enclosures) --&gt;
+          &lt;line x1=&quot;80&quot; y1=&quot;140&quot; x2=&quot;242&quot; y2=&quot;140&quot; stroke=&quot;#cbd5e1&quot; stroke-width=&quot;2&quot; /&gt;
+          &lt;line x1=&quot;250&quot; y1=&quot;50&quot; x2=&quot;250&quot; y2=&quot;140&quot; stroke=&quot;#cbd5e1&quot; stroke-width=&quot;2&quot; /&gt;
+          &lt;line x1=&quot;330&quot; y1=&quot;140&quot; x2=&quot;330&quot; y2=&quot;220&quot; stroke=&quot;#cbd5e1&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 2&quot; /&gt;
+
+          &lt;!-- Dimension Lines &amp; Annotations --&gt;
+          &lt;line x1=&quot;88&quot; y1=&quot;28&quot; x2=&quot;250&quot; y2=&quot;28&quot; stroke=&quot;#f97316&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;text x=&quot;145&quot; y=&quot;24&quot; fill=&quot;#f97316&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot; font-weight=&quot;bold&quot;&gt;8,000 mm&lt;/text&gt;
+          &lt;line x1=&quot;250&quot; y1=&quot;28&quot; x2=&quot;412&quot; y2=&quot;28&quot; stroke=&quot;#f97316&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;text x=&quot;310&quot; y=&quot;24&quot; fill=&quot;#f97316&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot; font-weight=&quot;bold&quot;&gt;8,000 mm&lt;/text&gt;
+
+          &lt;!-- Outdoor Green Terrace Landscaping with Trees --&gt;
+          &lt;circle cx=&quot;140&quot; cy=&quot;285&quot; r=&quot;14&quot; fill=&quot;#15803d&quot; opacity=&quot;0.7&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;295&quot; r=&quot;18&quot; fill=&quot;#15803d&quot; opacity=&quot;0.7&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;circle cx=&quot;360&quot; cy=&quot;280&quot; r=&quot;16&quot; fill=&quot;#15803d&quot; opacity=&quot;0.7&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;text x=&quot;210&quot; y=&quot;325&quot; fill=&quot;#22c55e&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot;&gt;Green Terrace Bioswale&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Viewport Scale HUD Tag --&gt;
+        &lt;div class=&quot;absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400&quot;&gt;
+          Grid: &lt;span class=&quot;text-orange-400 font-bold&quot;&gt;1,000mm&lt;/span&gt; • Structural Span: &lt;span class=&quot;text-white font-bold&quot;&gt;8.0m bays&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE STRUCTURAL &amp; CIVIL INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-orange-400&quot;&gt;Structural &amp; Spatial Metrics&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-emerald-400&quot;&gt;Eurocode 2 / IBC&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- Metric 1: Floor Area &amp; Efficiency --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block mb-1&quot;&gt;Gross Internal Area (GIA)&lt;/span&gt;
+            &lt;div class=&quot;flex items-baseline justify-between&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;totalArea + ' m²'&quot;&gt;842.5 m²&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-bold text-orange-400&quot;&gt;86.4% Efficiency&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400 mt-1&quot;&gt;Net Usable Area: 728.0 m² • Core/Circulation: 114.5 m²&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Metric 2: Structural Slab Deflection --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between&quot;&gt;
+              &lt;span class=&quot;text-xs font-bold text-slate-300&quot;&gt;Max Mid-Span Deflection&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-black text-emerald-400&quot;&gt;PASS (&amp;lt; L/500)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-baseline gap-2 mt-1&quot;&gt;
+              &lt;span class=&quot;text-2xl font-black text-white&quot; hx-text=&quot;maxDeflection + ' mm'&quot;&gt;4.2 mm&lt;/span&gt;
+              &lt;span class=&quot;text-[10px] text-slate-400&quot;&gt;Limit: 16.0 mm (Span 8.0m)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-2&quot;&gt;
+              &lt;div class=&quot;h-full bg-emerald-500 rounded-full&quot; style=&quot;width: 26%;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Metric 3: Embodied Carbon &amp; LEED Autonomy --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1&quot;&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Embodied Carbon A1–A3:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-emerald-400 font-mono&quot;&gt;248 kg CO₂e/m²&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Spatial Daylight Autonomy (sDA):&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-amber-400 font-mono&quot;&gt;78% Daylight&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-orange-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Export IFC 4.3 Structural Model
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-orange-400&quot;&gt;BIM Standard: ISO 19650 Level 2&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Coord: WGS-84 UTM Zone 32N&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        CAD Vector Engine: 60.0 FPS
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;Latency: 0.3ms&lt;/span&gt;
+      &lt;span class=&quot;text-orange-400 font-mono&quot;&gt;@diag: BIM_ENGINE_SYNC&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

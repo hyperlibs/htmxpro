@@ -14,6 +14,9 @@
   <script src="/htmx-grid.js"></script>
   <script src="/htmx-offline.js"></script>
   <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
   <script src="/htmx-canvas.js"></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
@@ -25,14 +28,15 @@
       <div class="flex items-center gap-3 font-bold text-xl tracking-tight">
         <div class="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm shadow-sm font-black">H</div>
         <span>HTMX PRO</span>
-        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 text-xs font-mono border border-emerald-500/30 font-bold">v0.10.30</span>
+        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 text-xs font-mono border border-emerald-500/30 font-bold">v1.0.0</span>
       </div>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-        <a href="/demo/" class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1.5"><span>🚀</span> Live Demos</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
+        <a href="/demo/" class="text-primary font-semibold hover:text-primary transition-colors flex items-center gap-1.5"><span>🚀</span> Live Demos Hub</a>
+        <a href="/demo/mobile" class="hover:text-foreground transition-colors font-semibold text-indigo-400 flex items-center gap-1"><span>📱</span> AppzOS</a>
         <a href="/demo/tailadmin/" class="hover:text-foreground transition-colors font-medium">HyperAdmin</a>
         <a href="/demo/erp/" class="hover:text-foreground transition-colors font-medium">HyperERP</a>
         <a href="/demo/hypersheet/" class="hover:text-foreground transition-colors font-medium">HyperSheet</a>
-        <a href="/docs/components/introduction/" class="hover:text-foreground transition-colors font-medium">Documentation</a>
+        <a href="/docs/components/introduction/" class="hover:text-foreground transition-colors font-medium">Docs</a>
         <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-foreground transition-colors">GitHub ↗</a>
       </nav>
     </div>
@@ -52,19 +56,19 @@
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-500 to-indigo-600">Zero Virtual DOM.</span>
         </h1>
         <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mb-6 leading-relaxed">
-          HTMX PRO completes HTML as a hyperreactive, agent-friendly application platform. <strong>120+ copy-paste components</strong>, <strong>10 modular micro-engines (~48KB total)</strong>, and zero npm build step required.
+          HTMX PRO completes HTML as a hyperreactive, agent-friendly application platform. <strong>100 Basic + 100 Smart components</strong>, <strong>13 modular micro-engines (~58KB total)</strong>, and <strong>10 Research & Industrial Design Blocks</strong> with zero npm build step.
         </p>
         <p class="text-sm text-muted-foreground max-w-2xl mb-10 leading-relaxed font-mono">
-          Built for backend engineers in Go, Rust, Python, .NET & AI Agent Swarms.
+          Built for backend engineers in Go, Rust, Python, .NET & Autonomous AI Coding Swarms.
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-wrap items-center justify-center gap-4 w-full">
           <a href="/demo/" class="inline-flex items-center justify-center h-13 px-8 rounded-xl bg-primary text-primary-foreground font-bold text-base transition-all hover:bg-primary/90 shadow-lg hover:shadow-primary/25">
-            🎯 Explore Live Demos Hub
+            🎯 Explore Live Demos Hub (16 Showcases)
           </a>
-          <a href="/demo/tailadmin/" class="inline-flex items-center justify-center h-13 px-8 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold text-base transition-all hover:opacity-90 shadow-lg">
-            📊 HyperAdmin Demo
+          <a href="/demo/mobile" class="inline-flex items-center justify-center h-13 px-8 rounded-xl bg-indigo-600 text-white font-bold text-base transition-all hover:bg-indigo-500 shadow-lg shadow-indigo-600/25">
+            📱 AppzOS Mobile Simulator
           </a>
           <a href="/docs/components/introduction/" class="inline-flex items-center justify-center h-13 px-8 rounded-xl border border-input bg-card font-semibold text-base transition-colors hover:bg-muted shadow-sm">
             📖 Documentation
@@ -77,11 +81,28 @@
     <section class="border-t border-border bg-muted/30 py-20 px-4">
       <div class="container mx-auto max-w-7xl">
         <div class="text-center mb-14">
-          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Flagship Live Applications</h2>
-          <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Production-grade applications in pure HTMX PRO with zero Node/React client dependencies.</p>
+          <div class="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-xs font-semibold text-primary mb-3">
+            VERIFIABLE ZERO-VIRTUAL-DOM ARCHITECTURES
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Flagship Live Applications & Design Blocks</h2>
+          <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Production-grade applications and scientific workstations in pure HTMX PRO with zero Node/React client dependencies.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
+
+          <!-- 1. AppzOS -->
+          <a href="/demo/mobile" class="group bg-card p-6 rounded-2xl border-2 border-indigo-500/30 shadow-sm hover:shadow-xl hover:border-indigo-500 transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl">📱</span>
+                <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500">8 Modes • 0-9 Layers</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2 group-hover:text-indigo-400 transition-colors">AppzOS Mobile & Spatial</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Turnkey mobile OS viewport simulator. OS-H/P, Tab-H/P, Mob-H/P, TV-H/P with Photoshop Z-layers, coroutines, and hardware haptics.</p>
+            </div>
+            <div class="mt-6 text-sm font-semibold text-indigo-400 flex items-center gap-1">Launch Simulator <span>→</span></div>
+          </a>
+
+          <!-- 2. HyperAdmin -->
           <a href="/demo/tailadmin/" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
@@ -94,6 +115,7 @@
             <div class="mt-6 text-sm font-semibold text-primary flex items-center gap-1">Launch Demo <span>→</span></div>
           </a>
 
+          <!-- 3. Enterprise HyperERP -->
           <a href="/demo/erp/" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
@@ -106,6 +128,7 @@
             <div class="mt-6 text-sm font-semibold text-primary flex items-center gap-1">Launch Demo <span>→</span></div>
           </a>
 
+          <!-- 4. HyperSheet DAG -->
           <a href="/demo/hypersheet/" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
@@ -118,34 +141,79 @@
             <div class="mt-6 text-sm font-semibold text-primary flex items-center gap-1">Launch Demo <span>→</span></div>
           </a>
 
-          <a href="/demo/universe/" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-primary/50 transition-all flex flex-col justify-between">
+          <!-- 5. Research Science Workstation -->
+          <a href="/docs/components/block-pathology-lab" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-violet-500/50 transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl">🔬</span>
+                <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-500">5 Blocks</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2 group-hover:text-violet-400 transition-colors">Research Science Suite</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Pathology WSI, Radiology DICOM viewer, Cellular Atlas, CRISPR-Cas9 sgRNA Studio, and High-Res Genomic Browser.</p>
+            </div>
+            <div class="mt-6 text-sm font-semibold text-violet-400 flex items-center gap-1">Open Science Blocks <span>→</span></div>
+          </a>
+
+          <!-- 6. Heavy Engineering SCADA -->
+          <a href="/docs/components/block-marine-navigation" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-orange-500/50 transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl">🏗️</span>
+                <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500">5 Blocks</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2 group-hover:text-orange-400 transition-colors">Industrial & SCADA Suite</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Marine ECDIS navigation, Civil BIM structural, Precision Agriculture agronomy, Oil/Gas SCADA, and PCB EDA fab.</p>
+            </div>
+            <div class="mt-6 text-sm font-semibold text-orange-400 flex items-center gap-1">Open Engineering Blocks <span>→</span></div>
+          </a>
+
+          <!-- 7. Cosmic 3D Spatial -->
+          <a href="/demo/universe/" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-purple-500/50 transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-2xl">🌌</span>
                 <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-500">WebGPU 3D</span>
               </div>
-              <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors">Cosmic 3D Spatial</h3>
+              <h3 class="text-lg font-bold mb-2 group-hover:text-purple-400 transition-colors">Cosmic 3D Spatial</h3>
               <p class="text-sm text-muted-foreground leading-relaxed">Autonomous 3D spatial viewport with Keplerian orbital kinematics, particle advection, and 120 FPS render loop synchronization.</p>
             </div>
-            <div class="mt-6 text-sm font-semibold text-primary flex items-center gap-1">Launch Demo <span>→</span></div>
+            <div class="mt-6 text-sm font-semibold text-purple-400 flex items-center gap-1">Launch Demo <span>→</span></div>
+          </a>
+
+          <!-- 8. Physical Simulation Engine -->
+          <a href="/docs/components/simulation" class="group bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-xl hover:border-cyan-500/50 transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl">⚙️</span>
+                <span class="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-500">Nx Physics</span>
+              </div>
+              <h3 class="text-lg font-bold mb-2 group-hover:text-cyan-400 transition-colors">Physical Simulation</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Deterministic tick physics with Verlet integration, double pendulum chaos, N-body gravity, and rigid-body particle collisions.</p>
+            </div>
+            <div class="mt-6 text-sm font-semibold text-cyan-400 flex items-center gap-1">Launch Studio <span>→</span></div>
           </a>
 
         </div>
       </div>
     </section>
 
-    <!-- The 10 Core Micro-Engines -->
+    <!-- The 13 Core Micro-Engines -->
     <section class="border-t border-border py-20 px-4">
       <div class="container mx-auto max-w-7xl">
         <div class="text-center mb-14">
-          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">The 10 Core Micro-Engines (~48KB Total)</h2>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">The 13 Core Micro-Engines (~58KB Total)</h2>
           <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Composable, progressive, and ultra-lean extensions designed for Hollywood-grade web engineering.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
             <div class="font-bold text-primary text-base">⚡ HxBolt (~16KB)</div>
             <p class="text-xs text-muted-foreground">Proxy-based reactive signals, computed props, $store, 2D sparse matrix, and 120 FPS ticker.</p>
+          </div>
+
+          <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
+            <div class="font-bold text-primary text-base">📱 AppzOS (~6.5KB)</div>
+            <p class="text-xs text-muted-foreground">Mobile/Spatial OS runtime with 8 viewport modes, 0-9 Photoshop Z-layers, coroutines, and haptics.</p>
           </div>
 
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
@@ -161,6 +229,11 @@
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
             <div class="font-bold text-primary text-base">📊 HxCalc (~3.2KB)</div>
             <p class="text-xs text-muted-foreground">Topological formula DAG engine, coordinate ranges (SUM, AVG, MIN, MAX), and cycle detector.</p>
+          </div>
+
+          <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
+            <div class="font-bold text-primary text-base">⚙️ HxSim (~4.2KB)</div>
+            <p class="text-xs text-muted-foreground">Deterministic physics simulator with Verlet integration, N-body gravitational fields, and spring chains.</p>
           </div>
 
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
@@ -186,6 +259,11 @@
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
             <div class="font-bold text-primary text-base">🛠️ HxDevTools (~1.8KB)</div>
             <p class="text-xs text-muted-foreground">Real-time signal inspector, swap latency timing HUD, and autonomous @diag streams.</p>
+          </div>
+
+          <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">
+            <div class="font-bold text-primary text-base">📐 HxGrid (~2.8KB)</div>
+            <p class="text-xs text-muted-foreground">Multi-track auto-responsive grid layouts, subgrid synchronization, and dynamic masonry distribution.</p>
           </div>
 
           <div class="p-5 rounded-xl border border-border bg-card shadow-sm space-y-2">

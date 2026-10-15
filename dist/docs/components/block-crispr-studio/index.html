@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Crispr Studio — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Crispr Studio</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Crispr Studio</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     RESEARCH DESIGN BLOCK: CRISPR GENE EDITING STUDIO
+     gRNA Design, On/Off-Target Cleavage Risk Scoring & HDR/NHEJ Repair Modeling
+     ========================================================================= -->
+<div class="block-crispr-studio rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "targetGene": "HBB", "targetLocus": "chr11:5,227,002", "editMode": "hdr", "onTargetScore": 88, "offTargetScore": 94, "gcContent": 55.0, "activePam": "TGG" }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 font-black text-sm">
+        ✂️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-purple-400">CRISPR-Cas Precision Studio</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-purple-500/10 text-purple-400 border border-purple-500/20">SpCas9 (NGG)</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span hx-text="'Target Gene: ' + targetGene + ' (Exon 1)'">Target Gene: HBB (Exon 1)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">HbS E6V Sickle Mutation (<span class="font-mono text-purple-300" hx-text="targetLocus">chr11:5,227,002</span>)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Editing Modality Switcher -->
+    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": editMode === "nhej", "text-slate-400 hover:text-white": editMode !== "nhej" }'
+              hx-action="editMode = 'nhej'; $appz.haptic('selection')">NHEJ Knockout</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": editMode === "hdr", "text-slate-400 hover:text-white": editMode !== "hdr" }'
+              hx-action="editMode = 'hdr'; $appz.haptic('selection')">HDR Template</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": editMode === "base", "text-slate-400 hover:text-white": editMode !== "base" }'
+              hx-action="editMode = 'base'; $appz.haptic('selection')">Base Editor (ABE)</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": editMode === "prime", "text-slate-400 hover:text-white": editMode !== "prime" }'
+              hx-action="editMode = 'prime'; $appz.haptic('selection')">Prime pegRNA</button>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Quick Target Gene Presets -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Disease Target</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-purple-600 text-white": targetGene === "HBB", "bg-slate-900 text-slate-400": targetGene !== "HBB" }'
+              hx-action="targetGene = 'HBB'; targetLocus = 'chr11:5,227,002'; onTargetScore = 88; offTargetScore = 94; $appz.haptic('selection')">
+        HBB (Sickle Cell)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-purple-600 text-white": targetGene === "CCR5", "bg-slate-900 text-slate-400": targetGene !== "CCR5" }'
+              hx-action="targetGene = 'CCR5'; targetLocus = 'chr3:46,373,450'; onTargetScore = 92; offTargetScore = 89; $appz.haptic('selection')">
+        CCR5 (Δ32 HIV)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-purple-600 text-white": targetGene === "CFTR", "bg-slate-900 text-slate-400": targetGene !== "CFTR" }'
+              hx-action="targetGene = 'CFTR'; targetLocus = 'chr7:117,559,590'; onTargetScore = 81; offTargetScore = 96; $appz.haptic('selection')">
+        CFTR (F508del)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-purple-600 text-white": targetGene === "DMD", "bg-slate-900 text-slate-400": targetGene !== "DMD" }'
+              hx-action="targetGene = 'DMD'; targetLocus = 'chrX:31,180,200'; onTargetScore = 85; offTargetScore = 91; $appz.haptic('selection')">
+        DMD (Exon 51)
+      </button>
+    </div>
+
+    <!-- Protocol Parameter Badges -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Enzyme:</span>
+      <span class="px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 font-mono font-bold text-purple-400 text-xs">SpCas9 (20 nt + NGG)</span>
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Nickase:</span>
+      <span class="text-xs font-bold text-slate-400">Wild-Type DSB</span>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: DNA CLEAVAGE CANVAS & QUANTITATIVE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: DUAL-STRAND DNA CLEAVAGE RIBBON (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-6 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 text-xs">
+          <span class="text-[10px] font-black uppercase tracking-widest text-purple-400">Dual-Strand Target Cleavage Architecture</span>
+          <span class="text-[10px] font-mono text-slate-400">Position: -3 bp Cleavage Site</span>
+        </div>
+
+        <!-- Cleavage Ribbon Visualizer -->
+        <div class="mt-6 space-y-4">
+          <!-- Guide RNA Overlay Banner -->
+          <div class="ml-16 mr-20 bg-purple-950/40 border border-purple-500/40 rounded-xl p-2 text-center relative">
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-purple-300">20 nt Synthetic Single Guide RNA (sgRNA Protospacer)</span>
+            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-purple-500"></div>
+          </div>
+
+          <!-- Sense Strand 5' -> 3' -->
+          <div class="flex items-center gap-1 font-mono font-black text-sm">
+            <span class="w-12 text-[10px] font-bold text-slate-500 text-right mr-1">5'—</span>
+            <div class="flex items-center gap-1 bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-inner">
+              <!-- Non-target prefix -->
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-400">A</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-400">T</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-400">G</span>
+
+              <!-- 20 nt Protospacer Region (Cyan Highlight) -->
+              <div class="flex items-center gap-1 px-1.5 py-1 rounded-xl bg-cyan-950/40 border border-cyan-500/50">
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">A</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">C</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">T</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">C</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">C</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">T</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">A</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">A</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">A</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">A</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">T</span>
+                <!-- Cut position scissor marker between these bases -->
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border-r-2 border-rose-500">C</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">T</span>
+                <span class="px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300">G</span>
+              </div>
+
+              <!-- PAM Motif (Amber Box: TGG) -->
+              <div class="flex items-center gap-1 px-1.5 py-1 rounded-xl bg-amber-950/50 border border-amber-500 shadow-lg">
+                <span class="px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black">T</span>
+                <span class="px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black">G</span>
+                <span class="px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black">G</span>
+              </div>
+
+              <!-- Downstream Suffix -->
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-400">C</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-400">C</span>
+            </div>
+            <span class="text-[10px] font-bold text-slate-500 ml-1">—3'</span>
+          </div>
+
+          <!-- Cut Indicator Line -->
+          <div class="flex items-center ml-16 text-rose-500 text-xs font-black">
+            <span class="ml-[342px] flex items-center gap-1 bg-rose-950/80 px-2 py-0.5 rounded-md border border-rose-500/50">
+              ✂️ DSB Blunt Cut (-3 bp)
+            </span>
+          </div>
+
+          <!-- Antisense Strand 3' -> 5' -->
+          <div class="flex items-center gap-1 font-mono font-black text-sm">
+            <span class="w-12 text-[10px] font-bold text-slate-500 text-right mr-1">3'—</span>
+            <div class="flex items-center gap-1 bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-inner">
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-500">T</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-500">A</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-500">C</span>
+
+              <!-- Complementary Protospacer -->
+              <div class="flex items-center gap-1 px-1.5 py-1 rounded-xl bg-slate-950/40 border border-slate-800">
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">T</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">G</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">A</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">G</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">G</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">A</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">T</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">T</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">T</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">T</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">A</span>
+                <span class="px-1 py-0.5 rounded text-slate-400 border-r-2 border-rose-500">G</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">A</span>
+                <span class="px-1 py-0.5 rounded text-slate-400">C</span>
+              </div>
+
+              <!-- Complementary PAM -->
+              <div class="flex items-center gap-1 px-1.5 py-1 rounded-xl bg-slate-950/80 border border-slate-800">
+                <span class="px-1 py-0.5 rounded text-slate-500">A</span>
+                <span class="px-1 py-0.5 rounded text-slate-500">C</span>
+                <span class="px-1 py-0.5 rounded text-slate-500">C</span>
+              </div>
+
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-500">G</span>
+              <span class="px-1.5 py-1 rounded bg-slate-950 text-slate-500">G</span>
+            </div>
+            <span class="text-[10px] font-bold text-slate-500 ml-1">—5'</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HDR Single-Stranded Oligo Donor Template (ssODN) -->
+      <div class="mt-6 p-3 rounded-2xl bg-purple-950/30 border border-purple-500/30">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-[10px] font-extrabold uppercase text-purple-300">HDR Repair ssODN Donor Template (Corrects HbS A>T)</span>
+          <span class="text-[10px] font-mono text-emerald-400">Wild-Type Glu6 Recovered</span>
+        </div>
+        <p class="font-mono text-xs text-purple-200 mt-1 break-all">
+          5'-...CCTGAGGAGAAG<span class="text-emerald-400 font-black underline">T</span>CTGCCGTTACTGCC...-3'
+        </p>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE CRISPR INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-purple-400">Cutting & Specificity Metrics</span>
+          <span class="text-[10px] font-bold text-slate-400">CFD / Doench 2016</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Score 1: On-Target Efficiency -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">On-Target Activity Score</span>
+              <span class="text-xs font-black text-emerald-400">EXCELLENT</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-3xl font-black text-white" hx-text="onTargetScore + ' / 100'">88 / 100</span>
+              <span class="text-[10px] text-slate-400">Rule Set 2</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 88%;"></div>
+            </div>
+          </div>
+
+          <!-- Score 2: Off-Target Specificity -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Off-Target Specificity Score</span>
+              <span class="text-xs font-black text-purple-400">MINIMAL RISK</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-3xl font-black text-white" hx-text="offTargetScore + ' / 100'">94 / 100</span>
+              <span class="text-[10px] text-slate-400">MIT / CFD Score</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-purple-500 rounded-full" style="width: 94%;"></div>
+            </div>
+          </div>
+
+          <!-- Genome-Wide Mismatch Table -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]">
+            <span class="text-slate-400 font-extrabold uppercase block mb-1.5">Genome-Wide Off-Target Loci</span>
+            <div class="space-y-1 font-mono">
+              <div class="flex justify-between text-slate-300">
+                <span>0 Mismatches (On-target):</span>
+                <span class="font-bold text-emerald-400">1 locus (chr11)</span>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>1 Mismatch:</span>
+                <span class="font-bold text-emerald-400">0 loci</span>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>2 Mismatches:</span>
+                <span class="font-bold text-amber-400">2 loci (Intronic)</span>
+              </div>
+              <div class="flex justify-between text-slate-300">
+                <span>3 Mismatches:</span>
+                <span class="font-bold text-slate-400">14 loci (Non-coding)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Protocol Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-purple-600/20"
+                hx-action="$appz.haptic('success')">
+          Order IDT / GenScript Synthetic Oligos
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-purple-400">Oligo: 5'-CACCGAGTCCTGAGGAGAAGTCTG-3'</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">GC: <span class="font-bold text-white" hx-text="gcContent + '%'">55.0%</span></span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Tm: 58.2°C</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Cas9 Thermodynamics: Validated
+      </span>
+      <span class="text-slate-500">ΔG: -1.8 kcal/mol</span>
+      <span class="text-purple-400 font-mono">@diag: CAS9_CALC_OK</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     RESEARCH DESIGN BLOCK: CRISPR GENE EDITING STUDIO
+     gRNA Design, On/Off-Target Cleavage Risk Scoring &amp; HDR/NHEJ Repair Modeling
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-crispr-studio rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;targetGene&quot;: &quot;HBB&quot;, &quot;targetLocus&quot;: &quot;chr11:5,227,002&quot;, &quot;editMode&quot;: &quot;hdr&quot;, &quot;onTargetScore&quot;: 88, &quot;offTargetScore&quot;: 94, &quot;gcContent&quot;: 55.0, &quot;activePam&quot;: &quot;TGG&quot; }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 font-black text-sm&quot;&gt;
+        ✂️
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-purple-400&quot;&gt;CRISPR-Cas Precision Studio&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-purple-500/10 text-purple-400 border border-purple-500/20&quot;&gt;SpCas9 (NGG)&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span hx-text=&quot;'Target Gene: ' + targetGene + ' (Exon 1)'&quot;&gt;Target Gene: HBB (Exon 1)&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;HbS E6V Sickle Mutation (&lt;span class=&quot;font-mono text-purple-300&quot; hx-text=&quot;targetLocus&quot;&gt;chr11:5,227,002&lt;/span&gt;)&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Editing Modality Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black&quot;&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white shadow-md shadow-purple-600/30&quot;: editMode === &quot;nhej&quot;, &quot;text-slate-400 hover:text-white&quot;: editMode !== &quot;nhej&quot; }'
+              hx-action=&quot;editMode = 'nhej'; $appz.haptic('selection')&quot;&gt;NHEJ Knockout&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white shadow-md shadow-purple-600/30&quot;: editMode === &quot;hdr&quot;, &quot;text-slate-400 hover:text-white&quot;: editMode !== &quot;hdr&quot; }'
+              hx-action=&quot;editMode = 'hdr'; $appz.haptic('selection')&quot;&gt;HDR Template&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white shadow-md shadow-purple-600/30&quot;: editMode === &quot;base&quot;, &quot;text-slate-400 hover:text-white&quot;: editMode !== &quot;base&quot; }'
+              hx-action=&quot;editMode = 'base'; $appz.haptic('selection')&quot;&gt;Base Editor (ABE)&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white shadow-md shadow-purple-600/30&quot;: editMode === &quot;prime&quot;, &quot;text-slate-400 hover:text-white&quot;: editMode !== &quot;prime&quot; }'
+              hx-action=&quot;editMode = 'prime'; $appz.haptic('selection')&quot;&gt;Prime pegRNA&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; TOOLBAR --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- Quick Target Gene Presets --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Disease Target&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold font-mono transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white&quot;: targetGene === &quot;HBB&quot;, &quot;bg-slate-900 text-slate-400&quot;: targetGene !== &quot;HBB&quot; }'
+              hx-action=&quot;targetGene = 'HBB'; targetLocus = 'chr11:5,227,002'; onTargetScore = 88; offTargetScore = 94; $appz.haptic('selection')&quot;&gt;
+        HBB (Sickle Cell)
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold font-mono transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white&quot;: targetGene === &quot;CCR5&quot;, &quot;bg-slate-900 text-slate-400&quot;: targetGene !== &quot;CCR5&quot; }'
+              hx-action=&quot;targetGene = 'CCR5'; targetLocus = 'chr3:46,373,450'; onTargetScore = 92; offTargetScore = 89; $appz.haptic('selection')&quot;&gt;
+        CCR5 (Δ32 HIV)
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold font-mono transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white&quot;: targetGene === &quot;CFTR&quot;, &quot;bg-slate-900 text-slate-400&quot;: targetGene !== &quot;CFTR&quot; }'
+              hx-action=&quot;targetGene = 'CFTR'; targetLocus = 'chr7:117,559,590'; onTargetScore = 81; offTargetScore = 96; $appz.haptic('selection')&quot;&gt;
+        CFTR (F508del)
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold font-mono transition-all&quot;
+              hx-class='{ &quot;bg-purple-600 text-white&quot;: targetGene === &quot;DMD&quot;, &quot;bg-slate-900 text-slate-400&quot;: targetGene !== &quot;DMD&quot; }'
+              hx-action=&quot;targetGene = 'DMD'; targetLocus = 'chrX:31,180,200'; onTargetScore = 85; offTargetScore = 91; $appz.haptic('selection')&quot;&gt;
+        DMD (Exon 51)
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Protocol Parameter Badges --&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-bold text-slate-400 uppercase&quot;&gt;Enzyme:&lt;/span&gt;
+      &lt;span class=&quot;px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 font-mono font-bold text-purple-400 text-xs&quot;&gt;SpCas9 (20 nt + NGG)&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-bold text-slate-400 uppercase&quot;&gt;Nickase:&lt;/span&gt;
+      &lt;span class=&quot;text-xs font-bold text-slate-400&quot;&gt;Wild-Type DSB&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: DNA CLEAVAGE CANVAS &amp; QUANTITATIVE INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: DUAL-STRAND DNA CLEAVAGE RIBBON (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-slate-950 p-6 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80 text-xs&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-purple-400&quot;&gt;Dual-Strand Target Cleavage Architecture&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-mono text-slate-400&quot;&gt;Position: -3 bp Cleavage Site&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Cleavage Ribbon Visualizer --&gt;
+        &lt;div class=&quot;mt-6 space-y-4&quot;&gt;
+          &lt;!-- Guide RNA Overlay Banner --&gt;
+          &lt;div class=&quot;ml-16 mr-20 bg-purple-950/40 border border-purple-500/40 rounded-xl p-2 text-center relative&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase tracking-widest text-purple-300&quot;&gt;20 nt Synthetic Single Guide RNA (sgRNA Protospacer)&lt;/span&gt;
+            &lt;div class=&quot;absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-purple-500&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Sense Strand 5' -&gt; 3' --&gt;
+          &lt;div class=&quot;flex items-center gap-1 font-mono font-black text-sm&quot;&gt;
+            &lt;span class=&quot;w-12 text-[10px] font-bold text-slate-500 text-right mr-1&quot;&gt;5'—&lt;/span&gt;
+            &lt;div class=&quot;flex items-center gap-1 bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-inner&quot;&gt;
+              &lt;!-- Non-target prefix --&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-400&quot;&gt;A&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-400&quot;&gt;T&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-400&quot;&gt;G&lt;/span&gt;
+
+              &lt;!-- 20 nt Protospacer Region (Cyan Highlight) --&gt;
+              &lt;div class=&quot;flex items-center gap-1 px-1.5 py-1 rounded-xl bg-cyan-950/40 border border-cyan-500/50&quot;&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;T&lt;/span&gt;
+                &lt;!-- Cut position scissor marker between these bases --&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border-r-2 border-rose-500&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-cyan-500/20 text-cyan-300&quot;&gt;G&lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;!-- PAM Motif (Amber Box: TGG) --&gt;
+              &lt;div class=&quot;flex items-center gap-1 px-1.5 py-1 rounded-xl bg-amber-950/50 border border-amber-500 shadow-lg&quot;&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded bg-amber-500/30 text-amber-300 font-black&quot;&gt;G&lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Downstream Suffix --&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-400&quot;&gt;C&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-400&quot;&gt;C&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;span class=&quot;text-[10px] font-bold text-slate-500 ml-1&quot;&gt;—3'&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Cut Indicator Line --&gt;
+          &lt;div class=&quot;flex items-center ml-16 text-rose-500 text-xs font-black&quot;&gt;
+            &lt;span class=&quot;ml-[342px] flex items-center gap-1 bg-rose-950/80 px-2 py-0.5 rounded-md border border-rose-500/50&quot;&gt;
+              ✂️ DSB Blunt Cut (-3 bp)
+            &lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Antisense Strand 3' -&gt; 5' --&gt;
+          &lt;div class=&quot;flex items-center gap-1 font-mono font-black text-sm&quot;&gt;
+            &lt;span class=&quot;w-12 text-[10px] font-bold text-slate-500 text-right mr-1&quot;&gt;3'—&lt;/span&gt;
+            &lt;div class=&quot;flex items-center gap-1 bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-inner&quot;&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-500&quot;&gt;T&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-500&quot;&gt;A&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-500&quot;&gt;C&lt;/span&gt;
+
+              &lt;!-- Complementary Protospacer --&gt;
+              &lt;div class=&quot;flex items-center gap-1 px-1.5 py-1 rounded-xl bg-slate-950/40 border border-slate-800&quot;&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;T&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400 border-r-2 border-rose-500&quot;&gt;G&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-400&quot;&gt;C&lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Complementary PAM --&gt;
+              &lt;div class=&quot;flex items-center gap-1 px-1.5 py-1 rounded-xl bg-slate-950/80 border border-slate-800&quot;&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-500&quot;&gt;A&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-500&quot;&gt;C&lt;/span&gt;
+                &lt;span class=&quot;px-1 py-0.5 rounded text-slate-500&quot;&gt;C&lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-500&quot;&gt;G&lt;/span&gt;
+              &lt;span class=&quot;px-1.5 py-1 rounded bg-slate-950 text-slate-500&quot;&gt;G&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;span class=&quot;text-[10px] font-bold text-slate-500 ml-1&quot;&gt;—5'&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- HDR Single-Stranded Oligo Donor Template (ssODN) --&gt;
+      &lt;div class=&quot;mt-6 p-3 rounded-2xl bg-purple-950/30 border border-purple-500/30&quot;&gt;
+        &lt;div class=&quot;flex items-center justify-between text-xs&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-extrabold uppercase text-purple-300&quot;&gt;HDR Repair ssODN Donor Template (Corrects HbS A&gt;T)&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-mono text-emerald-400&quot;&gt;Wild-Type Glu6 Recovered&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;font-mono text-xs text-purple-200 mt-1 break-all&quot;&gt;
+          5'-...CCTGAGGAGAAG&lt;span class=&quot;text-emerald-400 font-black underline&quot;&gt;T&lt;/span&gt;CTGCCGTTACTGCC...-3'
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE CRISPR INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-purple-400&quot;&gt;Cutting &amp; Specificity Metrics&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-slate-400&quot;&gt;CFD / Doench 2016&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- Score 1: On-Target Efficiency --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between&quot;&gt;
+              &lt;span class=&quot;text-xs font-bold text-slate-300&quot;&gt;On-Target Activity Score&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-black text-emerald-400&quot;&gt;EXCELLENT&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-baseline gap-2 mt-1&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;onTargetScore + ' / 100'&quot;&gt;88 / 100&lt;/span&gt;
+              &lt;span class=&quot;text-[10px] text-slate-400&quot;&gt;Rule Set 2&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-2&quot;&gt;
+              &lt;div class=&quot;h-full bg-emerald-500 rounded-full&quot; style=&quot;width: 88%;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Score 2: Off-Target Specificity --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between&quot;&gt;
+              &lt;span class=&quot;text-xs font-bold text-slate-300&quot;&gt;Off-Target Specificity Score&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-black text-purple-400&quot;&gt;MINIMAL RISK&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-baseline gap-2 mt-1&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;offTargetScore + ' / 100'&quot;&gt;94 / 100&lt;/span&gt;
+              &lt;span class=&quot;text-[10px] text-slate-400&quot;&gt;MIT / CFD Score&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-2&quot;&gt;
+              &lt;div class=&quot;h-full bg-purple-500 rounded-full&quot; style=&quot;width: 94%;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Genome-Wide Mismatch Table --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]&quot;&gt;
+            &lt;span class=&quot;text-slate-400 font-extrabold uppercase block mb-1.5&quot;&gt;Genome-Wide Off-Target Loci&lt;/span&gt;
+            &lt;div class=&quot;space-y-1 font-mono&quot;&gt;
+              &lt;div class=&quot;flex justify-between text-slate-300&quot;&gt;
+                &lt;span&gt;0 Mismatches (On-target):&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-emerald-400&quot;&gt;1 locus (chr11)&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;flex justify-between text-slate-300&quot;&gt;
+                &lt;span&gt;1 Mismatch:&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-emerald-400&quot;&gt;0 loci&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;flex justify-between text-slate-300&quot;&gt;
+                &lt;span&gt;2 Mismatches:&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-amber-400&quot;&gt;2 loci (Intronic)&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;flex justify-between text-slate-300&quot;&gt;
+                &lt;span&gt;3 Mismatches:&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-slate-400&quot;&gt;14 loci (Non-coding)&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Export Protocol Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-purple-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Order IDT / GenScript Synthetic Oligos
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-purple-400&quot;&gt;Oligo: 5'-CACCGAGTCCTGAGGAGAAGTCTG-3'&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;GC: &lt;span class=&quot;font-bold text-white&quot; hx-text=&quot;gcContent + '%'&quot;&gt;55.0%&lt;/span&gt;&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Tm: 58.2°C&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        Cas9 Thermodynamics: Validated
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;ΔG: -1.8 kcal/mol&lt;/span&gt;
+      &lt;span class=&quot;text-purple-400 font-mono&quot;&gt;@diag: CAS9_CALC_OK&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

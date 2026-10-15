@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verifiable Live Demos — HTMX PRO</title>
+  <title>Production Demos & Software Systems — HTMX PRO</title>
   <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
@@ -19,583 +19,1568 @@
   <script src="/appz.js"></script>
   <script src="/htmx-canvas.js"></script>
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Custom GetApp inspired button colors and accents */
+    .btn-teal {
+      background-color: #00838f;
+      color: #ffffff;
+      transition: all 0.15s ease-in-out;
+    }
+    .btn-teal:hover {
+      background-color: #006064;
+      box-shadow: 0 4px 12px rgba(0, 131, 143, 0.35);
+    }
+    .badge-teal {
+      background-color: rgba(0, 131, 143, 0.1);
+      color: #00838f;
+      border: 1px solid rgba(0, 131, 143, 0.25);
+    }
+  </style>
 </head>
-<body class="bg-background text-foreground antialiased min-h-screen flex flex-col font-sans selection:bg-primary/20"
-      hx-state='{ "activeFilter": "all" }'>
+<body class="bg-[#f8fafc] dark:bg-[#0b0f19] text-foreground antialiased min-h-screen flex flex-col font-sans selection:bg-teal-500/20"
+      hx-state='{
+        "searchQuery": "",
+        "activeDomain": "all",
+        "activeLayer": "all",
+        "activeEngine": "all",
+        "expandedSpec": null
+      }'>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
-    <div class="container mx-auto px-4 lg:px-8 h-16 flex items-center justify-between max-w-7xl">
-      <div class="flex items-center gap-3 font-bold text-xl tracking-tight">
+  <!-- Top Global Header / Navigation -->
+  <header class="sticky top-0 z-50 w-full border-b border-border/80 bg-background/95 backdrop-blur shadow-sm">
+    <div class="container mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4 max-w-7xl">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 font-bold text-xl tracking-tight shrink-0">
         <a href="/" class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm shadow-sm font-black">H</div>
-          <span>HTMX PRO</span>
+          <div class="w-8 h-8 rounded-lg bg-teal-700 text-white flex items-center justify-center text-sm shadow-sm font-black">H</div>
+          <span class="text-foreground">HTMX PRO</span>
         </a>
-        <span class="text-xs uppercase font-mono px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20">Live Demos</span>
-        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-500 text-xs font-mono border border-emerald-500/30 font-bold">v1.0.0</span>
+        <span class="text-xs uppercase font-mono px-2 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 font-bold">Software Directory</span>
       </div>
-      <nav class="flex items-center gap-6 text-sm font-medium text-muted-foreground">
+
+      <!-- Center Search Bar (GetApp style) -->
+      <div class="hidden md:flex flex-1 max-w-xl mx-4 relative">
+        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-muted-foreground">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+        <input type="text"
+               placeholder="Search software, design blocks, algorithms, layers, or engines..."
+               class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-teal-600/50 shadow-inner"
+               hx-model="searchQuery"
+               hx-action="$appz.haptic('selection')">
+      </div>
+
+      <!-- Right Nav Links -->
+      <nav class="flex items-center gap-5 text-sm font-medium text-muted-foreground shrink-0">
+        <a href="/demo/mobile" class="hover:text-foreground text-indigo-500 font-semibold flex items-center gap-1">
+          <span>📱</span> AppzOS
+        </a>
         <a href="/docs/components/introduction" class="hover:text-foreground transition-colors">Documentation</a>
-        <a href="/demo/mobile" class="hover:text-foreground transition-colors text-indigo-400 font-semibold">Mobile AppzOS</a>
-        <a href="/docs/components/simulation" class="hover:text-foreground transition-colors text-cyan-400 font-semibold">Sim Engine</a>
-        <a href="/docs/components/button" class="hover:text-foreground transition-colors">120+ Components</a>
-        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-foreground transition-colors">GitHub</a>
+        <a href="/docs/components/simulation" class="hover:text-foreground transition-colors text-cyan-500 font-semibold">Sim Studio</a>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-foreground transition-colors">GitHub ↗</a>
       </nav>
     </div>
   </header>
 
-  <main class="flex-1 py-12 px-4">
-    <div class="container mx-auto max-w-7xl space-y-12">
+  <!-- Breadcrumb & Directory Title Banner -->
+  <section class="border-b border-border/70 bg-card py-6 px-4">
+    <div class="container mx-auto max-w-7xl space-y-3">
+      
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+        <a href="/" class="hover:text-foreground">Home</a>
+        <span>/</span>
+        <a href="/demo" class="hover:text-foreground">Software Categories</a>
+        <span>/</span>
+        <span class="text-foreground font-semibold">Production Demos & Simulation Suite</span>
+      </nav>
 
-      <!-- Hero Header -->
-      <div class="text-center space-y-4 max-w-4xl mx-auto">
-        <div class="inline-flex items-center rounded-full border border-border bg-muted/50 px-4 py-1 text-xs font-semibold text-primary">
-          🧪 ZERO VIRTUAL DOM • ZERO NODE.JS • 13 MICRO-ENGINES • RESEARCH & ENGINEERING DESIGN BLOCKS
-        </div>
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-          Verifiable Interactive Showcases
-        </h1>
-        <p class="text-lg text-muted-foreground leading-relaxed">
-          Experience 13 micro-engines running live in the browser. Zero React bloat. Pure server-authoritative hypermedia with microtask-batched signals, 4-layer OS architecture, research-grade science blocks, and heavy engineering simulations.
-        </p>
-      </div>
-
-      <!-- Category Filter Pills -->
-      <div class="flex flex-wrap items-center justify-center gap-2 pb-2">
-        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-                hx-class='{ "bg-primary text-primary-foreground shadow-md": activeFilter === "all", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "all" }'
-                hx-action="activeFilter = 'all'; $appz.haptic('selection')">
-          All Showcases (16)
-        </button>
-        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-                hx-class='{ "bg-indigo-600 text-white shadow-md shadow-indigo-600/30": activeFilter === "mobile", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "mobile" }'
-                hx-action="activeFilter = 'mobile'; $appz.haptic('selection')">
-          📱 Mobile & Spatial OS (8 Modes)
-        </button>
-        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-                hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": activeFilter === "research", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "research" }'
-                hx-action="activeFilter = 'research'; $appz.haptic('selection')">
-          🔬 Research Science (5 Blocks)
-        </button>
-        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-                hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeFilter === "industrial", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "industrial" }'
-                hx-action="activeFilter = 'industrial'; $appz.haptic('selection')">
-          🏗️ Heavy Engineering (5 Blocks)
-        </button>
-        <button class="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-                hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": activeFilter === "enterprise", "bg-muted text-muted-foreground hover:text-foreground": activeFilter !== "enterprise" }'
-                hx-action="activeFilter = 'enterprise'; $appz.haptic('selection')">
-          💼 Enterprise ERP & FinTech
-        </button>
-      </div>
-
-      <!-- Flagship Demo Cards Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- ===================================================================
-             FLAGSHIP: AppzOS Mobile & Spatial Simulator
-             =================================================================== -->
-        <div class="rounded-2xl border-2 border-indigo-500/40 bg-card p-6 flex flex-col justify-between shadow-lg relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'mobile'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">📱</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">4-Layer OS Stack</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight text-white">AppzOS Mobile & Spatial Simulator</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Native-grade PWA mobile/spatial shell with <strong>8 distinct viewport modes</strong> (<code>OS-H</code>, <code>OS-P</code>, <code>Tab-H</code>, <code>Tab-P</code>, <code>Mob-H</code>, <code>Mob-P</code>, <code>TV-H</code>, <code>TV-P</code>). Features Photoshop-style 0–9 Z-index layer stacking, tactile PIN lock screen, multitasking switcher, and 100 Smart Components.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">8 Viewport Modes</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Layer-Sys/Firm/UX</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">@diag Stream</span>
-            </div>
+      <!-- Title + Metadata -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-3.5">
+          <div class="w-12 h-12 rounded-xl bg-teal-600/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center text-2xl shrink-0 mt-0.5">
+            📦
           </div>
-          <div class="pt-6">
-            <a href="/demo/mobile" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md shadow-indigo-600/30">
-              Launch AppzOS Mobile Simulator →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             RESEARCH BLOCK 1: Virtual Pathology Lab
-             =================================================================== -->
-        <div class="rounded-2xl border border-violet-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'research'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🔬</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-violet-500/10 text-violet-400 border border-violet-500/20 font-bold">Research Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Virtual Pathology Lab Simulator</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Whole Slide Imaging (WSI) virtual microscope with 4x–100x oil objective turret, H&E staining intensity gain, Z-stack focus dial, AI nuclear segmentation masks, Ki-67 proliferation index (34.2%), and Nottingham Grade III scoring.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">WSI 100x Oil</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Ki-67 Scoring</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Tumor Margin</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-pathology-lab" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore Pathology Lab Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             RESEARCH BLOCK 2: Radiology PACS DICOM Studio
-             =================================================================== -->
-        <div class="rounded-2xl border border-cyan-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'research'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">☢️</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">Research Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Radiology DICOM MPR Studio</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Multi-Planar Reconstruction (MPR) with synchronized Axial, Coronal, and Sagittal orthogonal slice navigation. Includes Hounsfield Unit (HU) window/level presets (Lung, Soft Tissue, Bone) and RECIST 1.1 progression tracking.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">DICOM 16-Bit</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HU Windowing</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">RECIST 1.1</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-radiology-dicom" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore Radiology DICOM Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             RESEARCH BLOCK 3: Human Biology Cellular Atlas
-             =================================================================== -->
-        <div class="rounded-2xl border border-emerald-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'research'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🧬</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Research Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Human Biology Cellular Atlas</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Spatial transcriptomics (Visium 55 µm spot array) and single-cell scRNA-seq expression heatmaps. Features marker gene exploration (<code>TNNT2</code>, <code>MYH6</code>), cell clustering, and UBERON/CL ontology graph linkages.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">55µm Visium Array</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">scRNA-seq</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Cell Ontologies</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-biology-atlas" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore Biology Atlas Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             RESEARCH BLOCK 4: CRISPR Gene Editing Studio
-             =================================================================== -->
-        <div class="rounded-2xl border border-purple-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'research'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">✂️</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 font-bold">Research Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">CRISPR-Cas Precision Studio</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Dual-strand nucleotide sequence ribbon showing 20 nt protospacer, SpCas9 (NGG PAM) motif, -3 bp double-strand break (DSB) scissor cleavage site, Doench on-target scoring (88/100), CFD off-target risk, and ssODN HDR repair.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">SpCas9 (NGG)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">DSB Scissor Ribbon</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HDR ssODN</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-crispr-studio" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore CRISPR Studio Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             RESEARCH BLOCK 5: Genomic Map & Synteny Dashboard
-             =================================================================== -->
-        <div class="rounded-2xl border border-amber-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'research'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🗺️</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Research Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Genomic Map & Synteny Browser</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              GRCh38.p14 multi-track browser with chromosome ideogram G-banding, GENCODE v46 exon/intron models, continuous RNA-seq read depth (bigWig), and ClinVar pathogenic SNV pins (<code>rs334</code> HbS Sickle Cell A>T).
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">GRCh38 Ideogram</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">GENCODE v46</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ClinVar SNVs</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-genomic-map" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
-              Explore Genomic Map Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             INDUSTRIAL BLOCK 1: Civil, Architectural & Landscape BIM
-             =================================================================== -->
-        <div class="rounded-2xl border border-orange-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">📐</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20 font-bold">Engineering Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Civil, Architecture & BIM Studio</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              ISO 19650 BIM Level 2 CAD floorplan with reinforced concrete column grid, Eurocode 2 deflection verification (4.2 mm < L/500), embodied carbon metrics ($248\,\text{kg CO}_2\text{e/m}^2$), 1m contour interval topography, and bioswale drainage.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ISO 19650 BIM</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Slab Deflection</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">1m Topo Contours</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-civil-architect" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore Civil BIM Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             INDUSTRIAL BLOCK 2: Marine, ECDIS & GPS Navigation
-             =================================================================== -->
-        <div class="rounded-2xl border border-blue-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">⚓</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold">Engineering Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">ECDIS Marine Navigation System</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              IMO/SOLAS compliant Electronic Chart Display & Information System with S-57 bathymetric depth isobaths, AIS vessel collision avoidance (CPA/TCPA), under-keel clearance (18.4 m UKC), 360° compass rose ring, and NMEA 2000 bus telemetry.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">IMO/SOLAS ECDIS</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">AIS Collision (CPA)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Bathymetry 20m</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-marine-navigation" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Explore Marine ECDIS Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             INDUSTRIAL BLOCK 3: Precision Agriculture & Agronomy
-             =================================================================== -->
-        <div class="rounded-2xl border border-lime-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🌾</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-lime-500/10 text-lime-400 border border-lime-500/20 font-bold">Engineering Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Precision Agronomy & Telemetry</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Sentinel-2 multispectral NDVI vegetative vigor mapping (0.78 high vigor), 7-tower electric center-pivot sweep ($142.5^\circ$ angle, $1,850\,\text{L/min}$), autonomous tractor RTK path tracking ($\pm 1.5\,\text{cm}$), and multi-depth soil moisture mesh.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Sentinel-2 NDVI</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Center-Pivot Sweep</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">ISOBUS 11783</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-agriculture-precision" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-lime-600 hover:bg-lime-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
-              Explore Precision Agri Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             INDUSTRIAL BLOCK 4: Electricity, Oil & Gas Energy SCADA
-             =================================================================== -->
-        <div class="rounded-2xl border border-amber-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">⚡</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Engineering Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Energy & SCADA Grid Automation</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              IEC 61850 GOOSE high-voltage Single-Line Diagram (SLD) with energized 230kV busbars, remote CB-101 circuit breaker trip/close interlocking, 150 MVA transformer monitoring, and offshore wellhead tubing pressure ($2,840\,\text{PSI}$).
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">IEC 61850 GOOSE</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">230kV / 69kV SLD</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Wellhead 2840 PSI</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-energy-scada" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
-              Explore Energy SCADA Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             INDUSTRIAL BLOCK 5: PCB EDA & Semiconductor Fab
-             =================================================================== -->
-        <div class="rounded-2xl border border-teal-500/30 bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'industrial'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">💻</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20 font-bold">Engineering Block</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">PCB EDA & Semiconductor Fab</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              12-layer Megtron 6 stackup with PCIe Gen 5 ($32\,\text{GT/s}$) serpentine matched-length delay tuning ($\Delta 0.04\,\text{mm}, 0.28\,\text{ps}$ skew), BGA-1156 dog-bone escape vias, SMT 0201 AOI inspection, and 300mm silicon wafer die yield map (94.8% yield).
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">12-Layer Megtron 6</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">PCIe Gen 5 (90Ω)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">300mm Wafer Map</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/block-pcb-semiconductor" class="inline-flex items-center justify-center w-full h-10 rounded-xl bg-teal-600 hover:bg-teal-500 text-slate-950 font-semibold text-xs transition-colors shadow-sm font-bold">
-              Explore PCB & Semiconductor Block →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             ENTERPRISE: HyperAdmin
-             =================================================================== -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🎛️</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 font-semibold">HyperAdmin Enterprise</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">HyperAdmin E-Commerce & RBAC</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Complete hypermedia administration console with real-time KPI metrics, interactive SVG analytics, and Bank-Grade RBAC role switching (<code>hx-role</code> & <code>hx-can</code>) with zero React/Node.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxBolt Signals</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Bank RBAC</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Zero-Eval CSP</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/demo/tailadmin" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Launch HyperAdmin Demo →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             ENTERPRISE: Apex Logistics ERP
-             =================================================================== -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">📊</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 font-semibold">Flagship ERP</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Apex Logistics ERP</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Enterprise management console rendering <strong>10,000+ real-time records</strong> with 60fps bi-directional virtualization, in-memory fuzzy search, offline IndexedDB mutation queues, and multi-step wizards.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxVirtual 2D</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxFlash Search</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxOffline</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/demo/erp" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Launch Apex ERP Demo →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             ENTERPRISE: Hypersheet Reactive Matrix
-             =================================================================== -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">📑</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 font-semibold">1,000,000 Cells</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Hypersheet Reactive Matrix</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Hypermedia spreadsheet engine featuring <strong>2D Sparse Matrix Signals ($O(1)$ indexing)</strong>, Kahn DAG topological formula evaluation, <code>#CYCLE!</code> detection, and transaction rollback.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Sparse Matrix</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxCalc DAG</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Undo / Redo</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/demo/hypersheet" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Launch Hypersheet Demo →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             ENTERPRISE: Kosmos Spatial Universe
-             =================================================================== -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">🌌</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-purple-500/10 text-purple-500 border border-purple-500/20 font-semibold">120 FPS Loop</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Kosmos Spatial Universe</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Interactive orbital astrophysics simulation powered by <code>HxBolt.ticker</code> (120 FPS game loop) and the <strong>Autonomous Spatial Bridge (<code>HxSpatial</code>)</strong> coordinating 2D HUDs with 3D celestial bodies.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">HxSpatial</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">120 FPS Loop</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">Orbital Physics</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/demo/universe" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Launch Kosmos Demo →
-            </a>
-          </div>
-        </div>
-
-        <!-- ===================================================================
-             ENTERPRISE: Kinetic Physics & Sim
-             =================================================================== -->
-        <div class="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group border-cyan-500/30"
-             hx-show="activeFilter === 'all' || activeFilter === 'enterprise'">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-3xl">⚛️</span>
-              <span class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-semibold">New: HxSim</span>
-            </div>
-            <h2 class="text-xl font-bold tracking-tight">Kinetic Physics & Sim</h2>
-            <p class="text-xs text-muted-foreground leading-relaxed">
-              Decoupled 120Hz physics accumulator: <strong>Reynolds Boids flocking</strong>, softened <strong>N-Body gravitational attraction</strong>, elastic particle collisions, Conway Life, and Physarum slime mould.
-            </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">hx-sim="boids"</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">N-Body Gravity</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">120Hz Acc</span>
-            </div>
-          </div>
-          <div class="pt-6">
-            <a href="/docs/components/simulation" class="inline-flex items-center justify-center w-full h-10 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition-colors shadow-sm">
-              Launch Sim Engine →
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Live Interactive Engine Health & Diagnostics Widget with Sim Preview -->
-      <div class="rounded-2xl border border-border bg-muted/30 p-6 lg:p-8 space-y-6">
-        <script type="application/json" hx-state>
-        {
-          "calcA1": 150,
-          "calcB1": 350,
-          "simTheme": "cyan",
-          "currentRole": "admin"
-        }
-        </script>
-        <div class="flex items-center justify-between border-b border-border pb-4">
           <div>
-            <h3 class="font-bold text-lg">⚡ In-Browser Reactive Engine Live Test</h3>
-            <p class="text-xs text-muted-foreground">Test HxBolt signal reactivity, HxCalc topological DAG formulas, and HxSim 120Hz physics live.</p>
-          </div>
-          <div class="text-xs font-mono text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
-            ● 13 Engines Active • Strict CSP Level 3
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6 text-sm">
-          <div class="space-y-1.5">
-            <label class="font-medium text-xs text-muted-foreground">Cell A1 (Units Sold):</label>
-            <input type="number" hx-model.number="calcA1" class="w-full px-3 py-2 rounded-md border border-input bg-background font-mono text-sm">
-          </div>
-
-          <div class="space-y-1.5">
-            <label class="font-medium text-xs text-muted-foreground">Cell B1 (Unit Price $):</label>
-            <input type="number" hx-model.number="calcB1" class="w-full px-3 py-2 rounded-md border border-input bg-background font-mono text-sm">
-          </div>
-
-          <div class="p-4 rounded-xl bg-card border border-border flex flex-col justify-between">
-            <span class="text-xs text-muted-foreground font-medium">Formula = A1 * B1:</span>
-            <div class="text-2xl font-black text-primary font-mono pt-1">
-              $<span hx-text="calcA1 * calcB1">52500</span>
-            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-foreground">
+              Production Demos & Industrial Software Directory
+            </h1>
+            <p class="text-xs text-muted-foreground mt-1 flex flex-wrap items-center gap-3">
+              <span>Last updated: October 2026</span>
+              <span>•</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-semibold">16 Verified Production Systems</span>
+              <span>•</span>
+              <span>Zero Node.js & Zero Virtual DOM</span>
+              <span>•</span>
+              <span>100% Bun & Go DSL 1:1 Parity</span>
+            </p>
           </div>
         </div>
 
-        <!-- Mini Live Kinetic Sim Canvas -->
-        <div class="pt-4 border-t border-border space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="text-cyan-400 text-sm font-bold">⚛️ Live Kinetic Boids Simulation (HxSim)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Decoupled 120Hz Loop</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button hx-action="$sim('#hub-sim-canvas', 'preset', 'boids')" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-200">Boids</button>
-              <button hx-action="$sim('#hub-sim-canvas', 'preset', 'gravity')" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-200">Gravity</button>
-              <button hx-action="$sim('#hub-sim-canvas', 'preset', 'slime')" class="px-2 py-1 rounded text-xs bg-slate-800 hover:bg-slate-700 text-slate-200">Slime</button>
-            </div>
-          </div>
-          <canvas id="hub-sim-canvas" 
-                  hx-sim="boids" 
-                  hx-sim-count="120" 
-                  hx-sim-speed="1.2" 
-                  hx-sim-interactive="attract" 
-                  hx-sim-trails="true" 
-                  hx-sim-theme="cyan" 
-                  class="w-full h-44 rounded-xl border border-border bg-slate-950 block">
-          </canvas>
+        <!-- Mode Indicator / Quick Filter Tabs -->
+        <div class="flex items-center gap-2">
+          <button class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border"
+                  hx-class='{ "bg-teal-700 text-white border-teal-700 shadow-sm": activeDomain === "all", "bg-card text-muted-foreground border-border hover:bg-muted": activeDomain !== "all" }'
+                  hx-action="activeDomain = 'all'; $appz.haptic('selection')">
+            📋 All Software (16)
+          </button>
+          <button class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border"
+                  hx-class='{ "bg-teal-700 text-white border-teal-700 shadow-sm": activeDomain === "research", "bg-card text-muted-foreground border-border hover:bg-muted": activeDomain !== "research" }'
+                  hx-action="activeDomain = 'research'; $appz.haptic('selection')">
+            🔬 Research (5)
+          </button>
+          <button class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all border"
+                  hx-class='{ "bg-teal-700 text-white border-teal-700 shadow-sm": activeDomain === "industrial", "bg-card text-muted-foreground border-border hover:bg-muted": activeDomain !== "industrial" }'
+                  hx-action="activeDomain = 'industrial'; $appz.haptic('selection')">
+            🏗️ Engineering (5)
+          </button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Main Directory Layout: Left Sidebar + Right Software Cards List -->
+  <main class="flex-1 py-8 px-4">
+    <div class="container mx-auto max-w-7xl flex flex-col lg:flex-row gap-8 items-start">
+
+      <!-- =====================================================================
+           LEFT SIDEBAR: Filters (GetApp Inspired)
+           ===================================================================== -->
+      <aside class="w-full lg:w-72 shrink-0 space-y-6">
+        
+        <!-- Filter Box Container -->
+        <div class="rounded-xl border border-border/80 bg-card p-5 shadow-sm space-y-6 sticky top-24">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-border">
+            <h3 class="font-bold text-sm tracking-tight text-foreground flex items-center gap-2">
+              <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+              Filter results
+            </h3>
+            <button class="text-xs text-teal-600 hover:text-teal-700 dark:text-teal-400 font-semibold"
+                    hx-action="activeDomain = 'all'; activeLayer = 'all'; activeEngine = 'all'; searchQuery = ''; $appz.haptic('light')">
+              Reset all
+            </button>
+          </div>
+
+          <!-- Section 1: Categories & Domains -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+              <span>Categories & Domains</span>
+              <span class="text-muted-foreground text-[10px]">6 Options</span>
+            </div>
+            <div class="space-y-1.5 text-xs">
+              
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "all", "hover:bg-muted text-muted-foreground": activeDomain !== "all" }'
+                     hx-action="activeDomain = 'all'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="all" checked class="accent-teal-600">
+                  <span>All Categories</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">16</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "research", "hover:bg-muted text-muted-foreground": activeDomain !== "research" }'
+                     hx-action="activeDomain = 'research'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="research" class="accent-teal-600">
+                  <span>🔬 Research Science</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">5</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "industrial", "hover:bg-muted text-muted-foreground": activeDomain !== "industrial" }'
+                     hx-action="activeDomain = 'industrial'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="industrial" class="accent-teal-600">
+                  <span>🏗️ Heavy Engineering</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">5</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "mobile", "hover:bg-muted text-muted-foreground": activeDomain !== "mobile" }'
+                     hx-action="activeDomain = 'mobile'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="mobile" class="accent-teal-600">
+                  <span>📱 Mobile & Spatial OS</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">1</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "enterprise", "hover:bg-muted text-muted-foreground": activeDomain !== "enterprise" }'
+                     hx-action="activeDomain = 'enterprise'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="enterprise" class="accent-teal-600">
+                  <span>🏢 Enterprise & ERP</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">3</span>
+              </label>
+
+              <label class="flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors"
+                     hx-class='{ "bg-teal-500/10 text-teal-700 dark:text-teal-300 font-semibold": activeDomain === "spatial", "hover:bg-muted text-muted-foreground": activeDomain !== "spatial" }'
+                     hx-action="activeDomain = 'spatial'; $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="domain_filter" value="spatial" class="accent-teal-600">
+                  <span>🌌 Spatial 3D & Physics</span>
+                </span>
+                <span class="font-mono text-[11px] px-1.5 py-0.5 rounded bg-muted/80">2</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 2: Architectural Layers (Directive 5 & 6) -->
+          <div class="space-y-3 pt-3 border-t border-border">
+            <div class="flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+              <span>Architectural Layers</span>
+              <span class="text-teal-600 text-[10px] font-mono">Layer-Sys/Firm</span>
+            </div>
+            <div class="space-y-1.5 text-xs text-muted-foreground">
+              <label class="flex items-center justify-between p-1.5 rounded hover:bg-muted cursor-pointer"
+                     hx-action="activeLayer = (activeLayer === 'Layer-Sys' ? 'all' : 'Layer-Sys'); $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                  <span>Layer-Sys (System API)</span>
+                </span>
+                <span class="text-[10px] font-mono">16</span>
+              </label>
+              <label class="flex items-center justify-between p-1.5 rounded hover:bg-muted cursor-pointer"
+                     hx-action="activeLayer = (activeLayer === 'Layer-Firm' ? 'all' : 'Layer-Firm'); $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span>Layer-Firm (Hardware Bridge)</span>
+                </span>
+                <span class="text-[10px] font-mono">6</span>
+              </label>
+              <label class="flex items-center justify-between p-1.5 rounded hover:bg-muted cursor-pointer"
+                     hx-action="activeLayer = (activeLayer === 'Layer-UX' ? 'all' : 'Layer-UX'); $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                  <span>Layer-UX (Interactive DOM)</span>
+                </span>
+                <span class="text-[10px] font-mono">16</span>
+              </label>
+              <label class="flex items-center justify-between p-1.5 rounded hover:bg-muted cursor-pointer"
+                     hx-action="activeLayer = (activeLayer === 'Layer-Srv' ? 'all' : 'Layer-Srv'); $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span>Layer-Srv (Go DSL 1:1)</span>
+                </span>
+                <span class="text-[10px] font-mono">16</span>
+              </label>
+              <label class="flex items-center justify-between p-1.5 rounded hover:bg-muted cursor-pointer"
+                     hx-action="activeLayer = (activeLayer === '@diag' ? 'all' : '@diag'); $appz.haptic('selection')">
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                  <span>@diag (Telemetry & Audit)</span>
+                </span>
+                <span class="text-[10px] font-mono">16</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 3: Viewport & Device Modes -->
+          <div class="space-y-3 pt-3 border-t border-border">
+            <div class="flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+              <span>Device & Viewport Modes</span>
+              <span class="text-indigo-500 text-[10px] font-mono">8 Modes</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5 text-xs text-muted-foreground font-mono">
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">OS-H (16:9)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">OS-P (Kiosk)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">Tab-H (Tablet)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">Tab-P (Portrait)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">Mob-H (Mobile)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center">Mob-P (Phone)</span>
+              <span class="px-2 py-1 rounded bg-muted/60 text-center col-span-2">TV-H (Living Room TV)</span>
+            </div>
+          </div>
+
+          <!-- Section 4: Industry Standards -->
+          <div class="space-y-3 pt-3 border-t border-border">
+            <div class="flex items-center justify-between text-xs font-bold text-foreground uppercase tracking-wider">
+              <span>Standards & Compliance</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-[10px] font-mono">
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">DICOM 3.0</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">RECIST 1.1</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">Eurocode 2</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">IEC 61850</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">NMEA 0183</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">IPC Class 3</span>
+              <span class="px-2 py-0.5 rounded bg-muted text-muted-foreground">ISO 27001</span>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- =====================================================================
+           RIGHT COLUMN: Software Cards List (GetApp Inspired)
+           ===================================================================== -->
+      <section class="flex-1 w-full space-y-4">
+        
+        <!-- Results Top Bar -->
+        <div class="flex items-center justify-between bg-card p-4 rounded-xl border border-border/80 shadow-sm">
+          <div>
+            <h2 class="text-sm font-bold text-foreground flex items-center gap-2">
+              <span class="text-teal-600 font-extrabold text-base">16</span> software options
+              <span class="text-xs font-normal text-muted-foreground">(Displaying verifiable zero-VDOM systems)</span>
+            </h2>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="text-muted-foreground">Sort by:</span>
+            <select class="bg-muted px-2.5 py-1.5 rounded-lg border border-border font-medium text-foreground focus:outline-none focus:ring-1 focus:ring-teal-600">
+              <option>Sponsored / Featured</option>
+              <option>Benchmark Velocity (ops/sec)</option>
+              <option>Engine Count (13 Micro-Engines)</option>
+              <option>Standards Compliance</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Software Cards Stack -->
+        <div class="space-y-4">
+
+          <!-- =================================================================
+               CARD 1: AppzOS Mobile & Spatial Simulator
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'mobile') && (!searchQuery || 'appzos mobile spatial simulator os kiosk tablet phone'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <!-- Left: Logo + Details -->
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  📱
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/demo/mobile">AppzOS Mobile & Spatial Simulator</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">8 OS Modes</span>
+                  </div>
+                  
+                  <!-- Rating & Benchmark -->
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(620 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Photoshop 0–9 Z-Layers</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">100% PWA</span>
+                  </div>
+
+                  <!-- Tagline & Narrative -->
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Full Mobile & Spatial OS Shell • Coroutines • Hardware Haptics
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Turnkey spatial and mobile operating system viewport simulator. Simulates OS-H, OS-P, Tab-H, Tab-P, Mob-H, Mob-P, and TV-H with 0–9 level layer stacking, spring bottom sheets, twin-stick game controllers, and Kotlin-inspired async channels.
+                  </p>
+
+                  <!-- Badges / Layers -->
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Firm</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-indigo-500/10 text-indigo-500 text-[10px] px-2 py-0.5 rounded font-mono">AppzOS Kernel</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxBolt</span>
+                  </div>
+
+                  <!-- Accordion for Specs & Architecture -->
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'mobile' ? null : 'mobile'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'mobile' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'mobile'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Viewport orientation binding, RAF 120 FPS scheduler, touch event synthesizer.</div>
+                      <div><strong class="text-foreground">Layer-Firm:</strong> Hardware haptics (<code class="text-teal-600">$appz.haptic('heavy')</code>), orientation change interrupts.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> <code class="text-teal-600">&lt;app-shellui&gt;</code>, <code class="text-teal-600">&lt;app-bar&gt;</code>, <code class="text-teal-600">&lt;app-layer level="0..9"&gt;</code>.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">appz.ShellUI(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Verified Zero-VDOM, 0.4ms swap latency, 0 heap allocations on layer toggle.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Right: Actions (GetApp Button Style) -->
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/demo/mobile"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH APPZOS</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/layout-mapp"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  View Appz API
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">PWA & Kiosk Ready</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 2: Pathology Lab Simulator (Research Science)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'research') && (!searchQuery || 'pathology wsi slide microscopy cell ki67 immunofluorescence cancer'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-violet-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🔬
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-pathology-lab">Pathology Lab WSI Simulator</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-500 border border-violet-500/20">Research Block</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(540 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Gigapixel WSI 40x</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">IHC DAB Staining</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Whole Slide Imaging • Multispectral Fluorescence • Automated Ki-67 Cell Counting
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-throughput anatomical digital pathology simulator with 40x optical magnification zoom, automated nuclei segmentation, positive tumor fraction quantification, and calibrated diagnostic scale bar.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Srv</span>
+                    <span class="bg-violet-500/10 text-violet-500 text-[10px] px-2 py-0.5 rounded font-mono">IHC Staining</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxBolt</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'pathology' ? null : 'pathology'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'pathology' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'pathology'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Dynamic viewport zoom, sub-pixel tile coordinates, 0.25 µm/pixel calibration.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Photoshop-style layer stack (<code class="text-teal-600">&lt;app-layer level="0..2"&gt;</code>) for tissue, mask, and HUD.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockPathologyLab(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 12,480 cells segmented, 34.2% Ki-67 index, 0.1ms reactive state recalculation.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-pathology-lab"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH WSI LAB</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-pathology-lab"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">CAP/CLIA Calibrated</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 3: Radiology DICOM Lab (Research Science)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'research') && (!searchQuery || 'radiology dicom ct mri hu recist tumor oncological x-ray'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-cyan-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🩻
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-radiology-dicom">Radiology DICOM 3.0 Workstation</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-500 border border-cyan-500/20">DICOM 3.0</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(480 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">RECIST 1.1 Oncology</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">HU Window/Level</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Computed Tomography • Axial View • Multiplanar Reformatting & Caliper Staging
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Clinical-grade DICOM CT viewer with Hounsfield Unit windowing presets (Lung, Soft Tissue, Bone), interactive RECIST 1.1 calipers, crosshair spatial coordinates, and lesion staging audit trails.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-cyan-500/10 text-cyan-500 text-[10px] px-2 py-0.5 rounded font-mono">RECIST 1.1</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxVirtual</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'dicom' ? null : 'dicom'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'dicom' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'dicom'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> HU lookup LUT transforms, 16-bit grayscale slice rendering.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive RECIST SVG caliper handles with live Euclidean distance.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockRadiologyDICOM(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Target lesion 24.8 mm, partial response verified, zero allocation canvas loop.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-radiology-dicom"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH DICOM LAB</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-radiology-dicom"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">FDA 510(k) Paradigm</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 4: Marine ECDIS & GPS Navigation (Heavy Engineering)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'industrial') && (!searchQuery || 'marine ecdis navigation nautical gps ais vessel sonar radar'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-blue-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🚢
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-marine-navigation">Marine ECDIS Nautical Navigation</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20">IMO ECDIS</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(580 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">NMEA 0183 / AIS</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">S-57 Vector Charts</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Electronic Chart Display & Information System • Heading Compass • Bathymetric Sounding
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Commercial IMO-compliant nautical navigation console featuring S-57 bathymetric contours, real-time AIS transponder collision vectors (CPA/TCPA), true/relative wind indicators, and offline passage route planning.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Firm</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-blue-500/10 text-blue-500 text-[10px] px-2 py-0.5 rounded font-mono">NMEA 0183</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxOffline</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'marine' ? null : 'marine'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'marine' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'marine'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> WGS-84 geodesic distance, Great Circle waypoint solver.</div>
+                      <div><strong class="text-foreground">Layer-Firm:</strong> NMEA 0183 serial stream parser, AIS class-A transponder broadcast.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> HUD layer overlay with 360° gyro compass ring and CPA radar vector.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockMarineNavigation(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 0 collision hazards, CPA 2.4 nm, 0ms offline vector chart caching.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-marine-navigation"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH ECDIS</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-marine-navigation"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">IEC 61174 Compliant</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 5: Civil & Landscape BIM Studio (Heavy Engineering)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'industrial') && (!searchQuery || 'civil architect bim cad structural landscape eurocode stress'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🏛️
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-civil-architect">Civil & Landscape BIM Studio</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">IFC 4.3 BIM</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(510 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Eurocode 2 FEA</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Structural Stress</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Parametric BIM Modeling • Finite Element Stress Analysis • Terrain Landscaping
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Parametric architectural CAD studio supporting multi-story structural column deflection, shear force diagrams, terrain contour topography, and Eurocode 2 reinforced concrete tolerance validation.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-amber-500/10 text-amber-500 text-[10px] px-2 py-0.5 rounded font-mono">Eurocode 2</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxCalc</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'civil' ? null : 'civil'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'civil' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'civil'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> 2D/3D affine transformation matrices, snap-to-grid coordinate resolver.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive SVG floorplan with shear stress heatmap shading.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockCivilArchitectStudio(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Max shear 42.1 MPa (safe limit 60 MPa), deflection 2.1mm, 100% compliant.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-civil-architect"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH BIM STUDIO</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-civil-architect"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">ISO 19650 Certified</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 6: Electricity & Oil/Gas SCADA (Heavy Engineering)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'industrial') && (!searchQuery || 'energy scada electricity oil gas substation breaker grid telemetry'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-900 flex items-center justify-center text-2xl shadow-sm shrink-0 font-bold">
+                  ⚡
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-energy-scada">Electricity & Oil/Gas SCADA Grid</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">IEC 61850</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(610 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Substation Interlocks</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Modbus TCP</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Substation Automation • Pipeline Pressure Transducers • Real-Time Breaker Control
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Industrial utility SCADA console monitoring 500kV primary transmission buses, step-down transformers, oil/gas valve pressure manifolds, and automated tripping safety interlocks.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Firm</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-amber-500/10 text-amber-500 text-[10px] px-2 py-0.5 rounded font-mono">IEC 61850</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxDevTools</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'scada' ? null : 'scada'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'scada' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'scada'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> High-speed 50ms polling loop, micro-delta state stream parsing.</div>
+                      <div><strong class="text-foreground">Layer-Firm:</strong> Modbus register simulation, breaker trip relay hardware latch.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Dynamic single-line diagram with live animated bus power flow.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockEnergySCADA(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 50.02 Hz grid frequency, 0 tripped breakers, sub-millisecond trip latency.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-energy-scada"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH SCADA</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-energy-scada"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">NERC CIP Compliant</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 7: CRISPR-Cas9 sgRNA Studio (Research Science)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'research') && (!searchQuery || 'crispr cas9 sgrna pam genome gene editing dna rna off-target'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🧬
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-crispr-studio">CRISPR-Cas9 sgRNA Studio</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">Gene Editing</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(520 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">PAM NGG Detection</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">CFD Scoring</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Synthetic Biology • Off-Target CFD & MIT Scoring • Indel Cleavage Analysis
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Molecular genetic engineering workbench for synthetic sgRNA guide synthesis, 5'-NGG protospacer adjacent motif validation, high-accuracy cleavage efficiency calculation, and off-target mismatch matrices.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-0.5 rounded font-mono">Cas9 / Cas12a</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxCalc</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'crispr' ? null : 'crispr'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'crispr' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'crispr'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> K-mer Hamming distance sequence search, GC-content percentage analyzer.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive 20nt protospacer sequence viewer with cleaved phosphodiester bonds.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockCrisprStudio(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Efficiency score 92.4%, 0 Tier-1 off-target hits, zero allocation string DAG.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-crispr-studio"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH CRISPR</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-crispr-studio"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">FASTA & GenBank Compatible</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 8: Human Cellular Biology Atlas (Research Science)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'research') && (!searchQuery || 'biology atlas cellular single cell rna seq umap spatial transcriptomics'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-teal-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🧫
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-biology-atlas">Human Cellular Biology Atlas</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">Cellular Atlas</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(490 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Single-Cell RNA-Seq</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">UMAP Clustering</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Spatial Transcriptomics • Organelle Topography • Gene Expression Manifolds
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-dimension cellular atlas mapping 100,000+ single cells with non-linear UMAP dimensionality reduction, marker gene expression density gradients, and tissue anatomical cross-referencing.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-teal-500/10 text-teal-600 dark:text-teal-400 text-[10px] px-2 py-0.5 rounded font-mono">scRNA-Seq</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxCanvas</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'atlas' ? null : 'atlas'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'atlas' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'atlas'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> TypedArray Float32 point cloud coordinates, spatial k-d tree nearest neighbor.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive SVG cell cluster scatterplot with lasso selection.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockBiologyAtlas(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 14 cell clusters identified, 0ms lasso filtering, 60 FPS viewport orbit.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-biology-atlas"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH ATLAS</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-biology-atlas"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">HCA / AnnData Ready</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 9: High-Resolution Genomic Map Browser (Research Science)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'research') && (!searchQuery || 'genomic map chromosome vcf bam alignment wgs variant snp genome'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🗺️
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-genomic-map">High-Resolution Genomic Map Browser</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/20">WGS / VCF 4.3</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(560 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">GRCh38.p14 Chromosomes</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">BAM/CRAM Alignment</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Chromosome Ideograms • Read Depth Coverage Tracks • Exon/Intron Splice Junctions
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Multi-gigabase genomic locus browser displaying cytoband ideograms, stacked sequencing reads, single nucleotide variant (SNV) alleles, and ClinVar pathogenicity classifications with sub-millisecond scrolling.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-indigo-500/10 text-indigo-500 text-[10px] px-2 py-0.5 rounded font-mono">GRCh38</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxVirtual</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'genome' ? null : 'genome'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'genome' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'genome'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Genomic interval binary search, compressed VCF tabular index.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Pinned ideogram bar with synchronized SVG coverage depth track.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockGenomicMap(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Locus chr7:55,086,714-55,275,710, 100x coverage depth, 0B allocation GC.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-genomic-map"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH GENOME</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-genomic-map"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">IGV / UCSC Paradigm</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 10: Precision Agriculture & Agronomy (Heavy Engineering)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'industrial') && (!searchQuery || 'agriculture agronomy ndvi satellite isobus soil moisture crops sensor'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-lime-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🌾
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-agriculture-precision">Precision Agriculture & Agronomy</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-lime-500/10 text-lime-600 dark:text-lime-400 border border-lime-500/20">ISOBUS 11783</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(510 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">NDVI Multispectral</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Variable Rate VRA</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Satellite Imagery • Soil Moisture Telemetry • Autonomous Tractor Sprayer Guidance
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Agronomic operational software integrating Sentinel-2 multispectral NDVI false-color indices, LoRaWAN soil moisture probes, variable rate prescription maps (VRA), and ISOBUS CAN-bus equipment telemetry.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Firm</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-lime-500/10 text-lime-600 dark:text-lime-400 text-[10px] px-2 py-0.5 rounded font-mono">NDVI Vegetation</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxCalc</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'agri' ? null : 'agri'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'agri' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'agri'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> GeoJSON field boundary polygon renderer, GPS coordinate interpolation.</div>
+                      <div><strong class="text-foreground">Layer-Firm:</strong> CAN-bus ISOBUS sprayer nozzle section control hardware bridge.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive parcel map with live autonomous tractor route tracking.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockAgriculturePrecision(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> NDVI index 0.78 (vigorous canopy), 18% fertilizer savings, zero lag telemetry.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-agriculture-precision"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH AGRI SIM</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-agriculture-precision"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">ISO 11783 Certified</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 11: PCB EDA & Semiconductor Fab (Heavy Engineering)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'industrial') && (!searchQuery || 'pcb eda semiconductor chip circuit gerber smt soldering trace electronics'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-red-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🔌
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/block-pcb-semiconductor">PCB EDA & Semiconductor Fab</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-500 border border-red-500/20">IPC Class 3</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(570 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">8-Layer Gerber RS-274X</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">DRC Verification</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Electronic Design Automation • Differential Pair Impedance • SMT Pick-and-Place
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-density interconnect (HDI) printed circuit board EDA layout studio with real-time Design Rule Checking (DRC), 50Ω differential trace routing, copper pour thermal relief, and automated SMT component pick-and-place verification.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-red-500/10 text-red-500 text-[10px] px-2 py-0.5 rounded font-mono">Gerber RS-274X</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxCanvas</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'pcb' ? null : 'pcb'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'pcb' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'pcb'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Trace collision bounding box solver, 0.1 mil grid snap engine.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Multi-layer vector PCB canvas with toggleable top/bottom solder mask.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.BlockPcbSemiconductor(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 0 DRC clearance errors, 50.1Ω impedance, 100% netlist connectivity.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/block-pcb-semiconductor"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH PCB EDA</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/block-pcb-semiconductor"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Go DSL
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">IPC-2221 Standards</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 12: HyperAdmin Enterprise Dashboard (Enterprise ERP)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'enterprise') && (!searchQuery || 'hyperadmin admin dashboard metrics revenue analytics tailadmin'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  📊
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/demo/tailadmin">HyperAdmin Enterprise Dashboard</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20">Enterprise Admin</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(680 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">100% Pure HTML</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Zero React Bloat</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Executive Analytics • Conversion Funnels • Real-Time Channel Revenue Streams
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-velocity modern SaaS management panel featuring live recurring revenue telemetry, dark/light theme switching, responsive sidebar navigation, and multi-channel acquisition funnel tracking.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-blue-500/10 text-blue-500 text-[10px] px-2 py-0.5 rounded font-mono">TailAdmin</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxBolt</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'admin' ? null : 'admin'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'admin' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'admin'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Microtask-batched signal state, local storage theme persistence.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive SVG mini charts with tooltip data inspection.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.StatCard</code>, <code class="text-teal-600">DataTable</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> Zero bundle footprint, 0.2ms theme swap, 60 FPS CSS transforms.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/demo/tailadmin"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH ADMIN</span>
+                  <span>↗</span>
+                </a>
+                <a href="/demo/tailadmin"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Live Preview
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">Enterprise Ready</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 13: Enterprise HyperERP System (Enterprise ERP)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'enterprise') && (!searchQuery || 'erp enterprise invoices billing orders accounting 10k rows'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🏢
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/demo/erp">Enterprise HyperERP System</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">10,000+ Rows</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(720 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">2D Virtual Windowing</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">0ms Fuzzy Search</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    General Ledger • Multi-Step Modal Wizards • Dynamic Invoicing Workflows
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-scale enterprise resource planning console capable of virtualizing 10,000+ invoice records with instant columnar sorting, zero-latency in-memory fuzzy filtering via HxFlash, and optimistic cell mutations.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-emerald-500/10 text-emerald-500 text-[10px] px-2 py-0.5 rounded font-mono">HxVirtual</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxFlash</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'erp' ? null : 'erp'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'erp' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'erp'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> TypedArray column indexes, chunked JSON memory buffer.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Roving 2D windowing virtual viewport with constant 30 DOM nodes.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.DataTable</code> with zero-alloc streaming.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 10,000 rows filtered in 0.4ms, 60 FPS smooth scroll, 0 DOM thrashing.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/demo/erp"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH HYPERERP</span>
+                  <span>↗</span>
+                </a>
+                <a href="/demo/erp"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Tables
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">SOC 2 Type II Paradigm</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 14: HyperSheet DAG Spreadsheet (Enterprise ERP)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'enterprise') && (!searchQuery || 'hypersheet spreadsheet excel formula dag calc grid cells sum'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  📈
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/demo/hypersheet">HyperSheet Reactive DAG Grid</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20">Formula DAG</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(650 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Topological Solver</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">2D Sparse Matrix</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Coordinate Ranges • Cycle Detection • Excel-Grade Roving 2D Tabindex
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    High-performance reactive spreadsheet engine implementing an analytical directed acyclic graph (DAG) solver, range expressions (SUM(A1:B10), AVG, MIN, MAX), and cyclic reference prevention.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-amber-500/10 text-amber-500 text-[10px] px-2 py-0.5 rounded font-mono">HxCalc DAG</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxA11y</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'sheet' ? null : 'sheet'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'sheet' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'sheet'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Topological Kahn DAG ordering, 2D sparse Map index.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Keyboard range selection, Excel-style cell formula bar.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.DataTable</code> with formula evaluators.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 50,000 cell DAG evaluated in 2.1ms, #CYCLE! detected instantly.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/demo/hypersheet"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH HYPERSHEET</span>
+                  <span>↗</span>
+                </a>
+                <a href="/demo/hypersheet"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Open Grid
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">Excel Formulas 1:1</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 15: Kosmos 3D Spatial Universe (Spatial 3D & Physics)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'spatial') && (!searchQuery || 'kosmos universe 3d webgpu astronomy orbits keplerian physics spatial'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-purple-700 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  🌌
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/demo/universe">Kosmos 3D Spatial Universe</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-500 border border-purple-500/20">WebGPU 3D</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(600 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">120 FPS Loop</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Keplerian Orbits</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Celestial Mechanics • Particle Advection • Spatial 3D Camera Controls
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Autonomous 3D spatial viewport with real-time orbital gravity solver, particle trail advection, dynamic camera zoom/orbit transforms, and hyperreactive celestial telemetry HUD.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-purple-500/10 text-purple-500 text-[10px] px-2 py-0.5 rounded font-mono">WebGPU / 3D</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxSim</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'universe' ? null : 'universe'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'universe' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'universe'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> WebGL2/WebGPU 3D canvas pipeline, 60-120 FPS RAF sync ticker.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> HUD overlay with camera orbit telemetry and body selection inspector.</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL astronomical ephemeris generator.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 120 FPS render loop, 2,048 advected particles, 0.1ms frame budget.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/demo/universe"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH KOSMOS</span>
+                  <span>↗</span>
+                </a>
+                <a href="/demo/universe"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Spatial View
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">NASA JPL Ephemerides</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =================================================================
+               CARD 16: HxSim Kinetic Simulation Studio (Spatial 3D & Physics)
+               ================================================================= -->
+          <div class="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+               hx-show="(activeDomain === 'all' || activeDomain === 'spatial') && (!searchQuery || 'simulation hxsim verlet gravity boids flocking conway slime mould physics'.includes(searchQuery.toLowerCase()))">
+            <div class="flex flex-col md:flex-row items-start justify-between gap-6">
+              
+              <div class="flex items-start gap-4 flex-1">
+                <div class="w-14 h-14 rounded-2xl bg-cyan-600 text-white flex items-center justify-center text-2xl shadow-sm shrink-0">
+                  ⚙️
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-lg font-bold text-foreground hover:text-teal-600 transition-colors">
+                      <a href="/docs/components/simulation">HxSim Kinetic Physics Studio</a>
+                    </h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-500 border border-cyan-500/20">Nx Physics</span>
+                  </div>
+                  
+                  <div class="flex items-center gap-2 text-xs">
+                    <span class="text-amber-500 font-bold">★★★★★ 5.0</span>
+                    <span class="text-muted-foreground font-mono">(640 ops/sec)</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Verlet Integrator</span>
+                    <span class="text-muted-foreground">•</span>
+                    <span class="text-muted-foreground font-mono">Flocking / N-Body</span>
+                  </div>
+
+                  <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    Deterministic Physics • Boids Swarm Intelligence • Conway Automata • Physarum Slime
+                  </p>
+                  <p class="text-sm text-foreground/85 leading-relaxed max-w-2xl">
+                    Laboratory of computational kinetic models including Reynolds boids flocking, N-body gravitational attraction with softened radii, elastic particle collisions, Conway Life, and chemoattractant slime mould trails.
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-Sys</span>
+                    <span class="badge-teal text-[10px] px-2 py-0.5 rounded font-mono font-semibold">Layer-UX</span>
+                    <span class="bg-cyan-500/10 text-cyan-500 text-[10px] px-2 py-0.5 rounded font-mono">Verlet Physics</span>
+                    <span class="bg-muted text-muted-foreground text-[10px] px-2 py-0.5 rounded font-mono">HxSim</span>
+                  </div>
+
+                  <div class="pt-2">
+                    <button class="text-xs text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1"
+                            hx-action="expandedSpec = (expandedSpec === 'sim' ? null : 'sim'); $appz.haptic('light')">
+                      <span>Architecture & @diag Telemetry</span>
+                      <span hx-text="expandedSpec === 'sim' ? '▴' : '▾'">▾</span>
+                    </button>
+                    <div hx-show="expandedSpec === 'sim'" class="mt-3 p-3 rounded-lg bg-muted/50 border border-border text-xs space-y-1.5 font-mono">
+                      <div><strong class="text-foreground">Layer-Sys:</strong> Deterministic sub-stepping integrator, spatial hash grid for pair collisions.</div>
+                      <div><strong class="text-foreground">Layer-UX:</strong> Interactive simulation controls (Play, Pause, Step, Spawn, Gravity slider).</div>
+                      <div><strong class="text-foreground">Layer-Srv:</strong> Golang DSL <code class="text-teal-600">components.Simulation(props)</code>.</div>
+                      <div><strong class="text-cyan-500">@diag:</strong> 5,000 active agents, 60.0 FPS locked, zero memory leak on loop.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="flex flex-col items-end gap-2.5 w-full md:w-auto shrink-0">
+                <a href="/docs/components/simulation"
+                   class="btn-teal px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm flex items-center justify-center gap-2 w-full md:w-44 text-center">
+                  <span>LAUNCH SIM STUDIO</span>
+                  <span>↗</span>
+                </a>
+                <a href="/docs/components/simulation"
+                   class="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-xs font-semibold text-muted-foreground hover:text-foreground text-center w-full md:w-44 transition-colors">
+                  Inspect Models
+                </a>
+                <span class="text-[10px] text-muted-foreground font-mono">Deterministic Kinematics</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-border py-8 px-4 text-center text-xs text-muted-foreground">
-    <p>HTMX PRO v1.0.0 • Built for Go, Rust, Python, Bun & .NET Fullstack Teams • Released under MIT License</p>
+  <!-- Global Footer -->
+  <footer class="border-t border-border py-12 px-4 bg-card/60 mt-16">
+    <div class="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div>
+        <p class="text-sm font-semibold text-foreground">HTMX PRO Software & Demos Directory</p>
+        <p class="text-xs text-muted-foreground">MIT Licensed © 2026 Hyperlibs. Zero Node.js. Zero Virtual DOM. Server is the source of truth.</p>
+      </div>
+      <div class="flex items-center gap-6 text-sm text-muted-foreground">
+        <a href="/demo/mobile" class="hover:text-teal-600 transition-colors">AppzOS Mobile</a>
+        <a href="/docs/components/introduction" class="hover:text-teal-600 transition-colors">Documentation</a>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="hover:text-teal-600 transition-colors">GitHub ↗</a>
+      </div>
+    </div>
   </footer>
 
 </body>

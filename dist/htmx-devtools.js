@@ -27,7 +27,7 @@
       });
   };
 
-  // src/htmx-devtools.ts
+  // ../htmxpro/src/htmx-devtools.ts
   var exports_htmx_devtools = {};
   __export(exports_htmx_devtools, {
     HxDevTools: () => HxDevTools

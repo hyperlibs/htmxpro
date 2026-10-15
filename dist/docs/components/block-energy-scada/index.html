@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Energy Scada — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Energy Scada</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Energy Scada</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: ELECTRICITY, OIL & GAS ENERGY SCADA
+     IEC 61850 Single-Line Diagram (SLD), 3-Phase Load Flow & Wellhead Manifolds
+     ========================================================================= -->
+<div class="block-energy-scada rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "viewMode": "grid", "voltageKv": 230.4, "freqHz": 60.02, "loadMw": 142.5, "cb101Closed": true, "wellheadPsi": 2840, "chokePct": 38 }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm">
+        ⚡
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-400">Energy & SCADA Grid Automation</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">IEC 61850 GOOSE</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Substation Delta-4 (230kV / 69kV)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">WECC Interconnection & Offshore Wellhead Alpha</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Grid Frequency & Bus Voltage Badges -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-amber-400 font-mono font-black" hx-text="voltageKv + ' kV'">230.4 kV</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-emerald-400 font-mono font-black" hx-text="freqHz + ' Hz'">60.02 Hz</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & SCADA CONTROLS RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- View Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Modality</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black": viewMode === "grid", "bg-slate-900 text-slate-400": viewMode !== "grid" }'
+              hx-action="viewMode = 'grid'; $appz.haptic('selection')">
+        230kV Substation SLD
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black": viewMode === "wellhead", "bg-slate-900 text-slate-400": viewMode !== "wellhead" }'
+              hx-action="viewMode = 'wellhead'; $appz.haptic('selection')">
+        Offshore Wellhead Production
+      </button>
+    </div>
+
+    <!-- Breaker Interlock Action -->
+    <div class="flex items-center gap-2">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">CB-101 Breaker:</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold text-xs transition-all active:scale-95"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": cb101Closed, "bg-rose-600 text-white shadow-md shadow-rose-600/30": !cb101Closed }'
+              hx-action="cb101Closed = !cb101Closed; $appz.haptic(cb101Closed ? 'medium' : 'heavy')">
+        <span hx-text="cb101Closed ? '● CLOSED (ENERGIZED)' : '■ TRIPPED / OPEN'">● CLOSED (ENERGIZED)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: SCADA SINGLE-LINE DIAGRAM & POWER INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR SINGLE-LINE DIAGRAM (SLD) (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-amber-400/90 z-10 pointer-events-none">
+        <span>BUSBAR A (230kV MAIN) • 3-PHASE BALANCED</span>
+        <span>LOAD: <span class="text-white font-bold" hx-text="loadMw + ' MW'">142.5 MW</span> • PF: 0.99 IND</span>
+      </div>
+
+      <!-- Vector High-Voltage SLD via SVG -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 500 350">
+          <!-- 230kV Main Transmission Busbar A (Thick Glowing Amber Bar) -->
+          <line x1="40" y1="60" x2="460" y2="60" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" />
+          <text x="50" y="50" fill="#f59e0b" font-size="10" font-family="monospace" font-weight="900">BUS 1 (230 kV MAIN)</text>
+
+          <!-- Feeder 1 Drop Line with Circuit Breaker CB-101 -->
+          <line x1="140" y1="63" x2="140" y2="120" stroke="#f59e0b" stroke-width="2.5" />
+          <!-- Disconnect Switch DS-101 -->
+          <circle cx="140" cy="120" r="3" fill="#ffffff" />
+          <line x1="140" y1="120" x2="140" y2="145" stroke="#f59e0b" stroke-width="2" />
+
+          <!-- Circuit Breaker CB-101 Box -->
+          <rect x="125" y="145" width="30" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+          <text x="132" y="164" fill="#10b981" font-size="9" font-family="monospace" font-weight="900">CB1</text>
+          <line x1="140" y1="175" x2="140" y2="210" stroke="#f59e0b" stroke-width="2.5" />
+
+          <!-- 150 MVA Step-Down Power Transformer T1 (230 kV to 69 kV) -->
+          <circle cx="140" cy="225" r="16" fill="none" stroke="#f59e0b" stroke-width="2.5" />
+          <circle cx="140" cy="245" r="16" fill="none" stroke="#06b6d4" stroke-width="2.5" />
+          <text x="165" y="238" fill="#e2e8f0" font-size="9" font-family="monospace" font-weight="bold">T1 (150 MVA)</text>
+          <text x="165" y="250" fill="#94a3b8" font-size="8" font-family="monospace">68.4°C</text>
+
+          <!-- 69kV Distribution Busbar B (Cyan Bar) -->
+          <line x1="40" y1="290" x2="460" y2="290" stroke="#06b6d4" stroke-width="5" stroke-linecap="round" />
+          <line x1="140" y1="261" x2="140" y2="290" stroke="#06b6d4" stroke-width="2.5" />
+          <text x="50" y="310" fill="#06b6d4" font-size="10" font-family="monospace" font-weight="900">BUS 2 (69 kV DISTRIBUTION)</text>
+
+          <!-- Feeder 2 Drop Line with CB-102 -->
+          <line x1="360" y1="63" x2="360" y2="145" stroke="#f59e0b" stroke-width="2.5" />
+          <rect x="345" y="145" width="30" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+          <text x="352" y="164" fill="#10b981" font-size="9" font-family="monospace" font-weight="900">CB2</text>
+          <line x1="360" y1="175" x2="360" y2="240" stroke="#f59e0b" stroke-width="2.5" />
+
+          <!-- Surge Arrester -->
+          <path d="M 360,240 L 368,248 L 352,256 L 360,264 L 360,275" fill="none" stroke="#f59e0b" stroke-width="2" />
+          <line x1="350" y1="275" x2="370" y2="275" stroke="#ffffff" stroke-width="1.5" /> <!-- Ground -->
+        </svg>
+
+        <!-- Substation Bus Status HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Active Load: <span class="font-bold text-amber-400">142.5 MW</span> • Reactive: <span class="text-cyan-400 font-bold">18.2 MVAR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE SCADA & WELLHEAD INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Grid & Wellhead Telemetry</span>
+          <span class="text-[10px] font-bold text-emerald-400">NORMAL OPERATING</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- 3-Phase Electrical Load Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Grid Active Load</span>
+            <div class="flex items-baseline justify-between">
+              <span class="text-3xl font-black text-white" hx-text="loadMw + ' MW'">142.5 MW</span>
+              <span class="text-xs font-bold text-emerald-400 font-mono">60.02 Hz</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mt-3 pt-2 border-t border-slate-900 text-[10px]">
+              <div>
+                <span class="text-slate-500 block">Phase A</span>
+                <span class="font-bold text-white font-mono">133.0 kV</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Phase B</span>
+                <span class="font-bold text-white font-mono">133.1 kV</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Phase C</span>
+                <span class="font-bold text-white font-mono">132.9 kV</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oil & Gas Offshore Wellhead Telemetry -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Platform Alpha Wellhead</span>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Tubing Head Pressure:</span>
+              <span class="text-amber-400 font-mono" hx-text="wellheadPsi + ' PSI'">2,840 PSI</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Adjustable Choke Valve:</span>
+              <span class="text-cyan-400 font-mono" hx-text="chokePct + '% Open'">38% Open</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Total Liquid Flow:</span>
+              <span class="text-emerald-400 font-mono">4,200 BOPD</span>
+            </div>
+          </div>
+
+          <!-- Transformer Health -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Transformer T1 Hotspot:</span>
+              <span class="font-bold text-emerald-400 font-mono">68.4°C (Limit: 95°C)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Buchholz Relay:</span>
+              <span class="font-bold text-white font-mono">NO GAS DETECTED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20"
+                hx-action="$appz.haptic('heavy')">
+          Emergency Shutdown (ESD) Matrix Armed
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-amber-400">Protocol: IEC 61850 GOOSE</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Trip Latency: &lt; 4.0 ms</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        SCADA Redundancy: PRP/HSR Active
+      </span>
+      <span class="text-slate-500">Dual Hot Standby</span>
+      <span class="text-amber-400 font-mono">@diag: SCADA_GRID_SYNC</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: ELECTRICITY, OIL &amp; GAS ENERGY SCADA
+     IEC 61850 Single-Line Diagram (SLD), 3-Phase Load Flow &amp; Wellhead Manifolds
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-energy-scada rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;viewMode&quot;: &quot;grid&quot;, &quot;voltageKv&quot;: 230.4, &quot;freqHz&quot;: 60.02, &quot;loadMw&quot;: 142.5, &quot;cb101Closed&quot;: true, &quot;wellheadPsi&quot;: 2840, &quot;chokePct&quot;: 38 }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm&quot;&gt;
+        ⚡
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-amber-400&quot;&gt;Energy &amp; SCADA Grid Automation&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20&quot;&gt;IEC 61850 GOOSE&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span&gt;Substation Delta-4 (230kV / 69kV)&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;WECC Interconnection &amp; Offshore Wellhead Alpha&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Active Grid Frequency &amp; Bus Voltage Badges --&gt;
+    &lt;div class=&quot;flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs&quot;&gt;
+      &lt;span class=&quot;text-amber-400 font-mono font-black&quot; hx-text=&quot;voltageKv + ' kV'&quot;&gt;230.4 kV&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-emerald-400 font-mono font-black&quot; hx-text=&quot;freqHz + ' Hz'&quot;&gt;60.02 Hz&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; SCADA CONTROLS RIBBON --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- View Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Modality&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black&quot;: viewMode === &quot;grid&quot;, &quot;bg-slate-900 text-slate-400&quot;: viewMode !== &quot;grid&quot; }'
+              hx-action=&quot;viewMode = 'grid'; $appz.haptic('selection')&quot;&gt;
+        230kV Substation SLD
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black&quot;: viewMode === &quot;wellhead&quot;, &quot;bg-slate-900 text-slate-400&quot;: viewMode !== &quot;wellhead&quot; }'
+              hx-action=&quot;viewMode = 'wellhead'; $appz.haptic('selection')&quot;&gt;
+        Offshore Wellhead Production
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Breaker Interlock Action --&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-bold text-slate-400 uppercase&quot;&gt;CB-101 Breaker:&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold text-xs transition-all active:scale-95&quot;
+              hx-class='{ &quot;bg-emerald-600 text-white shadow-md shadow-emerald-600/30&quot;: cb101Closed, &quot;bg-rose-600 text-white shadow-md shadow-rose-600/30&quot;: !cb101Closed }'
+              hx-action=&quot;cb101Closed = !cb101Closed; $appz.haptic(cb101Closed ? 'medium' : 'heavy')&quot;&gt;
+        &lt;span hx-text=&quot;cb101Closed ? '● CLOSED (ENERGIZED)' : '■ TRIPPED / OPEN'&quot;&gt;● CLOSED (ENERGIZED)&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: SCADA SINGLE-LINE DIAGRAM &amp; POWER INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: VECTOR SINGLE-LINE DIAGRAM (SLD) (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;!-- Top HUD Data Tags --&gt;
+      &lt;div class=&quot;flex items-center justify-between text-xs font-mono text-amber-400/90 z-10 pointer-events-none&quot;&gt;
+        &lt;span&gt;BUSBAR A (230kV MAIN) • 3-PHASE BALANCED&lt;/span&gt;
+        &lt;span&gt;LOAD: &lt;span class=&quot;text-white font-bold&quot; hx-text=&quot;loadMw + ' MW'&quot;&gt;142.5 MW&lt;/span&gt; • PF: 0.99 IND&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Vector High-Voltage SLD via SVG --&gt;
+      &lt;div class=&quot;relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center&quot;&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 500 350&quot;&gt;
+          &lt;!-- 230kV Main Transmission Busbar A (Thick Glowing Amber Bar) --&gt;
+          &lt;line x1=&quot;40&quot; y1=&quot;60&quot; x2=&quot;460&quot; y2=&quot;60&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot; /&gt;
+          &lt;text x=&quot;50&quot; y=&quot;50&quot; fill=&quot;#f59e0b&quot; font-size=&quot;10&quot; font-family=&quot;monospace&quot; font-weight=&quot;900&quot;&gt;BUS 1 (230 kV MAIN)&lt;/text&gt;
+
+          &lt;!-- Feeder 1 Drop Line with Circuit Breaker CB-101 --&gt;
+          &lt;line x1=&quot;140&quot; y1=&quot;63&quot; x2=&quot;140&quot; y2=&quot;120&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;!-- Disconnect Switch DS-101 --&gt;
+          &lt;circle cx=&quot;140&quot; cy=&quot;120&quot; r=&quot;3&quot; fill=&quot;#ffffff&quot; /&gt;
+          &lt;line x1=&quot;140&quot; y1=&quot;120&quot; x2=&quot;140&quot; y2=&quot;145&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2&quot; /&gt;
+
+          &lt;!-- Circuit Breaker CB-101 Box --&gt;
+          &lt;rect x=&quot;125&quot; y=&quot;145&quot; width=&quot;30&quot; height=&quot;30&quot; rx=&quot;6&quot; fill=&quot;#1e293b&quot; stroke=&quot;#10b981&quot; stroke-width=&quot;2&quot; /&gt;
+          &lt;text x=&quot;132&quot; y=&quot;164&quot; fill=&quot;#10b981&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot; font-weight=&quot;900&quot;&gt;CB1&lt;/text&gt;
+          &lt;line x1=&quot;140&quot; y1=&quot;175&quot; x2=&quot;140&quot; y2=&quot;210&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2.5&quot; /&gt;
+
+          &lt;!-- 150 MVA Step-Down Power Transformer T1 (230 kV to 69 kV) --&gt;
+          &lt;circle cx=&quot;140&quot; cy=&quot;225&quot; r=&quot;16&quot; fill=&quot;none&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;circle cx=&quot;140&quot; cy=&quot;245&quot; r=&quot;16&quot; fill=&quot;none&quot; stroke=&quot;#06b6d4&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;text x=&quot;165&quot; y=&quot;238&quot; fill=&quot;#e2e8f0&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot; font-weight=&quot;bold&quot;&gt;T1 (150 MVA)&lt;/text&gt;
+          &lt;text x=&quot;165&quot; y=&quot;250&quot; fill=&quot;#94a3b8&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;68.4°C&lt;/text&gt;
+
+          &lt;!-- 69kV Distribution Busbar B (Cyan Bar) --&gt;
+          &lt;line x1=&quot;40&quot; y1=&quot;290&quot; x2=&quot;460&quot; y2=&quot;290&quot; stroke=&quot;#06b6d4&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; /&gt;
+          &lt;line x1=&quot;140&quot; y1=&quot;261&quot; x2=&quot;140&quot; y2=&quot;290&quot; stroke=&quot;#06b6d4&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;text x=&quot;50&quot; y=&quot;310&quot; fill=&quot;#06b6d4&quot; font-size=&quot;10&quot; font-family=&quot;monospace&quot; font-weight=&quot;900&quot;&gt;BUS 2 (69 kV DISTRIBUTION)&lt;/text&gt;
+
+          &lt;!-- Feeder 2 Drop Line with CB-102 --&gt;
+          &lt;line x1=&quot;360&quot; y1=&quot;63&quot; x2=&quot;360&quot; y2=&quot;145&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;rect x=&quot;345&quot; y=&quot;145&quot; width=&quot;30&quot; height=&quot;30&quot; rx=&quot;6&quot; fill=&quot;#1e293b&quot; stroke=&quot;#10b981&quot; stroke-width=&quot;2&quot; /&gt;
+          &lt;text x=&quot;352&quot; y=&quot;164&quot; fill=&quot;#10b981&quot; font-size=&quot;9&quot; font-family=&quot;monospace&quot; font-weight=&quot;900&quot;&gt;CB2&lt;/text&gt;
+          &lt;line x1=&quot;360&quot; y1=&quot;175&quot; x2=&quot;360&quot; y2=&quot;240&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2.5&quot; /&gt;
+
+          &lt;!-- Surge Arrester --&gt;
+          &lt;path d=&quot;M 360,240 L 368,248 L 352,256 L 360,264 L 360,275&quot; fill=&quot;none&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;2&quot; /&gt;
+          &lt;line x1=&quot;350&quot; y1=&quot;275&quot; x2=&quot;370&quot; y2=&quot;275&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1.5&quot; /&gt; &lt;!-- Ground --&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Substation Bus Status HUD Badge --&gt;
+        &lt;div class=&quot;absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400&quot;&gt;
+          Active Load: &lt;span class=&quot;font-bold text-amber-400&quot;&gt;142.5 MW&lt;/span&gt; • Reactive: &lt;span class=&quot;text-cyan-400 font-bold&quot;&gt;18.2 MVAR&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE SCADA &amp; WELLHEAD INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-amber-400&quot;&gt;Grid &amp; Wellhead Telemetry&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-emerald-400&quot;&gt;NORMAL OPERATING&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- 3-Phase Electrical Load Card --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block mb-1&quot;&gt;Grid Active Load&lt;/span&gt;
+            &lt;div class=&quot;flex items-baseline justify-between&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;loadMw + ' MW'&quot;&gt;142.5 MW&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-bold text-emerald-400 font-mono&quot;&gt;60.02 Hz&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;grid grid-cols-3 gap-2 mt-3 pt-2 border-t border-slate-900 text-[10px]&quot;&gt;
+              &lt;div&gt;
+                &lt;span class=&quot;text-slate-500 block&quot;&gt;Phase A&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;133.0 kV&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;span class=&quot;text-slate-500 block&quot;&gt;Phase B&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;133.1 kV&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;span class=&quot;text-slate-500 block&quot;&gt;Phase C&lt;/span&gt;
+                &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;132.9 kV&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Oil &amp; Gas Offshore Wellhead Telemetry --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;Platform Alpha Wellhead&lt;/span&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Tubing Head Pressure:&lt;/span&gt;
+              &lt;span class=&quot;text-amber-400 font-mono&quot; hx-text=&quot;wellheadPsi + ' PSI'&quot;&gt;2,840 PSI&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Adjustable Choke Valve:&lt;/span&gt;
+              &lt;span class=&quot;text-cyan-400 font-mono&quot; hx-text=&quot;chokePct + '% Open'&quot;&gt;38% Open&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Total Liquid Flow:&lt;/span&gt;
+              &lt;span class=&quot;text-emerald-400 font-mono&quot;&gt;4,200 BOPD&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Transformer Health --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1&quot;&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Transformer T1 Hotspot:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-emerald-400 font-mono&quot;&gt;68.4°C (Limit: 95°C)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Buchholz Relay:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;NO GAS DETECTED&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20&quot;
+                hx-action=&quot;$appz.haptic('heavy')&quot;&gt;
+          Emergency Shutdown (ESD) Matrix Armed
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-amber-400&quot;&gt;Protocol: IEC 61850 GOOSE&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Trip Latency: &amp;lt; 4.0 ms&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        SCADA Redundancy: PRP/HSR Active
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;Dual Hot Standby&lt;/span&gt;
+      &lt;span class=&quot;text-amber-400 font-mono&quot;&gt;@diag: SCADA_GRID_SYNC&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

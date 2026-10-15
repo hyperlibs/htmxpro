@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Agriculture Precision — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Agriculture Precision</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Agriculture Precision</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: PRECISION AGRICULTURE & AGRONOMY SIMULATION
+     Multispectral NDVI Satellite Vigor, Center-Pivot Irrigation & Soil Mesh
+     ========================================================================= -->
+<div class="block-agriculture-precision rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "activeLayer": "ndvi", "pivotAngle": 142.5, "pivotSpeed": 45, "waterMm": 12.5, "ndviMean": 0.78, "soilMoist": 28.4, "pivotRunning": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-lime-600/20 border border-lime-500/40 flex items-center justify-center text-lime-400 font-black text-sm">
+        🌾
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-lime-400">Precision Agronomy & Telemetry</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-lime-500/10 text-lime-400 border border-lime-500/20">ISOBUS 11783</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Parcel-B4 North Pivot (160 Ha)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Zea mays (Corn V6) • Silty Clay Loam</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Weather & Evapotranspiration Metric -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">ET₀: 4.8 mm/day</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-lime-400 font-mono font-bold">LoRa Mesh: 915 MHz</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & SPECTRAL TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Multispectral Layer Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Remote Sensing</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "ndvi", "bg-slate-900 text-slate-400": activeLayer !== "ndvi" }'
+              hx-action="activeLayer = 'ndvi'; $appz.haptic('selection')">
+        NDVI Vegetative Vigor
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "soil", "bg-slate-900 text-slate-400": activeLayer !== "soil" }'
+              hx-action="activeLayer = 'soil'; $appz.haptic('selection')">
+        Soil Moisture (VWC%)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "rx", "bg-slate-900 text-slate-400": activeLayer !== "rx" }'
+              hx-action="activeLayer = 'rx'; $appz.haptic('selection')">
+        Variable N-Prescription
+      </button>
+    </div>
+
+    <!-- Center Pivot Telemetry Control -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Pivot Arm:</span>
+      <button class="px-2 py-0.5 rounded-lg text-xs font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": pivotRunning, "bg-rose-600 text-white": !pivotRunning }'
+              hx-action="pivotRunning = !pivotRunning; $appz.haptic('medium')">
+        <span hx-text="pivotRunning ? '● PUMPING (1,850 L/min)' : '■ STOPPED'">● PUMPING</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: PARCEL CANVAS & QUANTITATIVE AGRONOMIC INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: GEOSPATIAL PARCEL VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-[#0b170c] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-lime-400/90 z-10 pointer-events-none">
+        <span>PARCEL-B4 CIRCLE • RADIUS: 400m</span>
+        <span>SENTINEL-2 NDVI (10m RESOLUTION)</span>
+      </div>
+
+      <!-- Center Pivot & NDVI Parcel Simulation Canvas -->
+      <div class="relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 400 400">
+          <defs>
+            <!-- NDVI Heatmap Radial Gradient -->
+            <radialGradient id="ndviField" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#15803d" />
+              <stop offset="40%" stop-color="#16a34a" />
+              <stop offset="70%" stop-color="#65a30d" />
+              <stop offset="85%" stop-color="#ca8a04" />
+              <stop offset="100%" stop-color="#1c1917" />
+            </radialGradient>
+          </defs>
+
+          <!-- Outer Parcel Boundary (Circular Pivot Footprint) -->
+          <circle cx="200" cy="200" r="175" fill="url(#ndviField)" stroke="#4d7c0f" stroke-width="2" />
+
+          <!-- Concentric Wheel Tracks of 7-Tower Pivot -->
+          <circle cx="200" cy="200" r="25" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="50" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="75" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="100" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="125" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="175" fill="none" stroke="#84cc16" stroke-width="1.5" />
+
+          <!-- Center Pivot Arm (Line at ~142.5 degrees) -->
+          <line x1="200" y1="200" x2="60" y2="305" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+          <!-- Water Spray Sector Arc Cone -->
+          <path d="M 200,200 L 40,290 A 175 175 0 0 0 75,325 Z" fill="rgba(56, 189, 248, 0.25)" />
+
+          <!-- Autonomous Tractor RTK Path Guidance Lines -->
+          <g id="tractor-path" stroke="#facc15" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.8">
+            <line x1="220" y1="60" x2="220" y2="340" />
+            <line x1="240" y1="65" x2="240" y2="335" />
+            <line x1="260" y1="75" x2="260" y2="325" />
+            <!-- Tractor Icon -->
+            <rect x="236" y="180" width="8" height="12" fill="#facc15" rx="2" />
+          </g>
+
+          <!-- Soil Moisture Probe Locations -->
+          <circle cx="270" cy="140" r="4" fill="#38bdf8" stroke="#ffffff" stroke-width="1" />
+          <text x="278" y="143" fill="#38bdf8" font-size="8" font-family="monospace">Probe 01 (28.4%)</text>
+        </svg>
+
+        <!-- Pivot Sweep Angle HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Pivot Angle: <span class="font-bold text-lime-400" hx-text="pivotAngle + '°'">142.5°</span> • Speed: <span class="text-white font-bold" hx-text="pivotSpeed + '%'">45%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE AGRONOMIC INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-lime-400">Agronomic Telemetry</span>
+          <span class="text-[10px] font-bold text-emerald-400">SENTINEL-2</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- NDVI Metric -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Mean Parcel NDVI</span>
+              <span class="text-xs font-black text-emerald-400">EXCELLENT VIGOR</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-3xl font-black text-white" hx-text="ndviMean">0.78</span>
+              <span class="text-[10px] text-slate-400">Range: 0.45 – 0.88</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-lime-500 rounded-full" style="width: 78%;"></div>
+            </div>
+          </div>
+
+          <!-- Soil Moisture Profile -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Soil Volumetric Water (VWC%)</span>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">10 cm Topsoil</span>
+              <span class="text-sky-400 font-mono">31.2%</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">30 cm Root Zone</span>
+              <span class="text-emerald-400 font-mono" hx-text="soilMoist + '%'">28.4% (Optimal)</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">60 cm Deep Subsoil</span>
+              <span class="text-sky-400 font-mono">34.0%</span>
+            </div>
+          </div>
+
+          <!-- Variable N-Rate Fertilizer Prescription -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Variable-Rate Nitrogen:</span>
+              <span class="font-bold text-lime-400 font-mono">140 kg/ha avg</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Target Yield Estimate:</span>
+              <span class="font-bold text-white font-mono">12.4 Ton/Ha</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-lime-600 hover:bg-lime-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-lime-600/20"
+                hx-action="$appz.haptic('success')">
+          Push Prescription Map to Tractor ISOBUS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-lime-400">Weather: 26°C • Hum 42% • Wind 12 km/h</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">RTK Accuracy: ±1.5 cm</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        LoRa Sensor Mesh: 100% Online
+      </span>
+      <span class="text-slate-500">Nodes: 16</span>
+      <span class="text-lime-400 font-mono">@diag: AGRI_MESH_OK</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: PRECISION AGRICULTURE &amp; AGRONOMY SIMULATION
+     Multispectral NDVI Satellite Vigor, Center-Pivot Irrigation &amp; Soil Mesh
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-agriculture-precision rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;activeLayer&quot;: &quot;ndvi&quot;, &quot;pivotAngle&quot;: 142.5, &quot;pivotSpeed&quot;: 45, &quot;waterMm&quot;: 12.5, &quot;ndviMean&quot;: 0.78, &quot;soilMoist&quot;: 28.4, &quot;pivotRunning&quot;: true }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-lime-600/20 border border-lime-500/40 flex items-center justify-center text-lime-400 font-black text-sm&quot;&gt;
+        🌾
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-lime-400&quot;&gt;Precision Agronomy &amp; Telemetry&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-lime-500/10 text-lime-400 border border-lime-500/20&quot;&gt;ISOBUS 11783&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span&gt;Parcel-B4 North Pivot (160 Ha)&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;Zea mays (Corn V6) • Silty Clay Loam&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Active Weather &amp; Evapotranspiration Metric --&gt;
+    &lt;div class=&quot;flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs&quot;&gt;
+      &lt;span class=&quot;text-slate-400 font-bold&quot;&gt;ET₀: 4.8 mm/day&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-lime-400 font-mono font-bold&quot;&gt;LoRa Mesh: 915 MHz&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; SPECTRAL TOOLBAR --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- Multispectral Layer Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Remote Sensing&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-lime-600 text-white shadow-md shadow-lime-600/30&quot;: activeLayer === &quot;ndvi&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;ndvi&quot; }'
+              hx-action=&quot;activeLayer = 'ndvi'; $appz.haptic('selection')&quot;&gt;
+        NDVI Vegetative Vigor
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-lime-600 text-white shadow-md shadow-lime-600/30&quot;: activeLayer === &quot;soil&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;soil&quot; }'
+              hx-action=&quot;activeLayer = 'soil'; $appz.haptic('selection')&quot;&gt;
+        Soil Moisture (VWC%)
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-lime-600 text-white shadow-md shadow-lime-600/30&quot;: activeLayer === &quot;rx&quot;, &quot;bg-slate-900 text-slate-400&quot;: activeLayer !== &quot;rx&quot; }'
+              hx-action=&quot;activeLayer = 'rx'; $appz.haptic('selection')&quot;&gt;
+        Variable N-Prescription
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Center Pivot Telemetry Control --&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-bold text-slate-400 uppercase&quot;&gt;Pivot Arm:&lt;/span&gt;
+      &lt;button class=&quot;px-2 py-0.5 rounded-lg text-xs font-bold transition-all&quot;
+              hx-class='{ &quot;bg-emerald-600 text-white&quot;: pivotRunning, &quot;bg-rose-600 text-white&quot;: !pivotRunning }'
+              hx-action=&quot;pivotRunning = !pivotRunning; $appz.haptic('medium')&quot;&gt;
+        &lt;span hx-text=&quot;pivotRunning ? '● PUMPING (1,850 L/min)' : '■ STOPPED'&quot;&gt;● PUMPING&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: PARCEL CANVAS &amp; QUANTITATIVE AGRONOMIC INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: GEOSPATIAL PARCEL VIEWPORT (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-[#0b170c] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;!-- Top HUD Data Tags --&gt;
+      &lt;div class=&quot;flex items-center justify-between text-xs font-mono text-lime-400/90 z-10 pointer-events-none&quot;&gt;
+        &lt;span&gt;PARCEL-B4 CIRCLE • RADIUS: 400m&lt;/span&gt;
+        &lt;span&gt;SENTINEL-2 NDVI (10m RESOLUTION)&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Center Pivot &amp; NDVI Parcel Simulation Canvas --&gt;
+      &lt;div class=&quot;relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center&quot;&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 400 400&quot;&gt;
+          &lt;defs&gt;
+            &lt;!-- NDVI Heatmap Radial Gradient --&gt;
+            &lt;radialGradient id=&quot;ndviField&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot;&gt;
+              &lt;stop offset=&quot;0%&quot; stop-color=&quot;#15803d&quot; /&gt;
+              &lt;stop offset=&quot;40%&quot; stop-color=&quot;#16a34a&quot; /&gt;
+              &lt;stop offset=&quot;70%&quot; stop-color=&quot;#65a30d&quot; /&gt;
+              &lt;stop offset=&quot;85%&quot; stop-color=&quot;#ca8a04&quot; /&gt;
+              &lt;stop offset=&quot;100%&quot; stop-color=&quot;#1c1917&quot; /&gt;
+            &lt;/radialGradient&gt;
+          &lt;/defs&gt;
+
+          &lt;!-- Outer Parcel Boundary (Circular Pivot Footprint) --&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;175&quot; fill=&quot;url(#ndviField)&quot; stroke=&quot;#4d7c0f&quot; stroke-width=&quot;2&quot; /&gt;
+
+          &lt;!-- Concentric Wheel Tracks of 7-Tower Pivot --&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;25&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;50&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;75&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;100&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;125&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;150&quot; fill=&quot;none&quot; stroke=&quot;#365314&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;2 2&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;175&quot; fill=&quot;none&quot; stroke=&quot;#84cc16&quot; stroke-width=&quot;1.5&quot; /&gt;
+
+          &lt;!-- Center Pivot Arm (Line at ~142.5 degrees) --&gt;
+          &lt;line x1=&quot;200&quot; y1=&quot;200&quot; x2=&quot;60&quot; y2=&quot;305&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; /&gt;
+          &lt;!-- Water Spray Sector Arc Cone --&gt;
+          &lt;path d=&quot;M 200,200 L 40,290 A 175 175 0 0 0 75,325 Z&quot; fill=&quot;rgba(56, 189, 248, 0.25)&quot; /&gt;
+
+          &lt;!-- Autonomous Tractor RTK Path Guidance Lines --&gt;
+          &lt;g id=&quot;tractor-path&quot; stroke=&quot;#facc15&quot; stroke-width=&quot;1.2&quot; stroke-dasharray=&quot;4 3&quot; opacity=&quot;0.8&quot;&gt;
+            &lt;line x1=&quot;220&quot; y1=&quot;60&quot; x2=&quot;220&quot; y2=&quot;340&quot; /&gt;
+            &lt;line x1=&quot;240&quot; y1=&quot;65&quot; x2=&quot;240&quot; y2=&quot;335&quot; /&gt;
+            &lt;line x1=&quot;260&quot; y1=&quot;75&quot; x2=&quot;260&quot; y2=&quot;325&quot; /&gt;
+            &lt;!-- Tractor Icon --&gt;
+            &lt;rect x=&quot;236&quot; y=&quot;180&quot; width=&quot;8&quot; height=&quot;12&quot; fill=&quot;#facc15&quot; rx=&quot;2&quot; /&gt;
+          &lt;/g&gt;
+
+          &lt;!-- Soil Moisture Probe Locations --&gt;
+          &lt;circle cx=&quot;270&quot; cy=&quot;140&quot; r=&quot;4&quot; fill=&quot;#38bdf8&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;text x=&quot;278&quot; y=&quot;143&quot; fill=&quot;#38bdf8&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;Probe 01 (28.4%)&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Pivot Sweep Angle HUD Badge --&gt;
+        &lt;div class=&quot;absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400&quot;&gt;
+          Pivot Angle: &lt;span class=&quot;font-bold text-lime-400&quot; hx-text=&quot;pivotAngle + '°'&quot;&gt;142.5°&lt;/span&gt; • Speed: &lt;span class=&quot;text-white font-bold&quot; hx-text=&quot;pivotSpeed + '%'&quot;&gt;45%&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE AGRONOMIC INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-lime-400&quot;&gt;Agronomic Telemetry&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-emerald-400&quot;&gt;SENTINEL-2&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- NDVI Metric --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between&quot;&gt;
+              &lt;span class=&quot;text-xs font-bold text-slate-300&quot;&gt;Mean Parcel NDVI&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-black text-emerald-400&quot;&gt;EXCELLENT VIGOR&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-baseline gap-2 mt-1&quot;&gt;
+              &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;ndviMean&quot;&gt;0.78&lt;/span&gt;
+              &lt;span class=&quot;text-[10px] text-slate-400&quot;&gt;Range: 0.45 – 0.88&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-2&quot;&gt;
+              &lt;div class=&quot;h-full bg-lime-500 rounded-full&quot; style=&quot;width: 78%;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Soil Moisture Profile --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;Soil Volumetric Water (VWC%)&lt;/span&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;10 cm Topsoil&lt;/span&gt;
+              &lt;span class=&quot;text-sky-400 font-mono&quot;&gt;31.2%&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;30 cm Root Zone&lt;/span&gt;
+              &lt;span class=&quot;text-emerald-400 font-mono&quot; hx-text=&quot;soilMoist + '%'&quot;&gt;28.4% (Optimal)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;60 cm Deep Subsoil&lt;/span&gt;
+              &lt;span class=&quot;text-sky-400 font-mono&quot;&gt;34.0%&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Variable N-Rate Fertilizer Prescription --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1&quot;&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Variable-Rate Nitrogen:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-lime-400 font-mono&quot;&gt;140 kg/ha avg&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between&quot;&gt;
+              &lt;span class=&quot;text-slate-400&quot;&gt;Target Yield Estimate:&lt;/span&gt;
+              &lt;span class=&quot;font-bold text-white font-mono&quot;&gt;12.4 Ton/Ha&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-lime-600 hover:bg-lime-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-lime-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Push Prescription Map to Tractor ISOBUS
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-lime-400&quot;&gt;Weather: 26°C • Hum 42% • Wind 12 km/h&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;RTK Accuracy: ±1.5 cm&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        LoRa Sensor Mesh: 100% Online
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;Nodes: 16&lt;/span&gt;
+      &lt;span class=&quot;text-lime-400 font-mono&quot;&gt;@diag: AGRI_MESH_OK&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

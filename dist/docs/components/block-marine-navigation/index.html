@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Marine Navigation — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Marine Navigation</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Marine Navigation</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: MARINE, ECDIS & GPS NAUTICAL NAVIGATION
+     S-57 Vector Nautical Charts, AIS Vessel Transponders & Collision Avoidance
+     ========================================================================= -->
+<div class="block-marine-navigation rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "chartOrient": "north", "rangeNM": "6.0", "sogKnots": 14.2, "cogTrue": 248, "depthM": 18.4, "cpaNM": 1.85, "showRadar": true, "showAis": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-black text-sm">
+        ⚓
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-blue-400">ECDIS Marine Navigation System</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-blue-500/10 text-blue-400 border border-blue-500/20">IMO / SOLAS</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Vessel: R/V NEPTUNE EXPLORER</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">MMSI: 368492010 (Call: WDF8290)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Range Scale Selector -->
+    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "1.5", "text-slate-400 hover:text-white": rangeNM !== "1.5" }'
+              hx-action="rangeNM = '1.5'; $appz.haptic('selection')">1.5 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "3.0", "text-slate-400 hover:text-white": rangeNM !== "3.0" }'
+              hx-action="rangeNM = '3.0'; $appz.haptic('selection')">3.0 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "6.0", "text-slate-400 hover:text-white": rangeNM !== "6.0" }'
+              hx-action="rangeNM = '6.0'; $appz.haptic('selection')">6.0 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "12.0", "text-slate-400 hover:text-white": rangeNM !== "12.0" }'
+              hx-action="rangeNM = '12.0'; $appz.haptic('selection')">12.0 NM</button>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & NAUTICAL TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Orientation Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Orientation</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "north", "bg-slate-900 text-slate-400": chartOrient !== "north" }'
+              hx-action="chartOrient = 'north'; $appz.haptic('selection')">North-Up</button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "head", "bg-slate-900 text-slate-400": chartOrient !== "head" }'
+              hx-action="chartOrient = 'head'; $appz.haptic('selection')">Head-Up</button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "course", "bg-slate-900 text-slate-400": chartOrient !== "course" }'
+              hx-action="chartOrient = 'course'; $appz.haptic('selection')">Course-Up</button>
+    </div>
+
+    <!-- Nautical Layer Toggles -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": showAis, "bg-slate-900 text-slate-400": !showAis }'
+              hx-action="showAis = !showAis; $appz.haptic('selection')">
+        <span hx-text="showAis ? '✓ AIS Targets (8)' : '✗ AIS Targets'">✓ AIS Targets (8)</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-cyan-600 text-white": showRadar, "bg-slate-900 text-slate-400": !showRadar }'
+              hx-action="showRadar = !showRadar; $appz.haptic('selection')">
+        <span hx-text="showRadar ? '✓ Doppler Radar Overlay' : '✗ Doppler Radar'">✓ Doppler Radar Overlay</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: NAUTICAL CHART & TELEMETRY INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR ECDIS NAUTICAL CHART VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-[#07131e] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-cyan-400 z-10 pointer-events-none">
+        <div>
+          <span>DEST: PORT SINGAPORE</span>
+          <span class="text-slate-500">•</span>
+          <span>ETA: 18:40 UTC</span>
+        </div>
+        <div>
+          <span>RANGE: <span class="font-bold text-white" hx-text="rangeNM + ' NM'">6.0 NM</span></span>
+          <span class="text-slate-500">•</span>
+          <span>PULSE: 0.25 µs</span>
+        </div>
+      </div>
+
+      <!-- Hydrographic Chart Canvas via SVG -->
+      <div class="relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 400 400">
+          <defs>
+            <!-- 360 Degree Compass Rose -->
+            <radialGradient id="oceanShallows" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0c2538" />
+              <stop offset="60%" stop-color="#081a28" />
+              <stop offset="100%" stop-color="#05101a" />
+            </radialGradient>
+          </defs>
+          <rect width="400" height="400" fill="url(#oceanShallows)" />
+
+          <!-- Bathymetric Depth Contours (Isobaths 5m, 10m, 20m) -->
+          <path d="M 0,110 Q 120,80 200,120 T 400,90" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4 2" />
+          <text x="30" y="105" fill="#0284c7" font-size="8" font-family="monospace">10m isobath</text>
+
+          <path d="M 0,220 Q 150,180 250,230 T 400,200" fill="none" stroke="#0369a1" stroke-width="1.2" />
+          <text x="30" y="215" fill="#0369a1" font-size="8" font-family="monospace">20m isobath</text>
+
+          <!-- Range Rings (1.5 NM, 3.0 NM, 4.5 NM, 6.0 NM) -->
+          <circle cx="200" cy="200" r="45" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="90" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="135" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="180" fill="none" stroke="#334155" stroke-width="1.5" />
+
+          <!-- Degree Compass Ticks on outer ring -->
+          <line x1="200" y1="18" x2="200" y2="28" stroke="#38bdf8" stroke-width="2" /> <!-- North 000 -->
+          <text x="196" y="38" fill="#38bdf8" font-size="9" font-weight="900" font-family="monospace">N</text>
+
+          <!-- Planned Waypoint Track Line (Magenta) -->
+          <line x1="50" y1="280" x2="200" y2="200" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6 3" />
+          <line x1="200" y1="200" x2="350" y2="120" stroke="#f43f5e" stroke-width="2.5" />
+
+          <!-- Own Ship Symbol (Center: 200, 200) with Heading Vector Line -->
+          <circle cx="200" cy="200" r="6" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+          <line x1="200" y1="200" x2="260" y2="168" stroke="#38bdf8" stroke-width="2.5" />
+          <!-- 6-minute Velocity Vector Vector Cone -->
+          <polygon points="260,168 252,164 256,174" fill="#38bdf8" />
+
+          <!-- AIS Target #1 (Container Ship Ahead) -->
+          <g id="ais-target-1">
+            <polygon points="280,140 286,146 280,152 274,146" fill="#f59e0b" stroke="#ffffff" stroke-width="1" />
+            <line x1="280" y1="140" x2="295" y2="120" stroke="#f59e0b" stroke-width="1.5" />
+            <text x="292" y="150" fill="#f59e0b" font-size="8" font-family="monospace" font-weight="bold">CPA: 1.85 NM</text>
+          </g>
+
+          <!-- Light Buoy (Fl.G.4s NavAid) -->
+          <circle cx="160" cy="150" r="4" fill="#10b981" stroke="#ffffff" stroke-width="1" />
+          <text x="170" y="153" fill="#10b981" font-size="8" font-family="monospace">Fl.G.4s</text>
+        </svg>
+
+        <!-- Own Ship Status HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          HDG: <span class="font-bold text-cyan-400">249.5° M</span> • ROT: <span class="text-white font-bold">+0.4°/min</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE NAUTICAL INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-blue-400">Navigational Dynamics</span>
+          <span class="text-[10px] font-bold text-emerald-400">AIS LIVE</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Primary Speed & Course -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+              <span class="text-[10px] font-extrabold uppercase text-slate-400 block">SOG (Speed)</span>
+              <div class="flex items-baseline gap-1 mt-1">
+                <span class="text-3xl font-black text-white" hx-text="sogKnots">14.2</span>
+                <span class="text-xs font-bold text-blue-400">KTS</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+              <span class="text-[10px] font-extrabold uppercase text-slate-400 block">COG (Course)</span>
+              <div class="flex items-baseline gap-1 mt-1">
+                <span class="text-3xl font-black text-white" hx-text="cogTrue + '°'">248°</span>
+                <span class="text-xs font-bold text-blue-400">TRUE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Under-Keel Clearance (UKC) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Under-Keel Clearance (UKC)</span>
+              <span class="text-xs font-black text-emerald-400">SAFE DEPTH</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-2xl font-black text-cyan-400" hx-text="depthM + ' m'">18.4 m</span>
+              <span class="text-[10px] text-slate-400">Water Depth: 24.2 m (Draft 5.8 m)</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-cyan-500 rounded-full" style="width: 76%;"></div>
+            </div>
+          </div>
+
+          <!-- Collision Avoidance (AIS Target) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1 text-xs">
+            <div class="flex justify-between font-bold">
+              <span class="text-slate-300">Closest Approach (CPA):</span>
+              <span class="text-amber-400 font-mono" hx-text="cpaNM + ' NM'">1.85 NM</span>
+            </div>
+            <div class="flex justify-between font-bold">
+              <span class="text-slate-300">Time to CPA (TCPA):</span>
+              <span class="text-emerald-400 font-mono">14m 20s (SAFE)</span>
+            </div>
+            <div class="flex justify-between text-[10px] pt-1 border-t border-slate-900">
+              <span class="text-slate-500">Cross-Track Error (XTE):</span>
+              <span class="text-white font-mono font-bold">0.02 NM Right</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-blue-600/20"
+                hx-action="$appz.haptic('success')">
+          Log Waypoint to Electronic Logbook (ELB)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-blue-400">GPS: 01°14'28" N, 103°55'12" E</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Sats: 18 (RTK DGPS Fixed)</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        NMEA 2000 Bus: OK
+      </span>
+      <span class="text-slate-500">Latency: 1.2ms</span>
+      <span class="text-blue-400 font-mono">@diag: ECDIS_OK</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: MARINE, ECDIS &amp; GPS NAUTICAL NAVIGATION
+     S-57 Vector Nautical Charts, AIS Vessel Transponders &amp; Collision Avoidance
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-marine-navigation rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;chartOrient&quot;: &quot;north&quot;, &quot;rangeNM&quot;: &quot;6.0&quot;, &quot;sogKnots&quot;: 14.2, &quot;cogTrue&quot;: 248, &quot;depthM&quot;: 18.4, &quot;cpaNM&quot;: 1.85, &quot;showRadar&quot;: true, &quot;showAis&quot;: true }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-black text-sm&quot;&gt;
+        ⚓
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-blue-400&quot;&gt;ECDIS Marine Navigation System&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-blue-500/10 text-blue-400 border border-blue-500/20&quot;&gt;IMO / SOLAS&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span&gt;Vessel: R/V NEPTUNE EXPLORER&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;MMSI: 368492010 (Call: WDF8290)&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Range Scale Selector --&gt;
+    &lt;div class=&quot;flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black&quot;&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: rangeNM === &quot;1.5&quot;, &quot;text-slate-400 hover:text-white&quot;: rangeNM !== &quot;1.5&quot; }'
+              hx-action=&quot;rangeNM = '1.5'; $appz.haptic('selection')&quot;&gt;1.5 NM&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: rangeNM === &quot;3.0&quot;, &quot;text-slate-400 hover:text-white&quot;: rangeNM !== &quot;3.0&quot; }'
+              hx-action=&quot;rangeNM = '3.0'; $appz.haptic('selection')&quot;&gt;3.0 NM&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: rangeNM === &quot;6.0&quot;, &quot;text-slate-400 hover:text-white&quot;: rangeNM !== &quot;6.0&quot; }'
+              hx-action=&quot;rangeNM = '6.0'; $appz.haptic('selection')&quot;&gt;6.0 NM&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: rangeNM === &quot;12.0&quot;, &quot;text-slate-400 hover:text-white&quot;: rangeNM !== &quot;12.0&quot; }'
+              hx-action=&quot;rangeNM = '12.0'; $appz.haptic('selection')&quot;&gt;12.0 NM&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; NAUTICAL TOOLBAR --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- Orientation Switcher --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Orientation&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: chartOrient === &quot;north&quot;, &quot;bg-slate-900 text-slate-400&quot;: chartOrient !== &quot;north&quot; }'
+              hx-action=&quot;chartOrient = 'north'; $appz.haptic('selection')&quot;&gt;North-Up&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: chartOrient === &quot;head&quot;, &quot;bg-slate-900 text-slate-400&quot;: chartOrient !== &quot;head&quot; }'
+              hx-action=&quot;chartOrient = 'head'; $appz.haptic('selection')&quot;&gt;Head-Up&lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-blue-600 text-white shadow-md shadow-blue-600/30&quot;: chartOrient === &quot;course&quot;, &quot;bg-slate-900 text-slate-400&quot;: chartOrient !== &quot;course&quot; }'
+              hx-action=&quot;chartOrient = 'course'; $appz.haptic('selection')&quot;&gt;Course-Up&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Nautical Layer Toggles --&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-emerald-600 text-white&quot;: showAis, &quot;bg-slate-900 text-slate-400&quot;: !showAis }'
+              hx-action=&quot;showAis = !showAis; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showAis ? '✓ AIS Targets (8)' : '✗ AIS Targets'&quot;&gt;✓ AIS Targets (8)&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-cyan-600 text-white&quot;: showRadar, &quot;bg-slate-900 text-slate-400&quot;: !showRadar }'
+              hx-action=&quot;showRadar = !showRadar; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showRadar ? '✓ Doppler Radar Overlay' : '✗ Doppler Radar'&quot;&gt;✓ Doppler Radar Overlay&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: NAUTICAL CHART &amp; TELEMETRY INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: VECTOR ECDIS NAUTICAL CHART VIEWPORT (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-[#07131e] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80&quot;&gt;
+      &lt;!-- Top HUD Tags --&gt;
+      &lt;div class=&quot;flex items-center justify-between text-xs font-mono text-cyan-400 z-10 pointer-events-none&quot;&gt;
+        &lt;div&gt;
+          &lt;span&gt;DEST: PORT SINGAPORE&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span&gt;ETA: 18:40 UTC&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;span&gt;RANGE: &lt;span class=&quot;font-bold text-white&quot; hx-text=&quot;rangeNM + ' NM'&quot;&gt;6.0 NM&lt;/span&gt;&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span&gt;PULSE: 0.25 µs&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Hydrographic Chart Canvas via SVG --&gt;
+      &lt;div class=&quot;relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center&quot;&gt;
+        &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 400 400&quot;&gt;
+          &lt;defs&gt;
+            &lt;!-- 360 Degree Compass Rose --&gt;
+            &lt;radialGradient id=&quot;oceanShallows&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot;&gt;
+              &lt;stop offset=&quot;0%&quot; stop-color=&quot;#0c2538&quot; /&gt;
+              &lt;stop offset=&quot;60%&quot; stop-color=&quot;#081a28&quot; /&gt;
+              &lt;stop offset=&quot;100%&quot; stop-color=&quot;#05101a&quot; /&gt;
+            &lt;/radialGradient&gt;
+          &lt;/defs&gt;
+          &lt;rect width=&quot;400&quot; height=&quot;400&quot; fill=&quot;url(#oceanShallows)&quot; /&gt;
+
+          &lt;!-- Bathymetric Depth Contours (Isobaths 5m, 10m, 20m) --&gt;
+          &lt;path d=&quot;M 0,110 Q 120,80 200,120 T 400,90&quot; fill=&quot;none&quot; stroke=&quot;#0284c7&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;4 2&quot; /&gt;
+          &lt;text x=&quot;30&quot; y=&quot;105&quot; fill=&quot;#0284c7&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;10m isobath&lt;/text&gt;
+
+          &lt;path d=&quot;M 0,220 Q 150,180 250,230 T 400,200&quot; fill=&quot;none&quot; stroke=&quot;#0369a1&quot; stroke-width=&quot;1.2&quot; /&gt;
+          &lt;text x=&quot;30&quot; y=&quot;215&quot; fill=&quot;#0369a1&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;20m isobath&lt;/text&gt;
+
+          &lt;!-- Range Rings (1.5 NM, 3.0 NM, 4.5 NM, 6.0 NM) --&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;45&quot; fill=&quot;none&quot; stroke=&quot;#1e293b&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;90&quot; fill=&quot;none&quot; stroke=&quot;#1e293b&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;135&quot; fill=&quot;none&quot; stroke=&quot;#1e293b&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;180&quot; fill=&quot;none&quot; stroke=&quot;#334155&quot; stroke-width=&quot;1.5&quot; /&gt;
+
+          &lt;!-- Degree Compass Ticks on outer ring --&gt;
+          &lt;line x1=&quot;200&quot; y1=&quot;18&quot; x2=&quot;200&quot; y2=&quot;28&quot; stroke=&quot;#38bdf8&quot; stroke-width=&quot;2&quot; /&gt; &lt;!-- North 000 --&gt;
+          &lt;text x=&quot;196&quot; y=&quot;38&quot; fill=&quot;#38bdf8&quot; font-size=&quot;9&quot; font-weight=&quot;900&quot; font-family=&quot;monospace&quot;&gt;N&lt;/text&gt;
+
+          &lt;!-- Planned Waypoint Track Line (Magenta) --&gt;
+          &lt;line x1=&quot;50&quot; y1=&quot;280&quot; x2=&quot;200&quot; y2=&quot;200&quot; stroke=&quot;#f43f5e&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;6 3&quot; /&gt;
+          &lt;line x1=&quot;200&quot; y1=&quot;200&quot; x2=&quot;350&quot; y2=&quot;120&quot; stroke=&quot;#f43f5e&quot; stroke-width=&quot;2.5&quot; /&gt;
+
+          &lt;!-- Own Ship Symbol (Center: 200, 200) with Heading Vector Line --&gt;
+          &lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;6&quot; fill=&quot;#38bdf8&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;line x1=&quot;200&quot; y1=&quot;200&quot; x2=&quot;260&quot; y2=&quot;168&quot; stroke=&quot;#38bdf8&quot; stroke-width=&quot;2.5&quot; /&gt;
+          &lt;!-- 6-minute Velocity Vector Vector Cone --&gt;
+          &lt;polygon points=&quot;260,168 252,164 256,174&quot; fill=&quot;#38bdf8&quot; /&gt;
+
+          &lt;!-- AIS Target #1 (Container Ship Ahead) --&gt;
+          &lt;g id=&quot;ais-target-1&quot;&gt;
+            &lt;polygon points=&quot;280,140 286,146 280,152 274,146&quot; fill=&quot;#f59e0b&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+            &lt;line x1=&quot;280&quot; y1=&quot;140&quot; x2=&quot;295&quot; y2=&quot;120&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;1.5&quot; /&gt;
+            &lt;text x=&quot;292&quot; y=&quot;150&quot; fill=&quot;#f59e0b&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot; font-weight=&quot;bold&quot;&gt;CPA: 1.85 NM&lt;/text&gt;
+          &lt;/g&gt;
+
+          &lt;!-- Light Buoy (Fl.G.4s NavAid) --&gt;
+          &lt;circle cx=&quot;160&quot; cy=&quot;150&quot; r=&quot;4&quot; fill=&quot;#10b981&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;1&quot; /&gt;
+          &lt;text x=&quot;170&quot; y=&quot;153&quot; fill=&quot;#10b981&quot; font-size=&quot;8&quot; font-family=&quot;monospace&quot;&gt;Fl.G.4s&lt;/text&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- Own Ship Status HUD Badge --&gt;
+        &lt;div class=&quot;absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400&quot;&gt;
+          HDG: &lt;span class=&quot;font-bold text-cyan-400&quot;&gt;249.5° M&lt;/span&gt; • ROT: &lt;span class=&quot;text-white font-bold&quot;&gt;+0.4°/min&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE NAUTICAL INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-blue-400&quot;&gt;Navigational Dynamics&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-bold text-emerald-400&quot;&gt;AIS LIVE&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- Primary Speed &amp; Course --&gt;
+          &lt;div class=&quot;grid grid-cols-2 gap-2&quot;&gt;
+            &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+              &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;SOG (Speed)&lt;/span&gt;
+              &lt;div class=&quot;flex items-baseline gap-1 mt-1&quot;&gt;
+                &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;sogKnots&quot;&gt;14.2&lt;/span&gt;
+                &lt;span class=&quot;text-xs font-bold text-blue-400&quot;&gt;KTS&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+              &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;COG (Course)&lt;/span&gt;
+              &lt;div class=&quot;flex items-baseline gap-1 mt-1&quot;&gt;
+                &lt;span class=&quot;text-3xl font-black text-white&quot; hx-text=&quot;cogTrue + '°'&quot;&gt;248°&lt;/span&gt;
+                &lt;span class=&quot;text-xs font-bold text-blue-400&quot;&gt;TRUE&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Under-Keel Clearance (UKC) --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between&quot;&gt;
+              &lt;span class=&quot;text-xs font-bold text-slate-300&quot;&gt;Under-Keel Clearance (UKC)&lt;/span&gt;
+              &lt;span class=&quot;text-xs font-black text-emerald-400&quot;&gt;SAFE DEPTH&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-baseline gap-2 mt-1&quot;&gt;
+              &lt;span class=&quot;text-2xl font-black text-cyan-400&quot; hx-text=&quot;depthM + ' m'&quot;&gt;18.4 m&lt;/span&gt;
+              &lt;span class=&quot;text-[10px] text-slate-400&quot;&gt;Water Depth: 24.2 m (Draft 5.8 m)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-2&quot;&gt;
+              &lt;div class=&quot;h-full bg-cyan-500 rounded-full&quot; style=&quot;width: 76%;&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Collision Avoidance (AIS Target) --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1 text-xs&quot;&gt;
+            &lt;div class=&quot;flex justify-between font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Closest Approach (CPA):&lt;/span&gt;
+              &lt;span class=&quot;text-amber-400 font-mono&quot; hx-text=&quot;cpaNM + ' NM'&quot;&gt;1.85 NM&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between font-bold&quot;&gt;
+              &lt;span class=&quot;text-slate-300&quot;&gt;Time to CPA (TCPA):&lt;/span&gt;
+              &lt;span class=&quot;text-emerald-400 font-mono&quot;&gt;14m 20s (SAFE)&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex justify-between text-[10px] pt-1 border-t border-slate-900&quot;&gt;
+              &lt;span class=&quot;text-slate-500&quot;&gt;Cross-Track Error (XTE):&lt;/span&gt;
+              &lt;span class=&quot;text-white font-mono font-bold&quot;&gt;0.02 NM Right&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-blue-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Log Waypoint to Electronic Logbook (ELB)
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-blue-400&quot;&gt;GPS: 01°14'28&quot; N, 103°55'12&quot; E&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Sats: 18 (RTK DGPS Fixed)&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        NMEA 2000 Bus: OK
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;Latency: 1.2ms&lt;/span&gt;
+      &lt;span class=&quot;text-blue-400 font-mono&quot;&gt;@diag: ECDIS_OK&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

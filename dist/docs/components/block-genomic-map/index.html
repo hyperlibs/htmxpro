@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Genomic Map — HTMX PRO</title>
+  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Block Genomic Map</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Block Genomic Map</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><!-- =========================================================================
+     RESEARCH DESIGN BLOCK: GENOMIC MAP & SYNTENY DASHBOARD
+     Whole-Genome Multi-Track Browser, Chromosome Ideograms & ClinVar SNV Pins
+     ========================================================================= -->
+<div class="block-genomic-map rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "chr": "chr11", "start": 5224000, "end": 5230000, "zoom": 1, "selectedVariant": "rs334", "showCoverage": true, "showVariants": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm">
+        🗺️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-400">High-Resolution Genome Browser</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500/10 text-amber-400 border border-amber-500/20">GRCh38.p14</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span class="font-mono text-amber-300">chr11:5,224,000–5,230,000</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Cytoband 11p15.4 (HBB Beta-Globin Cluster)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Navigation & Zoom Toolbar -->
+    <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+        <button class="px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white"
+                hx-action="start -= 1000; end -= 1000; $appz.haptic('selection')">◀ Pan 1kb</button>
+        <button class="px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white"
+                hx-action="start += 1000; end += 1000; $appz.haptic('selection')">Pan 1kb ▶</button>
+        <button class="px-2.5 py-1 rounded-xl bg-amber-600 text-white shadow-md shadow-amber-600/30"
+                hx-action="zoom = +(zoom * 2).toFixed(1); $appz.haptic('selection')">Zoom In +</button>
+        <button class="px-2.5 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white"
+                hx-action="zoom = Math.max(0.5, +(zoom / 2).toFixed(1)); $appz.haptic('selection')">Zoom Out -</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TRACK TOGGLE RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Track Toggles -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Active Tracks</span>
+      <span class="px-2.5 py-1 rounded-xl font-bold bg-amber-600 text-white">GENCODE v46</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-white": showCoverage, "bg-slate-900 text-slate-400": !showCoverage }'
+              hx-action="showCoverage = !showCoverage; $appz.haptic('selection')">
+        <span hx-text="showCoverage ? '✓ RNA-seq Depth' : '✗ RNA-seq Depth'">✓ RNA-seq Depth</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-rose-600 text-white": showVariants, "bg-slate-900 text-slate-400": !showVariants }'
+              hx-action="showVariants = !showVariants; $appz.haptic('selection')">
+        <span hx-text="showVariants ? '✓ ClinVar Pathogenic' : '✗ ClinVar Pathogenic'">✓ ClinVar Pathogenic</span>
+      </button>
+    </div>
+
+    <!-- Active Window Resolution -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Window Width:</span>
+      <span class="font-mono font-bold text-amber-400 text-xs">6,000 bp (Single Base Resolution)</span>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: MULTI-TRACK BROWSER & QUANTITATIVE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: MULTI-TRACK GENOME BROWSER CANVAS (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80 space-y-4">
+      <!-- TRACK 0: Chromosome 11 Ideogram Cytoband -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>Chromosome 11 (135.1 Mb)</span>
+          <span class="text-amber-400">Region 11p15.4</span>
+        </div>
+        <div class="relative w-full h-5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex items-center px-1">
+          <!-- G-banding pattern simulation -->
+          <div class="w-12 h-3 bg-slate-800 rounded"></div>
+          <div class="w-8 h-3 bg-slate-700 rounded ml-1"></div>
+          <div class="w-16 h-3 bg-slate-800 rounded ml-1"></div>
+          <!-- Red Viewport Window Indicator Box -->
+          <div class="absolute left-[38px] w-6 h-4 border-2 border-rose-500 bg-rose-500/30 rounded"></div>
+          <div class="w-10 h-3 bg-slate-700 rounded ml-10"></div>
+          <div class="w-14 h-3 bg-slate-800 rounded ml-1"></div>
+        </div>
+      </div>
+
+      <!-- TRACK 1: GENCODE v46 Gene Models (HBB) -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>GENCODE v46 Gene Model</span>
+          <span class="font-mono text-white">HBB (Transcript: ENST00000335295)</span>
+        </div>
+
+        <!-- Exon / Intron Schematic -->
+        <div class="relative h-10 w-full flex items-center">
+          <!-- Intron Chevron Line -->
+          <div class="w-full h-0.5 bg-slate-700 flex items-center justify-around text-slate-500 text-[10px]">
+            <span>›››</span>
+            <span>›››</span>
+            <span>›››</span>
+          </div>
+
+          <!-- Exon 1 -->
+          <div class="absolute left-[15%] w-16 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 1
+          </div>
+          <!-- Exon 2 -->
+          <div class="absolute left-[45%] w-24 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 2
+          </div>
+          <!-- Exon 3 -->
+          <div class="absolute left-[80%] w-20 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 3
+          </div>
+        </div>
+      </div>
+
+      <!-- TRACK 2: RNA-seq Coverage Histogram (bigWig) -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80"
+           hx-show="showCoverage">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>RNA-seq Coverage Track (bigWig)</span>
+          <span class="font-mono text-cyan-400">Peak: 1,240 Reads</span>
+        </div>
+        <!-- Histogram SVG Peaks matching Exons -->
+        <div class="h-16 w-full">
+          <svg class="w-full h-full" viewBox="0 0 500 60" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="covGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
+            <!-- 3 Peaks aligned with Exons -->
+            <path d="M 0,55 L 70,55 L 85,10 L 145,10 L 160,55 L 210,55 L 230,5 L 340,5 L 360,55 L 390,55 L 410,18 L 490,18 L 500,55 Z"
+                  fill="url(#covGrad)" stroke="#06b6d4" stroke-width="1.5" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- TRACK 3: ClinVar Pathogenic SNV Pins -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80"
+           hx-show="showVariants">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>ClinVar Pathogenic SNVs (dbSNP)</span>
+          <span class="text-rose-400 font-bold">1 Pathogenic Target</span>
+        </div>
+        <div class="relative h-10 w-full flex items-center">
+          <!-- Baseline track -->
+          <div class="w-full h-[1px] bg-slate-800"></div>
+
+          <!-- rs334 Pathogenic Pin (Sickle Cell E6V) -->
+          <div class="absolute left-[19%] flex flex-col items-center cursor-pointer active:scale-95 transition-all"
+               hx-action="$appz.haptic('selection')">
+            <span class="px-2 py-0.5 rounded-md bg-rose-600 text-white font-mono font-black text-[10px] shadow-lg shadow-rose-600/30 flex items-center gap-1">
+              📍 rs334 (A>T)
+            </span>
+            <div class="w-0.5 h-3 bg-rose-500"></div>
+          </div>
+
+          <!-- Other benign polymorphism pin -->
+          <div class="absolute left-[65%] flex flex-col items-center">
+            <span class="px-1.5 py-0.5 rounded-md bg-emerald-700/80 text-white font-mono text-[9px]">
+              rs10768683 (Benign)
+            </span>
+            <div class="w-0.5 h-3 bg-emerald-500"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE VARIANT INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">ClinVar Variant Inspector</span>
+          <span class="text-[10px] font-mono text-slate-400">NCBI ClinVar</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Variant Header Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Target Allele</span>
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-xl font-black text-rose-400 font-mono">rs334 (A>T)</h3>
+              <span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-black">PATHOGENIC</span>
+            </div>
+            <p class="text-xs text-white font-bold mt-1">p.Glu7Val (Sickle Cell Hemoglobin HbS)</p>
+            <p class="text-[10px] font-mono text-slate-400 mt-0.5">chr11:5,225,466 (GRCh38)</p>
+          </div>
+
+          <!-- Population Allele Frequencies (gnomAD v4.1) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">gnomAD Allele Frequency (AF)</span>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">African / African-American</span>
+                <span class="text-amber-400 font-mono">0.1280 (12.8%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-amber-500 rounded-full" style="width: 12.8%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Global Overall</span>
+                <span class="text-slate-400 font-mono">0.0421 (4.2%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-slate-600 rounded-full" style="width: 4.2%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">European (Non-Finnish)</span>
+                <span class="text-slate-500 font-mono">0.0001 (&lt;0.01%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-slate-700 rounded-full" style="width: 1%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gene Summary Card -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]">
+            <span class="text-slate-500 font-extrabold uppercase block mb-1">Gene Annotations</span>
+            <div class="font-mono text-amber-400">HBB • Hemoglobin Subunit Beta</div>
+            <div class="text-slate-400 mt-0.5">Length: 147 amino acids • OMIM: 603903</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20"
+                hx-action="$appz.haptic('success')">
+          Launch UCSC & Ensembl Cross-Link
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-amber-400">Assembly: GRCh38.p14</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Base Pairs: 6,000 bp</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Buffer: 3.2 MB</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Multi-Track Engine: 60.0 FPS
+      </span>
+      <span class="text-slate-500">Latency: 0.2ms</span>
+      <span class="text-amber-400 font-mono">@diag: GENOME_SYNC_OK</span>
+    </div>
+  </div>
+
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;!-- =========================================================================
+     RESEARCH DESIGN BLOCK: GENOMIC MAP &amp; SYNTENY DASHBOARD
+     Whole-Genome Multi-Track Browser, Chromosome Ideograms &amp; ClinVar SNV Pins
+     ========================================================================= --&gt;
+&lt;div class=&quot;block-genomic-map rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none&quot;
+     hx-state='{ &quot;chr&quot;: &quot;chr11&quot;, &quot;start&quot;: 5224000, &quot;end&quot;: 5230000, &quot;zoom&quot;: 1, &quot;selectedVariant&quot;: &quot;rs334&quot;, &quot;showCoverage&quot;: true, &quot;showVariants&quot;: true }'&gt;
+
+  &lt;!-- ZONE 1: BLOCK HEADER --&gt;
+  &lt;div class=&quot;px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;div class=&quot;w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm&quot;&gt;
+        🗺️
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;text-xs font-black uppercase tracking-wider text-amber-400&quot;&gt;High-Resolution Genome Browser&lt;/span&gt;
+          &lt;span class=&quot;px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500/10 text-amber-400 border border-amber-500/20&quot;&gt;GRCh38.p14&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;h2 class=&quot;text-sm font-bold text-white flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;font-mono text-amber-300&quot;&gt;chr11:5,224,000–5,230,000&lt;/span&gt;
+          &lt;span class=&quot;text-slate-500&quot;&gt;•&lt;/span&gt;
+          &lt;span class=&quot;text-xs text-slate-300 font-normal&quot;&gt;Cytoband 11p15.4 (HBB Beta-Globin Cluster)&lt;/span&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Navigation &amp; Zoom Toolbar --&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;div class=&quot;flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black&quot;&gt;
+        &lt;button class=&quot;px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white&quot;
+                hx-action=&quot;start -= 1000; end -= 1000; $appz.haptic('selection')&quot;&gt;◀ Pan 1kb&lt;/button&gt;
+        &lt;button class=&quot;px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white&quot;
+                hx-action=&quot;start += 1000; end += 1000; $appz.haptic('selection')&quot;&gt;Pan 1kb ▶&lt;/button&gt;
+        &lt;button class=&quot;px-2.5 py-1 rounded-xl bg-amber-600 text-white shadow-md shadow-amber-600/30&quot;
+                hx-action=&quot;zoom = +(zoom * 2).toFixed(1); $appz.haptic('selection')&quot;&gt;Zoom In +&lt;/button&gt;
+        &lt;button class=&quot;px-2.5 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white&quot;
+                hx-action=&quot;zoom = Math.max(0.5, +(zoom / 2).toFixed(1)); $appz.haptic('selection')&quot;&gt;Zoom Out -&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 2: CALIBRATION &amp; TRACK TOGGLE RIBBON --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs&quot;&gt;
+    &lt;!-- Track Toggles --&gt;
+    &lt;div class=&quot;flex items-center gap-1.5&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1&quot;&gt;Active Tracks&lt;/span&gt;
+      &lt;span class=&quot;px-2.5 py-1 rounded-xl font-bold bg-amber-600 text-white&quot;&gt;GENCODE v46&lt;/span&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-amber-600 text-white&quot;: showCoverage, &quot;bg-slate-900 text-slate-400&quot;: !showCoverage }'
+              hx-action=&quot;showCoverage = !showCoverage; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showCoverage ? '✓ RNA-seq Depth' : '✗ RNA-seq Depth'&quot;&gt;✓ RNA-seq Depth&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;button class=&quot;px-2.5 py-1 rounded-xl font-bold transition-all&quot;
+              hx-class='{ &quot;bg-rose-600 text-white&quot;: showVariants, &quot;bg-slate-900 text-slate-400&quot;: !showVariants }'
+              hx-action=&quot;showVariants = !showVariants; $appz.haptic('selection')&quot;&gt;
+        &lt;span hx-text=&quot;showVariants ? '✓ ClinVar Pathogenic' : '✗ ClinVar Pathogenic'&quot;&gt;✓ ClinVar Pathogenic&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Active Window Resolution --&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-bold text-slate-400 uppercase&quot;&gt;Window Width:&lt;/span&gt;
+      &lt;span class=&quot;font-mono font-bold text-amber-400 text-xs&quot;&gt;6,000 bp (Single Base Resolution)&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 3 &amp; 4: MULTI-TRACK BROWSER &amp; QUANTITATIVE INSPECTOR --&gt;
+  &lt;div class=&quot;grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]&quot;&gt;
+    &lt;!-- ZONE 3: MULTI-TRACK GENOME BROWSER CANVAS (Cols 1..8) --&gt;
+    &lt;div class=&quot;lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80 space-y-4&quot;&gt;
+      &lt;!-- TRACK 0: Chromosome 11 Ideogram Cytoband --&gt;
+      &lt;div class=&quot;space-y-1&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-[10px] font-extrabold text-slate-400 uppercase&quot;&gt;
+          &lt;span&gt;Chromosome 11 (135.1 Mb)&lt;/span&gt;
+          &lt;span class=&quot;text-amber-400&quot;&gt;Region 11p15.4&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;relative w-full h-5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex items-center px-1&quot;&gt;
+          &lt;!-- G-banding pattern simulation --&gt;
+          &lt;div class=&quot;w-12 h-3 bg-slate-800 rounded&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;w-8 h-3 bg-slate-700 rounded ml-1&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;w-16 h-3 bg-slate-800 rounded ml-1&quot;&gt;&lt;/div&gt;
+          &lt;!-- Red Viewport Window Indicator Box --&gt;
+          &lt;div class=&quot;absolute left-[38px] w-6 h-4 border-2 border-rose-500 bg-rose-500/30 rounded&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;w-10 h-3 bg-slate-700 rounded ml-10&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;w-14 h-3 bg-slate-800 rounded ml-1&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- TRACK 1: GENCODE v46 Gene Models (HBB) --&gt;
+      &lt;div class=&quot;space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-[10px] font-extrabold text-slate-400 uppercase&quot;&gt;
+          &lt;span&gt;GENCODE v46 Gene Model&lt;/span&gt;
+          &lt;span class=&quot;font-mono text-white&quot;&gt;HBB (Transcript: ENST00000335295)&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Exon / Intron Schematic --&gt;
+        &lt;div class=&quot;relative h-10 w-full flex items-center&quot;&gt;
+          &lt;!-- Intron Chevron Line --&gt;
+          &lt;div class=&quot;w-full h-0.5 bg-slate-700 flex items-center justify-around text-slate-500 text-[10px]&quot;&gt;
+            &lt;span&gt;›››&lt;/span&gt;
+            &lt;span&gt;›››&lt;/span&gt;
+            &lt;span&gt;›››&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Exon 1 --&gt;
+          &lt;div class=&quot;absolute left-[15%] w-16 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md&quot;&gt;
+            Exon 1
+          &lt;/div&gt;
+          &lt;!-- Exon 2 --&gt;
+          &lt;div class=&quot;absolute left-[45%] w-24 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md&quot;&gt;
+            Exon 2
+          &lt;/div&gt;
+          &lt;!-- Exon 3 --&gt;
+          &lt;div class=&quot;absolute left-[80%] w-20 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md&quot;&gt;
+            Exon 3
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- TRACK 2: RNA-seq Coverage Histogram (bigWig) --&gt;
+      &lt;div class=&quot;space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80&quot;
+           hx-show=&quot;showCoverage&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-[10px] font-extrabold text-slate-400 uppercase&quot;&gt;
+          &lt;span&gt;RNA-seq Coverage Track (bigWig)&lt;/span&gt;
+          &lt;span class=&quot;font-mono text-cyan-400&quot;&gt;Peak: 1,240 Reads&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;!-- Histogram SVG Peaks matching Exons --&gt;
+        &lt;div class=&quot;h-16 w-full&quot;&gt;
+          &lt;svg class=&quot;w-full h-full&quot; viewBox=&quot;0 0 500 60&quot; preserveAspectRatio=&quot;none&quot;&gt;
+            &lt;defs&gt;
+              &lt;linearGradient id=&quot;covGrad&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;0%&quot; y2=&quot;100%&quot;&gt;
+                &lt;stop offset=&quot;0%&quot; stop-color=&quot;#06b6d4&quot; stop-opacity=&quot;0.8&quot; /&gt;
+                &lt;stop offset=&quot;100%&quot; stop-color=&quot;#06b6d4&quot; stop-opacity=&quot;0.05&quot; /&gt;
+              &lt;/linearGradient&gt;
+            &lt;/defs&gt;
+            &lt;!-- 3 Peaks aligned with Exons --&gt;
+            &lt;path d=&quot;M 0,55 L 70,55 L 85,10 L 145,10 L 160,55 L 210,55 L 230,5 L 340,5 L 360,55 L 390,55 L 410,18 L 490,18 L 500,55 Z&quot;
+                  fill=&quot;url(#covGrad)&quot; stroke=&quot;#06b6d4&quot; stroke-width=&quot;1.5&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- TRACK 3: ClinVar Pathogenic SNV Pins --&gt;
+      &lt;div class=&quot;space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80&quot;
+           hx-show=&quot;showVariants&quot;&gt;
+        &lt;div class=&quot;flex justify-between text-[10px] font-extrabold text-slate-400 uppercase&quot;&gt;
+          &lt;span&gt;ClinVar Pathogenic SNVs (dbSNP)&lt;/span&gt;
+          &lt;span class=&quot;text-rose-400 font-bold&quot;&gt;1 Pathogenic Target&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;relative h-10 w-full flex items-center&quot;&gt;
+          &lt;!-- Baseline track --&gt;
+          &lt;div class=&quot;w-full h-[1px] bg-slate-800&quot;&gt;&lt;/div&gt;
+
+          &lt;!-- rs334 Pathogenic Pin (Sickle Cell E6V) --&gt;
+          &lt;div class=&quot;absolute left-[19%] flex flex-col items-center cursor-pointer active:scale-95 transition-all&quot;
+               hx-action=&quot;$appz.haptic('selection')&quot;&gt;
+            &lt;span class=&quot;px-2 py-0.5 rounded-md bg-rose-600 text-white font-mono font-black text-[10px] shadow-lg shadow-rose-600/30 flex items-center gap-1&quot;&gt;
+              📍 rs334 (A&gt;T)
+            &lt;/span&gt;
+            &lt;div class=&quot;w-0.5 h-3 bg-rose-500&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Other benign polymorphism pin --&gt;
+          &lt;div class=&quot;absolute left-[65%] flex flex-col items-center&quot;&gt;
+            &lt;span class=&quot;px-1.5 py-0.5 rounded-md bg-emerald-700/80 text-white font-mono text-[9px]&quot;&gt;
+              rs10768683 (Benign)
+            &lt;/span&gt;
+            &lt;div class=&quot;w-0.5 h-3 bg-emerald-500&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- ZONE 4: QUANTITATIVE VARIANT INSPECTOR (Cols 9..12) --&gt;
+    &lt;div class=&quot;lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;flex items-center justify-between pb-2 border-b border-slate-800/80&quot;&gt;
+          &lt;span class=&quot;text-[10px] font-black uppercase tracking-widest text-amber-400&quot;&gt;ClinVar Variant Inspector&lt;/span&gt;
+          &lt;span class=&quot;text-[10px] font-mono text-slate-400&quot;&gt;NCBI ClinVar&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;mt-4 space-y-3&quot;&gt;
+          &lt;!-- Variant Header Card --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block mb-1&quot;&gt;Target Allele&lt;/span&gt;
+            &lt;div class=&quot;flex items-baseline justify-between&quot;&gt;
+              &lt;h3 class=&quot;text-xl font-black text-rose-400 font-mono&quot;&gt;rs334 (A&gt;T)&lt;/h3&gt;
+              &lt;span class=&quot;px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-black&quot;&gt;PATHOGENIC&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;p class=&quot;text-xs text-white font-bold mt-1&quot;&gt;p.Glu7Val (Sickle Cell Hemoglobin HbS)&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] font-mono text-slate-400 mt-0.5&quot;&gt;chr11:5,225,466 (GRCh38)&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Population Allele Frequencies (gnomAD v4.1) --&gt;
+          &lt;div class=&quot;p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2&quot;&gt;
+            &lt;span class=&quot;text-[10px] font-extrabold uppercase text-slate-400 block&quot;&gt;gnomAD Allele Frequency (AF)&lt;/span&gt;
+            &lt;div&gt;
+              &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+                &lt;span class=&quot;text-slate-300&quot;&gt;African / African-American&lt;/span&gt;
+                &lt;span class=&quot;text-amber-400 font-mono&quot;&gt;0.1280 (12.8%)&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-1&quot;&gt;
+                &lt;div class=&quot;h-full bg-amber-500 rounded-full&quot; style=&quot;width: 12.8%;&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+                &lt;span class=&quot;text-slate-300&quot;&gt;Global Overall&lt;/span&gt;
+                &lt;span class=&quot;text-slate-400 font-mono&quot;&gt;0.0421 (4.2%)&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-1&quot;&gt;
+                &lt;div class=&quot;h-full bg-slate-600 rounded-full&quot; style=&quot;width: 4.2%;&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;div class=&quot;flex justify-between text-[11px] font-bold&quot;&gt;
+                &lt;span class=&quot;text-slate-300&quot;&gt;European (Non-Finnish)&lt;/span&gt;
+                &lt;span class=&quot;text-slate-500 font-mono&quot;&gt;0.0001 (&amp;lt;0.01%)&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;w-full h-1.5 rounded-full bg-slate-800 mt-1&quot;&gt;
+                &lt;div class=&quot;h-full bg-slate-700 rounded-full&quot; style=&quot;width: 1%;&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Gene Summary Card --&gt;
+          &lt;div class=&quot;p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]&quot;&gt;
+            &lt;span class=&quot;text-slate-500 font-extrabold uppercase block mb-1&quot;&gt;Gene Annotations&lt;/span&gt;
+            &lt;div class=&quot;font-mono text-amber-400&quot;&gt;HBB • Hemoglobin Subunit Beta&lt;/div&gt;
+            &lt;div class=&quot;text-slate-400 mt-0.5&quot;&gt;Length: 147 amino acids • OMIM: 603903&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Button --&gt;
+      &lt;div class=&quot;pt-3 border-t border-slate-800/80&quot;&gt;
+        &lt;button class=&quot;w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20&quot;
+                hx-action=&quot;$appz.haptic('success')&quot;&gt;
+          Launch UCSC &amp; Ensembl Cross-Link
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ZONE 5: AUDIT &amp; @DIAG STATUS FOOTER --&gt;
+  &lt;div class=&quot;px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+      &lt;span class=&quot;text-[10px] font-mono text-amber-400&quot;&gt;Assembly: GRCh38.p14&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Base Pairs: 6,000 bp&lt;/span&gt;
+      &lt;span class=&quot;text-slate-600&quot;&gt;•&lt;/span&gt;
+      &lt;span class=&quot;text-[10px] font-mono&quot;&gt;Buffer: 3.2 MB&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Diagnostic Telemetry --&gt;
+    &lt;div class=&quot;flex items-center gap-4 text-[10px] font-bold&quot;&gt;
+      &lt;span class=&quot;text-emerald-400 flex items-center gap-1&quot;&gt;
+        &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse&quot;&gt;&lt;/span&gt;
+        Multi-Track Engine: 60.0 FPS
+      &lt;/span&gt;
+      &lt;span class=&quot;text-slate-500&quot;&gt;Latency: 0.2ms&lt;/span&gt;
+      &lt;span class=&quot;text-amber-400 font-mono&quot;&gt;@diag: GENOME_SYNC_OK&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
