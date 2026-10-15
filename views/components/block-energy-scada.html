@@ -1,0 +1,212 @@
+<!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: ELECTRICITY, OIL & GAS ENERGY SCADA
+     IEC 61850 Single-Line Diagram (SLD), 3-Phase Load Flow & Wellhead Manifolds
+     ========================================================================= -->
+<div class="block-energy-scada rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "viewMode": "grid", "voltageKv": 230.4, "freqHz": 60.02, "loadMw": 142.5, "cb101Closed": true, "wellheadPsi": 2840, "chokePct": 38 }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm">
+        ⚡
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-400">Energy & SCADA Grid Automation</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">IEC 61850 GOOSE</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Substation Delta-4 (230kV / 69kV)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">WECC Interconnection & Offshore Wellhead Alpha</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Grid Frequency & Bus Voltage Badges -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-amber-400 font-mono font-black" hx-text="voltageKv + ' kV'">230.4 kV</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-emerald-400 font-mono font-black" hx-text="freqHz + ' Hz'">60.02 Hz</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & SCADA CONTROLS RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- View Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Modality</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black": viewMode === "grid", "bg-slate-900 text-slate-400": viewMode !== "grid" }'
+              hx-action="viewMode = 'grid'; $appz.haptic('selection')">
+        230kV Substation SLD
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-slate-950 shadow-md shadow-amber-600/30 font-black": viewMode === "wellhead", "bg-slate-900 text-slate-400": viewMode !== "wellhead" }'
+              hx-action="viewMode = 'wellhead'; $appz.haptic('selection')">
+        Offshore Wellhead Production
+      </button>
+    </div>
+
+    <!-- Breaker Interlock Action -->
+    <div class="flex items-center gap-2">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">CB-101 Breaker:</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold text-xs transition-all active:scale-95"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": cb101Closed, "bg-rose-600 text-white shadow-md shadow-rose-600/30": !cb101Closed }'
+              hx-action="cb101Closed = !cb101Closed; $appz.haptic(cb101Closed ? 'medium' : 'heavy')">
+        <span hx-text="cb101Closed ? '● CLOSED (ENERGIZED)' : '■ TRIPPED / OPEN'">● CLOSED (ENERGIZED)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: SCADA SINGLE-LINE DIAGRAM & POWER INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR SINGLE-LINE DIAGRAM (SLD) (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-amber-400/90 z-10 pointer-events-none">
+        <span>BUSBAR A (230kV MAIN) • 3-PHASE BALANCED</span>
+        <span>LOAD: <span class="text-white font-bold" hx-text="loadMw + ' MW'">142.5 MW</span> • PF: 0.99 IND</span>
+      </div>
+
+      <!-- Vector High-Voltage SLD via SVG -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 500 350">
+          <!-- 230kV Main Transmission Busbar A (Thick Glowing Amber Bar) -->
+          <line x1="40" y1="60" x2="460" y2="60" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" />
+          <text x="50" y="50" fill="#f59e0b" font-size="10" font-family="monospace" font-weight="900">BUS 1 (230 kV MAIN)</text>
+
+          <!-- Feeder 1 Drop Line with Circuit Breaker CB-101 -->
+          <line x1="140" y1="63" x2="140" y2="120" stroke="#f59e0b" stroke-width="2.5" />
+          <!-- Disconnect Switch DS-101 -->
+          <circle cx="140" cy="120" r="3" fill="#ffffff" />
+          <line x1="140" y1="120" x2="140" y2="145" stroke="#f59e0b" stroke-width="2" />
+
+          <!-- Circuit Breaker CB-101 Box -->
+          <rect x="125" y="145" width="30" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+          <text x="132" y="164" fill="#10b981" font-size="9" font-family="monospace" font-weight="900">CB1</text>
+          <line x1="140" y1="175" x2="140" y2="210" stroke="#f59e0b" stroke-width="2.5" />
+
+          <!-- 150 MVA Step-Down Power Transformer T1 (230 kV to 69 kV) -->
+          <circle cx="140" cy="225" r="16" fill="none" stroke="#f59e0b" stroke-width="2.5" />
+          <circle cx="140" cy="245" r="16" fill="none" stroke="#06b6d4" stroke-width="2.5" />
+          <text x="165" y="238" fill="#e2e8f0" font-size="9" font-family="monospace" font-weight="bold">T1 (150 MVA)</text>
+          <text x="165" y="250" fill="#94a3b8" font-size="8" font-family="monospace">68.4°C</text>
+
+          <!-- 69kV Distribution Busbar B (Cyan Bar) -->
+          <line x1="40" y1="290" x2="460" y2="290" stroke="#06b6d4" stroke-width="5" stroke-linecap="round" />
+          <line x1="140" y1="261" x2="140" y2="290" stroke="#06b6d4" stroke-width="2.5" />
+          <text x="50" y="310" fill="#06b6d4" font-size="10" font-family="monospace" font-weight="900">BUS 2 (69 kV DISTRIBUTION)</text>
+
+          <!-- Feeder 2 Drop Line with CB-102 -->
+          <line x1="360" y1="63" x2="360" y2="145" stroke="#f59e0b" stroke-width="2.5" />
+          <rect x="345" y="145" width="30" height="30" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+          <text x="352" y="164" fill="#10b981" font-size="9" font-family="monospace" font-weight="900">CB2</text>
+          <line x1="360" y1="175" x2="360" y2="240" stroke="#f59e0b" stroke-width="2.5" />
+
+          <!-- Surge Arrester -->
+          <path d="M 360,240 L 368,248 L 352,256 L 360,264 L 360,275" fill="none" stroke="#f59e0b" stroke-width="2" />
+          <line x1="350" y1="275" x2="370" y2="275" stroke="#ffffff" stroke-width="1.5" /> <!-- Ground -->
+        </svg>
+
+        <!-- Substation Bus Status HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Active Load: <span class="font-bold text-amber-400">142.5 MW</span> • Reactive: <span class="text-cyan-400 font-bold">18.2 MVAR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE SCADA & WELLHEAD INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Grid & Wellhead Telemetry</span>
+          <span class="text-[10px] font-bold text-emerald-400">NORMAL OPERATING</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- 3-Phase Electrical Load Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Grid Active Load</span>
+            <div class="flex items-baseline justify-between">
+              <span class="text-3xl font-black text-white" hx-text="loadMw + ' MW'">142.5 MW</span>
+              <span class="text-xs font-bold text-emerald-400 font-mono">60.02 Hz</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mt-3 pt-2 border-t border-slate-900 text-[10px]">
+              <div>
+                <span class="text-slate-500 block">Phase A</span>
+                <span class="font-bold text-white font-mono">133.0 kV</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Phase B</span>
+                <span class="font-bold text-white font-mono">133.1 kV</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Phase C</span>
+                <span class="font-bold text-white font-mono">132.9 kV</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Oil & Gas Offshore Wellhead Telemetry -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Platform Alpha Wellhead</span>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Tubing Head Pressure:</span>
+              <span class="text-amber-400 font-mono" hx-text="wellheadPsi + ' PSI'">2,840 PSI</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Adjustable Choke Valve:</span>
+              <span class="text-cyan-400 font-mono" hx-text="chokePct + '% Open'">38% Open</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">Total Liquid Flow:</span>
+              <span class="text-emerald-400 font-mono">4,200 BOPD</span>
+            </div>
+          </div>
+
+          <!-- Transformer Health -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Transformer T1 Hotspot:</span>
+              <span class="font-bold text-emerald-400 font-mono">68.4°C (Limit: 95°C)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Buchholz Relay:</span>
+              <span class="font-bold text-white font-mono">NO GAS DETECTED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20"
+                hx-action="$appz.haptic('heavy')">
+          Emergency Shutdown (ESD) Matrix Armed
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-amber-400">Protocol: IEC 61850 GOOSE</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Trip Latency: &lt; 4.0 ms</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        SCADA Redundancy: PRP/HSR Active
+      </span>
+      <span class="text-slate-500">Dual Hot Standby</span>
+      <span class="text-amber-400 font-mono">@diag: SCADA_GRID_SYNC</span>
+    </div>
+  </div>
+
+</div>

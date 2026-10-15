@@ -1,0 +1,13 @@
+<!-- Smart UV Index Dial Component -->
+<div class="smart-uv-index-dial p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "uv": 7.4 }'>
+  <div>
+    <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Solar Radiation Sensor</span>
+    <div class="flex items-baseline gap-2 mt-1">
+      <span class="text-4xl font-black text-white" hx-text="uv">7.4</span>
+      <span class="text-xs font-bold text-amber-400 uppercase">Very High</span>
+    </div>
+    <p class="text-[10px] text-slate-400 mt-1">Burn time: ~20 mins • SPF 50+ recommended</p>
+  </div>
+  <app-gauge value="7.4" min="0" max="11" unit="" label="UV Risk" class="inline-block"></app-gauge>
+</div>

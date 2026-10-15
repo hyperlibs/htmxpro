@@ -27,7 +27,7 @@
       });
   };
 
-  // src/htmx-flash.ts
+  // ../htmxpro/src/htmx-flash.ts
   var exports_htmx_flash = {};
   __export(exports_htmx_flash, {
     HxFlash: () => HxFlash,

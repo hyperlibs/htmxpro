@@ -1,0 +1,19 @@
+<!-- Smart Turn-by-Turn Navigation HUD -->
+<div class="smart-turn-by-turn-nav p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "distance": "450 m", "street": "Market Street", "turn": "left" }'>
+  <div class="flex items-center gap-4">
+    <!-- Big Turn Direction Arrow -->
+    <div class="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-600/30">
+      ↰
+    </div>
+    <div>
+      <span class="text-xl font-black text-white" hx-text="'In ' + distance">In 450 m</span>
+      <h3 class="text-xs font-bold text-slate-300" hx-text="street">Market Street</h3>
+      <p class="text-[9px] text-slate-500 font-bold uppercase mt-0.5">Use 2 left lanes</p>
+    </div>
+  </div>
+  <div class="text-right">
+    <span class="text-xs font-black text-emerald-400">12:34</span>
+    <span class="text-[9px] text-slate-500 block font-bold">14.2 km • 18 min</span>
+  </div>
+</div>

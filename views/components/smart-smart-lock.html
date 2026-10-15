@@ -1,0 +1,25 @@
+<!-- Smart Smart Lock Status Card -->
+<div class="smart-smart-lock p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "locked": true }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Front Entry Deadbolt</span>
+    <span class="text-[10px] font-bold text-slate-400">🔋 92% Battery</span>
+  </div>
+  <div class="flex items-center justify-between py-2">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all"
+           hx-class='{ "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30": locked, "bg-amber-500/20 text-amber-400 border border-amber-500/30": !locked }'>
+        <span hx-text="locked ? '🔒' : '🔓'">🔒</span>
+      </div>
+      <div>
+        <h3 class="text-sm font-black text-white" hx-text="locked ? 'Door Locked' : 'Door Unlocked'">Door Locked</h3>
+        <p class="text-[10px] text-slate-500 font-bold">Auto-lock in 30 sec</p>
+      </div>
+    </div>
+    <button class="px-4 py-2 rounded-xl font-bold text-xs transition-all active:scale-95"
+            hx-class='{ "bg-slate-800 text-slate-300": locked, "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30": !locked }'
+            hx-action="locked = !locked; $appz.haptic(locked ? 'heavy' : 'success')">
+      <span hx-text="locked ? 'Tap to Unlock' : 'Tap to Lock'">Tap to Unlock</span>
+    </button>
+  </div>
+</div>

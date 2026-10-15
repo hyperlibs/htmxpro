@@ -1,0 +1,241 @@
+<!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: MARINE, ECDIS & GPS NAUTICAL NAVIGATION
+     S-57 Vector Nautical Charts, AIS Vessel Transponders & Collision Avoidance
+     ========================================================================= -->
+<div class="block-marine-navigation rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "chartOrient": "north", "rangeNM": "6.0", "sogKnots": 14.2, "cogTrue": 248, "depthM": 18.4, "cpaNM": 1.85, "showRadar": true, "showAis": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-black text-sm">
+        ⚓
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-blue-400">ECDIS Marine Navigation System</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-blue-500/10 text-blue-400 border border-blue-500/20">IMO / SOLAS</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Vessel: R/V NEPTUNE EXPLORER</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">MMSI: 368492010 (Call: WDF8290)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Range Scale Selector -->
+    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "1.5", "text-slate-400 hover:text-white": rangeNM !== "1.5" }'
+              hx-action="rangeNM = '1.5'; $appz.haptic('selection')">1.5 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "3.0", "text-slate-400 hover:text-white": rangeNM !== "3.0" }'
+              hx-action="rangeNM = '3.0'; $appz.haptic('selection')">3.0 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "6.0", "text-slate-400 hover:text-white": rangeNM !== "6.0" }'
+              hx-action="rangeNM = '6.0'; $appz.haptic('selection')">6.0 NM</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": rangeNM === "12.0", "text-slate-400 hover:text-white": rangeNM !== "12.0" }'
+              hx-action="rangeNM = '12.0'; $appz.haptic('selection')">12.0 NM</button>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & NAUTICAL TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Orientation Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Orientation</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "north", "bg-slate-900 text-slate-400": chartOrient !== "north" }'
+              hx-action="chartOrient = 'north'; $appz.haptic('selection')">North-Up</button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "head", "bg-slate-900 text-slate-400": chartOrient !== "head" }'
+              hx-action="chartOrient = 'head'; $appz.haptic('selection')">Head-Up</button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": chartOrient === "course", "bg-slate-900 text-slate-400": chartOrient !== "course" }'
+              hx-action="chartOrient = 'course'; $appz.haptic('selection')">Course-Up</button>
+    </div>
+
+    <!-- Nautical Layer Toggles -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": showAis, "bg-slate-900 text-slate-400": !showAis }'
+              hx-action="showAis = !showAis; $appz.haptic('selection')">
+        <span hx-text="showAis ? '✓ AIS Targets (8)' : '✗ AIS Targets'">✓ AIS Targets (8)</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-cyan-600 text-white": showRadar, "bg-slate-900 text-slate-400": !showRadar }'
+              hx-action="showRadar = !showRadar; $appz.haptic('selection')">
+        <span hx-text="showRadar ? '✓ Doppler Radar Overlay' : '✗ Doppler Radar'">✓ Doppler Radar Overlay</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: NAUTICAL CHART & TELEMETRY INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR ECDIS NAUTICAL CHART VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-[#07131e] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-cyan-400 z-10 pointer-events-none">
+        <div>
+          <span>DEST: PORT SINGAPORE</span>
+          <span class="text-slate-500">•</span>
+          <span>ETA: 18:40 UTC</span>
+        </div>
+        <div>
+          <span>RANGE: <span class="font-bold text-white" hx-text="rangeNM + ' NM'">6.0 NM</span></span>
+          <span class="text-slate-500">•</span>
+          <span>PULSE: 0.25 µs</span>
+        </div>
+      </div>
+
+      <!-- Hydrographic Chart Canvas via SVG -->
+      <div class="relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 400 400">
+          <defs>
+            <!-- 360 Degree Compass Rose -->
+            <radialGradient id="oceanShallows" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0c2538" />
+              <stop offset="60%" stop-color="#081a28" />
+              <stop offset="100%" stop-color="#05101a" />
+            </radialGradient>
+          </defs>
+          <rect width="400" height="400" fill="url(#oceanShallows)" />
+
+          <!-- Bathymetric Depth Contours (Isobaths 5m, 10m, 20m) -->
+          <path d="M 0,110 Q 120,80 200,120 T 400,90" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4 2" />
+          <text x="30" y="105" fill="#0284c7" font-size="8" font-family="monospace">10m isobath</text>
+
+          <path d="M 0,220 Q 150,180 250,230 T 400,200" fill="none" stroke="#0369a1" stroke-width="1.2" />
+          <text x="30" y="215" fill="#0369a1" font-size="8" font-family="monospace">20m isobath</text>
+
+          <!-- Range Rings (1.5 NM, 3.0 NM, 4.5 NM, 6.0 NM) -->
+          <circle cx="200" cy="200" r="45" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="90" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="135" fill="none" stroke="#1e293b" stroke-width="1" />
+          <circle cx="200" cy="200" r="180" fill="none" stroke="#334155" stroke-width="1.5" />
+
+          <!-- Degree Compass Ticks on outer ring -->
+          <line x1="200" y1="18" x2="200" y2="28" stroke="#38bdf8" stroke-width="2" /> <!-- North 000 -->
+          <text x="196" y="38" fill="#38bdf8" font-size="9" font-weight="900" font-family="monospace">N</text>
+
+          <!-- Planned Waypoint Track Line (Magenta) -->
+          <line x1="50" y1="280" x2="200" y2="200" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6 3" />
+          <line x1="200" y1="200" x2="350" y2="120" stroke="#f43f5e" stroke-width="2.5" />
+
+          <!-- Own Ship Symbol (Center: 200, 200) with Heading Vector Line -->
+          <circle cx="200" cy="200" r="6" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5" />
+          <line x1="200" y1="200" x2="260" y2="168" stroke="#38bdf8" stroke-width="2.5" />
+          <!-- 6-minute Velocity Vector Vector Cone -->
+          <polygon points="260,168 252,164 256,174" fill="#38bdf8" />
+
+          <!-- AIS Target #1 (Container Ship Ahead) -->
+          <g id="ais-target-1">
+            <polygon points="280,140 286,146 280,152 274,146" fill="#f59e0b" stroke="#ffffff" stroke-width="1" />
+            <line x1="280" y1="140" x2="295" y2="120" stroke="#f59e0b" stroke-width="1.5" />
+            <text x="292" y="150" fill="#f59e0b" font-size="8" font-family="monospace" font-weight="bold">CPA: 1.85 NM</text>
+          </g>
+
+          <!-- Light Buoy (Fl.G.4s NavAid) -->
+          <circle cx="160" cy="150" r="4" fill="#10b981" stroke="#ffffff" stroke-width="1" />
+          <text x="170" y="153" fill="#10b981" font-size="8" font-family="monospace">Fl.G.4s</text>
+        </svg>
+
+        <!-- Own Ship Status HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          HDG: <span class="font-bold text-cyan-400">249.5° M</span> • ROT: <span class="text-white font-bold">+0.4°/min</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE NAUTICAL INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-blue-400">Navigational Dynamics</span>
+          <span class="text-[10px] font-bold text-emerald-400">AIS LIVE</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Primary Speed & Course -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+              <span class="text-[10px] font-extrabold uppercase text-slate-400 block">SOG (Speed)</span>
+              <div class="flex items-baseline gap-1 mt-1">
+                <span class="text-3xl font-black text-white" hx-text="sogKnots">14.2</span>
+                <span class="text-xs font-bold text-blue-400">KTS</span>
+              </div>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+              <span class="text-[10px] font-extrabold uppercase text-slate-400 block">COG (Course)</span>
+              <div class="flex items-baseline gap-1 mt-1">
+                <span class="text-3xl font-black text-white" hx-text="cogTrue + '°'">248°</span>
+                <span class="text-xs font-bold text-blue-400">TRUE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Under-Keel Clearance (UKC) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Under-Keel Clearance (UKC)</span>
+              <span class="text-xs font-black text-emerald-400">SAFE DEPTH</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-2xl font-black text-cyan-400" hx-text="depthM + ' m'">18.4 m</span>
+              <span class="text-[10px] text-slate-400">Water Depth: 24.2 m (Draft 5.8 m)</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-cyan-500 rounded-full" style="width: 76%;"></div>
+            </div>
+          </div>
+
+          <!-- Collision Avoidance (AIS Target) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-1 text-xs">
+            <div class="flex justify-between font-bold">
+              <span class="text-slate-300">Closest Approach (CPA):</span>
+              <span class="text-amber-400 font-mono" hx-text="cpaNM + ' NM'">1.85 NM</span>
+            </div>
+            <div class="flex justify-between font-bold">
+              <span class="text-slate-300">Time to CPA (TCPA):</span>
+              <span class="text-emerald-400 font-mono">14m 20s (SAFE)</span>
+            </div>
+            <div class="flex justify-between text-[10px] pt-1 border-t border-slate-900">
+              <span class="text-slate-500">Cross-Track Error (XTE):</span>
+              <span class="text-white font-mono font-bold">0.02 NM Right</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-blue-600/20"
+                hx-action="$appz.haptic('success')">
+          Log Waypoint to Electronic Logbook (ELB)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-blue-400">GPS: 01°14'28" N, 103°55'12" E</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Sats: 18 (RTK DGPS Fixed)</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        NMEA 2000 Bus: OK
+      </span>
+      <span class="text-slate-500">Latency: 1.2ms</span>
+      <span class="text-blue-400 font-mono">@diag: ECDIS_OK</span>
+    </div>
+  </div>
+
+</div>

@@ -347,3 +347,477 @@ func SmartHeartRate(p SmartHeartRateProps) Component {
 </div>`, p.BPM, p.Status)
 	return Component{html: html}
 }
+
+// =============================================================================
+// DOMAIN S1 EXTENDED: DAILY FORECAST, UV, WIND & AIR QUALITY
+// =============================================================================
+
+type ForecastDayItem struct {
+	Day  string
+	Icon string
+	High int
+	Low  int
+}
+
+type SmartForecastDailyProps struct {
+	Days []ForecastDayItem
+}
+
+func SmartForecastDaily(p SmartForecastDailyProps) Component {
+	if len(p.Days) == 0 {
+		p.Days = []ForecastDayItem{
+			{Day: "TODAY", Icon: "⛅", High: 22, Low: 14},
+			{Day: "FRI", Icon: "☀️", High: 25, Low: 16},
+			{Day: "SAT", Icon: "🌧️", High: 18, Low: 12},
+			{Day: "SUN", Icon: "⛈️", High: 17, Low: 11},
+			{Day: "MON", Icon: "🌤️", High: 21, Low: 13},
+		}
+	}
+	var sb strings.Builder
+	for i, d := range p.Days {
+		bgClass := "bg-slate-950/60 border-slate-800/80"
+		textColor := "text-slate-400"
+		if i == 0 {
+			bgClass = "bg-indigo-600/20 border-indigo-500/40"
+			textColor = "text-indigo-400 font-extrabold"
+		}
+		sb.WriteString(fmt.Sprintf(`
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl %s border flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = %d; $appz.haptic('selection')">
+      <span class="text-[10px] %s">%s</span>
+      <span class="text-xl">%s</span>
+      <span class="text-xs font-black text-white">%d°</span>
+      <span class="text-[9px] text-slate-400">%d°</span>
+    </div>`, bgClass, i, textColor, d.Day, d.Icon, d.High, d.Low))
+	}
+
+	html := fmt.Sprintf(`
+<div class="smart-forecast-daily p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "activeDay": 0 }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">7-Day Meteorological Outlook</span>
+    <span class="text-[10px] text-slate-400 font-bold">Updated Just Now</span>
+  </div>
+  <div class="flex items-center gap-2 overflow-x-auto pb-1">
+    %s
+  </div>
+</div>`, sb.String())
+	return Component{html: html}
+}
+
+type SmartUVIndexDialProps struct {
+	UV float64
+}
+
+func SmartUVIndexDial(p SmartUVIndexDialProps) Component {
+	if p.UV == 0 {
+		p.UV = 7.4
+	}
+	risk := "Moderate"
+	if p.UV >= 8 {
+		risk = "Very High"
+	} else if p.UV >= 6 {
+		risk = "High"
+	}
+	html := fmt.Sprintf(`
+<div class="smart-uv-index-dial p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "uv": %.1f }'>
+  <div>
+    <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Solar Radiation Sensor</span>
+    <div class="flex items-baseline gap-2 mt-1">
+      <span class="text-4xl font-black text-white" hx-text="uv">%.1f</span>
+      <span class="text-xs font-bold text-amber-400 uppercase">%s</span>
+    </div>
+    <p class="text-[10px] text-slate-400 mt-1">Burn time: ~20 mins • SPF 50+ recommended</p>
+  </div>
+  <app-gauge value="%.1f" min="0" max="11" unit="" label="UV Risk" class="inline-block"></app-gauge>
+</div>`, p.UV, p.UV, risk, p.UV)
+	return Component{html: html}
+}
+
+type SmartWindCompassProps struct {
+	SpeedKmh     float64
+	DirectionDeg int
+	GustKmh      float64
+}
+
+func SmartWindCompass(p SmartWindCompassProps) Component {
+	if p.SpeedKmh == 0 {
+		p.SpeedKmh = 24.5
+		p.DirectionDeg = 45
+		p.GustKmh = 38.0
+	}
+	html := fmt.Sprintf(`
+<div class="smart-wind-compass p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "speedKmh": %.1f, "directionDeg": %d, "gustKmh": %.1f }'>
+  <div>
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Ultrasonic Anemometer</span>
+    <div class="flex items-baseline gap-2 mt-1">
+      <span class="text-3xl font-black text-white" hx-text="speedKmh">%.1f</span>
+      <span class="text-xs font-bold text-slate-400 uppercase">KM/H</span>
+    </div>
+    <p class="text-[10px] text-slate-400 mt-0.5">Gusting to <span class="font-bold text-white" hx-text="gustKmh">%.1f</span> km/h • Direction NE</p>
+  </div>
+  <div class="relative w-20 h-20 rounded-full border-2 border-slate-700 bg-slate-950 flex items-center justify-center">
+    <span class="absolute top-1 text-[8px] font-black text-slate-400">N</span>
+    <span class="absolute bottom-1 text-[8px] font-black text-slate-400">S</span>
+    <span class="absolute left-1 text-[8px] font-black text-slate-400">W</span>
+    <span class="absolute right-1 text-[8px] font-black text-slate-400">E</span>
+    <div class="w-1.5 h-10 bg-indigo-500 rounded-full transform rotate-45 origin-center transition-transform shadow-md"></div>
+  </div>
+</div>`, p.SpeedKmh, p.DirectionDeg, p.GustKmh, p.SpeedKmh, p.GustKmh)
+	return Component{html: html}
+}
+
+type SmartAirQualityPillProps struct {
+	AQI  int
+	PM25 float64
+	PM10 float64
+	CO2  int
+}
+
+func SmartAirQualityPill(p SmartAirQualityPillProps) Component {
+	if p.AQI == 0 {
+		p.AQI = 32
+		p.PM25 = 8.2
+		p.PM10 = 14.0
+		p.CO2 = 480
+	}
+	html := fmt.Sprintf(`
+<div class="smart-air-quality-pill p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "aqi": %d }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Air Quality Telemetry</span>
+    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">● Good (AQI %d)</span>
+  </div>
+  <div class="grid grid-cols-3 gap-2 text-center text-xs">
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">PM 2.5</span>
+      <span class="text-sm font-black text-white mt-0.5 block">%.1f µg</span>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">PM 10</span>
+      <span class="text-sm font-black text-white mt-0.5 block">%.1f µg</span>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">CO2</span>
+      <span class="text-sm font-black text-white mt-0.5 block">%d ppm</span>
+    </div>
+  </div>
+</div>`, p.AQI, p.AQI, p.PM25, p.PM10, p.CO2)
+	return Component{html: html}
+}
+
+// =============================================================================
+// DOMAIN S2 & S3 EXTENDED: LIGHTING & AUTOMATION
+// =============================================================================
+
+type SmartLightingDimmerProps struct {
+	Brightness int
+}
+
+func SmartLightingDimmer(p SmartLightingDimmerProps) Component {
+	if p.Brightness == 0 {
+		p.Brightness = 75
+	}
+	html := fmt.Sprintf(`
+<div class="smart-lighting-dimmer p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col items-center gap-3"
+     hx-state='{ "brightness": %d }'>
+  <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Atmospheric Lighting Dimmer</span>
+  <div class="relative w-32 h-32 flex items-center justify-center">
+    <div class="w-28 h-28 rounded-full bg-slate-950 border-4 border-amber-500/40 shadow-lg flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-all"
+         hx-action="$appz.haptic('selection')">
+      <span class="text-3xl font-black text-white" hx-text="brightness + '%%'">%d%%</span>
+      <span class="text-[9px] text-amber-400 font-bold">Warm Glow</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-2 w-full max-w-[200px]">
+    <button class="flex-1 py-1.5 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 active:scale-90 transition-all" hx-action="brightness = Math.max(0, brightness - 10); $appz.haptic('selection')">-10%%</button>
+    <button class="flex-1 py-1.5 rounded-xl bg-amber-600 text-xs font-bold text-white active:scale-90 transition-all" hx-action="brightness = Math.min(100, brightness + 10); $appz.haptic('selection')">+10%%</button>
+  </div>
+</div>`, p.Brightness, p.Brightness)
+	return Component{html: html}
+}
+
+type SmartSmartLockProps struct {
+	Locked  bool
+	Battery int
+	Name    string
+}
+
+func SmartSmartLock(p SmartSmartLockProps) Component {
+	if p.Battery == 0 {
+		p.Battery = 92
+	}
+	if p.Name == "" {
+		p.Name = "Front Entry Deadbolt"
+	}
+	lockEmoji := "🔒"
+	statusText := "Door Locked"
+	if !p.Locked {
+		lockEmoji = "🔓"
+		statusText = "Door Unlocked"
+	}
+	html := fmt.Sprintf(`
+<div class="smart-smart-lock p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "locked": %t }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">%s</span>
+    <span class="text-[10px] font-bold text-slate-400">🔋 %d%% Battery</span>
+  </div>
+  <div class="flex items-center justify-between py-2">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all"
+           hx-class='{ "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30": locked, "bg-amber-500/20 text-amber-400 border border-amber-500/30": !locked }'>
+        <span hx-text="locked ? '🔒' : '🔓'">%s</span>
+      </div>
+      <div>
+        <h3 class="text-sm font-black text-white" hx-text="locked ? 'Door Locked' : 'Door Unlocked'">%s</h3>
+        <p class="text-[10px] text-slate-500 font-bold">Auto-lock in 30 sec</p>
+      </div>
+    </div>
+    <button class="px-4 py-2 rounded-xl font-bold text-xs transition-all active:scale-95"
+            hx-class='{ "bg-slate-800 text-slate-300": locked, "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30": !locked }'
+            hx-action="locked = !locked; $appz.haptic(locked ? 'heavy' : 'success')">
+      <span hx-text="locked ? 'Tap to Unlock' : 'Tap to Lock'">Tap to Unlock</span>
+    </button>
+  </div>
+</div>`, p.Locked, p.Name, p.Battery, lockEmoji, statusText)
+	return Component{html: html}
+}
+
+// =============================================================================
+// DOMAIN S4 EXTENDED: AUTOMOTIVE & INFOTAINMENT
+// =============================================================================
+
+type SmartEVBatteryRangeProps struct {
+	Pct      int
+	RangeKm  int
+	Charging bool
+}
+
+func SmartEVBatteryRange(p SmartEVBatteryRangeProps) Component {
+	if p.Pct == 0 {
+		p.Pct = 84
+		p.RangeKm = 438
+	}
+	html := fmt.Sprintf(`
+<div class="smart-ev-battery-range p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4"
+     hx-state='{ "pct": %d, "rangeKm": %d, "charging": %t }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">EV Traction Battery</span>
+    <span class="text-[10px] font-bold text-slate-400">400V Architecture</span>
+  </div>
+  <div class="flex items-center justify-between">
+    <div>
+      <span class="text-4xl font-black text-white" hx-text="pct + '%%'">%d%%</span>
+      <span class="text-[10px] font-bold text-slate-400 block mt-0.5">82.4 kWh Remaining</span>
+    </div>
+    <div class="text-right">
+      <span class="text-2xl font-black text-indigo-400" hx-text="rangeKm + ' km'">%d km</span>
+      <span class="text-[9px] font-extrabold uppercase text-slate-500 block">EPA Range</span>
+    </div>
+  </div>
+  <div class="w-full h-3 rounded-full bg-slate-950 p-0.5 border border-slate-800 flex">
+    <div class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-indigo-500 transition-all duration-500" style="width: %d%%;"></div>
+  </div>
+</div>`, p.Pct, p.RangeKm, p.Charging, p.Pct, p.RangeKm, p.Pct)
+	return Component{html: html}
+}
+
+type SmartDriveModeProps struct {
+	Mode string // "chill" | "normal" | "sport" | "track"
+}
+
+func SmartDriveMode(p SmartDriveModeProps) Component {
+	if p.Mode == "" {
+		p.Mode = "sport"
+	}
+	html := fmt.Sprintf(`
+<div class="smart-drive-mode p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "mode": "%s" }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Powertrain Drive Profile</span>
+    <span class="text-[10px] font-extrabold uppercase text-amber-400" hx-text="mode.toUpperCase()">%s</span>
+  </div>
+  <div class="grid grid-cols-4 gap-2">
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30": mode === "chill", "bg-slate-950 text-slate-400": mode !== "chill" }'
+            hx-action="mode = 'chill'; $appz.haptic('selection')">Chill</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30": mode === "normal", "bg-slate-950 text-slate-400": mode !== "normal" }'
+            hx-action="mode = 'normal'; $appz.haptic('selection')">Normal</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-amber-600 text-white shadow-lg shadow-amber-600/30": mode === "sport", "bg-slate-950 text-slate-400": mode !== "sport" }'
+            hx-action="mode = 'sport'; $appz.haptic('selection')">Sport</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-rose-600 text-white shadow-lg shadow-rose-600/30": mode === "track", "bg-slate-950 text-slate-400": mode !== "track" }'
+            hx-action="mode = 'track'; $appz.haptic('heavy')">Track</button>
+  </div>
+</div>`, p.Mode, strings.ToUpper(p.Mode))
+	return Component{html: html}
+}
+
+type SmartTurnByTurnNavProps struct {
+	Distance string
+	Street   string
+	ETA      string
+	TripKm   float64
+	TripMin  int
+}
+
+func SmartTurnByTurnNav(p SmartTurnByTurnNavProps) Component {
+	if p.Distance == "" {
+		p.Distance = "450 m"
+		p.Street = "Market Street"
+		p.ETA = "12:34"
+		p.TripKm = 14.2
+		p.TripMin = 18
+	}
+	html := fmt.Sprintf(`
+<div class="smart-turn-by-turn-nav p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "distance": "%s", "street": "%s", "turn": "left" }'>
+  <div class="flex items-center gap-4">
+    <div class="w-14 h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-600/30">
+      ↰
+    </div>
+    <div>
+      <span class="text-xl font-black text-white" hx-text="'In ' + distance">In %s</span>
+      <h3 class="text-xs font-bold text-slate-300" hx-text="street">%s</h3>
+      <p class="text-[9px] text-slate-500 font-bold uppercase mt-0.5">Use 2 left lanes</p>
+    </div>
+  </div>
+  <div class="text-right">
+    <span class="text-xs font-black text-emerald-400">%s</span>
+    <span class="text-[9px] text-slate-500 block font-bold">%.1f km • %d min</span>
+  </div>
+</div>`, p.Distance, p.Street, p.Distance, p.Street, p.ETA, p.TripKm, p.TripMin)
+	return Component{html: html}
+}
+
+// =============================================================================
+// DOMAIN S6 & S7 & S8: POS, HEALTH RINGS, AMBIENT AOD
+// =============================================================================
+
+type SmartPOSCashierProps struct {
+	OrderNo  string
+	TotalDue float64
+	Tendered float64
+}
+
+func SmartPOSCashier(p SmartPOSCashierProps) Component {
+	if p.OrderNo == "" {
+		p.OrderNo = "#4210"
+		p.TotalDue = 48.50
+		p.Tendered = 50.00
+	}
+	html := fmt.Sprintf(`
+<div class="smart-pos-cashier p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4"
+     hx-state='{ "totalDue": %.2f, "tendered": %.2f }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">POS Checkout Terminal</span>
+    <span class="text-[10px] font-bold text-slate-400">Order %s</span>
+  </div>
+  <div class="flex items-center justify-between">
+    <div>
+      <span class="text-[10px] text-slate-500 font-bold uppercase block">Total Due</span>
+      <span class="text-3xl font-black text-white" hx-text="'$' + totalDue.toFixed(2)">$%.2f</span>
+    </div>
+    <div class="text-right">
+      <span class="text-[10px] text-slate-500 font-bold uppercase block">Change Due</span>
+      <span class="text-2xl font-black text-emerald-400" hx-text="'$' + (tendered - totalDue).toFixed(2)">$%.2f</span>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+    <button class="py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white active:scale-95 transition-all" hx-action="tendered = 50.00; $appz.haptic('selection')">$50 Cash</button>
+    <button class="py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white active:scale-95 transition-all" hx-action="tendered = 60.00; $appz.haptic('selection')">$60 Cash</button>
+    <button class="py-2.5 rounded-xl bg-indigo-600 text-white font-extrabold active:scale-95 transition-all shadow-md shadow-indigo-600/30" hx-action="$appz.haptic('success')">NFC Tap 💳</button>
+  </div>
+</div>`, p.TotalDue, p.Tendered, p.OrderNo, p.TotalDue, p.Tendered-p.TotalDue)
+	return Component{html: html}
+}
+
+type SmartStepActivityRingsProps struct {
+	Move         int
+	MoveGoal     int
+	Exercise     int
+	ExerciseGoal int
+	Stand        int
+	StandGoal    int
+}
+
+func SmartStepActivityRings(p SmartStepActivityRingsProps) Component {
+	if p.MoveGoal == 0 {
+		p.Move = 620
+		p.MoveGoal = 600
+		p.Exercise = 45
+		p.ExerciseGoal = 30
+		p.Stand = 10
+		p.StandGoal = 12
+	}
+	html := fmt.Sprintf(`
+<div class="smart-step-activity-rings p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "move": %d, "moveGoal": %d, "exercise": %d, "exerciseGoal": %d }'>
+  <div>
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Daily Activity Rings</span>
+    <div class="mt-2 space-y-1 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+        <span class="font-bold text-white"><span hx-text="move">%d</span> / %d Cal</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span class="font-bold text-white"><span hx-text="exercise">%d</span> / %d Min</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+        <span class="font-bold text-white">%d / %d Hrs</span>
+      </div>
+    </div>
+  </div>
+  <div class="relative w-24 h-24 flex items-center justify-center">
+    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" stroke="rgba(244, 63, 94, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="40" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="251" stroke-dashoffset="30" />
+      <circle cx="50" cy="50" r="30" stroke="rgba(16, 185, 129, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="30" stroke="#10b981" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="188" stroke-dashoffset="20" />
+      <circle cx="50" cy="50" r="20" stroke="rgba(14, 165, 233, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="20" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="125" stroke-dashoffset="35" />
+    </svg>
+  </div>
+</div>`, p.Move, p.MoveGoal, p.Exercise, p.ExerciseGoal, p.Move, p.MoveGoal, p.Exercise, p.ExerciseGoal, p.Stand, p.StandGoal)
+	return Component{html: html}
+}
+
+type SmartAmbientAODClockProps struct {
+	TimeStr string
+	DateStr string
+	Battery int
+	Temp    int
+	Alarms  int
+}
+
+func SmartAmbientAODClock(p SmartAmbientAODClockProps) Component {
+	if p.TimeStr == "" {
+		p.TimeStr = "12:04"
+		p.DateStr = "Thursday, October 15"
+		p.Battery = 94
+		p.Temp = 21
+		p.Alarms = 2
+	}
+	html := fmt.Sprintf(`
+<div class="smart-ambient-aod-clock p-8 rounded-3xl bg-black border border-slate-900 shadow-2xl flex flex-col items-center justify-center text-center">
+  <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-600 mb-2">Ambient AOD Mode</span>
+  <span class="text-6xl font-black text-slate-100 tracking-tight font-mono">%s</span>
+  <span class="text-xs font-bold text-slate-500 mt-1">%s</span>
+  <div class="flex items-center gap-3 mt-4 text-xs font-bold text-slate-400">
+    <span class="flex items-center gap-1">🔋 %d%%</span>
+    <span>•</span>
+    <span class="flex items-center gap-1">⛅ %d°C</span>
+    <span>•</span>
+    <span class="flex items-center gap-1">🔔 %d Alarms</span>
+  </div>
+</div>`, p.TimeStr, p.DateStr, p.Battery, p.Temp, p.Alarms)
+	return Component{html: html}
+}
+

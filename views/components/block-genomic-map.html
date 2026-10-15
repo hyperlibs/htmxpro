@@ -1,0 +1,266 @@
+<!-- =========================================================================
+     RESEARCH DESIGN BLOCK: GENOMIC MAP & SYNTENY DASHBOARD
+     Whole-Genome Multi-Track Browser, Chromosome Ideograms & ClinVar SNV Pins
+     ========================================================================= -->
+<div class="block-genomic-map rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "chr": "chr11", "start": 5224000, "end": 5230000, "zoom": 1, "selectedVariant": "rs334", "showCoverage": true, "showVariants": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-sm">
+        🗺️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-amber-400">High-Resolution Genome Browser</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500/10 text-amber-400 border border-amber-500/20">GRCh38.p14</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span class="font-mono text-amber-300">chr11:5,224,000–5,230,000</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Cytoband 11p15.4 (HBB Beta-Globin Cluster)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Navigation & Zoom Toolbar -->
+    <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+        <button class="px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white"
+                hx-action="start -= 1000; end -= 1000; $appz.haptic('selection')">◀ Pan 1kb</button>
+        <button class="px-2 py-1 rounded-xl bg-slate-900 text-slate-300 hover:text-white"
+                hx-action="start += 1000; end += 1000; $appz.haptic('selection')">Pan 1kb ▶</button>
+        <button class="px-2.5 py-1 rounded-xl bg-amber-600 text-white shadow-md shadow-amber-600/30"
+                hx-action="zoom = +(zoom * 2).toFixed(1); $appz.haptic('selection')">Zoom In +</button>
+        <button class="px-2.5 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white"
+                hx-action="zoom = Math.max(0.5, +(zoom / 2).toFixed(1)); $appz.haptic('selection')">Zoom Out -</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TRACK TOGGLE RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Track Toggles -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Active Tracks</span>
+      <span class="px-2.5 py-1 rounded-xl font-bold bg-amber-600 text-white">GENCODE v46</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-white": showCoverage, "bg-slate-900 text-slate-400": !showCoverage }'
+              hx-action="showCoverage = !showCoverage; $appz.haptic('selection')">
+        <span hx-text="showCoverage ? '✓ RNA-seq Depth' : '✗ RNA-seq Depth'">✓ RNA-seq Depth</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-rose-600 text-white": showVariants, "bg-slate-900 text-slate-400": !showVariants }'
+              hx-action="showVariants = !showVariants; $appz.haptic('selection')">
+        <span hx-text="showVariants ? '✓ ClinVar Pathogenic' : '✗ ClinVar Pathogenic'">✓ ClinVar Pathogenic</span>
+      </button>
+    </div>
+
+    <!-- Active Window Resolution -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Window Width:</span>
+      <span class="font-mono font-bold text-amber-400 text-xs">6,000 bp (Single Base Resolution)</span>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: MULTI-TRACK BROWSER & QUANTITATIVE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: MULTI-TRACK GENOME BROWSER CANVAS (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80 space-y-4">
+      <!-- TRACK 0: Chromosome 11 Ideogram Cytoband -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>Chromosome 11 (135.1 Mb)</span>
+          <span class="text-amber-400">Region 11p15.4</span>
+        </div>
+        <div class="relative w-full h-5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex items-center px-1">
+          <!-- G-banding pattern simulation -->
+          <div class="w-12 h-3 bg-slate-800 rounded"></div>
+          <div class="w-8 h-3 bg-slate-700 rounded ml-1"></div>
+          <div class="w-16 h-3 bg-slate-800 rounded ml-1"></div>
+          <!-- Red Viewport Window Indicator Box -->
+          <div class="absolute left-[38px] w-6 h-4 border-2 border-rose-500 bg-rose-500/30 rounded"></div>
+          <div class="w-10 h-3 bg-slate-700 rounded ml-10"></div>
+          <div class="w-14 h-3 bg-slate-800 rounded ml-1"></div>
+        </div>
+      </div>
+
+      <!-- TRACK 1: GENCODE v46 Gene Models (HBB) -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>GENCODE v46 Gene Model</span>
+          <span class="font-mono text-white">HBB (Transcript: ENST00000335295)</span>
+        </div>
+
+        <!-- Exon / Intron Schematic -->
+        <div class="relative h-10 w-full flex items-center">
+          <!-- Intron Chevron Line -->
+          <div class="w-full h-0.5 bg-slate-700 flex items-center justify-around text-slate-500 text-[10px]">
+            <span>›››</span>
+            <span>›››</span>
+            <span>›››</span>
+          </div>
+
+          <!-- Exon 1 -->
+          <div class="absolute left-[15%] w-16 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 1
+          </div>
+          <!-- Exon 2 -->
+          <div class="absolute left-[45%] w-24 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 2
+          </div>
+          <!-- Exon 3 -->
+          <div class="absolute left-[80%] w-20 h-7 rounded-lg bg-amber-500 border border-amber-400 flex items-center justify-center font-mono font-black text-slate-950 text-xs shadow-md">
+            Exon 3
+          </div>
+        </div>
+      </div>
+
+      <!-- TRACK 2: RNA-seq Coverage Histogram (bigWig) -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80"
+           hx-show="showCoverage">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>RNA-seq Coverage Track (bigWig)</span>
+          <span class="font-mono text-cyan-400">Peak: 1,240 Reads</span>
+        </div>
+        <!-- Histogram SVG Peaks matching Exons -->
+        <div class="h-16 w-full">
+          <svg class="w-full h-full" viewBox="0 0 500 60" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="covGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
+            <!-- 3 Peaks aligned with Exons -->
+            <path d="M 0,55 L 70,55 L 85,10 L 145,10 L 160,55 L 210,55 L 230,5 L 340,5 L 360,55 L 390,55 L 410,18 L 490,18 L 500,55 Z"
+                  fill="url(#covGrad)" stroke="#06b6d4" stroke-width="1.5" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- TRACK 3: ClinVar Pathogenic SNV Pins -->
+      <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80"
+           hx-show="showVariants">
+        <div class="flex justify-between text-[10px] font-extrabold text-slate-400 uppercase">
+          <span>ClinVar Pathogenic SNVs (dbSNP)</span>
+          <span class="text-rose-400 font-bold">1 Pathogenic Target</span>
+        </div>
+        <div class="relative h-10 w-full flex items-center">
+          <!-- Baseline track -->
+          <div class="w-full h-[1px] bg-slate-800"></div>
+
+          <!-- rs334 Pathogenic Pin (Sickle Cell E6V) -->
+          <div class="absolute left-[19%] flex flex-col items-center cursor-pointer active:scale-95 transition-all"
+               hx-action="$appz.haptic('selection')">
+            <span class="px-2 py-0.5 rounded-md bg-rose-600 text-white font-mono font-black text-[10px] shadow-lg shadow-rose-600/30 flex items-center gap-1">
+              📍 rs334 (A>T)
+            </span>
+            <div class="w-0.5 h-3 bg-rose-500"></div>
+          </div>
+
+          <!-- Other benign polymorphism pin -->
+          <div class="absolute left-[65%] flex flex-col items-center">
+            <span class="px-1.5 py-0.5 rounded-md bg-emerald-700/80 text-white font-mono text-[9px]">
+              rs10768683 (Benign)
+            </span>
+            <div class="w-0.5 h-3 bg-emerald-500"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE VARIANT INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">ClinVar Variant Inspector</span>
+          <span class="text-[10px] font-mono text-slate-400">NCBI ClinVar</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Variant Header Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Target Allele</span>
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-xl font-black text-rose-400 font-mono">rs334 (A>T)</h3>
+              <span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-black">PATHOGENIC</span>
+            </div>
+            <p class="text-xs text-white font-bold mt-1">p.Glu7Val (Sickle Cell Hemoglobin HbS)</p>
+            <p class="text-[10px] font-mono text-slate-400 mt-0.5">chr11:5,225,466 (GRCh38)</p>
+          </div>
+
+          <!-- Population Allele Frequencies (gnomAD v4.1) -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">gnomAD Allele Frequency (AF)</span>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">African / African-American</span>
+                <span class="text-amber-400 font-mono">0.1280 (12.8%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-amber-500 rounded-full" style="width: 12.8%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Global Overall</span>
+                <span class="text-slate-400 font-mono">0.0421 (4.2%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-slate-600 rounded-full" style="width: 4.2%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">European (Non-Finnish)</span>
+                <span class="text-slate-500 font-mono">0.0001 (&lt;0.01%)</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-slate-700 rounded-full" style="width: 1%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gene Summary Card -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]">
+            <span class="text-slate-500 font-extrabold uppercase block mb-1">Gene Annotations</span>
+            <div class="font-mono text-amber-400">HBB • Hemoglobin Subunit Beta</div>
+            <div class="text-slate-400 mt-0.5">Length: 147 amino acids • OMIM: 603903</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-amber-600/20"
+                hx-action="$appz.haptic('success')">
+          Launch UCSC & Ensembl Cross-Link
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-amber-400">Assembly: GRCh38.p14</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Base Pairs: 6,000 bp</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Buffer: 3.2 MB</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Multi-Track Engine: 60.0 FPS
+      </span>
+      <span class="text-slate-500">Latency: 0.2ms</span>
+      <span class="text-amber-400 font-mono">@diag: GENOME_SYNC_OK</span>
+    </div>
+  </div>
+
+</div>

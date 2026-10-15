@@ -1,0 +1,46 @@
+<!-- Smart 7-Day Forecast Component -->
+<div class="smart-forecast-daily p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "activeDay": 0 }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">7-Day Meteorological Outlook</span>
+    <span class="text-[10px] text-slate-400 font-bold">Updated Just Now</span>
+  </div>
+  <div class="flex items-center gap-2 overflow-x-auto pb-1">
+    <!-- Day Cards -->
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl bg-indigo-600/20 border border-indigo-500/40 flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = 0; $appz.haptic('selection')">
+      <span class="text-[10px] font-extrabold text-indigo-400">TODAY</span>
+      <span class="text-xl">⛅</span>
+      <span class="text-xs font-black text-white">22°</span>
+      <span class="text-[9px] text-slate-400">14°</span>
+    </div>
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = 1; $appz.haptic('selection')">
+      <span class="text-[10px] font-bold text-slate-400">FRI</span>
+      <span class="text-xl">☀️</span>
+      <span class="text-xs font-black text-white">25°</span>
+      <span class="text-[9px] text-slate-400">16°</span>
+    </div>
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = 2; $appz.haptic('selection')">
+      <span class="text-[10px] font-bold text-slate-400">SAT</span>
+      <span class="text-xl">🌧️</span>
+      <span class="text-xs font-black text-white">18°</span>
+      <span class="text-[9px] text-slate-400">12°</span>
+    </div>
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = 3; $appz.haptic('selection')">
+      <span class="text-[10px] font-bold text-slate-400">SUN</span>
+      <span class="text-xl">⛈️</span>
+      <span class="text-xs font-black text-white">17°</span>
+      <span class="text-[9px] text-slate-400">11°</span>
+    </div>
+    <div class="flex-shrink-0 w-20 p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex flex-col items-center gap-1 cursor-pointer active:scale-95 transition-all"
+         hx-action="activeDay = 4; $appz.haptic('selection')">
+      <span class="text-[10px] font-bold text-slate-400">MON</span>
+      <span class="text-xl">🌤️</span>
+      <span class="text-xs font-black text-white">21°</span>
+      <span class="text-[9px] text-slate-400">13°</span>
+    </div>
+  </div>
+</div>

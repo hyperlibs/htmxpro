@@ -27,7 +27,7 @@
       });
   };
 
-  // src/htmx-virtual.ts
+  // ../htmxpro/src/htmx-virtual.ts
   var exports_htmx_virtual = {};
   __export(exports_htmx_virtual, {
     initVirtual: () => initVirtual,

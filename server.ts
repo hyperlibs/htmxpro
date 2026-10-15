@@ -13,7 +13,9 @@ const COMPONENTS = [
   "select","separator","sheet","sidebar","skeleton","slider","slider-range","snackbar","splitter",
   "stat-card","stepper","submenu","switch","table","tabs","tag","text","textarea","timeline",
   "time-picker","toast","toggle","toggle-group","toggle-switch","toolbar","tooltip","tree-view","user-card",
-  "video-player","watermark","wizard","hx-wizard","date-range-picker","hx-grid","hx-virtual","hx-offline","hollywood-webfx"
+  "video-player","watermark","wizard","hx-wizard","date-range-picker","hx-grid","hx-virtual","hx-offline","hollywood-webfx",
+  "block-pathology-lab","block-radiology-dicom","block-biology-atlas","block-crispr-studio","block-genomic-map",
+  "block-civil-architect","block-marine-navigation","block-agriculture-precision","block-energy-scada","block-pcb-semiconductor"
 ];
 
 function formatName(slug: string): string {

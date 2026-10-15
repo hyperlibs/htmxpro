@@ -1,0 +1,36 @@
+<!-- Smart Activity Rings (Move, Exercise, Stand) -->
+<div class="smart-step-activity-rings p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex items-center justify-between"
+     hx-state='{ "move": 620, "moveGoal": 600, "exercise": 45, "exerciseGoal": 30 }'>
+  <div>
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Daily Activity Rings</span>
+    <div class="mt-2 space-y-1 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+        <span class="font-bold text-white"><span hx-text="move">620</span> / 600 Cal</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+        <span class="font-bold text-white"><span hx-text="exercise">45</span> / 30 Min</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+        <span class="font-bold text-white">10 / 12 Hrs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG Concentric Activity Rings -->
+  <div class="relative w-24 h-24 flex items-center justify-center">
+    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+      <!-- Outer Move Ring -->
+      <circle cx="50" cy="50" r="40" stroke="rgba(244, 63, 94, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="40" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="251" stroke-dashoffset="30" />
+      <!-- Middle Exercise Ring -->
+      <circle cx="50" cy="50" r="30" stroke="rgba(16, 185, 129, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="30" stroke="#10b981" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="188" stroke-dashoffset="20" />
+      <!-- Inner Stand Ring -->
+      <circle cx="50" cy="50" r="20" stroke="rgba(14, 165, 233, 0.2)" stroke-width="6" fill="transparent" />
+      <circle cx="50" cy="50" r="20" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round" fill="transparent" stroke-dasharray="125" stroke-dashoffset="35" />
+    </svg>
+  </div>
+</div>

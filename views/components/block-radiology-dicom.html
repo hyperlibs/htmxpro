@@ -1,0 +1,263 @@
+<!-- =========================================================================
+     RESEARCH DESIGN BLOCK: RADIOLOGY DICOM LAB SIMULATOR
+     Multi-Planar Reconstruction (MPR), Hounsfield Unit (HU) Calibration & RECIST
+     ========================================================================= -->
+<div class="block-radiology-dicom rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "slice": 142, "maxSlice": 320, "windowPreset": "soft", "windowW": 400, "windowL": 40, "activeTool": "roi", "roiMean": 42.5, "roiArea": 3.42, "inverted": false }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-black text-sm">
+        ☢️
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-cyan-400">Radiology PACS DICOM Studio</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">MPR 16-BIT</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Accession #RAD-2026-X99</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Chest CT Angiography (0.625mm Thin Slices)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Technical Exposure Parameters -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">120 kVp</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-slate-400 font-bold">240 mAs</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-cyan-400 font-mono font-black">CTDIvol: 3.2 mGy</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Window / Level (HU) Presets -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">HU Window</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-cyan-600 text-white shadow-md shadow-cyan-600/30": windowPreset === "lung", "bg-slate-900 text-slate-400": windowPreset !== "lung" }'
+              hx-action="windowPreset = 'lung'; windowW = 1500; windowL = -600; $appz.haptic('selection')">
+        Lung (1500/-600)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-cyan-600 text-white shadow-md shadow-cyan-600/30": windowPreset === "soft", "bg-slate-900 text-slate-400": windowPreset !== "soft" }'
+              hx-action="windowPreset = 'soft'; windowW = 400; windowL = 40; $appz.haptic('selection')">
+        Soft Tissue (400/40)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-cyan-600 text-white shadow-md shadow-cyan-600/30": windowPreset === "bone", "bg-slate-900 text-slate-400": windowPreset !== "bone" }'
+              hx-action="windowPreset = 'bone'; windowW = 2000; windowL = 300; $appz.haptic('selection')">
+        Bone (2000/300)
+      </button>
+    </div>
+
+    <!-- Active Measurement Tools -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-cyan-600 text-white": activeTool === "caliper", "bg-slate-900 text-slate-400": activeTool !== "caliper" }'
+              hx-action="activeTool = 'caliper'; $appz.haptic('selection')">
+        <span>📏 Caliper</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-cyan-600 text-white": activeTool === "roi", "bg-slate-900 text-slate-400": activeTool !== "roi" }'
+              hx-action="activeTool = 'roi'; $appz.haptic('selection')">
+        <span>⭕ ROI Ellipse</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-amber-600 text-white": inverted, "bg-slate-900 text-slate-400": !inverted }'
+              hx-action="inverted = !inverted; $appz.haptic('medium')">
+        <span>☯ Invert LUT</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: MULTI-PLANAR VIEWPORT & INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: PRIMARY DICOM AXIAL VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-black p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-start justify-between text-[11px] font-mono text-cyan-400/90 pointer-events-none z-10">
+        <div>
+          <p class="font-black text-white">PATIENT: DOE, JOHN</p>
+          <p>MRN: 9028-3419 • DOB: 1968-04-12</p>
+          <p>FOV: 350 mm • THICK: 0.625 mm</p>
+        </div>
+        <div class="text-right">
+          <p class="font-bold text-slate-300">AXIAL CT (0.625mm)</p>
+          <p>W: <span hx-text="windowW">400</span> L: <span hx-text="windowL">40</span></p>
+          <p class="text-amber-400">ZOOM: 1.8x</p>
+        </div>
+      </div>
+
+      <!-- Axial CT Simulation Canvas -->
+      <div class="relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center">
+        <!-- CT Density Image Simulation via SVG -->
+        <svg class="w-full h-full" viewBox="0 0 400 400">
+          <defs>
+            <radialGradient id="bodyOutline" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#2a3342" />
+              <stop offset="60%" stop-color="#18202c" />
+              <stop offset="90%" stop-color="#0a0e14" />
+              <stop offset="100%" stop-color="#000000" />
+            </radialGradient>
+            <!-- Lung Parenchyma (Low HU Density -800 to -500) -->
+            <filter id="ctNoise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise" />
+              <feColorMatrix type="matrix" values="0.3 0 0 0 0  0 0.3 0 0 0  0 0 0.3 0 0  0 0 0 0.25 0" />
+              <feBlend mode="multiply" in="SourceGraphic" />
+            </filter>
+          </defs>
+
+          <!-- Outer Body Silhouette -->
+          <ellipse cx="200" cy="200" rx="170" ry="140" fill="url(#bodyOutline)" stroke="#334155" stroke-width="1.5" />
+
+          <!-- Spinal Column & Vertebral Body (High HU Density +800 Bone) -->
+          <circle cx="200" cy="305" r="24" fill="#cbd5e1" stroke="#ffffff" stroke-width="1" />
+          <circle cx="200" cy="305" r="9" fill="#000000" /> <!-- Spinal Canal -->
+
+          <!-- Ribcage Bones -->
+          <ellipse cx="200" cy="200" rx="160" ry="130" fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="14 10" />
+
+          <!-- Left Lung Field (Dark Air Hypodense) -->
+          <path d="M 175,130 C 130,130 90,165 90,220 C 90,270 140,280 175,275 Z"
+                fill="#05080c" stroke="#1e293b" stroke-width="1" />
+          <!-- Right Lung Field -->
+          <path d="M 225,130 C 270,130 310,165 310,220 C 310,270 260,280 225,275 Z"
+                fill="#05080c" stroke="#1e293b" stroke-width="1" />
+
+          <!-- Mediastinal Heart Silhouette (+40 HU) -->
+          <ellipse cx="200" cy="200" rx="38" ry="48" fill="#1e293b" stroke="#334155" stroke-width="1" />
+          <!-- Aorta (+120 HU Contrast Enhanced) -->
+          <circle cx="185" cy="235" r="12" fill="#64748b" stroke="#94a3b8" stroke-width="1.5" />
+
+          <!-- Target Lesion: Left Upper Lobe Nodule (+45 HU) -->
+          <circle cx="135" cy="185" r="14" fill="#475569" stroke="#f43f5e" stroke-width="2" />
+
+          <!-- Elliptical ROI Reticle Annotation -->
+          <ellipse cx="135" cy="185" rx="16" ry="16" fill="rgba(6, 182, 212, 0.15)" stroke="#06b6d4" stroke-width="1.5" stroke-dasharray="3 2" />
+          <line x1="135" y1="165" x2="135" y2="205" stroke="#06b6d4" stroke-width="1" />
+          <line x1="115" y1="185" x2="155" y2="185" stroke="#06b6d4" stroke-width="1" />
+          <text x="156" y="180" fill="#06b6d4" font-size="9" font-family="monospace" font-weight="bold">ROI 1: +42.5 HU</text>
+        </svg>
+
+        <!-- Anatomical Orientation Letters -->
+        <span class="absolute top-2 text-xs font-black text-slate-500">A</span>
+        <span class="absolute bottom-2 text-xs font-black text-slate-500">P</span>
+        <span class="absolute left-2 text-xs font-black text-slate-500">R</span>
+        <span class="absolute right-2 text-xs font-black text-slate-500">L</span>
+      </div>
+
+      <!-- Bottom Interactive Slice Scrubber -->
+      <div class="mt-3 flex items-center gap-3 bg-slate-900/80 px-4 py-2 rounded-2xl border border-slate-800">
+        <button class="w-7 h-7 rounded-lg bg-slate-800 text-white font-bold text-xs"
+                hx-action="slice = Math.max(1, slice - 1); $appz.haptic('selection')">◀</button>
+        <span class="text-xs font-bold text-slate-400">Slice:</span>
+        <input type="range" min="1" max="320" value="142" class="flex-1 accent-cyan-500 cursor-pointer"
+               hx-action="$appz.haptic('selection')" />
+        <span class="font-mono font-black text-cyan-400 text-xs w-16 text-right" hx-text="slice + ' / 320'">142 / 320</span>
+        <button class="w-7 h-7 rounded-lg bg-slate-800 text-white font-bold text-xs"
+                hx-action="slice = Math.min(320, slice + 1); $appz.haptic('selection')">▶</button>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE RADIOLOGICAL INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-cyan-400">Hounsfield Unit Morphometry</span>
+          <span class="text-[10px] font-bold text-emerald-400">RECIST 1.1</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Active ROI Telemetry -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Target Lesion 1 (LUL)</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-3xl font-black text-white" hx-text="roiMean + ' HU'">+42.5 HU</span>
+              <span class="text-xs text-slate-400">Soft Tissue Density</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 mt-3 pt-2 border-t border-slate-900 text-[10px]">
+              <div>
+                <span class="text-slate-500 block">Area</span>
+                <span class="font-black text-white font-mono" hx-text="roiArea + ' cm²'">3.42 cm²</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Min HU</span>
+                <span class="font-black text-slate-300 font-mono">-15.0</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Max HU</span>
+                <span class="font-black text-slate-300 font-mono">+118.0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECIST 1.1 Progression Tracker -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Longest Diameter (RECIST)</span>
+              <span class="text-xs font-black text-rose-400">+29.1% Δ</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-2xl font-black text-rose-400">14.2 mm</span>
+              <span class="text-[10px] text-slate-400">Prior: 11.0 mm (Nov 2025)</span>
+            </div>
+            <div class="mt-2 text-right">
+              <span class="text-[10px] font-black text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">PROGRESSIVE DISEASE (PD)</span>
+            </div>
+          </div>
+
+          <!-- MPR Orthogonal Cross-Plane Mini Previews -->
+          <div class="grid grid-cols-2 gap-2">
+            <div class="p-2 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col items-center">
+              <span class="text-[9px] font-black uppercase text-slate-500">Coronal View</span>
+              <div class="w-full h-16 bg-slate-900 rounded-xl mt-1 border border-slate-800 flex items-center justify-center text-xs text-slate-500">
+                COR 120/240
+              </div>
+            </div>
+            <div class="p-2 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col items-center">
+              <span class="text-[9px] font-black uppercase text-slate-500">Sagittal View</span>
+              <div class="w-full h-16 bg-slate-900 rounded-xl mt-1 border border-slate-800 flex items-center justify-center text-xs text-slate-500">
+                SAG 98/200
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PACS Audit Footer Action -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-cyan-600/20"
+                hx-action="$appz.haptic('success')">
+          Save Morphometry to PACS DICOM SR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-cyan-400">Matrix: 512x512 16-bit</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Transfer: JPEG 2000 Lossless</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        60.0 FPS • Zero-Latency LUT
+      </span>
+      <span class="text-slate-500">Buffer: 0.4ms</span>
+      <span class="text-cyan-400 font-mono">@diag: RECIST_OK</span>
+    </div>
+  </div>
+
+</div>

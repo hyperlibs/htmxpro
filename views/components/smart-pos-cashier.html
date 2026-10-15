@@ -1,0 +1,25 @@
+<!-- Smart Point-of-Sale (POS) Cashier Pad -->
+<div class="smart-pos-cashier p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4"
+     hx-state='{ "totalDue": 48.50, "tendered": 50.00 }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">POS Checkout Terminal</span>
+    <span class="text-[10px] font-bold text-slate-400">Order #4210</span>
+  </div>
+  
+  <div class="flex items-center justify-between">
+    <div>
+      <span class="text-[10px] text-slate-500 font-bold uppercase block">Total Due</span>
+      <span class="text-3xl font-black text-white" hx-text="'$' + totalDue.toFixed(2)">$48.50</span>
+    </div>
+    <div class="text-right">
+      <span class="text-[10px] text-slate-500 font-bold uppercase block">Change Due</span>
+      <span class="text-2xl font-black text-emerald-400" hx-text="'$' + (tendered - totalDue).toFixed(2)">$1.50</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+    <button class="py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white active:scale-95 transition-all" hx-action="tendered = 50.00; $appz.haptic('selection')">$50 Cash</button>
+    <button class="py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white active:scale-95 transition-all" hx-action="tendered = 60.00; $appz.haptic('selection')">$60 Cash</button>
+    <button class="py-2.5 rounded-xl bg-indigo-600 text-white font-extrabold active:scale-95 transition-all shadow-md shadow-indigo-600/30" hx-action="$appz.haptic('success')">NFC Tap 💳</button>
+  </div>
+</div>

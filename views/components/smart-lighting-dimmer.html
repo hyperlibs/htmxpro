@@ -1,0 +1,16 @@
+<!-- Smart Lighting Dimmer Wheel -->
+<div class="smart-lighting-dimmer p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col items-center gap-3"
+     hx-state='{ "brightness": 75 }'>
+  <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Atmospheric Lighting Dimmer</span>
+  <div class="relative w-32 h-32 flex items-center justify-center">
+    <div class="w-28 h-28 rounded-full bg-slate-950 border-4 border-amber-500/40 shadow-lg flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-all"
+         hx-action="$appz.haptic('selection')">
+      <span class="text-3xl font-black text-white" hx-text="brightness + '%'">75%</span>
+      <span class="text-[9px] text-amber-400 font-bold">Warm Glow</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-2 w-full max-w-[200px]">
+    <button class="flex-1 py-1.5 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 active:scale-90 transition-all" hx-action="brightness = Math.max(0, brightness - 10); $appz.haptic('selection')">-10%</button>
+    <button class="flex-1 py-1.5 rounded-xl bg-amber-600 text-xs font-bold text-white active:scale-90 transition-all" hx-action="brightness = Math.min(100, brightness + 10); $appz.haptic('selection')">+10%</button>
+  </div>
+</div>

@@ -94,7 +94,7 @@
         <!-- LAYER-UX: System Shell Root -->
         <app-shellui view-mode="Mob-P" form-factor="Mob" orientation="P" 
                      class="flex-1 flex flex-col overflow-hidden relative select-none"
-                     hx-state='{ "activeDomain": "cockpit", "gridPower": 4820, "thermostatTemp": 21.5, "otaProgress": 0 }'>
+                     hx-state='{ "activeDomain": "cockpit", "researchTab": "pathology", "industrialTab": "civil", "gridPower": 4820, "thermostatTemp": 21.5, "otaProgress": 0 }'>
 
           <!-- 1. LAYER-UX: System Status Bar with Live Clock, RSSI, Battery, Dynamic Island -->
           <app-statusbar class="h-9 bg-slate-950/90 backdrop-blur border-b border-slate-900 px-4 flex items-center justify-between shrink-0 z-50 text-[11px] font-semibold text-slate-300">
@@ -155,6 +155,12 @@
             <button class="px-2.5 py-1 rounded-lg transition-all" 
                     hx-class='{ "bg-indigo-600 text-white": activeDomain === "health", "bg-slate-900 text-slate-400": activeDomain !== "health" }'
                     hx-action="activeDomain = 'health'; $appz.haptic('selection')">❤️ Health</button>
+            <button class="px-2.5 py-1 rounded-lg transition-all whitespace-nowrap" 
+                    hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": activeDomain === "research", "bg-slate-900 text-slate-400": activeDomain !== "research" }'
+                    hx-action="activeDomain = 'research'; $appz.haptic('selection')">🔬 Research Science</button>
+            <button class="px-2.5 py-1 rounded-lg transition-all whitespace-nowrap" 
+                    hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeDomain === "industrial", "bg-slate-900 text-slate-400": activeDomain !== "industrial" }'
+                    hx-action="activeDomain = 'industrial'; $appz.haptic('selection')">🏗️ Heavy Engineering</button>
           </div>
 
           <!-- 4. Scrollable Multi-Layer Segments (Layers 0..9) -->
@@ -405,6 +411,288 @@
                   <span class="text-[10px] font-bold text-rose-400 mt-1 block">● Resting Cardio Zone</span>
                 </div>
                 <span class="text-4xl animate-pulse">❤️</span>
+              </div>
+            </div>
+
+            <!-- SECTION 8: Research Science Design Blocks -->
+            <div hx-show="activeDomain === 'research'" class="space-y-4">
+              <!-- Research Sub-Category Tab Bar -->
+              <div class="p-1 bg-slate-900 rounded-2xl border border-slate-800 flex items-center gap-1 overflow-x-auto text-[10px] font-bold">
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": researchTab === "pathology", "text-slate-400": researchTab !== "pathology" }'
+                        hx-action="researchTab = 'pathology'; $appz.haptic('selection')">🔬 Pathology</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-cyan-600 text-white shadow-md shadow-cyan-600/30": researchTab === "radiology", "text-slate-400": researchTab !== "radiology" }'
+                        hx-action="researchTab = 'radiology'; $appz.haptic('selection')">☢️ Radiology</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": researchTab === "atlas", "text-slate-400": researchTab !== "atlas" }'
+                        hx-action="researchTab = 'atlas'; $appz.haptic('selection')">🧬 Cell Atlas</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-purple-600 text-white shadow-md shadow-purple-600/30": researchTab === "crispr", "text-slate-400": researchTab !== "crispr" }'
+                        hx-action="researchTab = 'crispr'; $appz.haptic('selection')">✂️ CRISPR</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-amber-600 text-white shadow-md shadow-amber-600/30": researchTab === "genomic", "text-slate-400": researchTab !== "genomic" }'
+                        hx-action="researchTab = 'genomic'; $appz.haptic('selection')">🗺️ Genomic Map</button>
+              </div>
+
+              <!-- Research Design Block Container -->
+              <div hx-show="researchTab === 'pathology'">
+                <div class="block-pathology-lab rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "mag": "40x", "ki67": 34.2, "mitoticCount": 18 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-violet-400">Pathology WSI Scanner</span>
+                      <h3 class="text-xs font-bold text-white">#BIO-84920 (FFPE Core Biopsy)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-violet-500/20 text-violet-300" hx-text="mag">40x</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Ki-67 Index</span>
+                      <span class="text-lg font-black text-rose-400" hx-text="ki67 + '%'">34.2%</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Nottingham Grade</span>
+                      <span class="text-xs font-black text-rose-400 mt-1 block">GRADE III</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-900 text-[10px] text-slate-400">
+                    <span>Mitosis Tally: <strong class="text-white" hx-text="mitoticCount">18</strong></span>
+                    <button class="px-3 py-1 rounded-xl bg-violet-600 text-white font-bold" hx-action="mitoticCount++; $appz.haptic('medium')">+ Tally</button>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="researchTab === 'radiology'">
+                <div class="block-radiology-dicom rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "slice": 142, "roiMean": 42.5 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-cyan-400">Radiology DICOM MPR</span>
+                      <h3 class="text-xs font-bold text-white">#RAD-2026-X99 (Chest CT)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300">RECIST 1.1</span>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800">
+                    <span class="text-[9px] text-slate-500 uppercase block">Target Lesion 1 LUL</span>
+                    <div class="flex items-baseline justify-between mt-1">
+                      <span class="text-2xl font-black text-white" hx-text="roiMean + ' HU'">+42.5 HU</span>
+                      <span class="text-xs font-black text-rose-400">+29.1% PD</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-900 text-[10px] text-slate-400">
+                    <span>Slice: <strong class="text-cyan-400 font-mono" hx-text="slice + ' / 320'">142 / 320</strong></span>
+                    <div class="flex gap-1">
+                      <button class="px-2 py-0.5 rounded-lg bg-slate-800 text-white font-bold" hx-action="slice = Math.max(1, slice - 1); $appz.haptic('selection')">◀</button>
+                      <button class="px-2 py-0.5 rounded-lg bg-slate-800 text-white font-bold" hx-action="slice = Math.min(320, slice + 1); $appz.haptic('selection')">▶</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="researchTab === 'atlas'">
+                <div class="block-biology-atlas rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "gene": "TNNT2", "cluster": "Cardiomyocytes", "pct": 48.2 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-emerald-400">Human Biology Atlas</span>
+                      <h3 class="text-xs font-bold text-white">Left Ventricle Myocardium</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300">HCA v3.2</span>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div class="flex justify-between items-baseline">
+                      <span class="text-xs font-black text-white" hx-text="cluster">Cardiomyocytes</span>
+                      <span class="text-xl font-black text-emerald-400" hx-text="pct + '%'">48.2%</span>
+                    </div>
+                    <span class="text-[9px] text-slate-400 block mt-1">Marker: TNNT2 • Spot Pitch: 55 µm</span>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="researchTab === 'crispr'">
+                <div class="block-crispr-studio rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "onTarget": 88, "offTarget": 94, "targetGene": "HBB" }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-purple-400">CRISPR Studio</span>
+                      <h3 class="text-xs font-bold text-white">HBB (Sickle Cell E6V)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-purple-500/20 text-purple-300">SpCas9</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">On-Target</span>
+                      <span class="text-lg font-black text-emerald-400" hx-text="onTarget + ' / 100'">88 / 100</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Off-Target</span>
+                      <span class="text-lg font-black text-purple-400" hx-text="offTarget + ' / 100'">94 / 100</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="researchTab === 'genomic'">
+                <div class="block-genomic-map rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "variant": "rs334" }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-amber-400">Genome Browser</span>
+                      <h3 class="text-xs font-bold text-white">chr11:5,224,000–5,230,000</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300">GRCh38</span>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-slate-900 border border-slate-800">
+                    <div class="flex justify-between items-baseline">
+                      <span class="text-xs font-mono font-black text-rose-400" hx-text="variant + ' (A>T)'">rs334 (A>T)</span>
+                      <span class="text-[10px] font-black text-rose-400">PATHOGENIC</span>
+                    </div>
+                    <span class="text-[9px] text-slate-400 block mt-1">p.Glu7Val • gnomAD AF: 0.042</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 9: Heavy Engineering Design Blocks -->
+            <div hx-show="activeDomain === 'industrial'" class="space-y-4">
+              <!-- Industrial Sub-Category Tab Bar -->
+              <div class="p-1 bg-slate-900 rounded-2xl border border-slate-800 flex items-center gap-1 overflow-x-auto text-[10px] font-bold">
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": industrialTab === "civil", "text-slate-400": industrialTab !== "civil" }'
+                        hx-action="industrialTab = 'civil'; $appz.haptic('selection')">📐 Civil / Arch</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-blue-600 text-white shadow-md shadow-blue-600/30": industrialTab === "marine", "text-slate-400": industrialTab !== "marine" }'
+                        hx-action="industrialTab = 'marine'; $appz.haptic('selection')">⚓ Marine / GPS</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": industrialTab === "agri", "text-slate-400": industrialTab !== "agri" }'
+                        hx-action="industrialTab = 'agri'; $appz.haptic('selection')">🌾 Precision Agri</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-amber-600 text-white shadow-md shadow-amber-600/30": industrialTab === "energy", "text-slate-400": industrialTab !== "energy" }'
+                        hx-action="industrialTab = 'energy'; $appz.haptic('selection')">⚡ SCADA Energy</button>
+                <button class="px-2.5 py-1 rounded-xl transition-all whitespace-nowrap"
+                        hx-class='{ "bg-teal-600 text-white shadow-md shadow-teal-600/30": industrialTab === "pcb", "text-slate-400": industrialTab !== "pcb" }'
+                        hx-action="industrialTab = 'pcb'; $appz.haptic('selection')">💻 PCB / Chip Fab</button>
+              </div>
+
+              <!-- Industrial Design Block Container -->
+              <div hx-show="industrialTab === 'civil'">
+                <div class="block-civil-architect rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "area": 842.5, "deflect": 4.2 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-orange-400">Civil & BIM Studio</span>
+                      <h3 class="text-xs font-bold text-white">Parkview Tower (Level 04)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-orange-500/20 text-orange-300">ISO 19650</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Floor Area</span>
+                      <span class="text-lg font-black text-white" hx-text="area + ' m²'">842.5 m²</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Max Deflection</span>
+                      <span class="text-lg font-black text-emerald-400" hx-text="deflect + ' mm'">4.2 mm</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="industrialTab === 'marine'">
+                <div class="block-marine-navigation rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "sog": 14.2, "cog": 248, "ukc": 18.4 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-blue-400">ECDIS Marine Navigation</span>
+                      <h3 class="text-xs font-bold text-white">R/V NEPTUNE EXPLORER</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-blue-500/20 text-blue-300">IMO / SOLAS</span>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2 text-xs text-center">
+                    <div class="p-2 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[8px] text-slate-500 block uppercase">SOG</span>
+                      <span class="text-base font-black text-white" hx-text="sog + ' kn'">14.2 kn</span>
+                    </div>
+                    <div class="p-2 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[8px] text-slate-500 block uppercase">COG</span>
+                      <span class="text-base font-black text-white" hx-text="cog + '°'">248°</span>
+                    </div>
+                    <div class="p-2 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[8px] text-slate-500 block uppercase">Keel Clr</span>
+                      <span class="text-base font-black text-cyan-400" hx-text="ukc + ' m'">18.4 m</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="industrialTab === 'agri'">
+                <div class="block-agriculture-precision rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "ndvi": 0.78, "moist": 28.4 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-lime-400">Precision Agronomy</span>
+                      <h3 class="text-xs font-bold text-white">Parcel-B4 North Pivot</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-lime-500/20 text-lime-300">160 Ha</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Mean NDVI</span>
+                      <span class="text-lg font-black text-lime-400" hx-text="ndvi">0.78</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Soil VWC% (30cm)</span>
+                      <span class="text-lg font-black text-emerald-400" hx-text="moist + '%'">28.4%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="industrialTab === 'energy'">
+                <div class="block-energy-scada rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "loadMw": 142.5, "psi": 2840 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-amber-400">Energy & SCADA Grid</span>
+                      <h3 class="text-xs font-bold text-white">Substation Delta-4 (230kV)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300">IEC 61850</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Grid Active Load</span>
+                      <span class="text-lg font-black text-white" hx-text="loadMw + ' MW'">142.5 MW</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Wellhead Tubing</span>
+                      <span class="text-lg font-black text-amber-400" hx-text="psi + ' PSI'">2,840 PSI</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div hx-show="industrialTab === 'pcb'">
+                <div class="block-pcb-semiconductor rounded-3xl bg-slate-950 border border-slate-800 shadow-xl overflow-hidden flex flex-col p-4 space-y-3"
+                     hx-state='{ "zDiff": 90.2, "yield": 94.8 }'>
+                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+                    <div>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-teal-400">PCB EDA & Semiconductor Fab</span>
+                      <h3 class="text-xs font-bold text-white">BGA-1156 SoC Board (Rev D4)</h3>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-teal-500/20 text-teal-300">12-Layer</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">PCIe Z_diff</span>
+                      <span class="text-lg font-black text-teal-400" hx-text="zDiff + ' Ω'">90.2 Ω</span>
+                    </div>
+                    <div class="p-2.5 rounded-2xl bg-slate-900 border border-slate-800">
+                      <span class="text-[9px] text-slate-500 uppercase block">Wafer Die Yield</span>
+                      <span class="text-lg font-black text-emerald-400" hx-text="yield + '%'">94.8%</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

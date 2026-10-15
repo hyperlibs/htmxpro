@@ -1,0 +1,221 @@
+<!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: CIVIL, ARCHITECTURAL & LANDSCAPING STUDIO
+     BIM Structural CAD, Space Planning, Photometric Lux & Topography Contours
+     ========================================================================= -->
+<div class="block-civil-architect rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "activeLayer": "structural", "scale": "1:100", "showContours": true, "showLux": false, "totalArea": 842.5, "maxDeflection": 4.2 }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-orange-600/20 border border-orange-500/40 flex items-center justify-center text-orange-400 font-black text-sm">
+        📐
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-orange-400">Civil & Architectural BIM Studio</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-orange-500/10 text-orange-400 border border-orange-500/20">ISO 19650</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Project: Parkview Tower (Level 04)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Reinforced Post-Tensioned Concrete (C35/45)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Drawing Scale & Grid Datum -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">Scale: <span class="text-white font-mono" hx-text="scale">1:100</span></span>
+      <span class="text-slate-600">•</span>
+      <span class="text-orange-400 font-mono font-bold">Axis A1–F8 (UTM-32N)</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & BIM LAYER RIBBON -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- BIM Layer Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">BIM Layers</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeLayer === "structural", "bg-slate-900 text-slate-400": activeLayer !== "structural" }'
+              hx-action="activeLayer = 'structural'; $appz.haptic('selection')">
+        Structural Columns & Slabs
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-orange-600 text-white shadow-md shadow-orange-600/30": activeLayer === "interior", "bg-slate-900 text-slate-400": activeLayer !== "interior" }'
+              hx-action="activeLayer = 'interior'; $appz.haptic('selection')">
+        Interior Partitions
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeLayer === "landscape", "bg-slate-900 text-slate-400": activeLayer !== "landscape" }'
+              hx-action="activeLayer = 'landscape'; $appz.haptic('selection')">
+        Landscape Contours
+      </button>
+    </div>
+
+    <!-- Toggles -->
+    <div class="flex items-center gap-2">
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": showContours, "bg-slate-900 text-slate-400": !showContours }'
+              hx-action="showContours = !showContours; $appz.haptic('selection')">
+        <span hx-text="showContours ? '✓ Topo Contours (1m)' : '✗ Topo Contours'">✓ Topo Contours (1m)</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-amber-600 text-white": showLux, "bg-slate-900 text-slate-400": !showLux }'
+              hx-action="showLux = !showLux; $appz.haptic('selection')">
+        <span hx-text="showLux ? '✓ Lux Heatmap' : '✗ Lux Heatmap'">✗ Lux Heatmap</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: CAD VIEWPORT & STRUCTURAL INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: VECTOR CAD/BIM VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-5 flex flex-col justify-between overflow-x-auto border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top Floorplan HUD -->
+      <div class="flex items-center justify-between text-xs font-mono text-orange-400/90 z-10 pointer-events-none">
+        <span>LEVEL 04 PLAN • RL +14.200m</span>
+        <span>LOAD: 3.0 kN/m² LIVE • 4.5 kN/m² DEAD</span>
+      </div>
+
+      <!-- Vector CAD Architectural Plan via SVG -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 500 350">
+          <defs>
+            <!-- CAD Grid Pattern (1m x 1m equivalent) -->
+            <pattern id="cadGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+              <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#1e293b" stroke-width="0.8" />
+            </pattern>
+          </defs>
+          <rect width="500" height="350" fill="url(#cadGrid)" />
+
+          <!-- Topographic Landscape Contours (1m intervals) -->
+          <g id="contours" stroke="#059669" stroke-width="1" fill="none" opacity="0.6">
+            <path d="M 20,330 Q 140,280 260,330 T 480,310" stroke-dasharray="3 2" />
+            <path d="M 20,300 Q 150,250 280,300 T 480,280" />
+            <text x="30" y="295" fill="#10b981" font-size="8" font-family="monospace">+12.0m</text>
+            <path d="M 20,270 Q 160,220 300,270 T 480,250" />
+            <text x="30" y="265" fill="#10b981" font-size="8" font-family="monospace">+13.0m</text>
+          </g>
+
+          <!-- Outer Building Envelope (Curtain Wall Glazing) -->
+          <rect x="70" y="40" width="360" height="200" rx="8" fill="rgba(30, 41, 59, 0.4)" stroke="#94a3b8" stroke-width="2.5" />
+
+          <!-- Reinforced Concrete Columns Grid (Axis A-D, 1-3) -->
+          <!-- Col A1 -->
+          <rect x="80" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="50" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <!-- Col A2 -->
+          <rect x="80" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="132" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <!-- Col A3 -->
+          <rect x="80" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="242" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+          <rect x="404" y="214" width="16" height="16" fill="#f97316" stroke="#ea580c" stroke-width="1.5" />
+
+          <!-- Interior Partitions (Drywall / Glass Enclosures) -->
+          <line x1="80" y1="140" x2="242" y2="140" stroke="#cbd5e1" stroke-width="2" />
+          <line x1="250" y1="50" x2="250" y2="140" stroke="#cbd5e1" stroke-width="2" />
+          <line x1="330" y1="140" x2="330" y2="220" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 2" />
+
+          <!-- Dimension Lines & Annotations -->
+          <line x1="88" y1="28" x2="250" y2="28" stroke="#f97316" stroke-width="1" />
+          <text x="145" y="24" fill="#f97316" font-size="9" font-family="monospace" font-weight="bold">8,000 mm</text>
+          <line x1="250" y1="28" x2="412" y2="28" stroke="#f97316" stroke-width="1" />
+          <text x="310" y="24" fill="#f97316" font-size="9" font-family="monospace" font-weight="bold">8,000 mm</text>
+
+          <!-- Outdoor Green Terrace Landscaping with Trees -->
+          <circle cx="140" cy="285" r="14" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <circle cx="200" cy="295" r="18" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <circle cx="360" cy="280" r="16" fill="#15803d" opacity="0.7" stroke="#22c55e" stroke-width="1.5" />
+          <text x="210" y="325" fill="#22c55e" font-size="10" font-weight="bold">Green Terrace Bioswale</text>
+        </svg>
+
+        <!-- Viewport Scale HUD Tag -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Grid: <span class="text-orange-400 font-bold">1,000mm</span> • Structural Span: <span class="text-white font-bold">8.0m bays</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE STRUCTURAL & CIVIL INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-orange-400">Structural & Spatial Metrics</span>
+          <span class="text-[10px] font-bold text-emerald-400">Eurocode 2 / IBC</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Metric 1: Floor Area & Efficiency -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Gross Internal Area (GIA)</span>
+            <div class="flex items-baseline justify-between">
+              <span class="text-3xl font-black text-white" hx-text="totalArea + ' m²'">842.5 m²</span>
+              <span class="text-xs font-bold text-orange-400">86.4% Efficiency</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Net Usable Area: 728.0 m² • Core/Circulation: 114.5 m²</p>
+          </div>
+
+          <!-- Metric 2: Structural Slab Deflection -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Max Mid-Span Deflection</span>
+              <span class="text-xs font-black text-emerald-400">PASS (&lt; L/500)</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-2xl font-black text-white" hx-text="maxDeflection + ' mm'">4.2 mm</span>
+              <span class="text-[10px] text-slate-400">Limit: 16.0 mm (Span 8.0m)</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 26%;"></div>
+            </div>
+          </div>
+
+          <!-- Metric 3: Embodied Carbon & LEED Autonomy -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Embodied Carbon A1–A3:</span>
+              <span class="font-bold text-emerald-400 font-mono">248 kg CO₂e/m²</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Spatial Daylight Autonomy (sDA):</span>
+              <span class="font-bold text-amber-400 font-mono">78% Daylight</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-orange-600/20"
+                hx-action="$appz.haptic('success')">
+          Export IFC 4.3 Structural Model
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-orange-400">BIM Standard: ISO 19650 Level 2</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Coord: WGS-84 UTM Zone 32N</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        CAD Vector Engine: 60.0 FPS
+      </span>
+      <span class="text-slate-500">Latency: 0.3ms</span>
+      <span class="text-orange-400 font-mono">@diag: BIM_ENGINE_SYNC</span>
+    </div>
+  </div>
+
+</div>

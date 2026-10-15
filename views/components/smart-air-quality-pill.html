@@ -1,0 +1,22 @@
+<!-- Smart Air Quality Index (AQI) Pill Component -->
+<div class="smart-air-quality-pill p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "aqi": 32 }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Air Quality Telemetry</span>
+    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">● Good (AQI 32)</span>
+  </div>
+  <div class="grid grid-cols-3 gap-2 text-center text-xs">
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">PM 2.5</span>
+      <span class="text-sm font-black text-white mt-0.5 block">8.2 µg</span>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">PM 10</span>
+      <span class="text-sm font-black text-white mt-0.5 block">14.0 µg</span>
+    </div>
+    <div class="p-2.5 rounded-2xl bg-slate-950/60 border border-slate-800">
+      <span class="text-[9px] text-slate-500 uppercase block font-bold">CO2</span>
+      <span class="text-sm font-black text-white mt-0.5 block">480 ppm</span>
+    </div>
+  </div>
+</div>

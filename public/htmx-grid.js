@@ -27,7 +27,7 @@
       });
   };
 
-  // src/htmx-grid.ts
+  // ../htmxpro/src/htmx-grid.ts
   var exports_htmx_grid = {};
   __export(exports_htmx_grid, {
     initGrids: () => initGrids,

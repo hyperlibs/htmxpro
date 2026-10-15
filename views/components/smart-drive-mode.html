@@ -1,0 +1,22 @@
+<!-- Smart Drive Mode Selector -->
+<div class="smart-drive-mode p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-3"
+     hx-state='{ "mode": "sport" }'>
+  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+    <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">Powertrain Drive Profile</span>
+    <span class="text-[10px] font-extrabold uppercase text-amber-400" hx-text="mode.toUpperCase()">SPORT</span>
+  </div>
+  <div class="grid grid-cols-4 gap-2">
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30": mode === "chill", "bg-slate-950 text-slate-400": mode !== "chill" }'
+            hx-action="mode = 'chill'; $appz.haptic('selection')">Chill</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30": mode === "normal", "bg-slate-950 text-slate-400": mode !== "normal" }'
+            hx-action="mode = 'normal'; $appz.haptic('selection')">Normal</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-amber-600 text-white shadow-lg shadow-amber-600/30": mode === "sport", "bg-slate-950 text-slate-400": mode !== "sport" }'
+            hx-action="mode = 'sport'; $appz.haptic('selection')">Sport</button>
+    <button class="py-2.5 rounded-xl font-black text-xs transition-all active:scale-95 text-center"
+            hx-class='{ "bg-rose-600 text-white shadow-lg shadow-rose-600/30": mode === "track", "bg-slate-950 text-slate-400": mode !== "track" }'
+            hx-action="mode = 'track'; $appz.haptic('heavy')">Track</button>
+  </div>
+</div>

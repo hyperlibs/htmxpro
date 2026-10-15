@@ -1,0 +1,256 @@
+<!-- =========================================================================
+     RESEARCH DESIGN BLOCK: HUMAN & BIOLOGY CELLULAR ATLAS UI
+     Spatial Transcriptomics, Single-Cell scRNA-seq & Anatomical Cell Ontologies
+     ========================================================================= -->
+<div class="block-biology-atlas rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "viewMode": "spatial", "activeGene": "TNNT2", "umiCutoff": 1500, "activeCluster": "Cardiomyocytes", "clusterPct": 48.2 }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-sm">
+        🧬
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-400">Human Biology Cellular Atlas</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">HCA v3.2</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Organ: Left Ventricle Myocardium</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">142,500 Single Cells (10x Chromium 3' v3)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- View Mode Switcher -->
+    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+      <button class="px-3 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": viewMode === "spatial", "text-slate-400 hover:text-white": viewMode !== "spatial" }'
+              hx-action="viewMode = 'spatial'; $appz.haptic('selection')">
+        Spatial Organ Slice
+      </button>
+      <button class="px-3 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": viewMode === "umap", "text-slate-400 hover:text-white": viewMode !== "umap" }'
+              hx-action="viewMode = 'umap'; $appz.haptic('selection')">
+        UMAP 2D Projection
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Quick Marker Gene Filter -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Marker Gene</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeGene === "TNNT2", "bg-slate-900 text-slate-400": activeGene !== "TNNT2" }'
+              hx-action="activeGene = 'TNNT2'; activeCluster = 'Cardiomyocytes'; clusterPct = 48.2; $appz.haptic('selection')">
+        TNNT2
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeGene === "MYH6", "bg-slate-900 text-slate-400": activeGene !== "MYH6" }'
+              hx-action="activeGene = 'MYH6'; activeCluster = 'Cardiomyocytes'; clusterPct = 48.2; $appz.haptic('selection')">
+        MYH6
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeGene === "CD31", "bg-slate-900 text-slate-400": activeGene !== "CD31" }'
+              hx-action="activeGene = 'CD31'; activeCluster = 'Endothelial'; clusterPct = 22.1; $appz.haptic('selection')">
+        CD31 (PECAM1)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold font-mono transition-all"
+              hx-class='{ "bg-emerald-600 text-white shadow-md shadow-emerald-600/30": activeGene === "ACTA2", "bg-slate-900 text-slate-400": activeGene !== "ACTA2" }'
+              hx-action="activeGene = 'ACTA2'; activeCluster = 'Fibroblasts'; clusterPct = 17.5; $appz.haptic('selection')">
+        ACTA2
+      </button>
+    </div>
+
+    <!-- Minimum UMI Cutoff Slider -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Min UMI Barcode:</span>
+      <input type="range" min="500" max="5000" step="500" value="1500" class="w-24 accent-emerald-500 cursor-pointer"
+             hx-action="$appz.haptic('selection')" />
+      <span class="font-mono font-bold text-emerald-400 text-xs w-16 text-right" hx-text="umiCutoff + ' UMI'">1500 UMI</span>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: SPATIAL CANVAS & QUANTITATIVE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: SPATIAL TRANSCRIPTOMICS / UMAP VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top Viewport Legend -->
+      <div class="flex items-center justify-between text-xs font-bold text-slate-400 z-10 pointer-events-none">
+        <span class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          Expression Gradient (<span class="font-mono text-white" hx-text="activeGene">TNNT2</span>)
+        </span>
+        <!-- Viridis Gradient Legend -->
+        <div class="flex items-center gap-2">
+          <span class="text-[9px] uppercase">Low</span>
+          <div class="w-24 h-2 rounded-full bg-gradient-to-r from-indigo-950 via-teal-600 to-amber-300"></div>
+          <span class="text-[9px] uppercase">High</span>
+        </div>
+      </div>
+
+      <!-- Spatial Tissue / UMAP Simulation Canvas -->
+      <div class="relative w-full max-w-[460px] aspect-[4/3] mx-auto my-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 500 350">
+          <defs>
+            <!-- Organ Myocardium Tissue Silhouette -->
+            <linearGradient id="myocardiumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0f291e" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#05140f" stop-opacity="0.8" />
+            </linearGradient>
+          </defs>
+
+          <!-- Heart Ventricle Tissue Base Canvas -->
+          <path d="M 120,70 C 220,30 380,50 420,150 C 450,220 360,310 240,320 C 140,330 70,220 80,140 C 90,90 100,75 120,70 Z"
+                fill="url(#myocardiumGrad)" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 2" />
+
+          <!-- Spatial Transcriptomic Spot Grid (Simulating 55µm Visium Array) -->
+          <!-- Cardiomyocyte Cluster (High TNNT2 / MYH6 Expression - Bright Yellow/Teal) -->
+          <g id="cm-cluster">
+            <circle cx="200" cy="120" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="225" cy="115" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="250" cy="130" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="190" cy="145" r="7" fill="#a7f3d0" opacity="0.8" />
+            <circle cx="215" cy="140" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="240" cy="155" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="265" cy="145" r="7" fill="#a7f3d0" opacity="0.8" />
+            <circle cx="205" cy="170" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="230" cy="165" r="7" fill="#fde047" opacity="0.9" />
+            <circle cx="255" cy="180" r="7" fill="#a7f3d0" opacity="0.8" />
+            <circle cx="280" cy="170" r="7" fill="#34d399" opacity="0.7" />
+          </g>
+
+          <!-- Endothelial Cluster (Vascular Capillaries - Cyan/Blue) -->
+          <g id="endo-cluster">
+            <circle cx="130" cy="180" r="6" fill="#38bdf8" opacity="0.8" />
+            <circle cx="145" cy="205" r="6" fill="#38bdf8" opacity="0.8" />
+            <circle cx="160" cy="230" r="6" fill="#0284c7" opacity="0.8" />
+            <circle cx="180" cy="245" r="6" fill="#0284c7" opacity="0.8" />
+            <circle cx="205" cy="255" r="6" fill="#38bdf8" opacity="0.8" />
+          </g>
+
+          <!-- Cardiac Fibroblast Stroma (Purple/Pink) -->
+          <g id="fibro-cluster">
+            <circle cx="320" cy="120" r="6" fill="#c084fc" opacity="0.8" />
+            <circle cx="345" cy="140" r="6" fill="#c084fc" opacity="0.8" />
+            <circle cx="360" cy="170" r="6" fill="#9333ea" opacity="0.8" />
+            <circle cx="335" cy="195" r="6" fill="#c084fc" opacity="0.8" />
+            <circle cx="310" cy="220" r="6" fill="#9333ea" opacity="0.8" />
+          </g>
+
+          <!-- Cluster Boundary Labels -->
+          <text x="210" y="95" fill="#fde047" font-size="10" font-weight="900" font-family="sans-serif">Cardiomyocyte Subcluster A</text>
+          <text x="90" y="210" fill="#38bdf8" font-size="9" font-weight="bold">Endothelial Capillary Bed</text>
+          <text x="330" y="105" fill="#c084fc" font-size="9" font-weight="bold">Interstitial Fibroblasts</text>
+        </svg>
+
+        <!-- Spatial Viewport HUD Tag -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Spot Pitch: <span class="font-bold text-emerald-400">55 µm</span> • Captured: <span class="font-bold text-white">4,812 spots</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE ATLAS INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400">Cellular Composition</span>
+          <span class="text-[10px] font-bold text-slate-400">Single-Cell scRNA</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Active Cluster Card -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Selected Cell Population</span>
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base font-black text-white" hx-text="activeCluster">Cardiomyocytes</h3>
+              <span class="text-xl font-black text-emerald-400" hx-text="clusterPct + '%'">48.2%</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">High contractile sarcomere machinery expression.</p>
+          </div>
+
+          <!-- Cell Type Composition Hierarchy -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Cell Population Breakdown</span>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Cardiomyocytes (CL:0000746)</span>
+                <span class="text-emerald-400">48.2%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-emerald-500 rounded-full" style="width: 48.2%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Endothelial (CL:0000115)</span>
+                <span class="text-cyan-400">22.1%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-cyan-500 rounded-full" style="width: 22.1%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Fibroblasts (CL:0002543)</span>
+                <span class="text-purple-400">17.5%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-purple-500 rounded-full" style="width: 17.5%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] font-bold">
+                <span class="text-slate-300">Immune / Myeloid (CL:0000738)</span>
+                <span class="text-amber-400">12.2%</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-800 mt-1">
+                <div class="h-full bg-amber-500 rounded-full" style="width: 12.2%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Anatomical Ontology Cross-Reference -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px]">
+            <span class="text-slate-500 font-extrabold uppercase block mb-1">Ontology Graph Linkage</span>
+            <div class="font-mono text-emerald-400">UBERON:0002084 (Left Ventricle)</div>
+            <div class="font-mono text-slate-300 mt-0.5">↳ CL:0000746 (Cardiac Muscle Cell)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs active:scale-95 transition-all shadow-lg shadow-emerald-600/20"
+                hx-action="$appz.haptic('success')">
+          Export Spatial Anndata (.h5ad)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-emerald-400">Spatial Spot Pitch: 55 µm</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">Sequencing: 10x Chromium 3' v3</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Spatial Graph Sync: OK
+      </span>
+      <span class="text-slate-500">Median Genes/Cell: 3,420</span>
+      <span class="text-emerald-400 font-mono">@diag: ATLAS_ACTIVE</span>
+    </div>
+  </div>
+
+</div>

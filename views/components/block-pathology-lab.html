@@ -1,0 +1,252 @@
+<!-- =========================================================================
+     RESEARCH DESIGN BLOCK: PATHOLOGY LAB SIMULATOR
+     Encapsulated Whole Slide Imaging (WSI), Histology & Cellular Oncology
+     ========================================================================= -->
+<div class="block-pathology-lab rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "mag": "40x", "zStack": 1.2, "stainGain": 100, "activeTool": "lasso", "ki67": 34.2, "mitoticCount": 18, "showMasks": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-violet-600/20 border border-violet-500/40 flex items-center justify-center text-violet-400 font-black text-sm">
+        🔬
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-violet-400">Pathology WSI Scanner</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">CALIBRATED</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Specimen #BIO-84920</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Invasive Ductal Carcinoma (FFPE Core Biopsy)</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Magnification Objective Turret -->
+    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-black">
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": mag === "4x", "text-slate-400 hover:text-white": mag !== "4x" }'
+              hx-action="mag = '4x'; $appz.haptic('selection')">4x</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": mag === "10x", "text-slate-400 hover:text-white": mag !== "10x" }'
+              hx-action="mag = '10x'; $appz.haptic('selection')">10x</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": mag === "20x", "text-slate-400 hover:text-white": mag !== "20x" }'
+              hx-action="mag = '20x'; $appz.haptic('selection')">20x</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-violet-600 text-white shadow-md shadow-violet-600/30": mag === "40x", "text-slate-400 hover:text-white": mag !== "40x" }'
+              hx-action="mag = '40x'; $appz.haptic('selection')">40x</button>
+      <button class="px-2.5 py-1 rounded-xl transition-all"
+              hx-class='{ "bg-amber-600 text-white shadow-md shadow-amber-600/30": mag === "100x", "text-slate-400 hover:text-white": mag !== "100x" }'
+              hx-action="mag = '100x'; $appz.haptic('heavy')">100x Oil</button>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Active Tools -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Tools</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-violet-600 text-white": activeTool === "pan", "bg-slate-900 text-slate-400 hover:text-white": activeTool !== "pan" }'
+              hx-action="activeTool = 'pan'; $appz.haptic('selection')">
+        <span>✋ Pan</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-violet-600 text-white": activeTool === "lasso", "bg-slate-900 text-slate-400 hover:text-white": activeTool !== "lasso" }'
+              hx-action="activeTool = 'lasso'; $appz.haptic('selection')">
+        <span>✏️ Tumor Lasso</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-violet-600 text-white": activeTool === "ruler", "bg-slate-900 text-slate-400 hover:text-white": activeTool !== "ruler" }'
+              hx-action="activeTool = 'ruler'; $appz.haptic('selection')">
+        <span>📏 µm Caliper</span>
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold flex items-center gap-1.5 transition-all"
+              hx-class='{ "bg-emerald-600 text-white": showMasks, "bg-slate-900 text-slate-400": !showMasks }'
+              hx-action="showMasks = !showMasks; $appz.haptic('selection')">
+        <span hx-text="showMasks ? '👁️ Masks: ON' : '👁️ Masks: OFF'">👁️ Masks: ON</span>
+      </button>
+    </div>
+
+    <!-- Fine Z-Stack Focus & Stain Slider -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-bold text-slate-400 uppercase">Z-Stack</span>
+        <button class="w-6 h-6 rounded-lg bg-slate-800 text-white font-bold flex items-center justify-center text-xs"
+                hx-action="zStack = +(zStack - 0.2).toFixed(1); $appz.haptic('selection')">-</button>
+        <span class="font-mono font-bold text-violet-400 text-xs w-12 text-center" hx-text="zStack + ' µm'">1.2 µm</span>
+        <button class="w-6 h-6 rounded-lg bg-slate-800 text-white font-bold flex items-center justify-center text-xs"
+                hx-action="zStack = +(zStack + 0.2).toFixed(1); $appz.haptic('selection')">+</button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-bold text-slate-400 uppercase">H&E Gain</span>
+        <input type="range" min="50" max="150" value="100" class="w-20 accent-violet-500 cursor-pointer"
+               hx-action="$appz.haptic('selection')" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: STAGE CANVAS & QUANTITATIVE INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[360px]">
+    <!-- ZONE 3: VIRTUAL MICROSCOPY CANVAS (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-slate-950 p-4 flex items-center justify-center overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Microscope Circular Aperture / Stage Frame -->
+      <div class="relative w-full max-w-[440px] aspect-square rounded-full border-4 border-slate-800 bg-[#160d1f] shadow-inner overflow-hidden flex items-center justify-center">
+        <!-- Layer 0: Cellular Histology Matrix -->
+        <svg class="absolute inset-0 w-full h-full opacity-90" viewBox="0 0 400 400">
+          <defs>
+            <radialGradient id="heGradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#4a154b" stop-opacity="0.85" />
+              <stop offset="70%" stop-color="#2a0d33" stop-opacity="0.95" />
+              <stop offset="100%" stop-color="#120517" stop-opacity="1" />
+            </radialGradient>
+            <pattern id="tissueMatrix" width="40" height="40" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="6" fill="#7c2d8a" opacity="0.6" />
+              <circle cx="30" cy="15" r="7" fill="#6b21a8" opacity="0.7" />
+              <circle cx="15" cy="30" r="5" fill="#831843" opacity="0.6" />
+              <circle cx="32" cy="32" r="8" fill="#581c87" opacity="0.75" />
+              <!-- Eosin Cytoplasmic Stroma Background -->
+              <path d="M 0,20 Q 20,5 40,20 Q 20,35 0,20" fill="#9d174d" opacity="0.25" />
+            </pattern>
+          </defs>
+          <rect width="400" height="400" fill="url(#heGradient)" />
+          <rect width="400" height="400" fill="url(#tissueMatrix)" />
+        </svg>
+
+        <!-- Layer 1: Cellular AI Nuclear Segmentation -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400"
+             hx-show="showMasks">
+          <!-- Normal Nuclei (Cyan Contours) -->
+          <circle cx="110" cy="90" r="9" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 1" />
+          <circle cx="85" cy="160" r="8" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 1" />
+          <circle cx="130" cy="270" r="9" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 1" />
+          <!-- Atypical Malignant Nuclei (Crimson / Pleomorphic) -->
+          <ellipse cx="220" cy="180" rx="14" ry="11" fill="rgba(244, 63, 94, 0.25)" stroke="#f43f5e" stroke-width="2" />
+          <ellipse cx="250" cy="210" rx="16" ry="13" fill="rgba(244, 63, 94, 0.25)" stroke="#f43f5e" stroke-width="2" />
+          <ellipse cx="190" cy="225" rx="15" ry="12" fill="rgba(244, 63, 94, 0.25)" stroke="#f43f5e" stroke-width="2" />
+          <!-- Mitotic Figures Pin -->
+          <circle cx="235" cy="150" r="5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5" />
+          <text x="245" y="154" fill="#f59e0b" font-size="9" font-weight="900">MITOSIS</text>
+        </svg>
+
+        <!-- Layer 2: Tumor Boundary Margin Lasso -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400">
+          <path d="M 160,130 C 230,110 320,150 310,240 C 300,320 200,310 160,260 C 130,220 120,160 160,130 Z"
+                fill="rgba(192, 132, 252, 0.12)" stroke="#c084fc" stroke-width="2.5" stroke-dasharray="6 3" />
+          <text x="175" y="145" fill="#c084fc" font-size="10" font-weight="bold">Invasive Margin (+1.5mm)</text>
+        </svg>
+
+        <!-- Crosshair Optical Reticle -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+          <div class="w-full h-[1px] bg-violet-400"></div>
+          <div class="h-full w-[1px] bg-violet-400 absolute"></div>
+          <div class="w-20 h-20 rounded-full border border-violet-400 absolute"></div>
+        </div>
+
+        <!-- On-Canvas HUD Badges -->
+        <div class="absolute bottom-4 left-6 bg-slate-900/80 backdrop-blur px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] font-bold text-slate-300">
+          Obj: <span class="text-violet-400 font-black" hx-text="mag">40x</span> • N.A. 1.40
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-violet-400">Histologic Quantitative Telemetry</span>
+          <span class="text-[10px] font-bold text-slate-400">CAP / ASCO Guideline</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- Metric 1: Ki-67 Proliferation -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Ki-67 Proliferation Index</span>
+              <span class="text-xs font-black text-rose-400">HIGH</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-3xl font-black text-white" hx-text="ki67 + '%'">34.2%</span>
+              <span class="text-[10px] text-slate-400">pos. nuclei / 1000 cells</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2 overflow-hidden">
+              <div class="h-full bg-rose-500 rounded-full" style="width: 34.2%;"></div>
+            </div>
+          </div>
+
+          <!-- Metric 2: Nuclear-to-Cytoplasmic Ratio -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Nuclear:Cytoplasmic Ratio (N:C)</span>
+              <span class="text-xs font-black text-amber-400">0.74 (Elevated)</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Malignant cellular pleomorphism with prominent nucleoli.</p>
+          </div>
+
+          <!-- Metric 3: Nottingham Grading Composite Score -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block mb-1">Nottingham Histologic Score</span>
+            <div class="grid grid-cols-3 gap-1.5 text-center text-[10px]">
+              <div class="p-1.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-slate-500 block">Tubules</span>
+                <span class="font-black text-white">Score 3</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-slate-500 block">Pleomorph.</span>
+                <span class="font-black text-white">Score 3</span>
+              </div>
+              <div class="p-1.5 rounded-xl bg-slate-900 border border-slate-800">
+                <span class="text-slate-500 block">Mitosis</span>
+                <span class="font-black text-white">Score 2</span>
+              </div>
+            </div>
+            <div class="mt-2 text-right">
+              <span class="text-xs font-black text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">GRADE III (Poorly Differentiated)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Tally Actions -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <span class="text-[10px] font-extrabold uppercase text-slate-400 block mb-2">Mitotic Figures Counter (per 10 HPF)</span>
+        <div class="flex items-center gap-2">
+          <button class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-black text-xs active:scale-95 transition-all"
+                  hx-action="mitoticCount = Math.max(0, mitoticCount - 1); $appz.haptic('selection')">- Decrement</button>
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 font-mono font-black text-lg text-white"
+               hx-text="mitoticCount">18</div>
+          <button class="flex-1 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-black text-xs active:scale-95 transition-all"
+                  hx-action="mitoticCount += 1; $appz.haptic('medium')">+ Tally Mitosis</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <!-- Physical Micron Scale Bar -->
+    <div class="flex items-center gap-3">
+      <div class="flex flex-col items-center">
+        <div class="w-20 h-1 bg-white rounded-full"></div>
+        <span class="text-[9px] font-mono font-bold text-white mt-0.5">50 µm</span>
+      </div>
+      <span class="text-slate-600">|</span>
+      <span class="text-[10px] font-mono">X: 142.50 µm • Y: 89.12 µm • Z: +1.20 µm</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        WSI Sensor Sync: 60.0 FPS
+      </span>
+      <span class="text-slate-500">Buffer: 0.3ms</span>
+      <span class="text-violet-400">Plan-Apo 1.40 Oil</span>
+    </div>
+  </div>
+
+</div>

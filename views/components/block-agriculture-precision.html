@@ -1,0 +1,214 @@
+<!-- =========================================================================
+     ENGINEERING DESIGN BLOCK: PRECISION AGRICULTURE & AGRONOMY SIMULATION
+     Multispectral NDVI Satellite Vigor, Center-Pivot Irrigation & Soil Mesh
+     ========================================================================= -->
+<div class="block-agriculture-precision rounded-3xl bg-slate-950 border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none"
+     hx-state='{ "activeLayer": "ndvi", "pivotAngle": 142.5, "pivotSpeed": 45, "waterMm": 12.5, "ndviMean": 0.78, "soilMoist": 28.4, "pivotRunning": true }'>
+
+  <!-- ZONE 1: BLOCK HEADER -->
+  <div class="px-5 py-3.5 bg-slate-900/90 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-lime-600/20 border border-lime-500/40 flex items-center justify-center text-lime-400 font-black text-sm">
+        🌾
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-black uppercase tracking-wider text-lime-400">Precision Agronomy & Telemetry</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-lime-500/10 text-lime-400 border border-lime-500/20">ISOBUS 11783</span>
+        </div>
+        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>Parcel-B4 North Pivot (160 Ha)</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-xs text-slate-300 font-normal">Zea mays (Corn V6) • Silty Clay Loam</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Active Weather & Evapotranspiration Metric -->
+    <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-2xl border border-slate-800 text-xs">
+      <span class="text-slate-400 font-bold">ET₀: 4.8 mm/day</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-lime-400 font-mono font-bold">LoRa Mesh: 915 MHz</span>
+    </div>
+  </div>
+
+  <!-- ZONE 2: CALIBRATION & SPECTRAL TOOLBAR -->
+  <div class="px-5 py-2.5 bg-slate-900/40 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+    <!-- Multispectral Layer Switcher -->
+    <div class="flex items-center gap-1.5">
+      <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 mr-1">Remote Sensing</span>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "ndvi", "bg-slate-900 text-slate-400": activeLayer !== "ndvi" }'
+              hx-action="activeLayer = 'ndvi'; $appz.haptic('selection')">
+        NDVI Vegetative Vigor
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "soil", "bg-slate-900 text-slate-400": activeLayer !== "soil" }'
+              hx-action="activeLayer = 'soil'; $appz.haptic('selection')">
+        Soil Moisture (VWC%)
+      </button>
+      <button class="px-2.5 py-1 rounded-xl font-bold transition-all"
+              hx-class='{ "bg-lime-600 text-white shadow-md shadow-lime-600/30": activeLayer === "rx", "bg-slate-900 text-slate-400": activeLayer !== "rx" }'
+              hx-action="activeLayer = 'rx'; $appz.haptic('selection')">
+        Variable N-Prescription
+      </button>
+    </div>
+
+    <!-- Center Pivot Telemetry Control -->
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-bold text-slate-400 uppercase">Pivot Arm:</span>
+      <button class="px-2 py-0.5 rounded-lg text-xs font-bold transition-all"
+              hx-class='{ "bg-emerald-600 text-white": pivotRunning, "bg-rose-600 text-white": !pivotRunning }'
+              hx-action="pivotRunning = !pivotRunning; $appz.haptic('medium')">
+        <span hx-text="pivotRunning ? '● PUMPING (1,850 L/min)' : '■ STOPPED'">● PUMPING</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ZONE 3 & 4: PARCEL CANVAS & QUANTITATIVE AGRONOMIC INSPECTOR -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 min-h-[380px]">
+    <!-- ZONE 3: GEOSPATIAL PARCEL VIEWPORT (Cols 1..8) -->
+    <div class="lg:col-span-8 relative bg-[#0b170c] p-4 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-800/80">
+      <!-- Top HUD Data Tags -->
+      <div class="flex items-center justify-between text-xs font-mono text-lime-400/90 z-10 pointer-events-none">
+        <span>PARCEL-B4 CIRCLE • RADIUS: 400m</span>
+        <span>SENTINEL-2 NDVI (10m RESOLUTION)</span>
+      </div>
+
+      <!-- Center Pivot & NDVI Parcel Simulation Canvas -->
+      <div class="relative w-full max-w-[420px] aspect-square mx-auto flex items-center justify-center">
+        <svg class="w-full h-full" viewBox="0 0 400 400">
+          <defs>
+            <!-- NDVI Heatmap Radial Gradient -->
+            <radialGradient id="ndviField" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#15803d" />
+              <stop offset="40%" stop-color="#16a34a" />
+              <stop offset="70%" stop-color="#65a30d" />
+              <stop offset="85%" stop-color="#ca8a04" />
+              <stop offset="100%" stop-color="#1c1917" />
+            </radialGradient>
+          </defs>
+
+          <!-- Outer Parcel Boundary (Circular Pivot Footprint) -->
+          <circle cx="200" cy="200" r="175" fill="url(#ndviField)" stroke="#4d7c0f" stroke-width="2" />
+
+          <!-- Concentric Wheel Tracks of 7-Tower Pivot -->
+          <circle cx="200" cy="200" r="25" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="50" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="75" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="100" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="125" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#365314" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="200" cy="200" r="175" fill="none" stroke="#84cc16" stroke-width="1.5" />
+
+          <!-- Center Pivot Arm (Line at ~142.5 degrees) -->
+          <line x1="200" y1="200" x2="60" y2="305" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+          <!-- Water Spray Sector Arc Cone -->
+          <path d="M 200,200 L 40,290 A 175 175 0 0 0 75,325 Z" fill="rgba(56, 189, 248, 0.25)" />
+
+          <!-- Autonomous Tractor RTK Path Guidance Lines -->
+          <g id="tractor-path" stroke="#facc15" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.8">
+            <line x1="220" y1="60" x2="220" y2="340" />
+            <line x1="240" y1="65" x2="240" y2="335" />
+            <line x1="260" y1="75" x2="260" y2="325" />
+            <!-- Tractor Icon -->
+            <rect x="236" y="180" width="8" height="12" fill="#facc15" rx="2" />
+          </g>
+
+          <!-- Soil Moisture Probe Locations -->
+          <circle cx="270" cy="140" r="4" fill="#38bdf8" stroke="#ffffff" stroke-width="1" />
+          <text x="278" y="143" fill="#38bdf8" font-size="8" font-family="monospace">Probe 01 (28.4%)</text>
+        </svg>
+
+        <!-- Pivot Sweep Angle HUD Badge -->
+        <div class="absolute bottom-2 left-2 bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800 text-[10px] text-slate-400">
+          Pivot Angle: <span class="font-bold text-lime-400" hx-text="pivotAngle + '°'">142.5°</span> • Speed: <span class="text-white font-bold" hx-text="pivotSpeed + '%'">45%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE 4: QUANTITATIVE AGRONOMIC INSPECTOR (Cols 9..12) -->
+    <div class="lg:col-span-4 bg-slate-900/50 p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+          <span class="text-[10px] font-black uppercase tracking-widest text-lime-400">Agronomic Telemetry</span>
+          <span class="text-[10px] font-bold text-emerald-400">SENTINEL-2</span>
+        </div>
+
+        <div class="mt-4 space-y-3">
+          <!-- NDVI Metric -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">Mean Parcel NDVI</span>
+              <span class="text-xs font-black text-emerald-400">EXCELLENT VIGOR</span>
+            </div>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span class="text-3xl font-black text-white" hx-text="ndviMean">0.78</span>
+              <span class="text-[10px] text-slate-400">Range: 0.45 – 0.88</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-slate-800 mt-2">
+              <div class="h-full bg-lime-500 rounded-full" style="width: 78%;"></div>
+            </div>
+          </div>
+
+          <!-- Soil Moisture Profile -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2">
+            <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Soil Volumetric Water (VWC%)</span>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">10 cm Topsoil</span>
+              <span class="text-sky-400 font-mono">31.2%</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">30 cm Root Zone</span>
+              <span class="text-emerald-400 font-mono" hx-text="soilMoist + '%'">28.4% (Optimal)</span>
+            </div>
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-300">60 cm Deep Subsoil</span>
+              <span class="text-sky-400 font-mono">34.0%</span>
+            </div>
+          </div>
+
+          <!-- Variable N-Rate Fertilizer Prescription -->
+          <div class="p-3 rounded-2xl bg-slate-950/70 border border-slate-800 text-[10px] space-y-1">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Variable-Rate Nitrogen:</span>
+              <span class="font-bold text-lime-400 font-mono">140 kg/ha avg</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Target Yield Estimate:</span>
+              <span class="font-bold text-white font-mono">12.4 Ton/Ha</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-3 border-t border-slate-800/80">
+        <button class="w-full py-2.5 rounded-xl bg-lime-600 hover:bg-lime-500 text-slate-950 font-black text-xs active:scale-95 transition-all shadow-lg shadow-lime-600/20"
+                hx-action="$appz.haptic('success')">
+          Push Prescription Map to Tractor ISOBUS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONE 5: AUDIT & @DIAG STATUS FOOTER -->
+  <div class="px-5 py-2.5 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="text-[10px] font-mono text-lime-400">Weather: 26°C • Hum 42% • Wind 12 km/h</span>
+      <span class="text-slate-600">•</span>
+      <span class="text-[10px] font-mono">RTK Accuracy: ±1.5 cm</span>
+    </div>
+
+    <!-- Diagnostic Telemetry -->
+    <div class="flex items-center gap-4 text-[10px] font-bold">
+      <span class="text-emerald-400 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        LoRa Sensor Mesh: 100% Online
+      </span>
+      <span class="text-slate-500">Nodes: 16</span>
+      <span class="text-lime-400 font-mono">@diag: AGRI_MESH_OK</span>
+    </div>
+  </div>
+
+</div>
