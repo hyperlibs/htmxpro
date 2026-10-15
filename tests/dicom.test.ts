@@ -372,5 +372,72 @@ describe("Clinical DICOM 3.0 Diagnostic Engine & RECIST 1.1 Staging", () => {
     expect(MODALITY_CONFIGS.MR.unit).toBe("SI");
     expect(MODALITY_CONFIGS.PET.unit).toBe("SUV");
   });
+
+  // 11. Zero-Dependency DICOM 3.0 (Part 10) Client-Side Parser
+  it("parses valid DICOM Part 10 buffer and extracts clinical metadata & 16-bit CT pixel data", async () => {
+    const { parseDicom, createSyntheticDicomBuffer } = await import("../src/dicom-parser");
+
+    const syntheticBuffer = createSyntheticDicomBuffer({
+      patientName: "TEST^PATIENT^M",
+      patientId: "#RAD-2026-X01",
+      modality: "CT",
+      rows: 128,
+      columns: 128,
+      windowCenter: -600,
+      windowWidth: 1500
+    });
+
+    expect(syntheticBuffer.byteLength).toBeGreaterThan(132 + 128 * 128 * 2);
+
+    // Verify 'DICM' signature at offset 128
+    const u8 = new Uint8Array(syntheticBuffer);
+    const magic = String.fromCharCode(u8[128], u8[129], u8[130], u8[131]);
+    expect(magic).toBe("DICM");
+
+    // Parse DICOM
+    const parsed = parseDicom(syntheticBuffer);
+
+    expect(parsed.metadata.patientName).toBe("TEST^PATIENT^M");
+    expect(parsed.metadata.patientId).toBe("#RAD-2026-X01");
+    expect(parsed.metadata.modality).toBe("CT");
+    expect(parsed.metadata.rows).toBe(128);
+    expect(parsed.metadata.columns).toBe(128);
+    expect(parsed.metadata.bitsAllocated).toBe(16);
+    expect(parsed.metadata.windowCenter).toBe(-600);
+    expect(parsed.metadata.windowWidth).toBe(1500);
+    expect(parsed.metadata.rescaleSlope).toBe(1);
+    expect(parsed.metadata.rescaleIntercept).toBe(0);
+
+    // Verify Decoded Pixel Array
+    expect(parsed.pixelData.length).toBe(128 * 128);
+    expect(parsed.minPixelValue).toBeLessThanOrEqual(-700); // Air / Lung parenchyma
+    expect(parsed.maxPixelValue).toBeGreaterThanOrEqual(400); // Cortical Ribs / Spine
+
+    // Verify ImageData rendering with W/L transfer function
+    const mockImageData = {
+      width: 128,
+      height: 128,
+      data: new Uint8ClampedArray(128 * 128 * 4)
+    } as unknown as ImageData;
+
+    const rendered = parsed.renderToImageData(mockImageData, -600, 1500);
+    expect(rendered.data.length).toBe(128 * 128 * 4);
+    // Alpha channel must be 255 for all pixels
+    expect(rendered.data[3]).toBe(255);
+    expect(rendered.data[7]).toBe(255);
+
+    // In Lung window (W: 1500, L: -600), -1000 HU air is charcoal gray (floor(((-1000 - (-1350)) / 1500) * 255) = 59)
+    expect(rendered.data[0]).toBe(59);
+  });
+
+  // 12. DICOM Parser Error Handling & Edge Cases
+  it("handles malformed or truncated DICOM buffers gracefully", async () => {
+    const { parseDicom } = await import("../src/dicom-parser");
+
+    // Too small buffer (< 132 bytes)
+    const tinyBuffer = new ArrayBuffer(50);
+    expect(() => parseDicom(tinyBuffer)).toThrow("Buffer too small");
+  });
 });
+
 
