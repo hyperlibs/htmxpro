@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RadOnc Pro — Zero-Footprint DICOM 3.0 Diagnostic Workstation & RECIST 1.1 Lesion Tracker</title>
+  <title>RadOnc Pro — DICOM 3.0 Diagnostic Workstation & RECIST 1.1 Lesion Tracker</title>
   <script src="https://unpkg.com/htmx.org@2.0.4"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/appz.js"></script>
@@ -28,25 +28,43 @@
     ::-webkit-scrollbar-thumb:hover { background: #00838f; }
 
     /* Crosshair & Measurement styling */
-    .caliper-handle {
-      cursor: crosshair;
+    .caliper-handle { cursor: crosshair; touch-action: none; }
+    .caliper-line { stroke: #38bdf8; stroke-width: 1.5; stroke-dasharray: 4 2; }
+    .caliper-endpoint { fill: #38bdf8; stroke: #ffffff; stroke-width: 2; }
+
+    /* RAMSOFT Worklist Status Badges */
+    .status-badge-ordered { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+    .status-badge-scheduled { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .status-badge-checkedin { background: rgba(251, 146, 60, 0.15); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+    .status-badge-confirmed { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.3); }
+    .status-badge-arrived { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
+    .status-badge-completed { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
+    .status-badge-verified { background: rgba(34, 211, 238, 0.2); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.4); }
+
+    /* 3D Joystick HUD styling */
+    .joystick-base {
       touch-action: none;
+      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(56, 189, 248, 0.3);
     }
-    .caliper-line {
-      stroke: #38bdf8;
-      stroke-width: 1.5;
-      stroke-dasharray: 4 2;
-    }
-    .caliper-endpoint {
-      fill: #38bdf8;
-      stroke: #ffffff;
-      stroke-width: 2;
+    .joystick-nub {
+      touch-action: none;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
     }
   </style>
 </head>
-<body class="min-h-full flex flex-col items-center p-3 lg:p-5 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-200"
+<body class="min-h-full flex flex-col items-center p-2 lg:p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-200"
       hx-state='{
         "viewMode": "OS-H",
+        "activePatientId": "P1",
+        "activeModality": "CT",
+        "activeSeriesId": "CT-S2",
+        "worklistOpen": false,
+        "is3DMode": false,
+        "showJoystick": true,
+        "joystickPitch": 15,
+        "joystickYaw": -25,
+        "joystickRoll": 0,
         "currentSlice": 142,
         "totalSlices": 320,
         "windowWidth": 1500,
@@ -63,13 +81,7 @@
         "t1Baseline": 32.4,
         "t2LongAxis": 12.8,
         "t2Baseline": 18.2,
-        "caliperP1X": 155,
-        "caliperP1Y": 175,
-        "caliperP2X": 185,
-        "caliperP2Y": 190,
         "cursorHU": -720,
-        "cursorX": 172,
-        "cursorY": 182,
         "recistStatus": "PR",
         "recistPct": -31.0,
         "activeTab": "recist",
@@ -80,11 +92,11 @@
       }'>
 
   <!-- Desktop Top Viewport & Tool Control Bar -->
-  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between pb-3 border-b border-slate-800/80 mb-4 gap-3">
+  <header class="w-full max-w-7xl flex flex-wrap items-center justify-between pb-3 border-b border-slate-800/80 mb-3 gap-3">
     
     <!-- Branding & Patient Context -->
     <div class="flex items-center gap-3">
-      <a href="/demo" class="flex items-center gap-2">
+      <div class="flex items-center gap-2">
         <div class="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center text-lg font-black shadow-md shadow-teal-600/30">
           🩻
         </div>
@@ -95,28 +107,32 @@
               <span class="text-[10px] font-bold text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-500/20">DICOM 3.0 • RECIST 1.1</span>
             </h1>
           </div>
-          <p class="text-[10px] text-slate-400 font-mono">
-            <strong>DOE^JOHN [M/58Y]</strong> • MRN: #ONC-94021 • CT Chest-Abd (1.25mm)
+          <p class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5" id="header-patient-info">
+            <strong class="text-teal-300" id="hdr-patient-name">DOE^JOHN [M/58Y]</strong> • MRN: <span id="hdr-patient-mrn">#ONC-94021</span> • <span id="hdr-patient-study">CT Chest-Abd (1.25mm)</span>
           </p>
         </div>
-      </a>
+      </div>
+
+      <!-- PACS Worklist Trigger Button -->
+      <button onclick="toggleWorklist(true)"
+              class="px-3 py-1.5 rounded-xl bg-teal-600/20 border border-teal-500/40 text-teal-300 hover:bg-teal-600/30 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+        <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+        <span>📋 PACS Worklist</span>
+        <span class="text-[10px] bg-teal-500/30 px-1.5 py-0.2 rounded-full font-mono text-white">11</span>
+      </button>
     </div>
 
     <!-- 8 Distinct Viewport Modes Switcher (OS-H, OS-P, Tab-H, Tab-P, Mob-H, Mob-P, TV-H, TV-P) -->
     <div class="flex flex-wrap items-center bg-slate-900/90 border border-slate-800 p-1 rounded-2xl gap-1 text-xs font-bold">
-      <!-- OS Workstations -->
       <button data-view-btn="OS-H" onclick="$appz.setViewMode('OS-H')" class="px-2.5 py-1.5 rounded-xl bg-indigo-600 text-white transition-all">OS-H</button>
       <button data-view-btn="OS-P" onclick="$appz.setViewMode('OS-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">OS-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
-      <!-- Tablets -->
       <button data-view-btn="Tab-H" onclick="$appz.setViewMode('Tab-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-H</button>
       <button data-view-btn="Tab-P" onclick="$appz.setViewMode('Tab-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Tab-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
-      <!-- Mobile Phones -->
       <button data-view-btn="Mob-H" onclick="$appz.setViewMode('Mob-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-H</button>
       <button data-view-btn="Mob-P" onclick="$appz.setViewMode('Mob-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">Mob-P</button>
       <span class="w-px h-4 bg-slate-800 mx-0.5"></span>
-      <!-- Smart TV / MDT Tumor Board -->
       <button data-view-btn="TV-H" onclick="$appz.setViewMode('TV-H')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-H</button>
       <button data-view-btn="TV-P" onclick="$appz.setViewMode('TV-P')" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-all">TV-P</button>
     </div>
@@ -148,9 +164,9 @@
         <app-shellui view-mode="OS-H" form-factor="OS" orientation="H" class="flex-1 flex flex-col overflow-hidden relative select-none">
 
           <!-- ===================================================================
-               TOP TOOLBAR: Medical Imaging Tools & W/L Presets
+               TOP TOOLBAR 1: Medical Imaging Tools & W/L Presets
                =================================================================== -->
-          <div class="h-12 bg-slate-950 border-b border-slate-800 px-3 flex items-center justify-between shrink-0 z-40 text-xs gap-2">
+          <div class="h-11 bg-slate-950 border-b border-slate-800 px-3 flex items-center justify-between shrink-0 z-40 text-xs gap-2">
             
             <!-- Tool Selection Buttons -->
             <div class="flex items-center gap-1">
@@ -177,7 +193,7 @@
             </div>
 
             <!-- Hounsfield Unit W/L Presets -->
-            <div class="hidden md:flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[10px] font-bold">
+            <div class="hidden md:flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[10px] font-bold" id="wl-presets-bar">
               <button onclick="setWlPreset('LUNG', 1500, -600)" id="preset-lung" class="px-2 py-1 rounded bg-teal-700 text-white">LUNG</button>
               <button onclick="setWlPreset('MEDIASTINUM', 350, 40)" id="preset-mediastinum" class="px-2 py-1 rounded text-slate-400 hover:text-white">MEDIAST</button>
               <button onclick="setWlPreset('BONE', 2000, 300)" id="preset-bone" class="px-2 py-1 rounded text-slate-400 hover:text-white">BONE</button>
@@ -185,15 +201,67 @@
               <button onclick="setWlPreset('LIVER', 150, 30)" id="preset-liver" class="px-2 py-1 rounded text-slate-400 hover:text-white">LIVER</button>
             </div>
 
-            <!-- Viewport Layout Toggle & Overlays -->
-            <div class="flex items-center gap-2">
-              <div class="flex items-center gap-1 bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[10px] font-mono">
-                <button onclick="setLayout('1x1')" id="layout-1x1" class="px-2 py-0.5 rounded bg-teal-600 text-white font-bold">1×1</button>
-                <button onclick="setLayout('1x2')" id="layout-1x2" class="px-2 py-0.5 rounded text-slate-400 hover:text-white">1×2</button>
-              </div>
+            <!-- 3D Mode & Joystick Controls -->
+            <div class="flex items-center gap-1.5">
+              <button onclick="toggle3DMode()" id="btn-toggle-3d"
+                      class="px-2.5 py-1 rounded-lg font-bold text-[10px] flex items-center gap-1 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">
+                <span>🌐</span> <span id="text-toggle-3d">3D Mode: OFF</span>
+              </button>
+              <button onclick="toggleJoystickHUD()" id="btn-toggle-joy"
+                      class="px-2.5 py-1 rounded-lg font-bold text-[10px] flex items-center gap-1 bg-teal-600/20 text-teal-300 border border-teal-500/30">
+                <span>🕹️</span> <span class="hidden sm:inline">3D Joystick</span>
+              </button>
               <button onclick="toggleOverlays()" id="btn-overlays" class="text-[10px] px-2 py-1 rounded bg-slate-800 text-slate-300 font-bold">
                 HUD: ON
               </button>
+            </div>
+
+          </div>
+
+          <!-- ===================================================================
+               TOP TOOLBAR 2: Patient Imaging Modality Tabs & Scan Files Strip
+               =================================================================== -->
+          <div class="bg-slate-950 border-b border-slate-800/80 flex flex-col shrink-0 z-30">
+            
+            <!-- Patient Imaging Tabs [CT Scan] [X Ray] [Ultrasound] [MRI] [PET-CT] -->
+            <div class="px-3 py-1.5 bg-slate-900/70 border-b border-slate-800/50 flex items-center justify-between text-xs gap-2">
+              <div class="flex items-center gap-1.5 overflow-x-auto" id="imaging-tabs-container">
+                <button onclick="setImagingModality('CT')" id="tab-modality-ct"
+                        class="px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 bg-teal-600 text-white shadow-sm transition-all">
+                  <span>🩻</span> <span>CT Scan</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-black/40 font-mono text-teal-200" id="badge-count-ct">4</span>
+                </button>
+                <button onclick="setImagingModality('DX')" id="tab-modality-dx"
+                        class="px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-800/80 transition-all">
+                  <span>☢️</span> <span>X-Ray (DX)</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-900 font-mono text-slate-400" id="badge-count-dx">3</span>
+                </button>
+                <button onclick="setImagingModality('US')" id="tab-modality-us"
+                        class="px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-800/80 transition-all">
+                  <span>🌊</span> <span>Ultrasound</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-900 font-mono text-slate-400" id="badge-count-us">2</span>
+                </button>
+                <button onclick="setImagingModality('MR')" id="tab-modality-mr"
+                        class="px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-800/80 transition-all">
+                  <span>🧲</span> <span>MRI</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-900 font-mono text-slate-400" id="badge-count-mr">2</span>
+                </button>
+                <button onclick="setImagingModality('PET')" id="tab-modality-pet"
+                        class="px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-800/80 transition-all">
+                  <span>⚛️</span> <span>PET-CT</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-900 font-mono text-slate-400" id="badge-count-pet">2</span>
+                </button>
+              </div>
+
+              <!-- Quick Modality Telemetry Readout -->
+              <div class="hidden sm:flex items-center gap-2 text-[10px] font-mono text-slate-400">
+                <span id="active-modality-desc">Thoracic CT Protocol • 120 kVp</span>
+              </div>
+            </div>
+
+            <!-- Scan Files Series Carousel / Strip -->
+            <div class="px-3 py-1.5 flex items-center gap-2 overflow-x-auto bg-slate-950" id="scan-files-strip">
+              <!-- Dynamically populated scan series cards via JS -->
             </div>
 
           </div>
@@ -212,38 +280,38 @@
                 <!-- Top Row: Patient Info (TL) & Study Info (TR) -->
                 <div class="flex justify-between items-start">
                   <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 leading-tight">
-                    <div class="text-white font-bold text-xs">DOE^JOHN</div>
-                    <div>MRN: #ONC-94021 [M/58Y]</div>
-                    <div class="text-slate-400 text-[10px]">DOB: 1968-04-12</div>
+                    <div class="text-white font-bold text-xs" id="hud-patient-name">DOE^JOHN</div>
+                    <div id="hud-patient-mrn">MRN: #ONC-94021 [M/58Y]</div>
+                    <div class="text-slate-400 text-[10px]" id="hud-patient-dob">DOB: 1968-04-12</div>
                   </div>
                   <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 text-right leading-tight">
-                    <div class="text-white font-bold text-xs">MEMORIAL CANCER CENTER</div>
-                    <div>Chest-Abd-Pelvis w/ IV</div>
-                    <div class="text-slate-400 text-[10px]">2026-10-15 09:30:14 • 120 kV / 240 mA</div>
+                    <div class="text-white font-bold text-xs" id="hud-facility">MEMORIAL CANCER CENTER</div>
+                    <div id="hud-study-desc">Chest-Abd-Pelvis w/ IV</div>
+                    <div class="text-slate-400 text-[10px]" id="hud-study-acq">2026-10-15 09:30:14 • 120 kV / 240 mA</div>
                   </div>
                 </div>
 
                 <!-- Anatomical Orientation Labels (A / P / R / L) -->
-                <div class="flex justify-between items-center w-full px-1 text-sm font-black text-amber-400/90">
-                  <span>R</span>
+                <div class="flex justify-between items-center w-full px-1 text-sm font-black text-amber-400/90" id="anatomical-orientation-compass">
+                  <span id="compass-r">R</span>
                   <div class="flex flex-col items-center">
-                    <span class="mb-auto">A</span>
-                    <span class="mt-28">P</span>
+                    <span id="compass-a" class="mb-auto">A</span>
+                    <span id="compass-p" class="mt-24">P</span>
                   </div>
-                  <span>L</span>
+                  <span id="compass-l">L</span>
                 </div>
 
                 <!-- Bottom Row: HU Values & Calibration (BL) & Slice Index / W/L (BR) -->
                 <div class="flex justify-between items-end">
                   <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 leading-tight">
                     <div id="hud-hu-readout" class="text-amber-400 font-bold">HU: -720 (Lung Margin)</div>
-                    <div class="text-[10px] text-slate-300">Pos: (<span id="hud-pos-x">172</span>, <span id="hud-pos-y">182</span>) • 0.72 mm/px</div>
-                    <div class="text-teal-400 text-[10px]">Thk: 1.25 mm • Matrix: 512×512</div>
+                    <div class="text-[10px] text-slate-300">Pos: (<span id="hud-pos-x">172</span>, <span id="hud-pos-y">182</span>) • <span id="hud-pixel-spacing">0.72 mm/px</span></div>
+                    <div class="text-teal-400 text-[10px]">Thk: <span id="hud-thk">1.25 mm</span> • Matrix: <span id="hud-matrix">512×512</span></div>
                   </div>
                   <div class="bg-black/60 backdrop-blur px-2.5 py-1.5 rounded-lg border border-teal-500/20 text-right leading-tight">
-                    <div class="text-white font-bold">Im: <span id="hud-slice-num" class="text-teal-400">142</span> / 320</div>
+                    <div class="text-white font-bold">Im: <span id="hud-slice-num" class="text-teal-400">142</span> / <span id="hud-total-slices">320</span></div>
                     <div class="text-[10px] text-slate-300">W: <span id="hud-wl-w">1500</span> L: <span id="hud-wl-l">-600</span> (<span id="hud-wl-preset">LUNG</span>)</div>
-                    <div class="text-cyan-400 text-[10px]">Zoom: <span id="hud-zoom">100%</span> • FPS: <span id="hud-fps">60.0</span></div>
+                    <div class="text-cyan-400 text-[10px]">Angles: <span id="hud-angle-readout" class="text-amber-400">Pitch 15° | Yaw -25°</span></div>
                   </div>
                 </div>
 
@@ -276,14 +344,58 @@
                   </div>
                   <canvas id="dicom-baseline-canvas" width="512" height="512" class="max-w-full max-h-full object-contain"></canvas>
                 </div>
+
+                <!-- ===============================================================
+                     ONSCREEN 3D JOYSTICK CONTROLLER (Floating Gimbal HUD)
+                     =============================================================== -->
+                <div id="onscreen-joystick-widget" class="absolute bottom-4 right-4 z-40 flex flex-col items-end gap-1 select-none pointer-events-auto">
+                  
+                  <!-- Angular Readout Pill -->
+                  <div class="px-2.5 py-0.5 rounded-full bg-slate-900/90 border border-teal-500/40 text-[10px] font-mono text-teal-300 flex items-center gap-1.5 shadow-md">
+                    <span>3D Gimbal:</span>
+                    <span id="joy-readout" class="text-amber-400 font-bold">P: 15° Y: -25°</span>
+                  </div>
+
+                  <!-- Cardinal Fast Snap Buttons -->
+                  <div class="flex items-center gap-1 bg-slate-950/80 p-0.5 rounded-lg border border-slate-800 text-[9px] font-bold">
+                    <button onclick="set3DAngles(0, 0)" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">Axial</button>
+                    <button onclick="set3DAngles(90, 0)" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">Coronal</button>
+                    <button onclick="set3DAngles(0, 90)" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">Sagittal</button>
+                    <button onclick="set3DAngles(35, 45)" class="px-1.5 py-0.5 rounded bg-teal-700/80 text-white font-bold">3D Oblique</button>
+                    <button onclick="reset3DAngles()" class="px-1 py-0.5 rounded text-slate-500 hover:text-slate-300">↺</button>
+                  </div>
+
+                  <!-- Joystick Outer Bezel & Nub -->
+                  <div id="joystick-base" class="joystick-base w-28 h-28 rounded-full border-2 border-teal-500/40 relative flex items-center justify-center cursor-crosshair">
+                    
+                    <!-- Cardinal Tick Marks -->
+                    <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                      <span class="absolute top-1 text-[8px] font-bold text-teal-500/70">PITCH ▲</span>
+                      <span class="absolute bottom-1 text-[8px] font-bold text-teal-500/70">▼</span>
+                      <span class="absolute left-1 text-[8px] font-bold text-teal-500/70">◄ YAW</span>
+                      <span class="absolute right-1 text-[8px] font-bold text-teal-500/70">►</span>
+                      <div class="w-full h-px bg-teal-500/20 absolute"></div>
+                      <div class="h-full w-px bg-teal-500/20 absolute"></div>
+                      <div class="w-16 h-16 rounded-full border border-teal-500/20 absolute"></div>
+                    </div>
+
+                    <!-- Draggable Joystick Nub -->
+                    <div id="joystick-nub" class="joystick-nub w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 via-cyan-500 to-teal-700 border-2 border-white/90 shadow-lg cursor-grab active:cursor-grabbing flex items-center justify-center text-white text-[10px] font-black z-20 transition-transform duration-75">
+                      <span>3D</span>
+                    </div>
+
+                  </div>
+
+                </div>
+
               </div>
 
               <!-- Bottom Interactive Scrubbing Timeline (Layer-Sys & UX) -->
-              <div class="h-10 bg-slate-950 border-t border-slate-800 px-3 flex items-center justify-between gap-3 shrink-0 z-30">
+              <div class="h-9 bg-slate-950 border-t border-slate-800 px-3 flex items-center justify-between gap-3 shrink-0 z-30">
                 <div class="flex items-center gap-1.5">
-                  <button onclick="stepSlice(-1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">◀</button>
-                  <button onclick="toggleCinePlayback()" id="btn-play-pause" class="w-7 h-7 rounded-lg bg-teal-600 hover:bg-teal-500 flex items-center justify-center text-xs font-bold text-white">▶</button>
-                  <button onclick="stepSlice(1)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">▶</button>
+                  <button onclick="stepSlice(-1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">◀</button>
+                  <button onclick="toggleCinePlayback()" id="btn-play-pause" class="w-6 h-6 rounded-lg bg-teal-600 hover:bg-teal-500 flex items-center justify-center text-xs font-bold text-white">▶</button>
+                  <button onclick="stepSlice(1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-xs font-bold">▶</button>
                 </div>
 
                 <!-- Range Slider for Slices -->
@@ -291,7 +403,7 @@
                   <span class="text-[10px] font-mono text-slate-400">1</span>
                   <input type="range" id="slice-slider" min="1" max="320" value="142" oninput="setSlice(parseInt(this.value, 10))"
                          class="w-full accent-teal-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-                  <span class="text-[10px] font-mono text-slate-400">320</span>
+                  <span class="text-[10px] font-mono text-slate-400" id="slider-max-label">320</span>
                 </div>
 
                 <div class="flex items-center gap-2 text-xs font-mono shrink-0">
@@ -308,15 +420,19 @@
               <div class="flex border-b border-slate-800 bg-slate-950/60 p-1">
                 <button onclick="setInspectorTab('recist')" id="tab-btn-recist"
                         class="flex-1 py-1.5 text-center font-bold rounded-lg bg-teal-600 text-white shadow-sm">
-                  🎯 RECIST 1.1 Tracker
+                  🎯 RECIST 1.1
                 </button>
-                <button onclick="setInspectorTab('series')" id="tab-btn-series"
+                <button onclick="setInspectorTab('patient')" id="tab-btn-patient"
                         class="flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white">
-                  📁 Series (5)
+                  👤 Patient
+                </button>
+                <button onclick="setInspectorTab('gimbal')" id="tab-btn-gimbal"
+                        class="flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white">
+                  🕹️ 3D Gimbal
                 </button>
                 <button onclick="setInspectorTab('diag')" id="tab-btn-diag"
                         class="flex-1 py-1.5 text-center font-bold rounded-lg text-slate-400 hover:text-white">
-                  ⚡ 4-Layer @diag
+                  ⚡ @diag
                 </button>
               </div>
 
@@ -326,7 +442,7 @@
                 <!-- Overall Response Criteria Banner -->
                 <div class="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-950/50 to-slate-950 border border-emerald-500/40 space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400">Overall Treatment Response</span>
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400">Treatment Response</span>
                     <span id="recist-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold font-mono">
                       PARTIAL RESPONSE (PR)
                     </span>
@@ -410,32 +526,6 @@
                         <span class="font-bold text-emerald-400">-29.7%</span>
                       </div>
                     </div>
-
-                    <div class="flex items-center justify-between pt-1 text-[10px] text-slate-400">
-                      <span>Malignant Node: Normalized &lt; 15mm</span>
-                      <button onclick="jumpToSlice(188)" class="text-slate-400 hover:text-white">View Slice 188</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Non-Target Lesions & New Lesions -->
-                <div class="space-y-2 pt-2 border-t border-slate-800">
-                  <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">
-                    Non-Target Lesions & Metastases
-                  </h3>
-                  <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] flex items-center justify-between">
-                    <div>
-                      <div class="text-white font-semibold">NT1: Bilateral Pleural Thickening</div>
-                      <div class="text-[10px] text-slate-500">Non-measurable reference</div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-bold">Stable (Present)</span>
-                  </div>
-                  <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] flex items-center justify-between">
-                    <div>
-                      <div class="text-white font-semibold">New Lesions (NL)</div>
-                      <div class="text-[10px] text-slate-500">Brain & Abdominal Screen</div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">NONE DETECTED</span>
                   </div>
                 </div>
 
@@ -447,59 +537,84 @@
 
               </div>
 
-              <!-- TAB 2: Series Filmstrip Browser -->
-              <div id="inspector-series" class="hidden flex-1 overflow-y-auto p-4 space-y-3">
-                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">Available Study Series</h3>
+              <!-- TAB 2: Patient Metadata & Full History Inspector -->
+              <div id="inspector-patient" class="hidden flex-1 overflow-y-auto p-4 space-y-3">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300">Patient Master Profile</h3>
                 
-                <div onclick="selectSeries(2)" class="p-3 rounded-xl bg-teal-600/15 border border-teal-500/40 cursor-pointer flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold">Series 2: Axial Chest High-Res CT</div>
-                    <div class="text-[10px] text-teal-400 font-mono">320 Slices • 1.25mm • Thin Slice</div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Full Name</span>
+                    <strong class="text-white font-mono" id="insp-patient-name">DOE^JOHN</strong>
                   </div>
-                  <span class="px-2 py-0.5 rounded bg-teal-600 text-white text-[10px] font-bold">ACTIVE</span>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Medical Record No.</span>
+                    <strong class="text-teal-400 font-mono" id="insp-patient-mrn">#ONC-94021</strong>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Age & Gender</span>
+                    <span class="text-white" id="insp-patient-demog">58 YRS • MALE</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Primary Modality</span>
+                    <span class="px-2 py-0.5 rounded bg-teal-900/50 text-teal-300 font-bold" id="insp-patient-mod">CT</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Scheduled Region</span>
+                    <span class="text-white font-bold" id="insp-patient-reg">CHEST</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Workflow Status</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-extrabold" id="insp-patient-status">VERIFIED</span>
+                  </div>
                 </div>
 
-                <div onclick="selectSeries(1)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold">Series 1: Scout Topogram (Scanogram)</div>
-                    <div class="text-[10px] text-slate-400 font-mono">1 Slice • Frontal View</div>
+                <button onclick="toggleWorklist(true)" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs">
+                  Switch to Another Patient Worklist Study
+                </button>
+              </div>
+
+              <!-- TAB 3: 3D Spatial Gimbal & Angle Telemetry -->
+              <div id="inspector-gimbal" class="hidden flex-1 overflow-y-auto p-4 space-y-3 font-mono text-xs">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-300 font-sans">3D Spatial Projection Angles</h3>
+                
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Pitch Angle (\(\theta\))</span>
+                    <span class="text-teal-400 font-bold text-sm" id="insp-angle-pitch">+15.0°</span>
                   </div>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">SCOUT</span>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Yaw Angle (\(\phi\))</span>
+                    <span class="text-amber-400 font-bold text-sm" id="insp-angle-yaw">-25.0°</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-slate-400">Roll Angle (\(\psi\))</span>
+                    <span class="text-purple-400 font-bold text-sm" id="insp-angle-roll">0.0°</span>
+                  </div>
+                  <div class="flex items-center justify-between border-t border-slate-800 pt-2">
+                    <span class="text-slate-400">Rendering Mode</span>
+                    <span class="text-emerald-400 font-bold" id="insp-render-mode">2D SLICE</span>
+                  </div>
                 </div>
 
-                <div onclick="selectSeries(3)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold">Series 3: Coronal MPR Reformat</div>
-                    <div class="text-[10px] text-slate-400 font-mono">240 Slices • Multiplanar</div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-[11px]">
+                  <div class="text-slate-300 font-bold">Quick Cardinal Angles:</div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button onclick="set3DAngles(0, 0)" class="py-1.5 rounded-lg bg-slate-800 text-white font-bold text-center">Axial (0°, 0°)</button>
+                    <button onclick="set3DAngles(90, 0)" class="py-1.5 rounded-lg bg-slate-800 text-white font-bold text-center">Coronal (90°, 0°)</button>
+                    <button onclick="set3DAngles(0, 90)" class="py-1.5 rounded-lg bg-slate-800 text-white font-bold text-center">Sagittal (0°, 90°)</button>
+                    <button onclick="set3DAngles(35, 45)" class="py-1.5 rounded-lg bg-teal-700 text-white font-bold text-center">3D Oblique</button>
                   </div>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">CORONAL</span>
-                </div>
-
-                <div onclick="selectSeries(4)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold">Series 4: Sagittal MPR Reformat</div>
-                    <div class="text-[10px] text-slate-400 font-mono">180 Slices • Multiplanar</div>
-                  </div>
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px]">SAGITTAL</span>
-                </div>
-
-                <div onclick="selectSeries(5)" class="p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 cursor-pointer flex items-center justify-between">
-                  <div>
-                    <div class="text-white font-bold">Series 5: PET/CT SUV Fusion</div>
-                    <div class="text-[10px] text-purple-400 font-mono">320 Slices • 18F-FDG Metabolic</div>
-                  </div>
-                  <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px]">PET-SUV</span>
                 </div>
               </div>
 
-              <!-- TAB 3: 4-Layer Architecture & Diagnostics (@diag) -->
+              <!-- TAB 4: 4-Layer Architecture & Diagnostics (@diag) -->
               <div id="inspector-diag" class="hidden flex-1 overflow-y-auto p-4 space-y-3 font-mono text-xs">
                 <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
                   <div class="flex items-center justify-between text-blue-400 font-bold">
                     <span>Layer-Sys (Rendering Core)</span>
                     <span class="text-emerald-400">ACTIVE</span>
                   </div>
-                  <div class="text-[11px] text-slate-300">Pipeline: 2D Canvas LUT Transfer</div>
+                  <div class="text-[11px] text-slate-300">Pipeline: 2D Canvas & 3D Spatial Vector Matrix</div>
                   <div class="text-[10px] text-slate-400">Render Latency: <span id="diag-latency-val" class="text-white">0.38ms</span></div>
                   <div class="text-[10px] text-slate-400">Buffer: Zero-Alloc TypedArray (512×512)</div>
                 </div>
@@ -520,8 +635,8 @@
                     <span class="text-emerald-400">ACTIVE</span>
                   </div>
                   <div class="text-[11px] text-slate-300">View Mode: <span id="diag-mode-val" class="text-white">OS-H (1024×600)</span></div>
-                  <div class="text-[10px] text-slate-400">Active Tool: <span id="diag-tool-val" class="text-white">RECIST Caliper</span></div>
-                  <div class="text-[10px] text-slate-400">Layer Stack: Level 0 (Pixel) to Level 9 (HUD)</div>
+                  <div class="text-[10px] text-slate-400">Active Modality: <span id="diag-mod-val" class="text-white">CT</span></div>
+                  <div class="text-[10px] text-slate-400">Onscreen Joystick: <span id="diag-joy-val" class="text-white">CONNECTED</span></div>
                 </div>
 
                 <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
@@ -530,12 +645,85 @@
                     <span class="text-emerald-400">CONNECTED</span>
                   </div>
                   <div class="text-[11px] text-slate-300">Go DSL: BlockRadiologyDICOM()</div>
-                  <div class="text-[10px] text-slate-400">Throughput: 620 ops/sec streaming</div>
                   <div class="text-[10px] text-slate-400">Zero Node.js / Zero NPM Footprint</div>
                 </div>
               </div>
 
             </aside>
+
+          </div>
+
+          <!-- ===================================================================
+               RAMSOFT POWERREADER PACS WORKLIST MODAL / DRAWER
+               =================================================================== -->
+          <div id="pacs-worklist-modal" class="hidden absolute inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex flex-col p-4 overflow-hidden select-none">
+            
+            <!-- Window Title Bar -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white font-black text-sm">
+                  📋
+                </div>
+                <div>
+                  <h2 class="text-sm font-black text-white flex items-center gap-2">
+                    <span>RAMSOFT PowerReader PACS Worklist</span>
+                    <span class="text-[10px] font-normal text-slate-400 font-mono">User: <strong>TESTRAD</strong> • Worklist: <strong>*ALL STUDIES</strong></span>
+                  </h2>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-slate-400">11 studies - 1 selected</span>
+                <button onclick="toggleWorklist(false)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center text-xs">
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <!-- Search & Filter Controls -->
+            <div class="py-3 flex flex-wrap items-center justify-between gap-3 shrink-0">
+              <div class="flex-1 max-w-md relative">
+                <input type="text" id="worklist-search-input" oninput="filterWorklist(this.value)"
+                       placeholder="Filter by Patient Name, MRN, Modality, Body Region..."
+                       class="w-full pl-9 pr-4 py-1.5 rounded-xl border border-slate-800 bg-slate-900 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-teal-500">
+                <span class="absolute left-3 top-2 text-slate-500 text-xs">🔍</span>
+              </div>
+
+              <!-- Quick Status Filter Chips -->
+              <div class="flex items-center gap-1 text-[11px] font-bold overflow-x-auto">
+                <button onclick="filterByStatus('ALL')" class="px-2.5 py-1 rounded-lg bg-teal-600 text-white">All (11)</button>
+                <button onclick="filterByStatus('VERIFIED')" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Verified</button>
+                <button onclick="filterByStatus('ORDERED')" class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/30">Ordered</button>
+                <button onclick="filterByStatus('SCHEDULED')" class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-500/30">Scheduled</button>
+                <button onclick="filterByStatus('CHECKED IN')" class="px-2.5 py-1 rounded-lg bg-orange-500/20 text-orange-300 border border-orange-500/30">Checked In</button>
+              </div>
+            </div>
+
+            <!-- Patient Table -->
+            <div class="flex-1 overflow-auto border border-slate-800 rounded-2xl bg-slate-900/60">
+              <table class="w-full text-left text-xs font-mono divide-y divide-slate-800" id="worklist-table">
+                <thead class="bg-slate-950 text-[10px] text-slate-400 uppercase tracking-wider sticky top-0 z-10 font-sans">
+                  <tr>
+                    <th class="py-2.5 px-3">Cache</th>
+                    <th class="py-2.5 px-3">Status</th>
+                    <th class="py-2.5 px-3">Date / Time</th>
+                    <th class="py-2.5 px-3">Patient Name</th>
+                    <th class="py-2.5 px-3">Schedule</th>
+                    <th class="py-2.5 px-3">Object Type</th>
+                    <th class="py-2.5 px-3">Body Region</th>
+                    <th class="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60" id="worklist-tbody">
+                  <!-- Dynamically populated from PATIENTS registry -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pt-3 flex justify-between items-center text-[10px] text-slate-400 font-mono">
+              <span>Standard: DICOM PS 3.4 Worklist Management SOP Class</span>
+              <span class="text-teal-400">Click any patient row to open their studies in the diagnostic viewer.</span>
+            </div>
 
           </div>
 
@@ -548,9 +736,66 @@
   <!-- Medical DICOM 3.0 & RECIST 1.1 Pure Vanilla JS Engine -->
   <script>
     // =========================================================================
-    // CLINICAL CT PHANTOM & DICOM RENDERING ENGINE
+    // 1. PATIENT WORKLIST REGISTRY (Modeled after RAMSOFT PowerReader)
+    // =========================================================================
+    const PATIENTS = [
+      { id: "P1", name: "DOE^JOHN", mrn: "#ONC-94021", dob: "1968-04-12", age: "58Y", gender: "M", status: "VERIFIED", dateTime: "10/15/2026 09:30:14 AM", modality: "CT", objectType: "SR", schedule: "CHEST", studyDesc: "Chest-Abd-Pelvis w/ IV Contrast", primaryModality: "CT" },
+      { id: "P2", name: "WARREN^SHARON", mrn: "#ONC-88142", dob: "1964-07-22", age: "62Y", gender: "F", status: "ORDERED", dateTime: "08/26/2026 01:45:00 PM", modality: "CT", objectType: "DOC", schedule: "CHEST", studyDesc: "Thoracic HRCT High Resolution", primaryModality: "CT" },
+      { id: "P3", name: "ANGELOU^MAYA^N^MS.^JR", mrn: "#RAD-77291", dob: "1981-03-14", age: "45Y", gender: "F", status: "ORDERED", dateTime: "08/26/2026 01:45:00 PM", modality: "MR", objectType: "DOC", schedule: "BREAST", studyDesc: "Bilateral Dynamic Contrast Breast MRI", primaryModality: "MR" },
+      { id: "P4", name: "SMITHERS^MIKE", mrn: "#ONC-66382", dob: "1975-09-08", age: "51Y", gender: "M", status: "SCHEDULED", dateTime: "11/06/2026 12:48:08 PM", modality: "MR", objectType: "SR", schedule: "CHEST", studyDesc: "Cardiac Cine MRI Thorax", primaryModality: "MR" },
+      { id: "P5", name: "NAVAL^WILLIAM", mrn: "#RAD-55109", dob: "1955-11-03", age: "71Y", gender: "M", status: "SCHEDULED", dateTime: "11/17/2026 03:58:45 PM", modality: "DX", objectType: "SR", schedule: "LSPINE", studyDesc: "Lumbar Spine 3-View Radiograph", primaryModality: "DX" },
+      { id: "P6", name: "JOHNSON^ROY^J", mrn: "#ONC-44910", dob: "1959-05-19", age: "67Y", gender: "M", status: "SCHEDULED", dateTime: "11/20/2026 12:30:00 PM", modality: "CT", objectType: "DOC", schedule: "ABDOMEN", studyDesc: "Tri-Phase Liver Abdominal CT", primaryModality: "CT" },
+      { id: "P7", name: "RICE^JIM", mrn: "#ONC-33821", dob: "1972-02-11", age: "54Y", gender: "M", status: "CHECKED IN", dateTime: "11/24/2026 11:00:00 AM", modality: "CT", objectType: "SR", schedule: "ABDOMEN", studyDesc: "CT Enterography Small Bowel", primaryModality: "CT" },
+      { id: "P8", name: "JONES^TIM", mrn: "#RAD-22904", dob: "1987-10-30", age: "39Y", gender: "M", status: "CONFIRMED", dateTime: "11/06/2026 09:21:45 AM", modality: "MR", objectType: "SR", schedule: "CHEST", studyDesc: "Thoracic Outlet MRI Neurography", primaryModality: "MR" },
+      { id: "P9", name: "BARILLAS^LIZETTE^M^MS.", mrn: "#ONC-11048", dob: "1978-08-25", age: "48Y", gender: "F", status: "ARRIVED", dateTime: "11/12/2026 04:15:00 PM", modality: "DX", objectType: "DOC", schedule: "CHEST", studyDesc: "Digital Chest PA and Lateral View", primaryModality: "DX" },
+      { id: "P10", name: "SEYMOUR^JANE", mrn: "#RAD-99381", dob: "1966-01-17", age: "60Y", gender: "F", status: "COMPLETED", dateTime: "11/25/2026 08:00:00 AM", modality: "US", objectType: "SR", schedule: "PELVIS", studyDesc: "Transabdominal & Pelvic Sonography", primaryModality: "US" },
+      { id: "P11", name: "SANCHEZ^VIVIANA", mrn: "#RAD-88492", dob: "1984-06-04", age: "42Y", gender: "F", status: "VERIFIED", dateTime: "11/19/2026 09:00:04 AM", modality: "US", objectType: "DOC", schedule: "PELVIS", studyDesc: "High-Resolution Pelvic & Vascular Doppler", primaryModality: "US" }
+    ];
+
+    // =========================================================================
+    // 2. PATIENT IMAGING SERIES CATALOG
+    // =========================================================================
+    const IMAGING_DATA = {
+      P1: {
+        CT: [
+          { id: "CT-S1", title: "Series 1: Scout Topogram", slices: 1, date: "2026-10-15 09:28", matrix: "512×512", thk: "5.0mm", desc: "Frontal AP Scout Localization" },
+          { id: "CT-S2", title: "Series 2: Axial Chest High-Res CT", slices: 320, date: "2026-10-15 09:30", matrix: "512×512", thk: "1.25mm", desc: "Thoracic Volumetric Thin Slice" },
+          { id: "CT-S3", title: "Series 3: Coronal MPR Reformat", slices: 240, date: "2026-10-15 09:32", matrix: "512×512", thk: "1.25mm", desc: "Multiplanar Coronal Thorax" },
+          { id: "CT-S4", title: "Series 4: Sagittal MPR Reformat", slices: 180, date: "2026-10-15 09:33", matrix: "512×512", thk: "1.25mm", desc: "Multiplanar Sagittal Thorax" }
+        ],
+        DX: [
+          { id: "DX-S1", title: "Series 1: Chest PA Erect", slices: 1, date: "2026-10-14 14:10", matrix: "2048×2048", thk: "Projection", desc: "Posteroanterior Thorax Radiograph" },
+          { id: "DX-S2", title: "Series 2: Chest Lateral Left", slices: 1, date: "2026-10-14 14:15", matrix: "2048×2048", thk: "Projection", desc: "Left Lateral Thoracic Projection" },
+          { id: "DX-S3", title: "Series 3: Rib Oblique View", slices: 1, date: "2026-10-14 14:18", matrix: "1024×1024", thk: "Projection", desc: "Targeted Left 4th-6th Rib Detail" }
+        ],
+        US: [
+          { id: "US-S1", title: "Series 1: Thyroid B-Mode Transverse", slices: 120, date: "2026-10-12 11:00", matrix: "640×480", thk: "7.5 MHz", desc: "High-Frequency Linear Transducer" },
+          { id: "US-S2", title: "Series 2: Color Doppler Carotid", slices: 60, date: "2026-10-12 11:05", matrix: "640×480", thk: "Color Flow", desc: "Pulsatile Hemodynamic Velocity" }
+        ],
+        MR: [
+          { id: "MR-S1", title: "Series 1: T1 Axial Spin-Echo", slices: 256, date: "2026-09-20 16:00", matrix: "512×512", thk: "3.0mm", desc: "3.0 Tesla Brain Spin Echo" },
+          { id: "MR-S2", title: "Series 2: T2 FLAIR Coronal", slices: 256, date: "2026-09-20 16:15", matrix: "512×512", thk: "3.0mm", desc: "Fluid-Attenuated Inversion Recovery" }
+        ],
+        PET: [
+          { id: "PET-S1", title: "Series 1: 18F-FDG Whole Body MIP", slices: 360, date: "2026-09-22 10:30", matrix: "256×256", thk: "2.0mm", desc: "3D Maximum Intensity Projection" },
+          { id: "PET-S2", title: "Series 2: PET-CT Fusion Co-Registration", slices: 320, date: "2026-09-22 10:45", matrix: "512×512", thk: "2.0mm", desc: "SUV Quantitative Tumor Uptake" }
+        ]
+      }
+    };
+
+    // =========================================================================
+    // 3. APPLICATION STATE
     // =========================================================================
     const state = {
+      patientId: 'P1',
+      activeModality: 'CT',
+      activeSeriesId: 'CT-S2',
+      is3DMode: false,
+      showJoystick: true,
+      joystickPitch: 15,
+      joystickYaw: -25,
+      joystickRoll: 0,
+      isDraggingJoystick: false,
       slice: 142,
       totalSlices: 320,
       windowWidth: 1500,
@@ -562,6 +807,7 @@
       panY: 0,
       cinePlaying: false,
       cineTimer: null,
+      cineFps: 24,
       caliperP1: { x: 155, y: 175 },
       caliperP2: { x: 185, y: 190 },
       isDraggingP1: false,
@@ -572,7 +818,12 @@
       lastMouseY: 0,
       pixelSpacing: 0.72, // mm per pixel
       showOverlays: true,
-      layout: '1x1'
+      layout: '1x1',
+      t1Baseline: 32.4,
+      t2Baseline: 18.2,
+      t2LongAxis: 12.8,
+      worklistStatusFilter: 'ALL',
+      worklistSearch: ''
     };
 
     const canvas = document.getElementById('dicom-canvas');
@@ -580,20 +831,54 @@
     const baselineCanvas = document.getElementById('dicom-baseline-canvas');
     const baselineCtx = baselineCanvas ? baselineCanvas.getContext('2d') : null;
 
-    // Draw CT Slice on Canvas
-    function renderSlice(targetCtx, sliceIndex, isBaseline = false) {
-      if (!targetCtx) return;
+    // =========================================================================
+    // 4. MULTI-MODALITY & 3D SPATIAL ANGLE CANVAS RENDERING
+    // =========================================================================
+    function renderMainViewport() {
+      if (!ctx) return;
       const t0 = performance.now();
+      const w = 512, h = 512;
+
+      // Check if 3D Angle Mode is active
+      if (state.is3DMode) {
+        render3DVolumeProjection(ctx, w, h);
+      } else {
+        // 2D Slice Mode for specific modality
+        switch (state.activeModality) {
+          case 'CT':
+            renderCTSlice(ctx, state.slice, false);
+            break;
+          case 'DX':
+            renderXRayProjection(ctx, w, h);
+            break;
+          case 'US':
+            renderUltrasoundBMode(ctx, w, h);
+            break;
+          case 'MR':
+            renderMRISlice(ctx, w, h);
+            break;
+          case 'PET':
+            renderPETCTFusion(ctx, w, h);
+            break;
+          default:
+            renderCTSlice(ctx, state.slice, false);
+        }
+      }
+
+      const t1 = performance.now();
+      const latencyEl = document.getElementById('diag-latency-val');
+      if (latencyEl) latencyEl.textContent = `${(t1 - t0).toFixed(2)}ms`;
+    }
+
+    // 4A. Render CT Slice with HU LUT & Lesion
+    function renderCTSlice(targetCtx, sliceIndex, isBaseline = false) {
       const w = 512, h = 512;
       const imgData = targetCtx.createImageData(w, h);
       const data = imgData.data;
 
-      // Mathematical Volumetric Chest CT Model:
-      // Slice 142 represents mid-thorax (Carina, Pulmonary Arteries, Spiculated RUL nodule)
       const sliceOffset = (sliceIndex - 142) / 60;
-      const noduleSize = Math.max(0, 1.0 - Math.abs(sliceOffset)); // nodule vanishes away from slice 142
+      const noduleSize = Math.max(0, 1.0 - Math.abs(sliceOffset));
 
-      // Effective Window/Level
       const ww = state.windowWidth;
       const wc = state.windowCenter;
       const minHU = wc - ww / 2;
@@ -608,60 +893,46 @@
       for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
           const idx = (y * w + x) * 4;
-          
-          // Normalized coordinates relative to center (256, 256)
           const nx = (x - 256) / 200;
           const ny = (y - 256) / 160;
           const distFromCenter = Math.sqrt(nx * nx + ny * ny);
 
           let hu = -1000; // default Air HU
 
-          // Thoracic Cavity Oval
           if (distFromCenter < 1.0) {
-            // Chest Wall Soft Tissue
-            hu = 40;
-
-            // Rib Cage / Spine Bones
+            hu = 40; // Soft tissue
             if (distFromCenter > 0.88 && distFromCenter < 0.96) {
               const ribAngle = Math.atan2(ny, nx);
               if (Math.sin(ribAngle * 12) > 0.2) hu = 850; // Cortical Ribs
             }
-            // Vertebral Body (Spine at bottom center)
-            if (Math.abs(x - 256) < 32 && y > 360 && y < 420) {
-              hu = 950; // Bone
-            }
+            if (Math.abs(x - 256) < 32 && y > 360 && y < 420) hu = 950; // Spine
 
-            // Lung Fields (LUL & RUL)
+            // Lungs
             const leftLungDist = Math.sqrt(Math.pow((x - 180)/80, 2) + Math.pow((y - 240)/100, 2));
             const rightLungDist = Math.sqrt(Math.pow((x - 330)/80, 2) + Math.pow((y - 240)/100, 2));
 
             if (leftLungDist < 1.0 || rightLungDist < 1.0) {
-              hu = -750; // Normal Lung Parenchyma
-
-              // Pulmonary Vascular Tree Markings
+              hu = -750;
               const vNoise = Math.sin(x * 0.15) * Math.cos(y * 0.15);
               if (vNoise > 0.4) hu = -400;
 
-              // Target Lesion T1: Spiculated Pulmonary Adenocarcinoma Nodule in RUL (around x:170, y:182)
+              // Nodule T1
               const t1Dist = Math.sqrt(Math.pow(x - 170, 2) + Math.pow(y - 182, 2));
               const currentRadius = isBaseline ? 22.5 : (15.3 * noduleSize);
               if (t1Dist < currentRadius) {
-                // Hyperdense tumor core (+35 HU) with ground glass halo (-200 HU)
                 hu = t1Dist < (currentRadius * 0.65) ? 45 : -150;
-                // Spiculated margin irregularity
                 const spicule = Math.sin(Math.atan2(y - 182, x - 170) * 8);
                 if (t1Dist < currentRadius + spicule * 2.5) hu = 35;
               }
             }
 
-            // Mediastinal Cardiac Silhouette (Center HU +35)
+            // Heart
             const heartDist = Math.sqrt(Math.pow((x - 260)/55, 2) + Math.pow((y - 255)/65, 2));
             if (heartDist < 1.0) {
               hu = 38;
-              // Ascending & Descending Aorta
               const aorta1 = Math.sqrt(Math.pow(x - 235, 2) + Math.pow(y - 225, 2));
               const aorta2 = Math.sqrt(Math.pow(x - 280, 2) + Math.pow(y - 310, 2));
-              if (aorta1 < 16 || aorta2 < 14) hu = 210; // Contrast Enhanced Lumen
+              if (aorta1 < 16 || aorta2 < 14) hu = 210;
             }
           }
 
@@ -674,17 +945,594 @@
       }
 
       targetCtx.putImageData(imgData, 0, 0);
-      const t1 = performance.now();
-      const latencyEl = document.getElementById('diag-latency-val');
-      if (latencyEl && !isBaseline) latencyEl.textContent = `${(t1 - t0).toFixed(2)}ms`;
     }
 
-    // Update Caliper SVG and RECIST Calculations
+    // 4B. Render Digital Radiograph (X-Ray / DX)
+    function renderXRayProjection(targetCtx, w, h) {
+      const imgData = targetCtx.createImageData(w, h);
+      const data = imgData.data;
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          const nx = (x - 256) / 210;
+          const ny = (y - 256) / 220;
+          const dist = Math.sqrt(nx * nx + ny * ny);
+
+          let intensity = 10; // Dark beam penetration
+
+          if (dist < 1.0) {
+            intensity = 70; // Soft tissue shadow
+
+            // Lungs radiolucency (darker)
+            const lungLeft = Math.sqrt(Math.pow((x - 175)/65, 2) + Math.pow((y - 230)/120, 2));
+            const lungRight = Math.sqrt(Math.pow((x - 335)/65, 2) + Math.pow((y - 230)/120, 2));
+            if (lungLeft < 1.0 || lungRight < 1.0) {
+              intensity = 25;
+              // Vascular bronchovascular markings
+              if (Math.sin(x * 0.1) * Math.cos(y * 0.1) > 0.3) intensity += 20;
+            }
+
+            // Mediastinum & Cardiac Contour (Radiopaque white)
+            const heart = Math.sqrt(Math.pow((x - 245)/60, 2) + Math.pow((y - 275)/75, 2));
+            if (heart < 1.0) intensity += 90;
+
+            // Clavicles (Top radiopaque arcs)
+            const clavLeft = Math.abs(y - (130 - (x - 256)*0.15));
+            const clavRight = Math.abs(y - (130 + (x - 256)*0.15));
+            if ((x > 100 && x < 240 && clavLeft < 6) || (x > 270 && x < 410 && clavRight < 6)) {
+              intensity += 110;
+            }
+
+            // Ribs anterior/posterior arcs
+            const ribRing = Math.abs(Math.sin((y - 120) * 0.08 + Math.abs(x - 256) * 0.02));
+            if (ribRing > 0.7 && y > 150 && y < 390) intensity += 45;
+
+            // Spine vertebral bodies
+            if (Math.abs(x - 256) < 22 && y > 100 && y < 450) intensity += 70;
+
+            // Diaphragm arches
+            if (y > 380 && ((x > 100 && x < 230) || (x > 280 && x < 410))) intensity += 100;
+          }
+
+          const gray = Math.min(255, Math.max(0, intensity));
+          data[idx] = gray;
+          data[idx + 1] = gray;
+          data[idx + 2] = gray;
+          data[idx + 3] = 255;
+        }
+      }
+
+      targetCtx.putImageData(imgData, 0, 0);
+    }
+
+    // 4C. Render Ultrasound B-Mode Acoustic Sector Cone + Doppler
+    function renderUltrasoundBMode(targetCtx, w, h) {
+      const imgData = targetCtx.createImageData(w, h);
+      const data = imgData.data;
+
+      const apexX = 256, apexY = 50;
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          const dx = x - apexX;
+          const dy = y - apexY;
+          const radius = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dx, dy); // 0 down
+
+          // Sector wedge (-40 deg to +40 deg, depth 60 to 440)
+          if (Math.abs(angle) < 0.65 && radius > 60 && radius < 430) {
+            // Acoustic speckle noise
+            const speckle = (Math.sin(x * 12.3 + y * 7.7) * 43758.5453) % 1;
+            let intensity = 45 + Math.abs(speckle) * 35;
+
+            // Hyperechoic fibrous fascia
+            if (Math.abs(radius - 180) < 5 || Math.abs(radius - 290) < 7) {
+              intensity = 180 + Math.abs(speckle) * 50;
+            }
+
+            // Anechoic fluid pocket (Thyroid nodule cyst)
+            const cystDist = Math.sqrt(Math.pow(x - 230, 2) + Math.pow(y - 230, 2));
+            if (cystDist < 28) {
+              intensity = 10 + Math.abs(speckle) * 10;
+              // Posterior acoustic enhancement
+              if (y > 260 && Math.abs(x - 230) < 25) intensity += 60;
+            }
+
+            // Pulsed Color Doppler Flow in Carotid Lumen
+            const dopplerDist = Math.sqrt(Math.pow(x - 300, 2) + Math.pow(y - 250, 2));
+            if (dopplerDist < 20) {
+              // Red/Blue pulsatile spectrum
+              data[idx] = 240;     // Red
+              data[idx + 1] = 40;  // Green
+              data[idx + 2] = 40;  // Blue
+              data[idx + 3] = 255;
+              continue;
+            }
+
+            const gray = Math.min(255, Math.floor(intensity));
+            data[idx] = gray;
+            data[idx + 1] = gray;
+            data[idx + 2] = gray;
+            data[idx + 3] = 255;
+          } else {
+            // Outside ultrasound cone = black
+            data[idx] = 0;
+            data[idx + 1] = 0;
+            data[idx + 2] = 0;
+            data[idx + 3] = 255;
+          }
+        }
+      }
+
+      targetCtx.putImageData(imgData, 0, 0);
+    }
+
+    // 4D. Render MRI T1/T2 Spin Echo Brain
+    function renderMRISlice(targetCtx, w, h) {
+      const imgData = targetCtx.createImageData(w, h);
+      const data = imgData.data;
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          const nx = (x - 256) / 165;
+          const ny = (y - 256) / 195;
+          const dist = Math.sqrt(nx * nx + ny * ny);
+
+          let intensity = 0;
+
+          if (dist < 1.0) {
+            intensity = 80; // White matter baseline
+
+            // Skull vault (Bone marrow signal)
+            if (dist > 0.92 && dist < 0.98) intensity = 190;
+            // Cortical Gray Matter Ribbon
+            if (dist > 0.78 && dist < 0.90) intensity = 135;
+
+            // Lateral Ventricles (CSF = low T1 or high T2)
+            const v1 = Math.sqrt(Math.pow((x - 235)/15, 2) + Math.pow((y - 240)/45, 2));
+            const v2 = Math.sqrt(Math.pow((x - 277)/15, 2) + Math.pow((y - 240)/45, 2));
+            if (v1 < 1.0 || v2 < 1.0) intensity = 20;
+
+            // Interhemispheric fissure
+            if (Math.abs(x - 256) < 2) intensity = 30;
+
+            // Gyri & Sulci Foldings
+            const folding = Math.sin(x * 0.12) * Math.cos(y * 0.12);
+            if (folding > 0.35 && dist > 0.5 && dist < 0.85) intensity -= 35;
+          }
+
+          const gray = Math.min(255, Math.max(0, intensity));
+          data[idx] = gray;
+          data[idx + 1] = gray;
+          data[idx + 2] = gray;
+          data[idx + 3] = 255;
+        }
+      }
+
+      targetCtx.putImageData(imgData, 0, 0);
+    }
+
+    // 4E. Render PET-CT SUV Tracer Fusion
+    function renderPETCTFusion(targetCtx, w, h) {
+      renderCTSlice(targetCtx, state.slice, false);
+      const imgData = targetCtx.getImageData(0, 0, w, h);
+      const data = imgData.data;
+
+      // Overlay 18F-FDG Metabolic Hotspots (High SUV Uptake at RUL tumor)
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * 4;
+          const tumorDist = Math.sqrt(Math.pow(x - 170, 2) + Math.pow(y - 182, 2));
+          
+          if (tumorDist < 24) {
+            const suv = Math.max(0, 1.0 - tumorDist / 24); // SUV intensity
+            if (suv > 0.2) {
+              // Heatmap: yellow/red SUV glow
+              data[idx] = Math.min(255, data[idx] + Math.floor(suv * 240));     // R
+              data[idx + 1] = Math.min(255, data[idx + 1] + Math.floor(suv * 160)); // G
+              data[idx + 2] = Math.floor(data[idx + 2] * (1 - suv));             // B
+            }
+          }
+        }
+      }
+
+      targetCtx.putImageData(imgData, 0, 0);
+    }
+
+    // 4F. Render 3D Perspective Volumetric Projection & Oblique Cut Plane
+    function render3DVolumeProjection(targetCtx, w, h) {
+      targetCtx.fillStyle = '#020617';
+      targetCtx.fillRect(0, 0, w, h);
+
+      const pRad = (state.joystickPitch * Math.PI) / 180;
+      const yRad = (state.joystickYaw * Math.PI) / 180;
+      const rRad = (state.joystickRoll * Math.PI) / 180;
+
+      // 3D Bounding Cube Vertices (-1 .. +1)
+      const size = 130;
+      const vertices = [
+        [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+        [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
+      ];
+
+      const projected = vertices.map(([vx, vy, vz]) => {
+        // Rotate around X (pitch)
+        let y1 = vy * Math.cos(pRad) - vz * Math.sin(pRad);
+        let z1 = vy * Math.sin(pRad) + vz * Math.cos(pRad);
+
+        // Rotate around Y (yaw)
+        let x2 = vx * Math.cos(yRad) + z1 * Math.sin(yRad);
+        let z2 = -vx * Math.sin(yRad) + z1 * Math.cos(yRad);
+
+        // Perspective projection
+        const fov = 350;
+        const scale = fov / (fov + z2 * size * 0.8);
+        return {
+          x: 256 + x2 * size * scale,
+          y: 256 + y1 * size * scale,
+          z: z2
+        };
+      });
+
+      // Draw 3D Oblique Cross-Sectional Plane (Cutting slice)
+      targetCtx.save();
+      targetCtx.fillStyle = 'rgba(20, 184, 166, 0.25)';
+      targetCtx.strokeStyle = '#2dd4bf';
+      targetCtx.lineWidth = 2;
+      targetCtx.beginPath();
+      targetCtx.moveTo(projected[0].x, projected[0].y);
+      targetCtx.lineTo(projected[1].x, projected[1].y);
+      targetCtx.lineTo(projected[6].x, projected[6].y);
+      targetCtx.lineTo(projected[7].x, projected[7].y);
+      targetCtx.closePath();
+      targetCtx.fill();
+      targetCtx.stroke();
+
+      // Render 3D Wireframe Volume Box Edges
+      targetCtx.strokeStyle = '#38bdf8';
+      targetCtx.lineWidth = 1.2;
+      const edges = [
+        [0,1], [1,2], [2,3], [3,0],
+        [4,5], [5,6], [6,7], [7,4],
+        [0,4], [1,5], [2,6], [3,7]
+      ];
+
+      edges.forEach(([i, j]) => {
+        targetCtx.beginPath();
+        targetCtx.moveTo(projected[i].x, projected[i].y);
+        targetCtx.lineTo(projected[j].x, projected[j].y);
+        targetCtx.stroke();
+      });
+
+      // Draw Center Volumetric Core Density
+      const coreGrad = targetCtx.createRadialGradient(256, 256, 10, 256, 256, 90);
+      coreGrad.addColorStop(0, 'rgba(56, 189, 248, 0.4)');
+      coreGrad.addColorStop(0.7, 'rgba(20, 184, 166, 0.15)');
+      coreGrad.addColorStop(1, 'rgba(2, 6, 23, 0)');
+      targetCtx.fillStyle = coreGrad;
+      targetCtx.beginPath();
+      targetCtx.arc(256, 256, 90, 0, Math.PI * 2);
+      targetCtx.fill();
+
+      // Draw Cardinal 3D Coordinate Axis Gizmo
+      targetCtx.font = 'bold 10px monospace';
+      targetCtx.fillStyle = '#f59e0b';
+      targetCtx.fillText('ANTERIOR (A)', projected[2].x + 4, projected[2].y);
+      targetCtx.fillStyle = '#38bdf8';
+      targetCtx.fillText('SUPERIOR (S)', projected[0].x - 40, projected[0].y - 8);
+      targetCtx.fillStyle = '#c084fc';
+      targetCtx.fillText('RIGHT (R)', projected[4].x - 40, projected[4].y + 12);
+
+      targetCtx.restore();
+    }
+
+    // =========================================================================
+    // 5. ONSCREEN 3D JOYSTICK LOGIC & GIMBAL CONTROL
+    // =========================================================================
+    function setup3DJoystick() {
+      const base = document.getElementById('joystick-base');
+      const nub = document.getElementById('joystick-nub');
+      if (!base || !nub) return;
+
+      const maxRadius = 42; // Max pixel deflection
+
+      const onPointerMove = (e) => {
+        if (!state.isDraggingJoystick) return;
+        const rect = base.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        let dx = e.clientX - centerX;
+        let dy = e.clientY - centerY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > maxRadius) {
+          dx = (dx / dist) * maxRadius;
+          dy = (dy / dist) * maxRadius;
+        }
+
+        nub.style.transform = `translate(${dx}px, ${dy}px)`;
+
+        // Normalized deflection (-1.0 to +1.0)
+        const normX = dx / maxRadius;
+        const normY = dy / maxRadius;
+
+        // Map to Euler Angles
+        state.joystickYaw = Math.round(normX * 180);
+        state.joystickPitch = Math.round(-normY * 90);
+
+        update3DTelemetry();
+        renderMainViewport();
+      };
+
+      const onPointerUp = () => {
+        if (!state.isDraggingJoystick) return;
+        state.isDraggingJoystick = false;
+        nub.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+        nub.style.transform = 'translate(0px, 0px)';
+        setTimeout(() => nub.style.transition = '', 200);
+      };
+
+      base.addEventListener('pointerdown', (e) => {
+        state.isDraggingJoystick = true;
+        $appz.haptic('selection');
+        base.setPointerCapture(e.pointerId);
+        onPointerMove(e);
+      });
+
+      base.addEventListener('pointermove', onPointerMove);
+      base.addEventListener('pointerup', onPointerUp);
+      base.addEventListener('pointercancel', onPointerUp);
+    }
+
+    window.set3DAngles = function(pitch, yaw, roll = 0) {
+      $appz.haptic('medium');
+      state.joystickPitch = pitch;
+      state.joystickYaw = yaw;
+      state.joystickRoll = roll;
+      update3DTelemetry();
+      renderMainViewport();
+    };
+
+    window.reset3DAngles = function() {
+      $appz.haptic('light');
+      set3DAngles(0, 0, 0);
+    };
+
+    window.toggle3DMode = function() {
+      $appz.haptic('medium');
+      state.is3DMode = !state.is3DMode;
+      const btn = document.getElementById('btn-toggle-3d');
+      const text = document.getElementById('text-toggle-3d');
+      const caliperSvg = document.getElementById('caliper-svg');
+      const modeInsp = document.getElementById('insp-render-mode');
+
+      if (btn) btn.className = state.is3DMode 
+        ? 'px-2.5 py-1 rounded-lg font-bold text-[10px] flex items-center gap-1 bg-teal-600 text-white shadow-sm' 
+        : 'px-2.5 py-1 rounded-lg font-bold text-[10px] flex items-center gap-1 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white';
+      
+      if (text) text.textContent = state.is3DMode ? '3D Mode: ON' : '3D Mode: OFF';
+      if (caliperSvg) caliperSvg.style.display = state.is3DMode ? 'none' : 'block';
+      if (modeInsp) modeInsp.textContent = state.is3DMode ? '3D OBLIQUE PROJECTION' : '2D SLICE';
+
+      renderMainViewport();
+    };
+
+    window.toggleJoystickHUD = function() {
+      $appz.haptic('selection');
+      state.showJoystick = !state.showJoystick;
+      const widget = document.getElementById('onscreen-joystick-widget');
+      if (widget) widget.style.display = state.showJoystick ? 'flex' : 'none';
+    };
+
+    function update3DTelemetry() {
+      const readout = document.getElementById('joy-readout');
+      const hudAngle = document.getElementById('hud-angle-readout');
+      const inspPitch = document.getElementById('insp-angle-pitch');
+      const inspYaw = document.getElementById('insp-angle-yaw');
+      const inspRoll = document.getElementById('insp-angle-roll');
+
+      const pitchStr = `${state.joystickPitch > 0 ? '+' : ''}${state.joystickPitch}°`;
+      const yawStr = `${state.joystickYaw > 0 ? '+' : ''}${state.joystickYaw}°`;
+      const rollStr = `${state.joystickRoll > 0 ? '+' : ''}${state.joystickRoll}°`;
+
+      if (readout) readout.textContent = `P: ${pitchStr} Y: ${yawStr}`;
+      if (hudAngle) hudAngle.textContent = `Pitch ${pitchStr} | Yaw ${yawStr}`;
+      if (inspPitch) inspPitch.textContent = pitchStr;
+      if (inspYaw) inspYaw.textContent = yawStr;
+      if (inspRoll) inspRoll.textContent = rollStr;
+    }
+
+    // =========================================================================
+    // 6. PATIENT WORKLIST & IMAGING TABS LOGIC
+    // =========================================================================
+    window.toggleWorklist = function(show) {
+      $appz.haptic(show ? 'medium' : 'light');
+      const modal = document.getElementById('pacs-worklist-modal');
+      if (modal) modal.classList.toggle('hidden', !show);
+      if (show) renderWorklistTable();
+    };
+
+    function renderWorklistTable() {
+      const tbody = document.getElementById('worklist-tbody');
+      if (!tbody) return;
+
+      const q = state.worklistSearch.toLowerCase();
+      const statusF = state.worklistStatusFilter;
+
+      const filtered = PATIENTS.filter(p => {
+        const matchesStatus = statusF === 'ALL' || p.status === statusF;
+        const matchesSearch = !q || 
+          p.name.toLowerCase().includes(q) || 
+          p.mrn.toLowerCase().includes(q) || 
+          p.schedule.toLowerCase().includes(q) || 
+          p.modality.toLowerCase().includes(q);
+        return matchesStatus && matchesSearch;
+      });
+
+      tbody.innerHTML = filtered.map(p => {
+        const isSelected = p.id === state.patientId;
+        const badgeClass = `status-badge-${p.status.toLowerCase().replace(/\s+/g, '')}`;
+        return `
+          <tr onclick="selectPatient('${p.id}')" class="hover:bg-slate-800/80 cursor-pointer transition-colors ${isSelected ? 'bg-teal-950/40 border-l-4 border-teal-400' : ''}">
+            <td class="py-2.5 px-3 text-slate-500">💽 D</td>
+            <td class="py-2.5 px-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${p.status}</span>
+            </td>
+            <td class="py-2.5 px-3 text-slate-300">${p.dateTime}</td>
+            <td class="py-2.5 px-3 font-bold text-white">${p.name}</td>
+            <td class="py-2.5 px-3 text-teal-300 font-bold">${p.modality}</td>
+            <td class="py-2.5 px-3 text-slate-400">${p.objectType}</td>
+            <td class="py-2.5 px-3 text-amber-300 font-bold">${p.schedule}</td>
+            <td class="py-2.5 px-3 text-right">
+              <button class="px-2 py-0.5 rounded bg-teal-600/30 hover:bg-teal-600 text-teal-200 text-[10px] font-bold">Select →</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.filterWorklist = function(val) {
+      state.worklistSearch = val;
+      renderWorklistTable();
+    };
+
+    window.filterByStatus = function(status) {
+      $appz.haptic('selection');
+      state.worklistStatusFilter = status;
+      renderWorklistTable();
+    };
+
+    window.selectPatient = function(pid) {
+      $appz.haptic('success');
+      state.patientId = pid;
+      const patient = PATIENTS.find(p => p.id === pid);
+      if (!patient) return;
+
+      // Update Header & HUD labels
+      document.getElementById('hdr-patient-name').textContent = `${patient.name} [${patient.gender}/${patient.age}]`;
+      document.getElementById('hdr-patient-mrn').textContent = patient.mrn;
+      document.getElementById('hdr-patient-study').textContent = `${patient.modality} ${patient.schedule}`;
+
+      document.getElementById('hud-patient-name').textContent = patient.name;
+      document.getElementById('hud-patient-mrn').textContent = `MRN: ${patient.mrn} [${patient.gender}/${patient.age}]`;
+      document.getElementById('hud-patient-dob').textContent = `DOB: ${patient.dob}`;
+      document.getElementById('hud-study-desc').textContent = patient.studyDesc;
+
+      // Update Inspector Patient Profile
+      const inspName = document.getElementById('insp-patient-name');
+      const inspMrn = document.getElementById('insp-patient-mrn');
+      const inspDemog = document.getElementById('insp-patient-demog');
+      const inspMod = document.getElementById('insp-patient-mod');
+      const inspReg = document.getElementById('insp-patient-reg');
+      const inspStat = document.getElementById('insp-patient-status');
+
+      if (inspName) inspName.textContent = patient.name;
+      if (inspMrn) inspMrn.textContent = patient.mrn;
+      if (inspDemog) inspDemog.textContent = `${patient.age} • ${patient.gender === 'M' ? 'MALE' : 'FEMALE'}`;
+      if (inspMod) inspMod.textContent = patient.modality;
+      if (inspReg) inspReg.textContent = patient.schedule;
+      if (inspStat) inspStat.textContent = patient.status;
+
+      // Set active modality to patient primary
+      setImagingModality(patient.primaryModality || 'CT');
+      toggleWorklist(false);
+    };
+
+    // =========================================================================
+    // 7. PATIENT IMAGING MODALITY TABS & SCAN FILES
+    // =========================================================================
+    window.setImagingModality = function(modality) {
+      $appz.haptic('selection');
+      state.activeModality = modality;
+
+      // Update Tabs Styling
+      ['ct', 'dx', 'us', 'mr', 'pet'].forEach(m => {
+        const btn = document.getElementById(`tab-modality-${m}`);
+        if (btn) {
+          const active = m.toUpperCase() === modality;
+          btn.className = active 
+            ? 'px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 bg-teal-600 text-white shadow-sm transition-all'
+            : 'px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 text-slate-400 hover:text-white bg-slate-800/80 transition-all';
+        }
+      });
+
+      // Update Scan Files Carousel
+      renderScanFilesStrip(modality);
+
+      // Hide or Show Caliper overlay based on modality (calipers active on CT & MR)
+      const caliperSvg = document.getElementById('caliper-svg');
+      if (caliperSvg && !state.is3DMode) {
+        caliperSvg.style.display = (modality === 'CT' || modality === 'MR') ? 'block' : 'none';
+      }
+
+      renderMainViewport();
+    };
+
+    function renderScanFilesStrip(modality) {
+      const strip = document.getElementById('scan-files-strip');
+      if (!strip) return;
+
+      const pData = IMAGING_DATA[state.patientId] || IMAGING_DATA['P1'];
+      const seriesList = pData[modality] || [];
+
+      strip.innerHTML = seriesList.map((s, idx) => {
+        const isSelected = (state.activeSeriesId === s.id) || (idx === 0 && !seriesList.find(x => x.id === state.activeSeriesId));
+        if (idx === 0 && !seriesList.find(x => x.id === state.activeSeriesId)) {
+          state.activeSeriesId = s.id;
+        }
+
+        return `
+          <div onclick="selectScanFile('${s.id}')" 
+               class="px-3 py-1.5 rounded-xl border flex items-center gap-2 cursor-pointer transition-all shrink-0 ${isSelected ? 'bg-teal-600/20 border-teal-500/60 shadow-sm' : 'bg-slate-900 border-slate-800 hover:border-slate-700'}">
+            <div class="w-7 h-7 rounded-lg ${isSelected ? 'bg-teal-600 text-white' : 'bg-slate-800 text-slate-400'} flex items-center justify-center text-xs font-black">
+              ${idx + 1}
+            </div>
+            <div>
+              <div class="text-[11px] font-bold text-white whitespace-nowrap">${s.title}</div>
+              <div class="text-[9px] text-teal-400 font-mono whitespace-nowrap">${s.slices} Slices • ${s.thk} • ${s.matrix}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.selectScanFile = function(seriesId) {
+      $appz.haptic('medium');
+      state.activeSeriesId = seriesId;
+      const pData = IMAGING_DATA[state.patientId] || IMAGING_DATA['P1'];
+      const s = (pData[state.activeModality] || []).find(x => x.id === seriesId);
+
+      if (s) {
+        state.totalSlices = s.slices;
+        state.slice = Math.min(state.slice, s.slices);
+        const hudThk = document.getElementById('hud-thk');
+        const hudMatrix = document.getElementById('hud-matrix');
+        const hudTotal = document.getElementById('hud-total-slices');
+        const slider = document.getElementById('slice-slider');
+        const sliderLabel = document.getElementById('slider-max-label');
+
+        if (hudThk) hudThk.textContent = s.thk;
+        if (hudMatrix) hudMatrix.textContent = s.matrix;
+        if (hudTotal) hudTotal.textContent = s.slices;
+        if (slider) { slider.max = s.slices; slider.value = state.slice; }
+        if (sliderLabel) sliderLabel.textContent = s.slices;
+      }
+
+      renderScanFilesStrip(state.activeModality);
+      renderMainViewport();
+    };
+
+    // =========================================================================
+    // 8. CALIPERS, HU WINDOWING, CINE PLAYBACK & EVENT LISTENERS
+    // =========================================================================
     function updateCaliperUI() {
       const p1 = state.caliperP1;
       const p2 = state.caliperP2;
 
-      // Convert image coordinates (0..512) to container scale
       const line = document.getElementById('caliper-line');
       const c1 = document.getElementById('caliper-p1');
       const c2 = document.getElementById('caliper-p2');
@@ -704,13 +1552,11 @@
       c2.setAttribute('cx', p2.x);
       c2.setAttribute('cy', p2.y);
 
-      // Calculate Euclidean Long Axis
       const dx = p2.x - p1.x;
       const dy = p2.y - p1.y;
       const pixelDist = Math.sqrt(dx * dx + dy * dy);
       const mmDist = parseFloat((pixelDist * state.pixelSpacing).toFixed(1));
 
-      // Calculate Perpendicular Short Axis
       const midX = (p1.x + p2.x) / 2;
       const midY = (p1.y + p2.y) / 2;
       const perpAngle = Math.atan2(dy, dx) + Math.PI / 2;
@@ -733,7 +1579,6 @@
         svgText.textContent = `${mmDist} mm`;
       }
 
-      // Update RECIST Table Values
       const t1Current = document.getElementById('t1-current-text');
       const t1Delta = document.getElementById('t1-delta-text');
       const t1Short = document.getElementById('t1-short-text');
@@ -750,17 +1595,13 @@
         t1Delta.className = deltaT1 <= -30 ? 'font-black text-emerald-400' : (deltaT1 >= 20 ? 'font-black text-rose-500' : 'font-black text-amber-400');
       }
 
-      // Total RECIST Sum of Diameters (SOD)
       const totalCurrent = mmDist + state.t2LongAxis;
-      const baselineTotal = state.t1Baseline + state.t2Baseline; // 50.6 mm
+      const baselineTotal = state.t1Baseline + state.t2Baseline;
       const totalPct = ((totalCurrent - baselineTotal) / baselineTotal) * 100;
 
       if (currentSod) currentSod.textContent = `${totalCurrent.toFixed(1)} mm`;
-      if (recistPct) {
-        recistPct.textContent = `${totalPct > 0 ? '+' : ''}${totalPct.toFixed(1)}%`;
-      }
+      if (recistPct) recistPct.textContent = `${totalPct > 0 ? '+' : ''}${totalPct.toFixed(1)}%`;
 
-      // Staging Status
       if (recistBadge) {
         if (totalPct <= -30) {
           recistBadge.textContent = 'PARTIAL RESPONSE (PR)';
@@ -775,7 +1616,6 @@
       }
     }
 
-    // Set Slice
     window.setSlice = function(s) {
       state.slice = Math.max(1, Math.min(state.totalSlices, s));
       const slider = document.getElementById('slice-slider');
@@ -785,9 +1625,9 @@
       if (indicator) indicator.textContent = `Slice ${state.slice} / ${state.totalSlices}`;
       if (hudSlice) hudSlice.textContent = state.slice;
 
-      renderSlice(ctx, state.slice, false);
+      renderMainViewport();
       if (state.layout === '1x2' && baselineCtx) {
-        renderSlice(baselineCtx, state.slice, true);
+        renderCTSlice(baselineCtx, state.slice, true);
       }
     };
 
@@ -801,7 +1641,6 @@
       setSlice(s);
     };
 
-    // Toggle Cine Loop Playback
     window.toggleCinePlayback = function() {
       $appz.haptic('selection');
       state.cinePlaying = !state.cinePlaying;
@@ -827,7 +1666,6 @@
       }
     };
 
-    // Tool Management
     window.setMedicalTool = function(tool) {
       $appz.haptic('selection');
       state.tool = tool;
@@ -839,11 +1677,8 @@
                                  : 'px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-bold flex items-center gap-1';
         }
       });
-      const diagTool = document.getElementById('diag-tool-val');
-      if (diagTool) diagTool.textContent = tool.toUpperCase();
     };
 
-    // W/L Presets
     window.setWlPreset = function(name, w, c) {
       $appz.haptic('selection');
       state.preset = name;
@@ -859,8 +1694,8 @@
       document.getElementById('hud-wl-w').textContent = w;
       document.getElementById('hud-wl-l').textContent = c;
       document.getElementById('hud-wl-preset').textContent = name;
-      renderSlice(ctx, state.slice, false);
-      if (state.layout === '1x2' && baselineCtx) renderSlice(baselineCtx, state.slice, true);
+      renderMainViewport();
+      if (state.layout === '1x2' && baselineCtx) renderCTSlice(baselineCtx, state.slice, true);
     };
 
     window.resetMedicalViewport = function() {
@@ -874,7 +1709,6 @@
       updateCaliperUI();
     };
 
-    // Viewport Layout (1x1 or 1x2 Comparison)
     window.setLayout = function(layout) {
       $appz.haptic('medium');
       state.layout = layout;
@@ -886,7 +1720,7 @@
         if (comp) comp.classList.remove('hidden');
         if (b2) b2.className = 'px-2 py-0.5 rounded bg-teal-600 text-white font-bold';
         if (b1) b1.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white';
-        renderSlice(baselineCtx, state.slice, true);
+        if (baselineCtx) renderCTSlice(baselineCtx, state.slice, true);
       } else {
         if (comp) comp.classList.add('hidden');
         if (b1) b1.className = 'px-2 py-0.5 rounded bg-teal-600 text-white font-bold';
@@ -903,10 +1737,9 @@
       if (btn) btn.textContent = state.showOverlays ? 'HUD: ON' : 'HUD: OFF';
     };
 
-    // Inspector Tab Switching
     window.setInspectorTab = function(tab) {
       $appz.haptic('selection');
-      ['recist', 'series', 'diag'].forEach(t => {
+      ['recist', 'patient', 'gimbal', 'diag'].forEach(t => {
         const pane = document.getElementById(`inspector-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (pane) pane.classList.toggle('hidden', t !== tab);
@@ -918,18 +1751,12 @@
       });
     };
 
-    window.selectSeries = function(s) {
-      $appz.haptic('medium');
-      alert(`Switched to Series ${s}. Streaming 320 DICOM slices via Layer-Srv.`);
-    };
-
     window.exportRecistReport = function() {
       $appz.haptic('success');
-      alert(`[DICOM SR EXPORT COMPLETE]\nPatient: DOE^JOHN (#ONC-94021)\nStudy Date: 2026-10-15\nAssessment: PARTIAL RESPONSE (PR)\nSum of Diameters: 34.9 mm (-31.0%)\nStandard: RECIST 1.1 Compliant`);
+      alert(`[DICOM SR EXPORT COMPLETE]\nPatient: ${document.getElementById('hdr-patient-name').textContent}\nAssessment: PARTIAL RESPONSE (PR)\nSum of Diameters: 34.9 mm (-31.0%)\nStandard: RECIST 1.1 Compliant`);
     };
 
-    // Canvas Pointer Interactions (Caliper Drags, W/L Drag, HU readout)
-    const svgOverlay = document.getElementById('caliper-svg');
+    // Caliper Pointer Drag Events
     const p1Handle = document.getElementById('caliper-p1');
     const p2Handle = document.getElementById('caliper-p2');
 
@@ -967,14 +1794,12 @@
         const cx = Math.max(0, Math.min(512, Math.round(rawX * scaleX)));
         const cy = Math.max(0, Math.min(512, Math.round(rawY * scaleY)));
 
-        // Live Position and Simulated HU under cursor
         const posX = document.getElementById('hud-pos-x');
         const posY = document.getElementById('hud-pos-y');
         const huText = document.getElementById('hud-hu-readout');
         if (posX) posX.textContent = cx;
         if (posY) posY.textContent = cy;
 
-        // Approximate HU under cursor
         const t1Dist = Math.sqrt(Math.pow(cx - 170, 2) + Math.pow(cy - 182, 2));
         let hu = -750;
         if (t1Dist < 16) hu = 45;
@@ -982,7 +1807,6 @@
         else if (cx > 200 && cx < 312 && cy > 200 && cy < 320) hu = 38;
         if (huText) huText.textContent = `HU: ${hu > 0 ? '+' : ''}${hu}`;
 
-        // Handle Caliper Dragging
         if (state.isDraggingP1) {
           state.caliperP1 = { x: cx, y: cy };
           updateCaliperUI();
@@ -999,7 +1823,7 @@
           document.getElementById('hud-wl-w').textContent = Math.round(state.windowWidth);
           document.getElementById('hud-wl-l').textContent = Math.round(state.windowCenter);
           document.getElementById('hud-wl-preset').textContent = 'CUSTOM';
-          renderSlice(ctx, state.slice, false);
+          renderMainViewport();
         }
       });
 
@@ -1013,7 +1837,6 @@
       wrapper.addEventListener('pointerup', endDrag);
       wrapper.addEventListener('pointercancel', endDrag);
 
-      // Mouse Wheel to Scroll Slices (DICOM Standard Paradigm)
       wrapper.addEventListener('wheel', (e) => {
         e.preventDefault();
         const delta = e.deltaY > 0 ? 1 : -1;
@@ -1021,7 +1844,7 @@
       }, { passive: false });
     }
 
-    // Keyboard Shortcuts (Arrow Keys for Slices)
+    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
         stepSlice(1);
@@ -1033,10 +1856,12 @@
       }
     });
 
-    // Initialize DICOM PACS on page load
+    // Page Load Initialization
     document.addEventListener('DOMContentLoaded', () => {
-      setSlice(142);
+      selectPatient('P1');
       updateCaliperUI();
+      setup3DJoystick();
+      update3DTelemetry();
       if (typeof $appz !== 'undefined' && $appz.setViewMode) {
         $appz.setViewMode('OS-H');
       }

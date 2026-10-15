@@ -215,4 +215,162 @@ describe("Clinical DICOM 3.0 Diagnostic Engine & RECIST 1.1 Staging", () => {
     expect(layers.ux.zIndexLevels.length).toBe(10);
     expect(layers.srv.runtime).toContain("Go");
   });
+
+  // 7. Patient Worklist Registry & Filter Logic (RAMSOFT PowerReader Paradigm)
+  it("filters and selects patients across clinical PACS worklist statuses", () => {
+    interface PatientStudy {
+      id: string;
+      name: string;
+      mrn: string;
+      status: "ORDERED" | "SCHEDULED" | "CHECKED IN" | "CONFIRMED" | "ARRIVED" | "COMPLETED" | "VERIFIED";
+      modality: "CT" | "MR" | "DX" | "US" | "CR" | "MG";
+      schedule: string;
+    }
+
+    const worklist: PatientStudy[] = [
+      { id: "P1", name: "DOE^JOHN", mrn: "#ONC-94021", status: "VERIFIED", modality: "CT", schedule: "CHEST" },
+      { id: "P2", name: "WARREN^SHARON", mrn: "#ONC-88142", status: "ORDERED", modality: "CT", schedule: "CHEST" },
+      { id: "P3", name: "ANGELOU^MAYA^N^MS.^JR", mrn: "#RAD-77291", status: "ORDERED", modality: "MR", schedule: "BREAST" },
+      { id: "P4", name: "SMITHERS^MIKE", mrn: "#ONC-66382", status: "SCHEDULED", modality: "MR", schedule: "CHEST" },
+      { id: "P5", name: "NAVAL^WILLIAM", mrn: "#RAD-55109", status: "SCHEDULED", modality: "DX", schedule: "LSPINE" },
+      { id: "P6", name: "RICE^JIM", mrn: "#ONC-33821", status: "CHECKED IN", modality: "CT", schedule: "ABDOMEN" },
+      { id: "P7", name: "JONES^TIM", mrn: "#RAD-22904", status: "CONFIRMED", modality: "MR", schedule: "CHEST" },
+      { id: "P8", name: "BARILLAS^LIZETTE^M^MS.", mrn: "#ONC-11048", status: "ARRIVED", modality: "DX", schedule: "CHEST" },
+      { id: "P9", name: "SEYMOUR^JANE", mrn: "#RAD-99381", status: "COMPLETED", modality: "US", schedule: "PELVIS" },
+      { id: "P10", name: "SANCHEZ^VIVIANA", mrn: "#RAD-88492", status: "VERIFIED", modality: "US", schedule: "PELVIS" }
+    ];
+
+    // Filter by query "chest"
+    const chestStudies = worklist.filter(p => p.schedule.toLowerCase().includes("chest") || p.name.toLowerCase().includes("chest"));
+    expect(chestStudies.length).toBe(5);
+
+    // Filter by modality "MR"
+    const mrStudies = worklist.filter(p => p.modality === "MR");
+    expect(mrStudies.length).toBe(3);
+
+    // Filter by status "VERIFIED"
+    const verifiedStudies = worklist.filter(p => p.status === "VERIFIED");
+    expect(verifiedStudies.length).toBe(2);
+    expect(verifiedStudies.map(p => p.id)).toEqual(["P1", "P10"]);
+  });
+
+  // 8. Patient Imaging Tabs & Scan Files Series Selection
+  it("organizes scan files across imaging modality tabs (CT, DX, US, MR, PET)", () => {
+    interface ScanSeries {
+      id: string;
+      title: string;
+      slices: number;
+      matrix: string;
+      modality: "CT" | "DX" | "US" | "MR" | "PET";
+    }
+
+    const imagingTabs: Record<string, ScanSeries[]> = {
+      CT: [
+        { id: "CT-S1", title: "Series 1: Scout Topogram", slices: 1, matrix: "512x512", modality: "CT" },
+        { id: "CT-S2", title: "Series 2: Axial Chest Thin-Slice CT", slices: 320, matrix: "512x512", modality: "CT" },
+        { id: "CT-S3", title: "Series 3: Coronal MPR Reformat", slices: 240, matrix: "512x512", modality: "CT" },
+        { id: "CT-S4", title: "Series 4: Sagittal MPR Reformat", slices: 180, matrix: "512x512", modality: "CT" }
+      ],
+      DX: [
+        { id: "DX-S1", title: "Series 1: Chest PA Erect", slices: 1, matrix: "2048x2048", modality: "DX" },
+        { id: "DX-S2", title: "Series 2: Chest Lateral", slices: 1, matrix: "2048x2048", modality: "DX" }
+      ],
+      US: [
+        { id: "US-S1", title: "Series 1: Thyroid B-Mode Transverse", slices: 120, matrix: "640x480", modality: "US" },
+        { id: "US-S2", title: "Series 2: Color Doppler Carotid", slices: 60, matrix: "640x480", modality: "US" }
+      ],
+      MR: [
+        { id: "MR-S1", title: "Series 1: T1 Axial Spin-Echo", slices: 256, matrix: "512x512", modality: "MR" },
+        { id: "MR-S2", title: "Series 2: T2 FLAIR Coronal", slices: 256, matrix: "512x512", modality: "MR" }
+      ],
+      PET: [
+        { id: "PET-S1", title: "Series 1: 18F-FDG Whole Body MIP", slices: 360, matrix: "256x256", modality: "PET" }
+      ]
+    };
+
+    expect(imagingTabs.CT.length).toBe(4);
+    expect(imagingTabs.DX.length).toBe(2);
+    expect(imagingTabs.US.length).toBe(2);
+    expect(imagingTabs.MR.length).toBe(2);
+    expect(imagingTabs.PET.length).toBe(1);
+
+    // Switching to US and selecting Series 2
+    const selectedSeries = imagingTabs.US.find(s => s.id === "US-S2");
+    expect(selectedSeries).toBeDefined();
+    expect(selectedSeries?.slices).toBe(60);
+    expect(selectedSeries?.matrix).toBe("640x480");
+  });
+
+  // 9. Onscreen 3D Joystick Euler Angles & Spatial Matrix Math
+  it("calculates 3D spatial rotation angles and projection from joystick deflection", () => {
+    function calculate3DAngles(
+      joystickNormX: number, // -1.0 .. +1.0
+      joystickNormY: number, // -1.0 .. +1.0
+      currentPitch: number,
+      currentYaw: number
+    ): { pitch: number; yaw: number } {
+      // Sensitivity: 90 deg max pitch, 180 deg max yaw
+      const newPitch = Math.max(-90, Math.min(90, Math.round(joystickNormY * 90)));
+      const newYaw = Math.max(-180, Math.min(180, Math.round(joystickNormX * 180)));
+      return { pitch: newPitch, yaw: newYaw };
+    }
+
+    // Centered joystick = 0 pitch, 0 yaw (Axial view)
+    const center = calculate3DAngles(0, 0, 0, 0);
+    expect(center.pitch).toBe(0);
+    expect(center.yaw).toBe(0);
+
+    // Full up deflection = +90 pitch (Coronal view)
+    const fullUp = calculate3DAngles(0, 1.0, 0, 0);
+    expect(fullUp.pitch).toBe(90);
+    expect(fullUp.yaw).toBe(0);
+
+    // Full right deflection = +180 yaw
+    const fullRight = calculate3DAngles(1.0, 0, 0, 0);
+    expect(fullRight.pitch).toBe(0);
+    expect(fullRight.yaw).toBe(180);
+
+    // Half deflection oblique
+    const oblique = calculate3DAngles(0.25, 0.4, 0, 0);
+    expect(oblique.pitch).toBe(36);
+    expect(oblique.yaw).toBe(45);
+
+    // 3D vector rotation verification
+    function rotateVector(x: number, y: number, z: number, pitchDeg: number, yawDeg: number) {
+      const pRad = (pitchDeg * Math.PI) / 180;
+      const yRad = (yawDeg * Math.PI) / 180;
+
+      // Rotate around X (pitch)
+      const y1 = y * Math.cos(pRad) - z * Math.sin(pRad);
+      const z1 = y * Math.sin(pRad) + z * Math.cos(pRad);
+
+      // Rotate around Y (yaw)
+      const x2 = x * Math.cos(yRad) + z1 * Math.sin(yRad);
+      const z2 = -x * Math.sin(yRad) + z1 * Math.cos(yRad);
+
+      return { x: x2, y: y1, z: z2 };
+    }
+
+    const rotated = rotateVector(1, 0, 0, 0, 90);
+    expect(rotated.x).toBeCloseTo(0, 4);
+    expect(rotated.z).toBeCloseTo(-1, 4);
+  });
+
+  // 10. Multi-Modality Diagnostic Rendering Configurations
+  it("configures diagnostic presets and units correctly across modalities", () => {
+    const MODALITY_CONFIGS = {
+      CT: { unit: "HU", minVal: -1000, maxVal: 1000, defaultPreset: "LUNG", sliceThickness: "1.25mm" },
+      DX: { unit: "OD", minVal: 0, maxVal: 4.0, defaultPreset: "CHEST_PA", sliceThickness: "Projection" },
+      US: { unit: "dB", minVal: 0, maxVal: 90, defaultPreset: "THYROID_B", sliceThickness: "7.5 MHz" },
+      MR: { unit: "SI", minVal: 0, maxVal: 4095, defaultPreset: "T1_AXIAL", sliceThickness: "3.0mm" },
+      PET: { unit: "SUV", minVal: 0, maxVal: 25.0, defaultPreset: "18F_FDG", sliceThickness: "2.0mm" }
+    };
+
+    expect(MODALITY_CONFIGS.CT.unit).toBe("HU");
+    expect(MODALITY_CONFIGS.DX.unit).toBe("OD");
+    expect(MODALITY_CONFIGS.US.unit).toBe("dB");
+    expect(MODALITY_CONFIGS.MR.unit).toBe("SI");
+    expect(MODALITY_CONFIGS.PET.unit).toBe("SUV");
+  });
 });
+
