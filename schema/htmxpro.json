@@ -20,7 +20,9 @@
         "calc": { "type": "string", "description": "Zero-dependency reactive formula engine with topological sorting DAG" },
         "offline": { "type": "string", "description": "IndexedDB offline cache & 409 conflict resolution engine" },
         "devtools": { "type": "string", "description": "In-browser telemetry profiler, signal visualizer & state inspector" },
-        "canvas": { "type": "string", "description": "Spatial node diagram engine" }
+        "canvas": { "type": "string", "description": "Spatial node diagram engine" },
+        "sim": { "type": "string", "description": "Kinetic particle physics, swarm boids & 2D canvas simulation engine" },
+        "appz": { "type": "string", "description": "Mobile & spatial OS shell, 0-9 layer stacking, hardware bridge & coroutine channels" }
       }
     },
     "attributes": {

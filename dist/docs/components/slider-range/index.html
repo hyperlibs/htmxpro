@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slider Range — HTMX PRO</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/vendor/htmx.min.js"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
   <script src="/htmx-form.js"></script>
@@ -71,7 +71,9 @@
 <a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
 <a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
 <a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/gallery/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Gallery</a>
 <a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/hypertext-editor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hypertext Editor</a>
 <a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
 <a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
 <a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
@@ -162,7 +164,34 @@
 <a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
 <a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
 <a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
-<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a></div></div></div>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a>
+<a href="/docs/components/appz-gauge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Gauge</a>
+<a href="/docs/components/appz-keypad/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Keypad</a>
+<a href="/docs/components/appz-statusbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Statusbar</a>
+<a href="/docs/components/appz-swipeout/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Swipeout</a>
+<a href="/docs/components/appz-thermostat/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Thermostat</a>
+<a href="/docs/components/sortable-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sortable Item</a>
+<a href="/docs/components/smart-air-quality-pill/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Air Quality Pill</a>
+<a href="/docs/components/smart-ambient-aod-clock/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Ambient Aod Clock</a>
+<a href="/docs/components/smart-car-cockpit-hud/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Car Cockpit Hud</a>
+<a href="/docs/components/smart-conveyor-belt/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Conveyor Belt</a>
+<a href="/docs/components/smart-drive-mode/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Drive Mode</a>
+<a href="/docs/components/smart-ev-battery-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Ev Battery Range</a>
+<a href="/docs/components/smart-forecast-daily/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Forecast Daily</a>
+<a href="/docs/components/smart-heart-rate/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Heart Rate</a>
+<a href="/docs/components/smart-lighting-dimmer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Lighting Dimmer</a>
+<a href="/docs/components/smart-pos-cashier/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Pos Cashier</a>
+<a href="/docs/components/smart-relay-switchboard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Relay Switchboard</a>
+<a href="/docs/components/smart-rotary-volume/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Rotary Volume</a>
+<a href="/docs/components/smart-smart-lock/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Smart Lock</a>
+<a href="/docs/components/smart-solar-power-flow/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Solar Power Flow</a>
+<a href="/docs/components/smart-step-activity-rings/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Step Activity Rings</a>
+<a href="/docs/components/smart-thermostat-dual-zone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Thermostat Dual Zone</a>
+<a href="/docs/components/smart-tire-pressure-tpms/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Tire Pressure Tpms</a>
+<a href="/docs/components/smart-turn-by-turn-nav/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Turn By Turn Nav</a>
+<a href="/docs/components/smart-uv-index-dial/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Uv Index Dial</a>
+<a href="/docs/components/smart-weather-hero/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Weather Hero</a>
+<a href="/docs/components/smart-wind-compass/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Wind Compass</a></div></div></div>
     </aside>
     <main class="flex-1 flex flex-col min-w-0">
       <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">

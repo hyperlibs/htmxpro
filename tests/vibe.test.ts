@@ -15,7 +15,7 @@ describe('HxVibe Kinetic Motion & Spring Physics', () => {
 
   test('HxBolt.ticker registers and unsubscribes subscribers', () => {
     let tickCount = 0;
-    const unsub = HxBolt.ticker.subscribe((dt, time) => {
+    const unsub = HxBolt.ticker.subscribe((dt: number, time: number) => {
       tickCount++;
     });
 

@@ -192,7 +192,7 @@ export interface IVirtualScroller2D {
 // HxForm Types (Validation, Transactions & Form State)
 // -----------------------------------------------------------------------------
 
-export type ValidatorFn = (value: any, param: string, form: HTMLFormElement) => boolean;
+export type ValidatorFn = (value: any, param?: string, form?: HTMLFormElement) => boolean;
 
 export interface FormState {
   valid: boolean;

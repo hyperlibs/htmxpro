@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source "../../views";
+@source "../../demos.ts";
+@source "../../server.ts";
 
 @theme {
   --color-primary: #1e293b;

@@ -27,7 +27,7 @@
       });
   };
 
-  // ../htmxpro/src/htmx-bolt.ts
+  // src/htmx-bolt.ts
   var exports_htmx_bolt = {};
   __export(exports_htmx_bolt, {
     validateStruct: () => validateStruct,
@@ -338,7 +338,7 @@
         if (b.charAt(i - 1) === a.charAt(j - 1)) {
           matrix[i][j] = matrix[i - 1][j - 1];
         } else {
-          matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1] + 1);
+          matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
         }
       }
     }
@@ -921,7 +921,7 @@
       }
     }
     if (!roleAttr && !permAttr && el.attributes) {
-      const rawAttrs = typeof el.attributes[Symbol.iterator] === "function" ? Array.from(el.attributes) : Object.entries(el.attributes).map(([name, value]) => ({ name, value }));
+      const rawAttrs = typeof el.attributes[Symbol.iterator] === "function" ? Array.from(el.attributes) : Object.entries(el.attributes).map(([name, value]) => ({ name, value: value?.value ?? String(value) }));
       for (const attr of rawAttrs) {
         if (attr.name === "hx-role" || attr.name.startsWith("hx-role.")) {
           roleAttr = attr.value;
@@ -2512,7 +2512,7 @@
           const state = elementStates.get(el) || (el.closest("[hx-state]") ? elementStates.get(el.closest("[hx-state]")) : null);
           if (expr && state) {
             try {
-              executeAction(expr, state, el, { dt, time: now });
+              executeAction(expr, state, { $el: el, dt, time: now });
             } catch (e) {}
           }
         });

@@ -142,7 +142,7 @@ describe("1. HxBolt: Atomic 2D Sparse Matrix Signals", () => {
 
     // Mutate cell (0, 0) only
     matrix.set(0, 0, 999);
-    await new Promise(r => queueMicrotask(r));
+    await new Promise(r => queueMicrotask(() => r(undefined)));
 
     expect(cellAValue).toBe(999);
     expect(cellARuns).toBe(2);

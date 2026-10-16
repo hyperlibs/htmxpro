@@ -37,7 +37,7 @@ func ShellUI(p ShellUIProps) Component {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>%s — Appz</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script src="/vendor/htmx.min.js"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/appz.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>

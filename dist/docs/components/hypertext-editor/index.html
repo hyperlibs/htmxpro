@@ -1,0 +1,2689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypertext Editor — HTMX PRO</title>
+  <script src="/vendor/htmx.min.js"></script>
+  <script src="/htmx-bolt.js"></script>
+  <script src="/htmx-flash.js"></script>
+  <script src="/htmx-form.js"></script>
+  <script src="/htmx-vibe.js"></script>
+  <script src="/htmx-a11y.js"></script>
+  <script src="/htmx-virtual.js"></script>
+  <script src="/htmx-grid.js"></script>
+  <script src="/htmx-offline.js"></script>
+  <script src="/htmx-devtools.js"></script>
+  <script src="/htmx-calc.js"></script>
+  <script src="/htmx-sim.js"></script>
+  <script src="/appz.js"></script>
+  <script src="/htmx-canvas.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .code-block { background: #1e293b; color: #e2e8f0; border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.8rem; line-height: 1.6; }
+    .code-block code { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased min-h-screen">
+  <div class="flex min-h-screen">
+    <aside id="doc-sidebar" class="hidden lg:flex w-60 flex-col border-r border-border bg-card overflow-y-auto sticky top-0 h-screen">
+      <div class="flex h-14 items-center border-b border-border px-4">
+        <a href="/" class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-bold text-lg tracking-tight">HTMX PRO</span>
+        </a>
+      </div>
+      <div class="flex-1 p-3 overflow-y-auto"><div class="mb-6"><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Getting Started</h4><div class="space-y-1"><a href="/docs/components/introduction/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Introduction</a>
+<a href="/docs/components/installation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Installation</a>
+<a href="/docs/components/rosetta-stone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rosetta Stone</a>
+<a href="/docs/components/common-ai-hallucinations/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Common Ai Hallucinations</a>
+<a href="/docs/components/directives-guide/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Directives Guide</a></div></div><div><h4 class="mb-2 px-3 text-sm font-semibold tracking-tight">Components</h4><div class="space-y-1"><a href="/docs/components/accordion/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Accordion</a>
+<a href="/docs/components/alert/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert</a>
+<a href="/docs/components/alert-dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Alert Dialog</a>
+<a href="/docs/components/aspect-ratio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Aspect Ratio</a>
+<a href="/docs/components/avatar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar</a>
+<a href="/docs/components/avatar-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Avatar Group</a>
+<a href="/docs/components/badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Badge</a>
+<a href="/docs/components/banner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Banner</a>
+<a href="/docs/components/breadcrumb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Breadcrumb</a>
+<a href="/docs/components/button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button</a>
+<a href="/docs/components/button-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Button Group</a>
+<a href="/docs/components/calendar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Calendar</a>
+<a href="/docs/components/card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Card</a>
+<a href="/docs/components/carousel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Carousel</a>
+<a href="/docs/components/checkbox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox</a>
+<a href="/docs/components/checkbox-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Checkbox Group</a>
+<a href="/docs/components/chip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Chip</a>
+<a href="/docs/components/collapsible/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Collapsible</a>
+<a href="/docs/components/color-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Color Picker</a>
+<a href="/docs/components/combobox/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Combobox</a>
+<a href="/docs/components/command/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Command</a>
+<a href="/docs/components/container/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Container</a>
+<a href="/docs/components/context-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Context Menu</a>
+<a href="/docs/components/data-table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Data Table</a>
+<a href="/docs/components/date-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Picker</a>
+<a href="/docs/components/dialog/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dialog</a>
+<a href="/docs/components/divider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Divider</a>
+<a href="/docs/components/drawer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Drawer</a>
+<a href="/docs/components/dropdown-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Dropdown Menu</a>
+<a href="/docs/components/empty-state/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Empty State</a>
+<a href="/docs/components/error-message/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Error Message</a>
+<a href="/docs/components/file-upload/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">File Upload</a>
+<a href="/docs/components/flash-search/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Flash Search</a>
+<a href="/docs/components/form/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Form</a>
+<a href="/docs/components/gallery/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Gallery</a>
+<a href="/docs/components/hover-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hover Card</a>
+<a href="/docs/components/hypertext-editor/" class="block rounded-md px-3 py-1.5 text-sm bg-accent font-medium text-accent-foreground transition-colors">Hypertext Editor</a>
+<a href="/docs/components/icon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Icon</a>
+<a href="/docs/components/image/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Image</a>
+<a href="/docs/components/indicator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Indicator</a>
+<a href="/docs/components/input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input</a>
+<a href="/docs/components/input-otp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Input Otp</a>
+<a href="/docs/components/kbd/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Kbd</a>
+<a href="/docs/components/label/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Label</a>
+<a href="/docs/components/layout-block/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Block</a>
+<a href="/docs/components/layout-canvas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Canvas</a>
+<a href="/docs/components/layout-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Grid</a>
+<a href="/docs/components/layout-page/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Page</a>
+<a href="/docs/components/layout-print/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Print</a>
+<a href="/docs/components/layout-scaffold/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Scaffold</a>
+<a href="/docs/components/layout-web/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Web</a>
+<a href="/docs/components/layout-mweb/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mweb</a>
+<a href="/docs/components/layout-mapp/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Layout Mapp</a>
+<a href="/docs/components/link/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Link</a>
+<a href="/docs/components/list/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List</a>
+<a href="/docs/components/list-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">List Item</a>
+<a href="/docs/components/loading-spinner/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Loading Spinner</a>
+<a href="/docs/components/masonry-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Masonry Grid</a>
+<a href="/docs/components/menubar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Menubar</a>
+<a href="/docs/components/message-bubble/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Message Bubble</a>
+<a href="/docs/components/navigation-menu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Navigation Menu</a>
+<a href="/docs/components/notification/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Notification</a>
+<a href="/docs/components/number-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Number Input</a>
+<a href="/docs/components/page-header/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Page Header</a>
+<a href="/docs/components/pagination/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pagination</a>
+<a href="/docs/components/panel/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Panel</a>
+<a href="/docs/components/password-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Password Input</a>
+<a href="/docs/components/pin-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pin Input</a>
+<a href="/docs/components/popover/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Popover</a>
+<a href="/docs/components/profile-badge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Profile Badge</a>
+<a href="/docs/components/progress/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress</a>
+<a href="/docs/components/progress-bar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Progress Bar</a>
+<a href="/docs/components/pulse/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Pulse</a>
+<a href="/docs/components/radio-button/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Button</a>
+<a href="/docs/components/radio-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Radio Group</a>
+<a href="/docs/components/rating/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Rating</a>
+<a href="/docs/components/resizable/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Resizable</a>
+<a href="/docs/components/ribbon/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Ribbon</a>
+<a href="/docs/components/scroll-area/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Scroll Area</a>
+<a href="/docs/components/search-input/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Search Input</a>
+<a href="/docs/components/select/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Select</a>
+<a href="/docs/components/separator/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Separator</a>
+<a href="/docs/components/sheet/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sheet</a>
+<a href="/docs/components/sidebar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sidebar</a>
+<a href="/docs/components/skeleton/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Skeleton</a>
+<a href="/docs/components/slider/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider</a>
+<a href="/docs/components/slider-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Slider Range</a>
+<a href="/docs/components/snackbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Snackbar</a>
+<a href="/docs/components/splitter/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Splitter</a>
+<a href="/docs/components/stat-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stat Card</a>
+<a href="/docs/components/stepper/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Stepper</a>
+<a href="/docs/components/submenu/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Submenu</a>
+<a href="/docs/components/switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Switch</a>
+<a href="/docs/components/table/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Table</a>
+<a href="/docs/components/tabs/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tabs</a>
+<a href="/docs/components/tag/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tag</a>
+<a href="/docs/components/text/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Text</a>
+<a href="/docs/components/textarea/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Textarea</a>
+<a href="/docs/components/timeline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Timeline</a>
+<a href="/docs/components/time-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Time Picker</a>
+<a href="/docs/components/toast/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toast</a>
+<a href="/docs/components/toggle/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle</a>
+<a href="/docs/components/toggle-group/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Group</a>
+<a href="/docs/components/toggle-switch/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toggle Switch</a>
+<a href="/docs/components/toolbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Toolbar</a>
+<a href="/docs/components/tooltip/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tooltip</a>
+<a href="/docs/components/tree-view/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Tree View</a>
+<a href="/docs/components/user-card/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">User Card</a>
+<a href="/docs/components/video-player/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Video Player</a>
+<a href="/docs/components/watermark/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Watermark</a>
+<a href="/docs/components/wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Wizard</a>
+<a href="/docs/components/hx-wizard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Wizard</a>
+<a href="/docs/components/date-range-picker/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Date Range Picker</a>
+<a href="/docs/components/hx-grid/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Grid</a>
+<a href="/docs/components/hx-virtual/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Virtual</a>
+<a href="/docs/components/hx-offline/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hx Offline</a>
+<a href="/docs/components/hollywood-webfx/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Hollywood Webfx</a>
+<a href="/docs/components/simulation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Simulation</a>
+<a href="/docs/components/block-pathology-lab/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pathology Lab</a>
+<a href="/docs/components/block-radiology-dicom/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Radiology Dicom</a>
+<a href="/docs/components/block-biology-atlas/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Biology Atlas</a>
+<a href="/docs/components/block-crispr-studio/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Crispr Studio</a>
+<a href="/docs/components/block-genomic-map/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Genomic Map</a>
+<a href="/docs/components/block-civil-architect/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Civil Architect</a>
+<a href="/docs/components/block-marine-navigation/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Marine Navigation</a>
+<a href="/docs/components/block-agriculture-precision/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Agriculture Precision</a>
+<a href="/docs/components/block-energy-scada/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Energy Scada</a>
+<a href="/docs/components/block-pcb-semiconductor/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Block Pcb Semiconductor</a>
+<a href="/docs/components/appz-gauge/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Gauge</a>
+<a href="/docs/components/appz-keypad/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Keypad</a>
+<a href="/docs/components/appz-statusbar/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Statusbar</a>
+<a href="/docs/components/appz-swipeout/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Swipeout</a>
+<a href="/docs/components/appz-thermostat/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Appz Thermostat</a>
+<a href="/docs/components/sortable-item/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Sortable Item</a>
+<a href="/docs/components/smart-air-quality-pill/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Air Quality Pill</a>
+<a href="/docs/components/smart-ambient-aod-clock/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Ambient Aod Clock</a>
+<a href="/docs/components/smart-car-cockpit-hud/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Car Cockpit Hud</a>
+<a href="/docs/components/smart-conveyor-belt/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Conveyor Belt</a>
+<a href="/docs/components/smart-drive-mode/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Drive Mode</a>
+<a href="/docs/components/smart-ev-battery-range/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Ev Battery Range</a>
+<a href="/docs/components/smart-forecast-daily/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Forecast Daily</a>
+<a href="/docs/components/smart-heart-rate/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Heart Rate</a>
+<a href="/docs/components/smart-lighting-dimmer/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Lighting Dimmer</a>
+<a href="/docs/components/smart-pos-cashier/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Pos Cashier</a>
+<a href="/docs/components/smart-relay-switchboard/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Relay Switchboard</a>
+<a href="/docs/components/smart-rotary-volume/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Rotary Volume</a>
+<a href="/docs/components/smart-smart-lock/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Smart Lock</a>
+<a href="/docs/components/smart-solar-power-flow/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Solar Power Flow</a>
+<a href="/docs/components/smart-step-activity-rings/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Step Activity Rings</a>
+<a href="/docs/components/smart-thermostat-dual-zone/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Thermostat Dual Zone</a>
+<a href="/docs/components/smart-tire-pressure-tpms/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Tire Pressure Tpms</a>
+<a href="/docs/components/smart-turn-by-turn-nav/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Turn By Turn Nav</a>
+<a href="/docs/components/smart-uv-index-dial/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Uv Index Dial</a>
+<a href="/docs/components/smart-weather-hero/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Weather Hero</a>
+<a href="/docs/components/smart-wind-compass/" class="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors">Smart Wind Compass</a></div></div></div>
+    </aside>
+    <main class="flex-1 flex flex-col min-w-0">
+      <header class="h-14 border-b border-border flex items-center justify-between px-6 bg-card sticky top-0 z-30">
+        <div class="flex items-center gap-4">
+          <h1 class="font-semibold text-base">Hypertext Editor</h1>
+          <a href="/demo/" class="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1 rounded-full hover:bg-primary/20 transition-colors">Live Demos Hub</a>
+        </div>
+        <a href="https://github.com/hyperlibs/htmxpro" target="_blank" class="text-xs text-muted-foreground hover:text-foreground">GitHub ↗</a>
+      </header>
+      <div class="flex-1 p-8 max-w-5xl mx-auto w-full space-y-8">
+        <div class="space-y-2">
+          <h1 class="text-3xl font-extrabold tracking-tight">Hypertext Editor</h1>
+          <p class="text-muted-foreground text-sm">Interactive Shadcn-quality hypermedia component for HTMX PRO.</p>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">Interactive Preview</h2>
+          <div class="rounded-xl border border-border p-8 bg-card shadow-sm flex items-center justify-center min-h-[160px]">
+            <div class="w-full max-w-xl flex flex-col items-center gap-4"><div class="space-y-12 max-w-5xl">
+  <!-- Header -->
+  <div class="space-y-2">
+    <div class="flex items-center gap-2">
+      <span class="text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full">Content & Forms</span>
+      <span class="text-xs font-mono text-muted-foreground">views/components/hypertext-editor.html</span>
+    </div>
+    <h1 class="text-3xl font-extrabold tracking-tight">Hypertext Editor</h1>
+    <p class="text-base text-muted-foreground">
+      A zero-bloat, Notion-grade WYSIWYG document editor with inline resizable HyperSheet tables, 2D arrow key navigation, <kbd class="px-1.5 py-0.5 rounded bg-muted text-[11px] font-mono border">Alt + ↑/↓/←/→</kbd> row & column splitters, document right-click context menu, and Levenshtein auto-fix spellchecker.
+    </p>
+  </div>
+
+  <!-- Interactive Live Component Preview -->
+  <div class="space-y-4" hx-ext="reactive" hx-state='{
+    "viewMode": "visual",
+    "wordCount": 142,
+    "charCount": 890,
+    "readingTime": "1 min",
+    "slashMenuOpen": false,
+    "saveStatus": "All changes saved"
+  }'>
+
+    <!-- Editor Outer Shell -->
+    <div class="rounded-2xl border border-border bg-card shadow-sm overflow-hidden flex flex-col focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all relative">
+      
+      <!-- Top Action Toolbar -->
+      <div class="border-b border-border bg-muted/40 px-3 py-2 flex flex-wrap items-center justify-between gap-2 select-none">
+        
+        <!-- Formatting Button Groups -->
+        <div class="flex flex-wrap items-center gap-1">
+          <!-- History -->
+          <div class="flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5">
+            <button type="button" onclick="document.execCommand('undo')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Undo (Ctrl+Z)">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            </button>
+            <button type="button" onclick="document.execCommand('redo')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Redo (Ctrl+Y)">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>
+            </button>
+          </div>
+
+          <!-- Headings Dropdown / Buttons -->
+          <div class="flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5">
+            <button type="button" onclick="formatBlock('h1')" class="px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground" title="Heading 1">H1</button>
+            <button type="button" onclick="formatBlock('h2')" class="px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground" title="Heading 2">H2</button>
+            <button type="button" onclick="formatBlock('h3')" class="px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground" title="Heading 3">H3</button>
+            <button type="button" onclick="formatBlock('p')" class="px-2 py-1 rounded-md text-xs font-medium hover:bg-muted text-muted-foreground hover:text-foreground" title="Paragraph">¶</button>
+          </div>
+
+          <!-- Inline Styles -->
+          <div class="flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5">
+            <button type="button" onclick="execStyle('bold')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground font-bold text-sm w-7 h-7 flex items-center justify-center" title="Bold (Ctrl+B)">
+              <strong>B</strong>
+            </button>
+            <button type="button" onclick="execStyle('italic')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground italic text-sm w-7 h-7 flex items-center justify-center" title="Italic (Ctrl+I)">
+              <em>I</em>
+            </button>
+            <button type="button" onclick="execStyle('underline')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground underline text-sm w-7 h-7 flex items-center justify-center" title="Underline (Ctrl+U)">
+              <u>U</u>
+            </button>
+            <button type="button" onclick="insertCodeInline()" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground font-mono text-xs w-7 h-7 flex items-center justify-center" title="Inline Code">
+              &lt;&gt;
+            </button>
+          </div>
+
+          <!-- Lists & Interactive Table -->
+          <div class="flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5">
+            <button type="button" onclick="execStyle('insertUnorderedList')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground" title="Bullet List">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="4" cy="18" r="1.5" fill="currentColor"/></svg>
+            </button>
+            <button type="button" onclick="insertInlineHyperSheetTable()" class="px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-primary hover:text-primary/80 flex items-center gap-1 border border-primary/20 bg-primary/5" title="Insert Resizable HyperSheet Table (Alt+Arrow navigation)">
+              <span>📊</span> <span>Table</span>
+            </button>
+            <button type="button" onclick="insertCallout('tip')" class="px-2 py-1 rounded-md text-xs font-medium hover:bg-muted text-emerald-500 hover:text-emerald-400 flex items-center gap-1" title="Insert Tip Callout">
+              💡 Callout
+            </button>
+          </div>
+
+          <!-- Auto-Fix & Undo -->
+          <div class="flex items-center gap-1">
+            <button type="button" onclick="autoFixTypography()" class="px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 flex items-center gap-1.5 transition-colors border border-emerald-500/20 bg-emerald-500/10" title="Auto-Fix: Remove excess spaces, fix spelling mistakes via Levenshtein dictionary, format smart typography without altering structure">
+              <span>✅</span> <span>Auto-Fix</span>
+            </button>
+            <button type="button" id="btn-undo-autofix" onclick="undoAutoFix()" style="display: none;" class="px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-amber-600 dark:text-amber-400 hover:text-amber-500 flex items-center gap-1.5 transition-colors border border-amber-500/20 bg-amber-500/10" title="Undo Auto-Fix: Revert back to pre-autofix snapshot">
+              <span>↩️</span> <span>Undo Fix</span>
+            </button>
+            <button type="button" onclick="document.execCommand('removeFormat')" class="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-destructive" title="Clear Formatting">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- View Mode Switcher (Visual vs Markdown vs HTML) -->
+        <div class="flex items-center gap-1 p-0.5 rounded-lg bg-background border border-border text-xs font-medium" id="editor-view-tabs">
+          <button type="button" 
+                  id="tab-btn-visual"
+                  class="px-2.5 py-1 rounded-md transition-all bg-primary text-primary-foreground shadow-sm"
+                  onclick="switchEditorView('visual')">
+            Visual
+          </button>
+          <button type="button" 
+                  id="tab-btn-markdown"
+                  class="px-2.5 py-1 rounded-md transition-all text-muted-foreground hover:text-foreground"
+                  onclick="switchEditorView('markdown')">
+            Markdown
+          </button>
+          <button type="button" 
+                  id="tab-btn-html"
+                  class="px-2.5 py-1 rounded-md transition-all text-muted-foreground hover:text-foreground"
+                  onclick="switchEditorView('html')">
+            HTML
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Editor Full-Surface Content Area -->
+      <div class="relative min-h-[360px] bg-background p-6">
+        
+        <!-- 1. Visual WYSIWYG Editable Surface -->
+        <div id="hypertext-canvas"
+             contenteditable="true"
+             oninput="onEditorInput(this)"
+             onkeydown="onEditorKeydown(event, this)"
+             oncontextmenu="handleCanvasContextMenu(event)"
+             class="outline-none min-h-[320px] max-w-none text-foreground text-sm sm:text-base leading-relaxed space-y-4 focus:outline-none block">
+          <h1>Welcome to Hypertext Editor</h1>
+          <p>
+            Hypertext Editor is an ultra-lean, <strong>hypermedia-driven rich text suite</strong> designed for modern web applications. It replaces heavy WYSIWYG packages with zero external dependencies.
+          </p>
+          
+          <div class="my-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-500 dark:text-emerald-400 text-sm">
+            💡 <strong>ProTip:</strong> Type <kbd class="px-1.5 py-0.5 rounded bg-muted text-xs font-mono border border-border">/</kbd> on any empty line for slash commands, or <strong>Right-Click</strong> anywhere for the document context menu!
+          </div>
+
+          <h2>Inline Resizable HyperSheet Table</h2>
+          <p>
+            Navigate cells with <kbd class="px-1.5 py-0.2 rounded bg-muted text-xs font-mono">↑ / ↓ / ← / →</kbd>. Press <kbd class="px-1.5 py-0.2 rounded bg-muted text-xs font-mono">Alt + ↓</kbd> to add a row below, or <kbd class="px-1.5 py-0.2 rounded bg-muted text-xs font-mono">Alt + →</kbd> to add a column. Drag column & row border handles to resize.
+          </p>
+
+          <!-- Interactive Resizable HyperSheet Table -->
+          <div class="my-4 rounded-xl border border-border bg-card p-3 shadow-xs not-prose select-text" contenteditable="false" id="table-demo-container">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-border/60 text-xs text-muted-foreground">
+              <div class="flex items-center gap-2 font-medium text-foreground">
+                <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                <span>HyperSheet Resizable Matrix</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-[11px]">
+                <span class="text-muted-foreground">Shortcuts: <kbd class="px-1 py-0.2 rounded bg-muted font-mono">Alt+↑/↓/←/→</kbd></span>
+                <button type="button" onclick="tableAddColumn('demo-table')" class="px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors">+ Add Col</button>
+                <button type="button" onclick="tableAddRow('demo-table')" class="px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors">+ Add Row</button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table id="demo-table" class="w-full text-left border-collapse text-xs table-fixed">
+                <thead>
+                  <tr class="border-b border-border bg-muted/40 text-muted-foreground font-mono">
+                    <th style="width: 44px;" class="p-2 border-r border-border/60 text-center select-none relative">
+                      #
+                    </th>
+                    <th style="width: 220px;" class="p-2 border-r border-border/60 font-semibold text-foreground relative select-none">
+                      <span>Module (A)</span>
+                      <div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+                    </th>
+                    <th style="width: 180px;" class="p-2 border-r border-border/60 font-semibold text-foreground relative select-none">
+                      <span>Owner (B)</span>
+                      <div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+                    </th>
+                    <th style="width: 140px;" class="p-2 border-r border-border/60 font-semibold text-foreground relative select-none">
+                      <span>Velocity (C)</span>
+                      <div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+                    </th>
+                    <th style="width: 60px;" class="p-2 text-center select-none">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-border/40">
+                  <tr class="hover:bg-muted/20 group relative" style="height: 36px;">
+                    <td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+                      1
+                      <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+                    </td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">HxBolt Reactivity Engine</td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Core Team</td>
+                    <td class="p-2 border-r border-border/60 font-mono font-semibold text-emerald-500" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">60 FPS</td>
+                    <td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline" title="Delete Row">🗑</button></td>
+                  </tr>
+                  <tr class="hover:bg-muted/20 group relative" style="height: 36px;">
+                    <td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+                      2
+                      <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+                    </td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">HyperSheet 2D Matrix Engine</td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Data Team</td>
+                    <td class="p-2 border-r border-border/60 font-mono font-semibold text-emerald-500" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Sub-1ms</td>
+                    <td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline" title="Delete Row">🗑</button></td>
+                  </tr>
+                  <tr class="hover:bg-muted/20 group relative" style="height: 36px;">
+                    <td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+                      3
+                      <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+                    </td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Levenshtein Spellcheck</td>
+                    <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">AI Coders</td>
+                    <td class="p-2 border-r border-border/60 font-mono font-semibold text-emerald-500" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Zero Bloat</td>
+                    <td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline" title="Delete Row">🗑</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h2>Designed for Fullstack Developers</h2>
+          <p>
+            Everything you type synchronizes instantly into hidden form fields and updates telemetry in real-time.
+          </p>
+          <ul class="list-disc list-inside my-2 space-y-1">
+            <li>Zero React, zero ProseMirror, zero bloat</li>
+            <li>Sub-millisecond signal updates via <code>htmx-bolt</code></li>
+            <li>Native 1:1 Go DSL for server-side HTML rendering</li>
+          </ul>
+        </div>
+
+        <!-- 2. Markdown Full-Surface Editable Area -->
+        <textarea id="hypertext-markdown"
+                  style="display: none;"
+                  oninput="onMarkdownInput(this)"
+                  class="w-full min-h-[320px] bg-transparent font-mono text-sm text-foreground border-none outline-none resize-y focus:outline-none leading-relaxed"
+                  placeholder="Type Markdown content here..."></textarea>
+
+        <!-- 3. HTML Full-Surface Editable Area -->
+        <textarea id="hypertext-html"
+                  style="display: none;"
+                  oninput="onHtmlInput(this)"
+                  class="w-full min-h-[320px] bg-transparent font-mono text-sm text-foreground border-none outline-none resize-y focus:outline-none leading-relaxed"
+                  placeholder="Type HTML source here..."></textarea>
+
+        <!-- Slash Command Menu Popup -->
+        <div id="slash-menu"
+             hx-show="slashMenuOpen"
+             class="absolute z-50 w-64 rounded-xl border border-border bg-card shadow-2xl p-1.5 space-y-1 text-xs"
+             style="display: none; top: 120px; left: 40px;">
+          <div class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border mb-1">
+            Insert Block (Type to filter)
+          </div>
+          <button type="button" onclick="executeSlashCommand('h1')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]">H1</span>
+            <div><div class="font-medium text-foreground">Heading 1</div><div class="text-[10px] text-muted-foreground">Large title block</div></div>
+          </button>
+          <button type="button" onclick="executeSlashCommand('h2')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]">H2</span>
+            <div><div class="font-medium text-foreground">Heading 2</div><div class="text-[10px] text-muted-foreground">Medium section header</div></div>
+          </button>
+          <button type="button" onclick="executeSlashCommand('table')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-emerald-500/20 text-emerald-500 font-bold flex items-center justify-center text-[10px]">📊</span>
+            <div><div class="font-medium text-foreground">HyperSheet Table</div><div class="text-[10px] text-muted-foreground">Resizable 2D editable matrix</div></div>
+          </button>
+          <button type="button" onclick="executeSlashCommand('bullet')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-muted text-foreground flex items-center justify-center text-[10px]">●</span>
+            <div><div class="font-medium text-foreground">Bullet List</div><div class="text-[10px] text-muted-foreground">Simple bulleted points</div></div>
+          </button>
+          <button type="button" onclick="executeSlashCommand('callout')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">💡</span>
+            <div><div class="font-medium text-foreground">Callout Box</div><div class="text-[10px] text-muted-foreground">Highlight notice or tip</div></div>
+          </button>
+          <button type="button" onclick="executeSlashCommand('code')" class="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors">
+            <span class="w-5 h-5 rounded bg-blue-500/20 text-blue-400 font-mono flex items-center justify-center text-[10px]">&lt;&gt;</span>
+            <div><div class="font-medium text-foreground">Code Block</div><div class="text-[10px] text-muted-foreground">Syntax formatted snippet</div></div>
+          </button>
+        </div>
+
+        <!-- Document & Table Right-Click Context Menu -->
+        <div id="editor-context-menu"
+             class="fixed z-50 w-56 rounded-xl border border-border bg-card shadow-2xl p-1 text-xs space-y-0.5 select-none"
+             style="display: none;">
+          <!-- Contextual Table Tools Header -->
+          <div id="ctx-table-group" class="space-y-0.5 pb-1 border-b border-border/60">
+            <div class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">Table Actions</div>
+            <button type="button" onclick="ctxTableAction('row-above')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>➕ Insert Row Above</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Alt+↑</kbd>
+            </button>
+            <button type="button" onclick="ctxTableAction('row-below')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>➕ Insert Row Below</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Alt+↓</kbd>
+            </button>
+            <button type="button" onclick="ctxTableAction('col-left')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>➕ Insert Col Left</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Alt+←</kbd>
+            </button>
+            <button type="button" onclick="ctxTableAction('col-right')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>➕ Insert Col Right</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Alt+→</kbd>
+            </button>
+            <button type="button" onclick="ctxTableAction('del-row')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-destructive/10 text-destructive text-left">
+              <span>🗑️ Delete Row</span>
+            </button>
+            <button type="button" onclick="ctxTableAction('del-col')" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-destructive/10 text-destructive text-left">
+              <span>🗑️ Delete Column</span>
+            </button>
+          </div>
+
+          <!-- Document Formatting Tools -->
+          <div class="pt-1 space-y-0.5">
+            <div class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Document Format</div>
+            <button type="button" onclick="execStyle('bold'); closeContextMenu();" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span><strong>B</strong> Bold</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Ctrl+B</kbd>
+            </button>
+            <button type="button" onclick="execStyle('italic'); closeContextMenu();" class="w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span><em>I</em> Italic</span>
+              <kbd class="text-[10px] text-muted-foreground font-mono">Ctrl+I</kbd>
+            </button>
+            <button type="button" onclick="insertCallout('tip'); closeContextMenu();" class="w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>💡 Insert Callout</span>
+            </button>
+            <button type="button" onclick="insertInlineHyperSheetTable(); closeContextMenu();" class="w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground">
+              <span>📊 Insert Table</span>
+            </button>
+            <button type="button" onclick="autoFixTypography(); closeContextMenu();" class="w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-emerald-600 dark:text-emerald-400 font-medium">
+              <span>✅ Auto-Fix Typography</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Telemetry & Status Footer -->
+      <div class="border-t border-border bg-muted/20 px-4 py-2 flex flex-wrap items-center justify-between text-xs text-muted-foreground font-mono">
+        <div class="flex items-center gap-4">
+          <span>Words: <strong class="text-foreground" hx-text="wordCount">142</strong></span>
+          <span>Chars: <strong class="text-foreground" hx-text="charCount">890</strong></span>
+          <span>Read time: <strong class="text-foreground" hx-text="readingTime">1 min</strong></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+          <span hx-text="saveStatus">All changes saved</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Hidden form input for seamless HTMX form synchronization -->
+    <input type="hidden" name="content_html" id="hypertext-hidden-input">
+
+  </div>
+
+  <!-- Scoped Typography & Table Styles -->
+  <style>
+    #hypertext-canvas h1 { font-size: 1.65rem; font-weight: 800; line-height: 1.25; margin-top: 1rem; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+    #hypertext-canvas h2 { font-size: 1.35rem; font-weight: 700; line-height: 1.3; margin-top: 0.875rem; margin-bottom: 0.375rem; letter-spacing: -0.02em; }
+    #hypertext-canvas h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.35; margin-top: 0.75rem; margin-bottom: 0.25rem; }
+    #hypertext-canvas p { margin-bottom: 0.75rem; line-height: 1.6; }
+    #hypertext-canvas ul { list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    #hypertext-canvas ol { list-style-type: decimal; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    #hypertext-canvas li { margin-bottom: 0.25rem; }
+    #hypertext-canvas blockquote { border-left: 4px solid hsl(var(--primary)); padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: hsl(var(--muted-foreground)); }
+    #hypertext-canvas code { background-color: hsl(var(--muted)); padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.85em; }
+    #hypertext-canvas a { color: hsl(var(--primary)); text-decoration: underline; font-weight: 500; }
+    #hypertext-canvas hr { border-top: 1px solid hsl(var(--border)); margin: 1.5rem 0; }
+    .col-resize-handle { user-select: none; }
+    .row-resize-handle { user-select: none; }
+  </style>
+
+  <!-- Client Integration Scripts -->
+  <script>
+    // 1,800+ Top Core English & Tech Vocabulary Dictionary
+    const WORD_LIST_STR = "a ability able about above accept according account across act action actions activity actually add address administration admit adult affect after again against age agency agent agentic agents agree agreement ahead air all allow allows almost alone along already also although always among amount analysis and animal animals another answer any anyone anything appear appearance appearances apply approach area areas argue argument arm arms array arrays article articles artist as ask assume at attack attention attorney audience author authority automatic available avoid away back bad bag balance ball bank bar base be beat beautiful because become bed before begin behavior behind believe benefit best better between beyond big bill billion bit black blood blue board body book born both box boy breaks brief build builder builders building built bullet bunch business busy but button buttons buy by call camera campaign can cancel cancer candidate canvas capital car card cards care career carry case catch cause cell cells center central century certain certainly chair chairman challenge chance change changes character characters check checking child children choice choose church circle citizen city civil claim class classes clear clearly client clients climate close coach code cold collection college color column columns combine come commercial common community company compare computer concern condition conference congress consider consumer contain content continue control controls core corporate cost could council count counter country county couple course court cover create created creates creation crime culture cup current customer cut dark dashboard data database daughter day days dead deal dear death debate decade decide decision declaration deep defense define degree demo describe description design designed designer designers designing desk destroy detail detailed determine develop developer developers development device dialog differ difference different difficult dimension dinner direction director discover discuss disease do doctor document documents dog dollar door double down draw dream dress drink drive drop drug due during each early earth easy eat economic economy edge edition editor editors edit education effect effects effort eight either election electric element elements elite else employee empty enable end energy engine engineer engineers enjoy enough ensure enter enterprise entire entry environment equal error errors especially establish even evening event events ever every everybody everyone everything evidence exact exactly example examples executive exist existence expand expect experience expert explain export extend extension extensions eye face fact factor fail family far fast father fault fear feature features federal feel feeling few field fields fight figure figures file files fill film filter filters final finally finance financial find fine finger finish fire first fish five fix fixes fixed flag flash floor fly focus follow following food foot for force foreign form format formatting forms forward found four frame frameworks framework free friend from front full fully function functional functions fundamental future game garden gas general generation get girl give glass global go goal good government great green ground group grow growth guess guidance guide gun guy hair half hand handle handler happen happy hard have he head header heading headings health hear heart heat heavy help helps helpful her here herself high highlight him himself history hit hold home hope hospital hot hotel hour house how however huge human hundred husband hypertext htmx HTMX PRO idea identify if ignore image images imagine impact important improve in include includes including increase indeed indicate individual industry information info initial inject input inputs inside instant instead institution insurance intend interaction interactive interest internal international internet interval into investigate investment invite invoice involve issue item items its itself job join judge jump just keep key keyboard keys kill kind know knowledge land landscape language large last late later laugh launch law lawyer lay layer layers layout layouts lead leader leaders learn leave left legal legacy legend length less letter letters level levels library libraries license life lift light lightning like likely limit line lines link links list lists listen listener listeners literature little live local lock log logic look lose loss lot love low machine macro magazine mail maintain maintainer main major majority make male man manage manager managing modern many market marriage mass master match math matrix matter may maybe me meal mean meaning measurement mechanism media medical meet member memory mention menu message messages method micro middle might military million mind mine minute miss mission mistake mode model modern modify moment money month monthly more morning most mother motion move movement movie much multiple municipal music must mutate my myself name nation national native natural nature near nearby necessary need negative network never new news next nice night nine no nobody normal north not note notes notice novel number numbers observe occur occurred occurrence off offer office officer official often oh oil ok old on once one ongoing online only onto open opening operate operation operations opinion opportunity oppose option options or order ordered organization original other others our ourselves out outcome output outputs over overall owner package packages page pages pain paint panel paper paragraph paragraphs part partial partials participant particular party pass past path pattern pay payment peak peer penalty people perform performance permanent persist personal phone photo phrase physical physics picture piece pill pilot place plan planning platform play player point policy poor pop popup port portfolio position positive possible post potential pound pour power powerful practical practice precise prefer prepare presence president pressure pretty prevent price primitive print prior priority privacy private probability problem process produce product profession program project promise promote proper properly proportion protocol provide province provision public publish pull purpose push put quality quantitative query quick quickly quote quotes radar radius raise range rapid rare rate rather than race radio radius reaction read reading ready real realize really reason receive recent recipe record recover reduce region regular reject relate relative release reliable religion religious rely remain remember remote remove render rendering rendered renders renderer repeat replace report represent require research resolve response rest restaurant result return reveal rich right ring risk road rock role roll room rough round routine row rule run running safe safety salary same sample save saveStatus scan scene schedule schema science score screen script scroll search season seat second secret section security see seed seek seem self sell send sequence serial series server service set settle setup seven several severe shape share shell sheet shoot short should show sibling side sign signal signature significant simple simply since single sink sister sit site situation size skill skills slash slice slide slim small smart snapshot solution solve son soon sound source space spatial speak special species specific speech spend spirit spring staff stage standard start state statement states static status step steps still stimulus stock stone stop store story strategy street strike string structural structure structures student study style styles stylish subject submillisecond subscribe subscription subsequent success successful such sudden suffer suggest suit summarize summary summer super supplement support surface surprise surveillance switch symbol system systems table tables tablet tail take talk target task tasks tax team telemetry template templates temporary ten term test tests text textarea texture thank than that the their them theme themes themselves then theology theory there therefore these they thing think third this those though thought threat three through throughout throw ticket tier time tiny title to today together tolerance tomorrow tonight tool toolbar toolkit tools topic total tough tour toward track tracking trade tradition traffic trail train transaction transcript transition translation transport trash travel treasure treatment tree trigger true truly trust try tube turn tutorial twin two type typed typedarray typical typography ultimate ultra under understand unit unity universe unless until unto update updates upgrade upload upon upper upset urban use used useful user users utility vacation valid validate value values variable variables variation variety various verify version view visual vocabulary volume wait walk wall want war warm warn warning watch water wave way we weapon wear weather web website week weight well west western what whatever wheel when where whereas whether which while white whole whom whose why widget wide wife wild will win window wind wire wish with within without woman wonder word words work worker working workplace workshop workspace world worry worth would write writer writing wrong yard year years yellow yes yesterday yet you young your yourself zone";
+
+    const DICTIONARY_WORDS = new Set(WORD_LIST_STR.split(' '));
+    const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+
+    const typoDictionary = [
+      [/\bteh\b/g, 'the'], [/\bTeh\b/g, 'The'],
+      [/\brecieve\b/g, 'receive'], [/\bRecieve\b/g, 'Receive'],
+      [/\brecieving\b/g, 'receiving'], [/\bRecieving\b/g, 'Receiving'],
+      [/\brecieved\b/g, 'received'], [/\bRecieved\b/g, 'Received'],
+      [/\bseperate\b/g, 'separate'], [/\bSeperate\b/g, 'Separate'],
+      [/\bseperated\b/g, 'separated'], [/\bSeperated\b/g, 'Separated'],
+      [/\bdefinately\b/g, 'definitely'], [/\bDefinately\b/g, 'Definitely'],
+      [/\boccured\b/g, 'occurred'], [/\bOccured\b/g, 'Occurred'],
+      [/\boccuring\b/g, 'occurring'], [/\bOccuring\b/g, 'Occurring'],
+      [/\buntill\b/g, 'until'], [/\bUntill\b/g, 'Until'],
+      [/\bwierd\b/g, 'weird'], [/\bWierd\b/g, 'Weird'],
+      [/\btruely\b/g, 'truly'], [/\bTruely\b/g, 'Truly'],
+      [/\baccomodate\b/g, 'accommodate'], [/\bAccomodate\b/g, 'Accommodate'],
+      [/\bgoverment\b/g, 'government'], [/\bGoverment\b/g, 'Government'],
+      [/\bacheive\b/g, 'achieve'], [/\bAcheive\b/g, 'Achieve'],
+      [/\bcalender\b/g, 'calendar'], [/\bCalender\b/g, 'Calendar'],
+      [/\btommorow\b/g, 'tomorrow'], [/\bTommorow\b/g, 'Tomorrow'],
+      [/\bneccessary\b/g, 'necessary'], [/\bNeccessary\b/g, 'Necessary'],
+      [/\bexistense\b/g, 'existence'], [/\bExistense\b/g, 'Existence'],
+      [/\bappearence\b/g, 'appearance'], [/\bAppearence\b/g, 'Appearance'],
+      [/\bpossession\b/g, 'possession'],
+      [/\bpossess\b/g, 'possess'],
+      [/\bhtmxui\b/g, 'HTMX PRO'], [/\bHtmxui\b/g, 'HTMX PRO'],
+      [/\bhtmxpro\b/g, 'HTMX PRO'], [/\bHtmxpro\b/g, 'HTMX PRO'],
+      [/\bhtmx\b/g, 'HTMX'], [/\bHtmx\b/g, 'HTMX']
+    ];
+
+    let lastAutoFixSnapshot = null;
+    let activeContextTd = null;
+
+    // --- 2D Keyboard Navigation & Alt+Arrow Shortcuts for Table ---
+    function handleTableCellKeydown(e, el) {
+      const td = el.closest('td');
+      if (!td) return;
+      const tr = td.parentElement;
+      const tbody = tr.parentElement;
+      const table = tbody.closest('table');
+      if (!table) return;
+
+      const allTrs = Array.from(tbody.children);
+      const rowIndex = allTrs.indexOf(tr);
+      const allTdsInRow = Array.from(tr.children).filter(c => c.tagName === 'TD' && c.getAttribute('contenteditable') === 'true');
+      const colIndex = allTdsInRow.indexOf(td);
+
+      // --- Alt + Arrow Key Insertions ---
+      if (e.altKey) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          insertRowAt(table, rowIndex + 1);
+          focusTableCell(tbody, rowIndex + 1, colIndex);
+          return;
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          insertRowAt(table, rowIndex);
+          focusTableCell(tbody, rowIndex, colIndex);
+          return;
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          insertColumnAt(table, colIndex + 1);
+          focusTableCell(tbody, rowIndex, colIndex + 1);
+          return;
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          insertColumnAt(table, colIndex);
+          focusTableCell(tbody, rowIndex, colIndex);
+          return;
+        }
+      }
+
+      // --- 2D Arrow Navigation ---
+      if (e.key === 'ArrowDown') {
+        if (rowIndex < allTrs.length - 1) {
+          e.preventDefault();
+          focusTableCell(tbody, rowIndex + 1, colIndex);
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (rowIndex > 0) {
+          e.preventDefault();
+          focusTableCell(tbody, rowIndex - 1, colIndex);
+        }
+      } else if (e.key === 'Tab') {
+        if (!e.shiftKey && rowIndex === allTrs.length - 1 && colIndex === allTdsInRow.length - 1) {
+          e.preventDefault();
+          tableAddRow(table.id);
+          focusTableCell(tbody, rowIndex + 1, 0);
+        }
+      }
+    }
+
+    function focusTableCell(tbody, rowIdx, colIdx) {
+      const rows = tbody.querySelectorAll('tr');
+      if (rowIdx >= 0 && rowIdx < rows.length) {
+        const editableTds = Array.from(rows[rowIdx].children).filter(c => c.tagName === 'TD' && c.getAttribute('contenteditable') === 'true');
+        const targetCol = Math.max(0, Math.min(editableTds.length - 1, colIdx));
+        if (editableTds[targetCol]) {
+          editableTds[targetCol].focus();
+          try {
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(editableTds[targetCol]);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          } catch (_) {}
+        }
+      }
+    }
+
+    function insertRowAt(table, targetRowIdx) {
+      const tbody = table.querySelector('tbody');
+      const colCount = table.querySelectorAll('thead th').length - 2;
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-muted/20 group relative';
+      tr.style.height = '36px';
+
+      let cells = `<td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+        <span class="row-num"></span>
+        <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+      </td>`;
+      for (let i = 0; i < colCount; i++) {
+        cells += `<td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">-</td>`;
+      }
+      cells += `<td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline">🗑</button></td>`;
+
+      tr.innerHTML = cells;
+
+      const rows = tbody.querySelectorAll('tr');
+      if (targetRowIdx >= rows.length) {
+        tbody.appendChild(tr);
+      } else {
+        tbody.insertBefore(tr, rows[targetRowIdx]);
+      }
+
+      renumberTableRows(table);
+      initTableResizers(table);
+      syncEditorState();
+    }
+
+    function insertColumnAt(table, targetColIdx) {
+      const theadTr = table.querySelector('thead tr');
+      const allThs = Array.from(theadTr.children);
+      const colLetter = String.fromCharCode(65 + Math.min(25, targetColIdx));
+
+      const th = document.createElement('th');
+      th.style.width = '180px';
+      th.className = 'p-2 border-r border-border/60 font-semibold text-foreground relative select-none';
+      th.innerHTML = `<span>Col (${colLetter})</span><div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>`;
+
+      // Target th index is targetColIdx + 1 (after row index th)
+      const refTh = allThs[targetColIdx + 1] || theadTr.lastElementChild;
+      theadTr.insertBefore(th, refTh);
+
+      // Insert Td in all rows
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(tr => {
+        const td = document.createElement('td');
+        td.className = 'p-2 border-r border-border/60';
+        td.setAttribute('contenteditable', 'true');
+        td.setAttribute('onkeydown', 'handleTableCellKeydown(event, this)');
+        td.innerText = '-';
+        const allTds = Array.from(tr.children);
+        const refTd = allTds[targetColIdx + 1] || tr.lastElementChild;
+        tr.insertBefore(td, refTd);
+      });
+
+      initTableResizers(table);
+      syncEditorState();
+    }
+
+    function renumberTableRows(table) {
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach((r, i) => {
+        const numEl = r.querySelector('.row-num') || r.querySelector('td:first-child');
+        if (numEl) {
+          if (numEl.querySelector('.row-num')) numEl.querySelector('.row-num').innerText = String(i + 1);
+          else if (numEl.firstChild) numEl.firstChild.nodeValue = String(i + 1);
+        }
+      });
+    }
+
+    function tableAddRow(tableId) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const tbody = table.querySelector('tbody');
+      insertRowAt(table, tbody.querySelectorAll('tr').length);
+    }
+
+    function tableAddColumn(tableId) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const colCount = table.querySelectorAll('thead th').length - 2;
+      insertColumnAt(table, colCount);
+    }
+
+    function tableDeleteRow(btn) {
+      const tr = btn.closest('tr');
+      const table = tr?.closest('table');
+      if (tr) {
+        tr.remove();
+        if (table) renumberTableRows(table);
+        syncEditorState();
+      }
+    }
+
+    function insertInlineHyperSheetTable() {
+      const canvas = document.getElementById('hypertext-canvas');
+      if (!canvas) return;
+
+      const tableId = `table-${Date.now()}`;
+      const html = `
+        <div class="my-4 rounded-xl border border-border bg-card p-3 shadow-xs not-prose select-text" contenteditable="false" id="${tableId}-container">
+          <div class="flex items-center justify-between pb-2 mb-2 border-b border-border/60 text-xs text-muted-foreground">
+            <div class="flex items-center gap-2 font-medium text-foreground">
+              <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+              <span>HyperSheet Matrix</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[11px]">
+              <span class="text-muted-foreground">Shortcuts: <kbd class="px-1 py-0.2 rounded bg-muted font-mono">Alt+↑/↓/←/→</kbd></span>
+              <button type="button" onclick="tableAddColumn('${tableId}')" class="px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors">+ Add Col</button>
+              <button type="button" onclick="tableAddRow('${tableId}')" class="px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors">+ Add Row</button>
+              <button type="button" onclick="this.closest('#${tableId}-container').remove(); syncEditorState();" class="px-2 py-0.5 rounded hover:bg-destructive/10 text-destructive text-[11px]">✕ Delete</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table id="${tableId}" class="w-full text-left border-collapse text-xs table-fixed">
+              <thead>
+                <tr class="border-b border-border bg-muted/40 text-muted-foreground font-mono">
+                  <th style="width: 44px;" class="p-2 border-r border-border/60 text-center select-none relative">#</th>
+                  <th style="width: 200px;" class="p-2 border-r border-border/60 font-semibold text-foreground relative select-none">
+                    <span>Column A</span>
+                    <div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+                  </th>
+                  <th style="width: 200px;" class="p-2 border-r border-border/60 font-semibold text-foreground relative select-none">
+                    <span>Column B</span>
+                    <div class="col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+                  </th>
+                  <th style="width: 60px;" class="p-2 text-center select-none">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border/40">
+                <tr class="hover:bg-muted/20 group relative" style="height: 36px;">
+                  <td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+                    1
+                    <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+                  </td>
+                  <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Data 1</td>
+                  <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Value 1</td>
+                  <td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline">🗑</button></td>
+                </tr>
+                <tr class="hover:bg-muted/20 group relative" style="height: 36px;">
+                  <td class="p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative">
+                    2
+                    <div class="row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors"></div>
+                  </td>
+                  <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Data 2</td>
+                  <td class="p-2 border-r border-border/60" contenteditable="true" onkeydown="handleTableCellKeydown(event, this)">Value 2</td>
+                  <td class="p-2 text-center"><button type="button" onclick="tableDeleteRow(this)" class="opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p><br></p>
+      `;
+
+      document.execCommand('insertHTML', false, html);
+      initTableResizers(document.getElementById(tableId));
+      syncEditorState();
+    }
+
+    // --- Column and Row Drag-to-Resize Engine ---
+    function initTableResizers(table) {
+      if (!table) return;
+
+      // Column Width Resizing
+      table.querySelectorAll('.col-resize-handle').forEach(handle => {
+        handle.onmousedown = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const th = handle.closest('th');
+          const startX = e.clientX;
+          const startWidth = th.offsetWidth;
+
+          const onMouseMove = (moveEvent) => {
+            const dx = moveEvent.clientX - startX;
+            const newWidth = Math.max(60, startWidth + dx);
+            th.style.width = `${newWidth}px`;
+          };
+
+          const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            syncEditorState();
+          };
+
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        };
+      });
+
+      // Row Height Resizing
+      table.querySelectorAll('.row-resize-handle').forEach(handle => {
+        handle.onmousedown = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const tr = handle.closest('tr');
+          const startY = e.clientY;
+          const startHeight = tr.offsetHeight;
+
+          const onMouseMove = (moveEvent) => {
+            const dy = moveEvent.clientY - startY;
+            const newHeight = Math.max(28, startHeight + dy);
+            tr.style.height = `${newHeight}px`;
+          };
+
+          const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            syncEditorState();
+          };
+
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        };
+      });
+    }
+
+    // --- Right-Click Context Menu Engine ---
+    function handleCanvasContextMenu(e) {
+      e.preventDefault();
+      const menu = document.getElementById('editor-context-menu');
+      const tableGroup = document.getElementById('ctx-table-group');
+      if (!menu) return;
+
+      activeContextTd = e.target.closest('td') || e.target.closest('th');
+
+      if (activeContextTd && activeContextTd.closest('table')) {
+        tableGroup.style.display = 'block';
+      } else {
+        tableGroup.style.display = 'none';
+      }
+
+      // Position context menu
+      const posX = Math.min(window.innerWidth - 240, e.clientX);
+      const posY = Math.min(window.innerHeight - 300, e.clientY);
+      menu.style.left = `${posX}px`;
+      menu.style.top = `${posY}px`;
+      menu.style.display = 'block';
+    }
+
+    function closeContextMenu() {
+      const menu = document.getElementById('editor-context-menu');
+      if (menu) menu.style.display = 'none';
+      activeContextTd = null;
+    }
+
+    function ctxTableAction(action) {
+      if (!activeContextTd) {
+        closeContextMenu();
+        return;
+      }
+
+      const cell = activeContextTd;
+      const tr = cell.closest('tr');
+      const table = cell.closest('table');
+      if (!table || !tr) {
+        closeContextMenu();
+        return;
+      }
+
+      const theadTr = table.querySelector('thead tr');
+      const tbody = table.querySelector('tbody');
+      if (!theadTr || !tbody) {
+        closeContextMenu();
+        return;
+      }
+
+      const allTrs = Array.from(tbody.children);
+      const rowIdx = allTrs.indexOf(tr);
+      const cellIndex = Array.from(tr.children).indexOf(cell);
+      const totalCols = theadTr.children.length; // #, data cols..., Action
+
+      if (action === 'row-above') {
+        insertRowAt(table, rowIdx >= 0 ? rowIdx : 0);
+      } else if (action === 'row-below') {
+        insertRowAt(table, rowIdx >= 0 ? rowIdx + 1 : allTrs.length);
+      } else if (action === 'col-left') {
+        const targetCol = Math.max(0, Math.min(totalCols - 2, cellIndex > 0 ? cellIndex - 1 : 0));
+        insertColumnAt(table, targetCol);
+      } else if (action === 'col-right') {
+        const targetCol = Math.max(0, Math.min(totalCols - 2, cellIndex > 0 ? cellIndex : 1));
+        insertColumnAt(table, targetCol);
+      } else if (action === 'del-row') {
+        if (allTrs.length > 1) {
+          if (rowIdx >= 0) {
+            tr.remove();
+          } else {
+            allTrs[0].remove();
+          }
+          renumberTableRows(table);
+          syncEditorState();
+        } else if (allTrs.length === 1) {
+          allTrs[0].querySelectorAll('td[contenteditable="true"]').forEach(c => c.innerText = '-');
+          syncEditorState();
+        }
+      } else if (action === 'del-col') {
+        if (totalCols <= 3) {
+          // Must keep at least 1 data column
+          closeContextMenu();
+          return;
+        }
+        let colToDelete = cellIndex;
+        if (colToDelete < 1) colToDelete = 1;
+        if (colToDelete >= totalCols - 1) colToDelete = totalCols - 2;
+
+        if (theadTr.children[colToDelete]) {
+          theadTr.children[colToDelete].remove();
+        }
+        tbody.querySelectorAll('tr').forEach(r => {
+          if (r.children[colToDelete]) {
+            r.children[colToDelete].remove();
+          }
+        });
+        initTableResizers(table);
+        syncEditorState();
+      }
+
+      closeContextMenu();
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#editor-context-menu')) {
+        closeContextMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeContextMenu();
+      }
+    });
+
+    // --- Levenshtein Auto-Fix & Spellchecker Engine ---
+    function matchCasing(original, corrected) {
+      if (!corrected) return original;
+      if (original === original.toUpperCase()) return corrected.toUpperCase();
+      if (original[0] === original[0].toUpperCase() && original.slice(1) === original.slice(1).toLowerCase()) {
+        return corrected.charAt(0).toUpperCase() + corrected.slice(1).toLowerCase();
+      }
+      return corrected.toLowerCase();
+    }
+
+    function correctWord(originalWord) {
+      if (!originalWord || originalWord.length < 3) return originalWord;
+      if (originalWord.length <= 5 && originalWord === originalWord.toUpperCase()) return originalWord;
+
+      const lower = originalWord.toLowerCase();
+      if (DICTIONARY_WORDS.has(lower)) return originalWord;
+
+      for (let i = 0; i < typoDictionary.length; i++) {
+        if (typoDictionary[i][0].test(originalWord)) {
+          return originalWord.replace(typoDictionary[i][0], typoDictionary[i][1]);
+        }
+      }
+
+      const deVoweled = lower.replace(/([aeiou])\1/g, '$1');
+      if (DICTIONARY_WORDS.has(deVoweled)) return matchCasing(originalWord, deVoweled);
+
+      const singleLetter = lower.replace(/(.)\1+/g, '$1');
+      if (DICTIONARY_WORDS.has(singleLetter)) return matchCasing(originalWord, singleLetter);
+
+      const len = lower.length;
+      let candidates = [];
+
+      for (let i = 0; i < len; i++) {
+        const del = lower.slice(0, i) + lower.slice(i + 1);
+        if (DICTIONARY_WORDS.has(del)) candidates.push(del);
+      }
+
+      for (let i = 0; i < len - 1; i++) {
+        const trans = lower.slice(0, i) + lower[i + 1] + lower[i] + lower.slice(i + 2);
+        if (DICTIONARY_WORDS.has(trans)) candidates.push(trans);
+      }
+
+      if (candidates.length === 0) {
+        for (let i = 0; i < len; i++) {
+          for (let j = 0; j < ALPHABET.length; j++) {
+            const sub = lower.slice(0, i) + ALPHABET[j] + lower.slice(i + 1);
+            if (DICTIONARY_WORDS.has(sub)) candidates.push(sub);
+          }
+        }
+      }
+
+      if (candidates.length > 0) return matchCasing(originalWord, candidates[0]);
+      return originalWord;
+    }
+
+    function fixSpellingAndSpacing(text) {
+      if (!text) return '';
+      let res = text;
+      res = res.replace(/[ \t]{2,}/g, ' ');
+      res = res.replace(/ +([,\.!\?;:])/g, '$1');
+      res = res.replace(/\(\s+/g, '(').replace(/\s+\)/g, ')');
+      res = res.replace(/(\w)--(\w)/g, '$1—$2');
+      res = res.replace(/ -- /g, ' — ');
+      res = res.replace(/\.{3}/g, '…');
+      res = res.replace(/\b([a-zA-Z]{3,})\b/g, (match) => correctWord(match));
+      return res;
+    }
+
+    function formatBlock(tag) {
+      document.execCommand('formatBlock', false, tag);
+      syncEditorState();
+    }
+
+    function execStyle(cmd) {
+      document.execCommand(cmd, false, null);
+      syncEditorState();
+    }
+
+    function insertCodeInline() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      const text = selection.toString() || 'code';
+      document.execCommand('insertHTML', false, `<code>${text}</code>`);
+      syncEditorState();
+    }
+
+    function insertCallout(type) {
+      const html = `<div class="my-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-500 dark:text-emerald-400 text-sm">💡 <strong>Callout:</strong> Write your note here...</div><p><br></p>`;
+      document.execCommand('insertHTML', false, html);
+      syncEditorState();
+    }
+
+    function onEditorInput(el) {
+      syncEditorState();
+    }
+
+    function onEditorKeydown(e, el) {
+      const slashMenu = document.getElementById('slash-menu');
+      if (e.key === '/') {
+        const state = HxBolt.getState(document.body);
+        if (state) state.slashMenuOpen = true;
+        slashMenu.style.display = 'block';
+      } else if (e.key === 'Escape') {
+        const state = HxBolt.getState(document.body);
+        if (state) state.slashMenuOpen = false;
+        slashMenu.style.display = 'none';
+      }
+    }
+
+    function executeSlashCommand(cmd) {
+      const slashMenu = document.getElementById('slash-menu');
+      slashMenu.style.display = 'none';
+      const state = HxBolt.getState(document.body);
+      if (state) state.slashMenuOpen = false;
+
+      document.execCommand('delete', false, null);
+
+      if (cmd === 'h1') formatBlock('h1');
+      else if (cmd === 'h2') formatBlock('h2');
+      else if (cmd === 'table') insertInlineHyperSheetTable();
+      else if (cmd === 'bullet') execStyle('insertUnorderedList');
+      else if (cmd === 'callout') insertCallout('tip');
+    }
+
+    function syncEditorState() {
+      const canvas = document.getElementById('hypertext-canvas');
+      if (!canvas) return;
+      const html = canvas.innerHTML;
+      const text = canvas.innerText.trim();
+      
+      const hiddenInput = document.getElementById('hypertext-hidden-input');
+      if (hiddenInput) hiddenInput.value = html;
+
+      const words = text.length > 0 ? text.split(/\s+/).length : 0;
+      const chars = text.length;
+      const readMin = Math.max(1, Math.ceil(words / 200));
+
+      const state = HxBolt.getState(document.body);
+      if (state) {
+        state.wordCount = words;
+        state.charCount = chars;
+        state.readingTime = `${readMin} min`;
+        state.saveStatus = 'Draft updated';
+      }
+    }
+
+    function autoFixTypography() {
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+      const undoBtn = document.getElementById('btn-undo-autofix');
+
+      let activeMode = 'visual';
+      if (mdArea && mdArea.style.display !== 'none') activeMode = 'markdown';
+      else if (htmlArea && htmlArea.style.display !== 'none') activeMode = 'html';
+
+      lastAutoFixSnapshot = {
+        mode: activeMode,
+        canvasHTML: canvas ? canvas.innerHTML : '',
+        mdValue: mdArea ? mdArea.value : '',
+        htmlValue: htmlArea ? htmlArea.value : ''
+      };
+
+      if (undoBtn) undoBtn.style.display = 'inline-flex';
+
+      if (activeMode === 'visual' && canvas) {
+        const walker = document.createTreeWalker(canvas, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        const textNodes = [];
+        while ((node = walker.nextNode())) {
+          if (node.parentElement && (node.parentElement.tagName === 'CODE' || node.parentElement.tagName === 'PRE')) continue;
+          textNodes.push(node);
+        }
+
+        textNodes.forEach(tNode => {
+          tNode.nodeValue = fixSpellingAndSpacing(tNode.nodeValue);
+        });
+
+        const paragraphs = Array.from(canvas.querySelectorAll('p'));
+        for (let i = paragraphs.length - 1; i > 0; i--) {
+          const current = paragraphs[i];
+          const prev = paragraphs[i - 1];
+          if (current.textContent.trim() === '' && prev.textContent.trim() === '' && !current.querySelector('img, hr, iframe')) {
+            current.remove();
+          }
+        }
+      } else if (activeMode === 'markdown' && mdArea) {
+        let lines = mdArea.value.split('\n');
+        let inCode = false;
+        lines = lines.map(line => {
+          if (line.trim().startsWith('```')) {
+            inCode = !inCode;
+            return line;
+          }
+          if (inCode) return line;
+          return fixSpellingAndSpacing(line);
+        });
+        mdArea.value = lines.join('\n').replace(/\n{3,}/g, '\n\n');
+      } else if (activeMode === 'html' && htmlArea) {
+        const temp = document.createElement('div');
+        temp.innerHTML = htmlArea.value;
+        const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        const textNodes = [];
+        while ((node = walker.nextNode())) {
+          if (node.parentElement && (node.parentElement.tagName === 'CODE' || node.parentElement.tagName === 'PRE')) continue;
+          textNodes.push(node);
+        }
+        textNodes.forEach(tNode => {
+          tNode.nodeValue = fixSpellingAndSpacing(tNode.nodeValue);
+        });
+        htmlArea.value = temp.innerHTML;
+      }
+
+      syncEditorState();
+
+      const state = HxBolt.getState(document.body);
+      if (state) {
+        state.saveStatus = '✨ Auto-fix applied (spacing, spelling, typography)';
+        setTimeout(() => {
+          if (state && state.saveStatus && state.saveStatus.includes('Auto-fix applied')) {
+            state.saveStatus = 'All changes saved';
+          }
+        }, 3500);
+      }
+    }
+
+    function undoAutoFix() {
+      if (!lastAutoFixSnapshot) return;
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+      const undoBtn = document.getElementById('btn-undo-autofix');
+
+      if (canvas && lastAutoFixSnapshot.canvasHTML !== undefined) canvas.innerHTML = lastAutoFixSnapshot.canvasHTML;
+      if (mdArea && lastAutoFixSnapshot.mdValue !== undefined) mdArea.value = lastAutoFixSnapshot.mdValue;
+      if (htmlArea && lastAutoFixSnapshot.htmlValue !== undefined) htmlArea.value = lastAutoFixSnapshot.htmlValue;
+
+      lastAutoFixSnapshot = null;
+      if (undoBtn) undoBtn.style.display = 'none';
+
+      syncEditorState();
+    }
+
+    function onMarkdownInput(el) { syncEditorState(); }
+    function onHtmlInput(el) { syncEditorState(); }
+
+    // Bidirectional Markdown <-> HTML
+    function htmlToMarkdown(html) {
+      const container = document.createElement('div');
+      container.innerHTML = html;
+
+      function walk(node) {
+        if (node.nodeType === Node.TEXT_NODE) return node.nodeValue;
+        if (node.nodeType !== Node.ELEMENT_NODE) return '';
+
+        const tag = node.tagName.toLowerCase();
+        const children = Array.from(node.childNodes).map(walk).join('');
+
+        switch (tag) {
+          case 'h1': return `\n\n# ${children.trim()}\n\n`;
+          case 'h2': return `\n\n## ${children.trim()}\n\n`;
+          case 'h3': return `\n\n### ${children.trim()}\n\n`;
+          case 'p': return `\n\n${children.trim()}\n\n`;
+          case 'strong':
+          case 'b': return `**${children}**`;
+          case 'em':
+          case 'i': return `*${children}*`;
+          case 'code':
+            if (node.parentElement && node.parentElement.tagName.toLowerCase() === 'pre') return children;
+            return `\`${children}\``;
+          case 'ul': {
+            const items = Array.from(node.children).filter(c => c.tagName.toLowerCase() === 'li').map(c => `- ${walk(c).trim()}`).join('\n');
+            return `\n\n${items}\n\n`;
+          }
+          case 'li': return children;
+          default: return children;
+        }
+      }
+
+      let res = walk(container);
+      return res.replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function inlineMd(str) {
+      let res = str;
+      res = res.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      res = res.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+      res = res.replace(/`([^`]+)`/g, '<code>$1</code>');
+      return res;
+    }
+
+    function markdownToHtml(md) {
+      if (!md) return '<p><br></p>';
+      const lines = md.split('\n');
+      let html = '';
+      let inList = false;
+
+      const flushList = () => {
+        if (inList) { html += '</ul>'; inList = false; }
+      };
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) { flushList(); continue; }
+
+        if (line.startsWith('# ')) { flushList(); html += `<h1>${inlineMd(line.slice(2))}</h1>`; continue; }
+        if (line.startsWith('## ')) { flushList(); html += `<h2>${inlineMd(line.slice(3))}</h2>`; continue; }
+        if (line.startsWith('### ')) { flushList(); html += `<h3>${inlineMd(line.slice(4))}</h3>`; continue; }
+
+        if (/^[-*]\s+(.*)$/.test(line)) {
+          const match = line.match(/^[-*]\s+(.*)$/);
+          if (!inList) { html += '<ul class="list-disc list-inside my-2 space-y-1">'; inList = true; }
+          html += `<li>${inlineMd(match[1])}</li>`;
+          continue;
+        }
+
+        flushList();
+        html += `<p>${inlineMd(line)}</p>`;
+      }
+
+      flushList();
+      return html;
+    }
+
+    function switchEditorView(mode) {
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+
+      const btnVisual = document.getElementById('tab-btn-visual');
+      const btnMd = document.getElementById('tab-btn-markdown');
+      const btnHtml = document.getElementById('tab-btn-html');
+
+      if (mdArea && mdArea.style.display !== 'none' && mdArea.value !== undefined) {
+        canvas.innerHTML = markdownToHtml(mdArea.value);
+      } else if (htmlArea && htmlArea.style.display !== 'none' && htmlArea.value !== undefined) {
+        canvas.innerHTML = htmlArea.value;
+      }
+
+      if (mode === 'markdown') {
+        mdArea.value = htmlToMarkdown(canvas.innerHTML);
+        canvas.style.display = 'none';
+        htmlArea.style.display = 'none';
+        mdArea.style.display = 'block';
+        mdArea.focus();
+      } else if (mode === 'html') {
+        htmlArea.value = canvas.innerHTML.trim();
+        canvas.style.display = 'none';
+        mdArea.style.display = 'none';
+        htmlArea.style.display = 'block';
+        htmlArea.focus();
+      } else {
+        mdArea.style.display = 'none';
+        htmlArea.style.display = 'none';
+        canvas.style.display = 'block';
+        canvas.focus();
+      }
+
+      const activeClass = 'bg-primary text-primary-foreground shadow-sm';
+      const inactiveClass = 'text-muted-foreground hover:text-foreground';
+      [btnVisual, btnMd, btnHtml].forEach(btn => {
+        if (btn) btn.className = 'px-2.5 py-1 rounded-md transition-all ' + inactiveClass;
+      });
+      if (mode === 'visual' && btnVisual) btnVisual.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+      if (mode === 'markdown' && btnMd) btnMd.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+      if (mode === 'html' && btnHtml) btnHtml.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+
+      syncEditorState();
+    }
+
+    // Initialize resizers on load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('table').forEach(t => initTableResizers(t));
+    });
+    setTimeout(() => {
+      document.querySelectorAll('table').forEach(t => initTableResizers(t));
+    }, 100);
+  </script>
+
+  <!-- Usage & HTMX Integration Section -->
+  <div class="space-y-6 pt-6 border-t border-border">
+    <h2 class="text-xl font-bold tracking-tight">HTMX Form Integration</h2>
+    <p class="text-sm text-muted-foreground leading-relaxed">
+      Hypertext Editor connects directly to standard HTMX forms. It updates a hidden <code class="bg-muted px-1.5 py-0.5 rounded text-xs font-mono">content_html</code> payload on every change.
+    </p>
+
+    <div class="code-block"><code><pre>&lt;!-- HTMX Form Submission --&gt;
+&lt;form hx-post="/api/posts/create" hx-target="#post-feedback" class="space-y-4"&gt;
+  &lt;input type="text" name="title" placeholder="Post Title..." class="w-full px-4 py-2 border rounded-lg"&gt;
+  
+  &lt;!-- Drop-in Hypertext Editor --&gt;
+  &lt;div hx-ext="reactive" ...&gt;
+    &lt;input type="hidden" name="content_html" id="hypertext-hidden-input"&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" class="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold"&gt;
+    Publish Article →
+  &lt;/button&gt;
+&lt;/form&gt;</pre></code></div>
+  </div>
+
+  <!-- Go DSL Usage Section -->
+  <div class="space-y-4 pt-6 border-t border-border">
+    <h2 class="text-xl font-bold tracking-tight">Go DSL Usage</h2>
+    <div class="code-block"><code><pre>import "github.com/hyperlibs/HTMX PRO/go/components"
+
+// Server-rendered Hypertext Editor with inline HyperSheet table
+editor := components.HypertextEditor(components.HypertextEditorProps{
+    Name:        "article_body",
+    Placeholder: "Write your document...",
+    InitialHTML: "&lt;h1&gt;My Notes&lt;/h1&gt;&lt;p&gt;Start writing here...&lt;/p&gt;",
+    MinHeight:   "350px",
+})</pre></code></div>
+  </div>
+</div>
+</div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <h2 class="text-xl font-bold tracking-tight">HTML Source</h2>
+          <div class="code-block"><pre><code>&lt;div class=&quot;space-y-12 max-w-5xl&quot;&gt;
+  &lt;!-- Header --&gt;
+  &lt;div class=&quot;space-y-2&quot;&gt;
+    &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+      &lt;span class=&quot;text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full&quot;&gt;Content &amp; Forms&lt;/span&gt;
+      &lt;span class=&quot;text-xs font-mono text-muted-foreground&quot;&gt;views/components/hypertext-editor.html&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;h1 class=&quot;text-3xl font-extrabold tracking-tight&quot;&gt;Hypertext Editor&lt;/h1&gt;
+    &lt;p class=&quot;text-base text-muted-foreground&quot;&gt;
+      A zero-bloat, Notion-grade WYSIWYG document editor with inline resizable HyperSheet tables, 2D arrow key navigation, &lt;kbd class=&quot;px-1.5 py-0.5 rounded bg-muted text-[11px] font-mono border&quot;&gt;Alt + ↑/↓/←/→&lt;/kbd&gt; row &amp; column splitters, document right-click context menu, and Levenshtein auto-fix spellchecker.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Interactive Live Component Preview --&gt;
+  &lt;div class=&quot;space-y-4&quot; hx-ext=&quot;reactive&quot; hx-state='{
+    &quot;viewMode&quot;: &quot;visual&quot;,
+    &quot;wordCount&quot;: 142,
+    &quot;charCount&quot;: 890,
+    &quot;readingTime&quot;: &quot;1 min&quot;,
+    &quot;slashMenuOpen&quot;: false,
+    &quot;saveStatus&quot;: &quot;All changes saved&quot;
+  }'&gt;
+
+    &lt;!-- Editor Outer Shell --&gt;
+    &lt;div class=&quot;rounded-2xl border border-border bg-card shadow-sm overflow-hidden flex flex-col focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all relative&quot;&gt;
+      
+      &lt;!-- Top Action Toolbar --&gt;
+      &lt;div class=&quot;border-b border-border bg-muted/40 px-3 py-2 flex flex-wrap items-center justify-between gap-2 select-none&quot;&gt;
+        
+        &lt;!-- Formatting Button Groups --&gt;
+        &lt;div class=&quot;flex flex-wrap items-center gap-1&quot;&gt;
+          &lt;!-- History --&gt;
+          &lt;div class=&quot;flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5&quot;&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;document.execCommand('undo')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors&quot; title=&quot;Undo (Ctrl+Z)&quot;&gt;
+              &lt;svg class=&quot;w-4 h-4&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M3 7v6h6&quot;/&gt;&lt;path d=&quot;M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;document.execCommand('redo')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors&quot; title=&quot;Redo (Ctrl+Y)&quot;&gt;
+              &lt;svg class=&quot;w-4 h-4&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;path d=&quot;M21 7v6h-6&quot;/&gt;&lt;path d=&quot;M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Headings Dropdown / Buttons --&gt;
+          &lt;div class=&quot;flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5&quot;&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;formatBlock('h1')&quot; class=&quot;px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground&quot; title=&quot;Heading 1&quot;&gt;H1&lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;formatBlock('h2')&quot; class=&quot;px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground&quot; title=&quot;Heading 2&quot;&gt;H2&lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;formatBlock('h3')&quot; class=&quot;px-2 py-1 rounded-md text-xs font-bold hover:bg-muted text-muted-foreground hover:text-foreground&quot; title=&quot;Heading 3&quot;&gt;H3&lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;formatBlock('p')&quot; class=&quot;px-2 py-1 rounded-md text-xs font-medium hover:bg-muted text-muted-foreground hover:text-foreground&quot; title=&quot;Paragraph&quot;&gt;¶&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Inline Styles --&gt;
+          &lt;div class=&quot;flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5&quot;&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('bold')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground font-bold text-sm w-7 h-7 flex items-center justify-center&quot; title=&quot;Bold (Ctrl+B)&quot;&gt;
+              &lt;strong&gt;B&lt;/strong&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('italic')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground italic text-sm w-7 h-7 flex items-center justify-center&quot; title=&quot;Italic (Ctrl+I)&quot;&gt;
+              &lt;em&gt;I&lt;/em&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('underline')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground underline text-sm w-7 h-7 flex items-center justify-center&quot; title=&quot;Underline (Ctrl+U)&quot;&gt;
+              &lt;u&gt;U&lt;/u&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;insertCodeInline()&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground font-mono text-xs w-7 h-7 flex items-center justify-center&quot; title=&quot;Inline Code&quot;&gt;
+              &amp;lt;&amp;gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Lists &amp; Interactive Table --&gt;
+          &lt;div class=&quot;flex items-center border-r border-border/80 pr-1 mr-1 gap-0.5&quot;&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('insertUnorderedList')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground&quot; title=&quot;Bullet List&quot;&gt;
+              &lt;svg class=&quot;w-4 h-4&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;line x1=&quot;8&quot; y1=&quot;6&quot; x2=&quot;21&quot; y2=&quot;6&quot;/&gt;&lt;line x1=&quot;8&quot; y1=&quot;12&quot; x2=&quot;21&quot; y2=&quot;12&quot;/&gt;&lt;line x1=&quot;8&quot; y1=&quot;18&quot; x2=&quot;21&quot; y2=&quot;18&quot;/&gt;&lt;circle cx=&quot;4&quot; cy=&quot;6&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot;/&gt;&lt;circle cx=&quot;4&quot; cy=&quot;12&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot;/&gt;&lt;circle cx=&quot;4&quot; cy=&quot;18&quot; r=&quot;1.5&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;insertInlineHyperSheetTable()&quot; class=&quot;px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-primary hover:text-primary/80 flex items-center gap-1 border border-primary/20 bg-primary/5&quot; title=&quot;Insert Resizable HyperSheet Table (Alt+Arrow navigation)&quot;&gt;
+              &lt;span&gt;📊&lt;/span&gt; &lt;span&gt;Table&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;insertCallout('tip')&quot; class=&quot;px-2 py-1 rounded-md text-xs font-medium hover:bg-muted text-emerald-500 hover:text-emerald-400 flex items-center gap-1&quot; title=&quot;Insert Tip Callout&quot;&gt;
+              💡 Callout
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Auto-Fix &amp; Undo --&gt;
+          &lt;div class=&quot;flex items-center gap-1&quot;&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;autoFixTypography()&quot; class=&quot;px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 flex items-center gap-1.5 transition-colors border border-emerald-500/20 bg-emerald-500/10&quot; title=&quot;Auto-Fix: Remove excess spaces, fix spelling mistakes via Levenshtein dictionary, format smart typography without altering structure&quot;&gt;
+              &lt;span&gt;✅&lt;/span&gt; &lt;span&gt;Auto-Fix&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; id=&quot;btn-undo-autofix&quot; onclick=&quot;undoAutoFix()&quot; style=&quot;display: none;&quot; class=&quot;px-2 py-1 rounded-md text-xs font-semibold hover:bg-muted text-amber-600 dark:text-amber-400 hover:text-amber-500 flex items-center gap-1.5 transition-colors border border-amber-500/20 bg-amber-500/10&quot; title=&quot;Undo Auto-Fix: Revert back to pre-autofix snapshot&quot;&gt;
+              &lt;span&gt;↩️&lt;/span&gt; &lt;span&gt;Undo Fix&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;document.execCommand('removeFormat')&quot; class=&quot;p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-destructive&quot; title=&quot;Clear Formatting&quot;&gt;
+              &lt;svg class=&quot;w-4 h-4&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;&gt;&lt;line x1=&quot;18&quot; y1=&quot;6&quot; x2=&quot;6&quot; y2=&quot;18&quot;/&gt;&lt;line x1=&quot;6&quot; y1=&quot;6&quot; x2=&quot;18&quot; y2=&quot;18&quot;/&gt;&lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- View Mode Switcher (Visual vs Markdown vs HTML) --&gt;
+        &lt;div class=&quot;flex items-center gap-1 p-0.5 rounded-lg bg-background border border-border text-xs font-medium&quot; id=&quot;editor-view-tabs&quot;&gt;
+          &lt;button type=&quot;button&quot; 
+                  id=&quot;tab-btn-visual&quot;
+                  class=&quot;px-2.5 py-1 rounded-md transition-all bg-primary text-primary-foreground shadow-sm&quot;
+                  onclick=&quot;switchEditorView('visual')&quot;&gt;
+            Visual
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; 
+                  id=&quot;tab-btn-markdown&quot;
+                  class=&quot;px-2.5 py-1 rounded-md transition-all text-muted-foreground hover:text-foreground&quot;
+                  onclick=&quot;switchEditorView('markdown')&quot;&gt;
+            Markdown
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; 
+                  id=&quot;tab-btn-html&quot;
+                  class=&quot;px-2.5 py-1 rounded-md transition-all text-muted-foreground hover:text-foreground&quot;
+                  onclick=&quot;switchEditorView('html')&quot;&gt;
+            HTML
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;!-- Editor Full-Surface Content Area --&gt;
+      &lt;div class=&quot;relative min-h-[360px] bg-background p-6&quot;&gt;
+        
+        &lt;!-- 1. Visual WYSIWYG Editable Surface --&gt;
+        &lt;div id=&quot;hypertext-canvas&quot;
+             contenteditable=&quot;true&quot;
+             oninput=&quot;onEditorInput(this)&quot;
+             onkeydown=&quot;onEditorKeydown(event, this)&quot;
+             oncontextmenu=&quot;handleCanvasContextMenu(event)&quot;
+             class=&quot;outline-none min-h-[320px] max-w-none text-foreground text-sm sm:text-base leading-relaxed space-y-4 focus:outline-none block&quot;&gt;
+          &lt;h1&gt;Welcome to Hypertext Editor&lt;/h1&gt;
+          &lt;p&gt;
+            Hypertext Editor is an ultra-lean, &lt;strong&gt;hypermedia-driven rich text suite&lt;/strong&gt; designed for modern web applications. It replaces heavy WYSIWYG packages with zero external dependencies.
+          &lt;/p&gt;
+          
+          &lt;div class=&quot;my-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-500 dark:text-emerald-400 text-sm&quot;&gt;
+            💡 &lt;strong&gt;ProTip:&lt;/strong&gt; Type &lt;kbd class=&quot;px-1.5 py-0.5 rounded bg-muted text-xs font-mono border border-border&quot;&gt;/&lt;/kbd&gt; on any empty line for slash commands, or &lt;strong&gt;Right-Click&lt;/strong&gt; anywhere for the document context menu!
+          &lt;/div&gt;
+
+          &lt;h2&gt;Inline Resizable HyperSheet Table&lt;/h2&gt;
+          &lt;p&gt;
+            Navigate cells with &lt;kbd class=&quot;px-1.5 py-0.2 rounded bg-muted text-xs font-mono&quot;&gt;↑ / ↓ / ← / →&lt;/kbd&gt;. Press &lt;kbd class=&quot;px-1.5 py-0.2 rounded bg-muted text-xs font-mono&quot;&gt;Alt + ↓&lt;/kbd&gt; to add a row below, or &lt;kbd class=&quot;px-1.5 py-0.2 rounded bg-muted text-xs font-mono&quot;&gt;Alt + →&lt;/kbd&gt; to add a column. Drag column &amp; row border handles to resize.
+          &lt;/p&gt;
+
+          &lt;!-- Interactive Resizable HyperSheet Table --&gt;
+          &lt;div class=&quot;my-4 rounded-xl border border-border bg-card p-3 shadow-xs not-prose select-text&quot; contenteditable=&quot;false&quot; id=&quot;table-demo-container&quot;&gt;
+            &lt;div class=&quot;flex items-center justify-between pb-2 mb-2 border-b border-border/60 text-xs text-muted-foreground&quot;&gt;
+              &lt;div class=&quot;flex items-center gap-2 font-medium text-foreground&quot;&gt;
+                &lt;span class=&quot;w-2 h-2 rounded-full bg-primary inline-block&quot;&gt;&lt;/span&gt;
+                &lt;span&gt;HyperSheet Resizable Matrix&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;flex items-center gap-1.5 text-[11px]&quot;&gt;
+                &lt;span class=&quot;text-muted-foreground&quot;&gt;Shortcuts: &lt;kbd class=&quot;px-1 py-0.2 rounded bg-muted font-mono&quot;&gt;Alt+↑/↓/←/→&lt;/kbd&gt;&lt;/span&gt;
+                &lt;button type=&quot;button&quot; onclick=&quot;tableAddColumn('demo-table')&quot; class=&quot;px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors&quot;&gt;+ Add Col&lt;/button&gt;
+                &lt;button type=&quot;button&quot; onclick=&quot;tableAddRow('demo-table')&quot; class=&quot;px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors&quot;&gt;+ Add Row&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;overflow-x-auto&quot;&gt;
+              &lt;table id=&quot;demo-table&quot; class=&quot;w-full text-left border-collapse text-xs table-fixed&quot;&gt;
+                &lt;thead&gt;
+                  &lt;tr class=&quot;border-b border-border bg-muted/40 text-muted-foreground font-mono&quot;&gt;
+                    &lt;th style=&quot;width: 44px;&quot; class=&quot;p-2 border-r border-border/60 text-center select-none relative&quot;&gt;
+                      #
+                    &lt;/th&gt;
+                    &lt;th style=&quot;width: 220px;&quot; class=&quot;p-2 border-r border-border/60 font-semibold text-foreground relative select-none&quot;&gt;
+                      &lt;span&gt;Module (A)&lt;/span&gt;
+                      &lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/th&gt;
+                    &lt;th style=&quot;width: 180px;&quot; class=&quot;p-2 border-r border-border/60 font-semibold text-foreground relative select-none&quot;&gt;
+                      &lt;span&gt;Owner (B)&lt;/span&gt;
+                      &lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/th&gt;
+                    &lt;th style=&quot;width: 140px;&quot; class=&quot;p-2 border-r border-border/60 font-semibold text-foreground relative select-none&quot;&gt;
+                      &lt;span&gt;Velocity (C)&lt;/span&gt;
+                      &lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/th&gt;
+                    &lt;th style=&quot;width: 60px;&quot; class=&quot;p-2 text-center select-none&quot;&gt;Action&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody class=&quot;divide-y divide-border/40&quot;&gt;
+                  &lt;tr class=&quot;hover:bg-muted/20 group relative&quot; style=&quot;height: 36px;&quot;&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+                      1
+                      &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;HxBolt Reactivity Engine&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Core Team&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono font-semibold text-emerald-500&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;60 FPS&lt;/td&gt;
+                    &lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot; title=&quot;Delete Row&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;
+                  &lt;/tr&gt;
+                  &lt;tr class=&quot;hover:bg-muted/20 group relative&quot; style=&quot;height: 36px;&quot;&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+                      2
+                      &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;HyperSheet 2D Matrix Engine&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Data Team&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono font-semibold text-emerald-500&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Sub-1ms&lt;/td&gt;
+                    &lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot; title=&quot;Delete Row&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;
+                  &lt;/tr&gt;
+                  &lt;tr class=&quot;hover:bg-muted/20 group relative&quot; style=&quot;height: 36px;&quot;&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+                      3
+                      &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                    &lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Levenshtein Spellcheck&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;AI Coders&lt;/td&gt;
+                    &lt;td class=&quot;p-2 border-r border-border/60 font-mono font-semibold text-emerald-500&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Zero Bloat&lt;/td&gt;
+                    &lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot; title=&quot;Delete Row&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/tbody&gt;
+              &lt;/table&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;h2&gt;Designed for Fullstack Developers&lt;/h2&gt;
+          &lt;p&gt;
+            Everything you type synchronizes instantly into hidden form fields and updates telemetry in real-time.
+          &lt;/p&gt;
+          &lt;ul class=&quot;list-disc list-inside my-2 space-y-1&quot;&gt;
+            &lt;li&gt;Zero React, zero ProseMirror, zero bloat&lt;/li&gt;
+            &lt;li&gt;Sub-millisecond signal updates via &lt;code&gt;htmx-bolt&lt;/code&gt;&lt;/li&gt;
+            &lt;li&gt;Native 1:1 Go DSL for server-side HTML rendering&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;!-- 2. Markdown Full-Surface Editable Area --&gt;
+        &lt;textarea id=&quot;hypertext-markdown&quot;
+                  style=&quot;display: none;&quot;
+                  oninput=&quot;onMarkdownInput(this)&quot;
+                  class=&quot;w-full min-h-[320px] bg-transparent font-mono text-sm text-foreground border-none outline-none resize-y focus:outline-none leading-relaxed&quot;
+                  placeholder=&quot;Type Markdown content here...&quot;&gt;&lt;/textarea&gt;
+
+        &lt;!-- 3. HTML Full-Surface Editable Area --&gt;
+        &lt;textarea id=&quot;hypertext-html&quot;
+                  style=&quot;display: none;&quot;
+                  oninput=&quot;onHtmlInput(this)&quot;
+                  class=&quot;w-full min-h-[320px] bg-transparent font-mono text-sm text-foreground border-none outline-none resize-y focus:outline-none leading-relaxed&quot;
+                  placeholder=&quot;Type HTML source here...&quot;&gt;&lt;/textarea&gt;
+
+        &lt;!-- Slash Command Menu Popup --&gt;
+        &lt;div id=&quot;slash-menu&quot;
+             hx-show=&quot;slashMenuOpen&quot;
+             class=&quot;absolute z-50 w-64 rounded-xl border border-border bg-card shadow-2xl p-1.5 space-y-1 text-xs&quot;
+             style=&quot;display: none; top: 120px; left: 40px;&quot;&gt;
+          &lt;div class=&quot;px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border mb-1&quot;&gt;
+            Insert Block (Type to filter)
+          &lt;/div&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('h1')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]&quot;&gt;H1&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;Heading 1&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Large title block&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('h2')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-primary/10 text-primary font-bold flex items-center justify-center text-[10px]&quot;&gt;H2&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;Heading 2&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Medium section header&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('table')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-emerald-500/20 text-emerald-500 font-bold flex items-center justify-center text-[10px]&quot;&gt;📊&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;HyperSheet Table&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Resizable 2D editable matrix&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('bullet')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-muted text-foreground flex items-center justify-center text-[10px]&quot;&gt;●&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;Bullet List&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Simple bulleted points&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('callout')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]&quot;&gt;💡&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;Callout Box&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Highlight notice or tip&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+          &lt;button type=&quot;button&quot; onclick=&quot;executeSlashCommand('code')&quot; class=&quot;w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent text-left transition-colors&quot;&gt;
+            &lt;span class=&quot;w-5 h-5 rounded bg-blue-500/20 text-blue-400 font-mono flex items-center justify-center text-[10px]&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt;
+            &lt;div&gt;&lt;div class=&quot;font-medium text-foreground&quot;&gt;Code Block&lt;/div&gt;&lt;div class=&quot;text-[10px] text-muted-foreground&quot;&gt;Syntax formatted snippet&lt;/div&gt;&lt;/div&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Document &amp; Table Right-Click Context Menu --&gt;
+        &lt;div id=&quot;editor-context-menu&quot;
+             class=&quot;fixed z-50 w-56 rounded-xl border border-border bg-card shadow-2xl p-1 text-xs space-y-0.5 select-none&quot;
+             style=&quot;display: none;&quot;&gt;
+          &lt;!-- Contextual Table Tools Header --&gt;
+          &lt;div id=&quot;ctx-table-group&quot; class=&quot;space-y-0.5 pb-1 border-b border-border/60&quot;&gt;
+            &lt;div class=&quot;px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-primary&quot;&gt;Table Actions&lt;/div&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('row-above')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;➕ Insert Row Above&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Alt+↑&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('row-below')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;➕ Insert Row Below&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Alt+↓&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('col-left')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;➕ Insert Col Left&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Alt+←&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('col-right')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;➕ Insert Col Right&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Alt+→&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('del-row')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-destructive/10 text-destructive text-left&quot;&gt;
+              &lt;span&gt;🗑️ Delete Row&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;ctxTableAction('del-col')&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-destructive/10 text-destructive text-left&quot;&gt;
+              &lt;span&gt;🗑️ Delete Column&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Document Formatting Tools --&gt;
+          &lt;div class=&quot;pt-1 space-y-0.5&quot;&gt;
+            &lt;div class=&quot;px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground&quot;&gt;Document Format&lt;/div&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('bold'); closeContextMenu();&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;&lt;strong&gt;B&lt;/strong&gt; Bold&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Ctrl+B&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;execStyle('italic'); closeContextMenu();&quot; class=&quot;w-full flex items-center justify-between px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;&lt;em&gt;I&lt;/em&gt; Italic&lt;/span&gt;
+              &lt;kbd class=&quot;text-[10px] text-muted-foreground font-mono&quot;&gt;Ctrl+I&lt;/kbd&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;insertCallout('tip'); closeContextMenu();&quot; class=&quot;w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;💡 Insert Callout&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;insertInlineHyperSheetTable(); closeContextMenu();&quot; class=&quot;w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-foreground&quot;&gt;
+              &lt;span&gt;📊 Insert Table&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button type=&quot;button&quot; onclick=&quot;autoFixTypography(); closeContextMenu();&quot; class=&quot;w-full flex items-center px-2 py-1.5 rounded-md hover:bg-accent text-left text-emerald-600 dark:text-emerald-400 font-medium&quot;&gt;
+              &lt;span&gt;✅ Auto-Fix Typography&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+
+      &lt;!-- Bottom Telemetry &amp; Status Footer --&gt;
+      &lt;div class=&quot;border-t border-border bg-muted/20 px-4 py-2 flex flex-wrap items-center justify-between text-xs text-muted-foreground font-mono&quot;&gt;
+        &lt;div class=&quot;flex items-center gap-4&quot;&gt;
+          &lt;span&gt;Words: &lt;strong class=&quot;text-foreground&quot; hx-text=&quot;wordCount&quot;&gt;142&lt;/strong&gt;&lt;/span&gt;
+          &lt;span&gt;Chars: &lt;strong class=&quot;text-foreground&quot; hx-text=&quot;charCount&quot;&gt;890&lt;/strong&gt;&lt;/span&gt;
+          &lt;span&gt;Read time: &lt;strong class=&quot;text-foreground&quot; hx-text=&quot;readingTime&quot;&gt;1 min&lt;/strong&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;flex items-center gap-2&quot;&gt;
+          &lt;span class=&quot;w-2 h-2 rounded-full bg-emerald-500 inline-block&quot;&gt;&lt;/span&gt;
+          &lt;span hx-text=&quot;saveStatus&quot;&gt;All changes saved&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;!-- Hidden form input for seamless HTMX form synchronization --&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;content_html&quot; id=&quot;hypertext-hidden-input&quot;&gt;
+
+  &lt;/div&gt;
+
+  &lt;!-- Scoped Typography &amp; Table Styles --&gt;
+  &lt;style&gt;
+    #hypertext-canvas h1 { font-size: 1.65rem; font-weight: 800; line-height: 1.25; margin-top: 1rem; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+    #hypertext-canvas h2 { font-size: 1.35rem; font-weight: 700; line-height: 1.3; margin-top: 0.875rem; margin-bottom: 0.375rem; letter-spacing: -0.02em; }
+    #hypertext-canvas h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.35; margin-top: 0.75rem; margin-bottom: 0.25rem; }
+    #hypertext-canvas p { margin-bottom: 0.75rem; line-height: 1.6; }
+    #hypertext-canvas ul { list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    #hypertext-canvas ol { list-style-type: decimal; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    #hypertext-canvas li { margin-bottom: 0.25rem; }
+    #hypertext-canvas blockquote { border-left: 4px solid hsl(var(--primary)); padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: hsl(var(--muted-foreground)); }
+    #hypertext-canvas code { background-color: hsl(var(--muted)); padding: 0.15rem 0.35rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.85em; }
+    #hypertext-canvas a { color: hsl(var(--primary)); text-decoration: underline; font-weight: 500; }
+    #hypertext-canvas hr { border-top: 1px solid hsl(var(--border)); margin: 1.5rem 0; }
+    .col-resize-handle { user-select: none; }
+    .row-resize-handle { user-select: none; }
+  &lt;/style&gt;
+
+  &lt;!-- Client Integration Scripts --&gt;
+  &lt;script&gt;
+    // 1,800+ Top Core English &amp; Tech Vocabulary Dictionary
+    const WORD_LIST_STR = &quot;a ability able about above accept according account across act action actions activity actually add address administration admit adult affect after again against age agency agent agentic agents agree agreement ahead air all allow allows almost alone along already also although always among amount analysis and animal animals another answer any anyone anything appear appearance appearances apply approach area areas argue argument arm arms array arrays article articles artist as ask assume at attack attention attorney audience author authority automatic available avoid away back bad bag balance ball bank bar base be beat beautiful because become bed before begin behavior behind believe benefit best better between beyond big bill billion bit black blood blue board body book born both box boy breaks brief build builder builders building built bullet bunch business busy but button buttons buy by call camera campaign can cancel cancer candidate canvas capital car card cards care career carry case catch cause cell cells center central century certain certainly chair chairman challenge chance change changes character characters check checking child children choice choose church circle citizen city civil claim class classes clear clearly client clients climate close coach code cold collection college color column columns combine come commercial common community company compare computer concern condition conference congress consider consumer contain content continue control controls core corporate cost could council count counter country county couple course court cover create created creates creation crime culture cup current customer cut dark dashboard data database daughter day days dead deal dear death debate decade decide decision declaration deep defense define degree demo describe description design designed designer designers designing desk destroy detail detailed determine develop developer developers development device dialog differ difference different difficult dimension dinner direction director discover discuss disease do doctor document documents dog dollar door double down draw dream dress drink drive drop drug due during each early earth easy eat economic economy edge edition editor editors edit education effect effects effort eight either election electric element elements elite else employee empty enable end energy engine engineer engineers enjoy enough ensure enter enterprise entire entry environment equal error errors especially establish even evening event events ever every everybody everyone everything evidence exact exactly example examples executive exist existence expand expect experience expert explain export extend extension extensions eye face fact factor fail family far fast father fault fear feature features federal feel feeling few field fields fight figure figures file files fill film filter filters final finally finance financial find fine finger finish fire first fish five fix fixes fixed flag flash floor fly focus follow following food foot for force foreign form format formatting forms forward found four frame frameworks framework free friend from front full fully function functional functions fundamental future game garden gas general generation get girl give glass global go goal good government great green ground group grow growth guess guidance guide gun guy hair half hand handle handler happen happy hard have he head header heading headings health hear heart heat heavy help helps helpful her here herself high highlight him himself history hit hold home hope hospital hot hotel hour house how however huge human hundred husband hypertext htmx HTMX PRO idea identify if ignore image images imagine impact important improve in include includes including increase indeed indicate individual industry information info initial inject input inputs inside instant instead institution insurance intend interaction interactive interest internal international internet interval into investigate investment invite invoice involve issue item items its itself job join judge jump just keep key keyboard keys kill kind know knowledge land landscape language large last late later laugh launch law lawyer lay layer layers layout layouts lead leader leaders learn leave left legal legacy legend length less letter letters level levels library libraries license life lift light lightning like likely limit line lines link links list lists listen listener listeners literature little live local lock log logic look lose loss lot love low machine macro magazine mail maintain maintainer main major majority make male man manage manager managing modern many market marriage mass master match math matrix matter may maybe me meal mean meaning measurement mechanism media medical meet member memory mention menu message messages method micro middle might military million mind mine minute miss mission mistake mode model modern modify moment money month monthly more morning most mother motion move movement movie much multiple municipal music must mutate my myself name nation national native natural nature near nearby necessary need negative network never new news next nice night nine no nobody normal north not note notes notice novel number numbers observe occur occurred occurrence off offer office officer official often oh oil ok old on once one ongoing online only onto open opening operate operation operations opinion opportunity oppose option options or order ordered organization original other others our ourselves out outcome output outputs over overall owner package packages page pages pain paint panel paper paragraph paragraphs part partial partials participant particular party pass past path pattern pay payment peak peer penalty people perform performance permanent persist personal phone photo phrase physical physics picture piece pill pilot place plan planning platform play player point policy poor pop popup port portfolio position positive possible post potential pound pour power powerful practical practice precise prefer prepare presence president pressure pretty prevent price primitive print prior priority privacy private probability problem process produce product profession program project promise promote proper properly proportion protocol provide province provision public publish pull purpose push put quality quantitative query quick quickly quote quotes radar radius raise range rapid rare rate rather than race radio radius reaction read reading ready real realize really reason receive recent recipe record recover reduce region regular reject relate relative release reliable religion religious rely remain remember remote remove render rendering rendered renders renderer repeat replace report represent require research resolve response rest restaurant result return reveal rich right ring risk road rock role roll room rough round routine row rule run running safe safety salary same sample save saveStatus scan scene schedule schema science score screen script scroll search season seat second secret section security see seed seek seem self sell send sequence serial series server service set settle setup seven several severe shape share shell sheet shoot short should show sibling side sign signal signature significant simple simply since single sink sister sit site situation size skill skills slash slice slide slim small smart snapshot solution solve son soon sound source space spatial speak special species specific speech spend spirit spring staff stage standard start state statement states static status step steps still stimulus stock stone stop store story strategy street strike string structural structure structures student study style styles stylish subject submillisecond subscribe subscription subsequent success successful such sudden suffer suggest suit summarize summary summer super supplement support surface surprise surveillance switch symbol system systems table tables tablet tail take talk target task tasks tax team telemetry template templates temporary ten term test tests text textarea texture thank than that the their them theme themes themselves then theology theory there therefore these they thing think third this those though thought threat three through throughout throw ticket tier time tiny title to today together tolerance tomorrow tonight tool toolbar toolkit tools topic total tough tour toward track tracking trade tradition traffic trail train transaction transcript transition translation transport trash travel treasure treatment tree trigger true truly trust try tube turn tutorial twin two type typed typedarray typical typography ultimate ultra under understand unit unity universe unless until unto update updates upgrade upload upon upper upset urban use used useful user users utility vacation valid validate value values variable variables variation variety various verify version view visual vocabulary volume wait walk wall want war warm warn warning watch water wave way we weapon wear weather web website week weight well west western what whatever wheel when where whereas whether which while white whole whom whose why widget wide wife wild will win window wind wire wish with within without woman wonder word words work worker working workplace workshop workspace world worry worth would write writer writing wrong yard year years yellow yes yesterday yet you young your yourself zone&quot;;
+
+    const DICTIONARY_WORDS = new Set(WORD_LIST_STR.split(' '));
+    const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+
+    const typoDictionary = [
+      [/\bteh\b/g, 'the'], [/\bTeh\b/g, 'The'],
+      [/\brecieve\b/g, 'receive'], [/\bRecieve\b/g, 'Receive'],
+      [/\brecieving\b/g, 'receiving'], [/\bRecieving\b/g, 'Receiving'],
+      [/\brecieved\b/g, 'received'], [/\bRecieved\b/g, 'Received'],
+      [/\bseperate\b/g, 'separate'], [/\bSeperate\b/g, 'Separate'],
+      [/\bseperated\b/g, 'separated'], [/\bSeperated\b/g, 'Separated'],
+      [/\bdefinately\b/g, 'definitely'], [/\bDefinately\b/g, 'Definitely'],
+      [/\boccured\b/g, 'occurred'], [/\bOccured\b/g, 'Occurred'],
+      [/\boccuring\b/g, 'occurring'], [/\bOccuring\b/g, 'Occurring'],
+      [/\buntill\b/g, 'until'], [/\bUntill\b/g, 'Until'],
+      [/\bwierd\b/g, 'weird'], [/\bWierd\b/g, 'Weird'],
+      [/\btruely\b/g, 'truly'], [/\bTruely\b/g, 'Truly'],
+      [/\baccomodate\b/g, 'accommodate'], [/\bAccomodate\b/g, 'Accommodate'],
+      [/\bgoverment\b/g, 'government'], [/\bGoverment\b/g, 'Government'],
+      [/\bacheive\b/g, 'achieve'], [/\bAcheive\b/g, 'Achieve'],
+      [/\bcalender\b/g, 'calendar'], [/\bCalender\b/g, 'Calendar'],
+      [/\btommorow\b/g, 'tomorrow'], [/\bTommorow\b/g, 'Tomorrow'],
+      [/\bneccessary\b/g, 'necessary'], [/\bNeccessary\b/g, 'Necessary'],
+      [/\bexistense\b/g, 'existence'], [/\bExistense\b/g, 'Existence'],
+      [/\bappearence\b/g, 'appearance'], [/\bAppearence\b/g, 'Appearance'],
+      [/\bpossession\b/g, 'possession'],
+      [/\bpossess\b/g, 'possess'],
+      [/\bhtmxui\b/g, 'HTMX PRO'], [/\bHtmxui\b/g, 'HTMX PRO'],
+      [/\bhtmxpro\b/g, 'HTMX PRO'], [/\bHtmxpro\b/g, 'HTMX PRO'],
+      [/\bhtmx\b/g, 'HTMX'], [/\bHtmx\b/g, 'HTMX']
+    ];
+
+    let lastAutoFixSnapshot = null;
+    let activeContextTd = null;
+
+    // --- 2D Keyboard Navigation &amp; Alt+Arrow Shortcuts for Table ---
+    function handleTableCellKeydown(e, el) {
+      const td = el.closest('td');
+      if (!td) return;
+      const tr = td.parentElement;
+      const tbody = tr.parentElement;
+      const table = tbody.closest('table');
+      if (!table) return;
+
+      const allTrs = Array.from(tbody.children);
+      const rowIndex = allTrs.indexOf(tr);
+      const allTdsInRow = Array.from(tr.children).filter(c =&gt; c.tagName === 'TD' &amp;&amp; c.getAttribute('contenteditable') === 'true');
+      const colIndex = allTdsInRow.indexOf(td);
+
+      // --- Alt + Arrow Key Insertions ---
+      if (e.altKey) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          insertRowAt(table, rowIndex + 1);
+          focusTableCell(tbody, rowIndex + 1, colIndex);
+          return;
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          insertRowAt(table, rowIndex);
+          focusTableCell(tbody, rowIndex, colIndex);
+          return;
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          insertColumnAt(table, colIndex + 1);
+          focusTableCell(tbody, rowIndex, colIndex + 1);
+          return;
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          insertColumnAt(table, colIndex);
+          focusTableCell(tbody, rowIndex, colIndex);
+          return;
+        }
+      }
+
+      // --- 2D Arrow Navigation ---
+      if (e.key === 'ArrowDown') {
+        if (rowIndex &lt; allTrs.length - 1) {
+          e.preventDefault();
+          focusTableCell(tbody, rowIndex + 1, colIndex);
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (rowIndex &gt; 0) {
+          e.preventDefault();
+          focusTableCell(tbody, rowIndex - 1, colIndex);
+        }
+      } else if (e.key === 'Tab') {
+        if (!e.shiftKey &amp;&amp; rowIndex === allTrs.length - 1 &amp;&amp; colIndex === allTdsInRow.length - 1) {
+          e.preventDefault();
+          tableAddRow(table.id);
+          focusTableCell(tbody, rowIndex + 1, 0);
+        }
+      }
+    }
+
+    function focusTableCell(tbody, rowIdx, colIdx) {
+      const rows = tbody.querySelectorAll('tr');
+      if (rowIdx &gt;= 0 &amp;&amp; rowIdx &lt; rows.length) {
+        const editableTds = Array.from(rows[rowIdx].children).filter(c =&gt; c.tagName === 'TD' &amp;&amp; c.getAttribute('contenteditable') === 'true');
+        const targetCol = Math.max(0, Math.min(editableTds.length - 1, colIdx));
+        if (editableTds[targetCol]) {
+          editableTds[targetCol].focus();
+          try {
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(editableTds[targetCol]);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          } catch (_) {}
+        }
+      }
+    }
+
+    function insertRowAt(table, targetRowIdx) {
+      const tbody = table.querySelector('tbody');
+      const colCount = table.querySelectorAll('thead th').length - 2;
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-muted/20 group relative';
+      tr.style.height = '36px';
+
+      let cells = `&lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+        &lt;span class=&quot;row-num&quot;&gt;&lt;/span&gt;
+        &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+      &lt;/td&gt;`;
+      for (let i = 0; i &lt; colCount; i++) {
+        cells += `&lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;-&lt;/td&gt;`;
+      }
+      cells += `&lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;`;
+
+      tr.innerHTML = cells;
+
+      const rows = tbody.querySelectorAll('tr');
+      if (targetRowIdx &gt;= rows.length) {
+        tbody.appendChild(tr);
+      } else {
+        tbody.insertBefore(tr, rows[targetRowIdx]);
+      }
+
+      renumberTableRows(table);
+      initTableResizers(table);
+      syncEditorState();
+    }
+
+    function insertColumnAt(table, targetColIdx) {
+      const theadTr = table.querySelector('thead tr');
+      const allThs = Array.from(theadTr.children);
+      const colLetter = String.fromCharCode(65 + Math.min(25, targetColIdx));
+
+      const th = document.createElement('th');
+      th.style.width = '180px';
+      th.className = 'p-2 border-r border-border/60 font-semibold text-foreground relative select-none';
+      th.innerHTML = `&lt;span&gt;Col (${colLetter})&lt;/span&gt;&lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;`;
+
+      // Target th index is targetColIdx + 1 (after row index th)
+      const refTh = allThs[targetColIdx + 1] || theadTr.lastElementChild;
+      theadTr.insertBefore(th, refTh);
+
+      // Insert Td in all rows
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(tr =&gt; {
+        const td = document.createElement('td');
+        td.className = 'p-2 border-r border-border/60';
+        td.setAttribute('contenteditable', 'true');
+        td.setAttribute('onkeydown', 'handleTableCellKeydown(event, this)');
+        td.innerText = '-';
+        const allTds = Array.from(tr.children);
+        const refTd = allTds[targetColIdx + 1] || tr.lastElementChild;
+        tr.insertBefore(td, refTd);
+      });
+
+      initTableResizers(table);
+      syncEditorState();
+    }
+
+    function renumberTableRows(table) {
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach((r, i) =&gt; {
+        const numEl = r.querySelector('.row-num') || r.querySelector('td:first-child');
+        if (numEl) {
+          if (numEl.querySelector('.row-num')) numEl.querySelector('.row-num').innerText = String(i + 1);
+          else if (numEl.firstChild) numEl.firstChild.nodeValue = String(i + 1);
+        }
+      });
+    }
+
+    function tableAddRow(tableId) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const tbody = table.querySelector('tbody');
+      insertRowAt(table, tbody.querySelectorAll('tr').length);
+    }
+
+    function tableAddColumn(tableId) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const colCount = table.querySelectorAll('thead th').length - 2;
+      insertColumnAt(table, colCount);
+    }
+
+    function tableDeleteRow(btn) {
+      const tr = btn.closest('tr');
+      const table = tr?.closest('table');
+      if (tr) {
+        tr.remove();
+        if (table) renumberTableRows(table);
+        syncEditorState();
+      }
+    }
+
+    function insertInlineHyperSheetTable() {
+      const canvas = document.getElementById('hypertext-canvas');
+      if (!canvas) return;
+
+      const tableId = `table-${Date.now()}`;
+      const html = `
+        &lt;div class=&quot;my-4 rounded-xl border border-border bg-card p-3 shadow-xs not-prose select-text&quot; contenteditable=&quot;false&quot; id=&quot;${tableId}-container&quot;&gt;
+          &lt;div class=&quot;flex items-center justify-between pb-2 mb-2 border-b border-border/60 text-xs text-muted-foreground&quot;&gt;
+            &lt;div class=&quot;flex items-center gap-2 font-medium text-foreground&quot;&gt;
+              &lt;span class=&quot;w-2 h-2 rounded-full bg-primary inline-block&quot;&gt;&lt;/span&gt;
+              &lt;span&gt;HyperSheet Matrix&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;flex items-center gap-1.5 text-[11px]&quot;&gt;
+              &lt;span class=&quot;text-muted-foreground&quot;&gt;Shortcuts: &lt;kbd class=&quot;px-1 py-0.2 rounded bg-muted font-mono&quot;&gt;Alt+↑/↓/←/→&lt;/kbd&gt;&lt;/span&gt;
+              &lt;button type=&quot;button&quot; onclick=&quot;tableAddColumn('${tableId}')&quot; class=&quot;px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors&quot;&gt;+ Add Col&lt;/button&gt;
+              &lt;button type=&quot;button&quot; onclick=&quot;tableAddRow('${tableId}')&quot; class=&quot;px-2 py-0.5 rounded bg-muted hover:bg-accent text-[11px] font-medium text-foreground transition-colors&quot;&gt;+ Add Row&lt;/button&gt;
+              &lt;button type=&quot;button&quot; onclick=&quot;this.closest('#${tableId}-container').remove(); syncEditorState();&quot; class=&quot;px-2 py-0.5 rounded hover:bg-destructive/10 text-destructive text-[11px]&quot;&gt;✕ Delete&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;overflow-x-auto&quot;&gt;
+            &lt;table id=&quot;${tableId}&quot; class=&quot;w-full text-left border-collapse text-xs table-fixed&quot;&gt;
+              &lt;thead&gt;
+                &lt;tr class=&quot;border-b border-border bg-muted/40 text-muted-foreground font-mono&quot;&gt;
+                  &lt;th style=&quot;width: 44px;&quot; class=&quot;p-2 border-r border-border/60 text-center select-none relative&quot;&gt;#&lt;/th&gt;
+                  &lt;th style=&quot;width: 200px;&quot; class=&quot;p-2 border-r border-border/60 font-semibold text-foreground relative select-none&quot;&gt;
+                    &lt;span&gt;Column A&lt;/span&gt;
+                    &lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                  &lt;/th&gt;
+                  &lt;th style=&quot;width: 200px;&quot; class=&quot;p-2 border-r border-border/60 font-semibold text-foreground relative select-none&quot;&gt;
+                    &lt;span&gt;Column B&lt;/span&gt;
+                    &lt;div class=&quot;col-resize-handle absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                  &lt;/th&gt;
+                  &lt;th style=&quot;width: 60px;&quot; class=&quot;p-2 text-center select-none&quot;&gt;Action&lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/thead&gt;
+              &lt;tbody class=&quot;divide-y divide-border/40&quot;&gt;
+                &lt;tr class=&quot;hover:bg-muted/20 group relative&quot; style=&quot;height: 36px;&quot;&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+                    1
+                    &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                  &lt;/td&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Data 1&lt;/td&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Value 1&lt;/td&gt;
+                  &lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr class=&quot;hover:bg-muted/20 group relative&quot; style=&quot;height: 36px;&quot;&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60 font-mono text-muted-foreground text-center bg-muted/20 select-none relative&quot;&gt;
+                    2
+                    &lt;div class=&quot;row-resize-handle absolute left-0 right-0 bottom-0 h-1.5 cursor-row-resize hover:bg-primary/50 transition-colors&quot;&gt;&lt;/div&gt;
+                  &lt;/td&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Data 2&lt;/td&gt;
+                  &lt;td class=&quot;p-2 border-r border-border/60&quot; contenteditable=&quot;true&quot; onkeydown=&quot;handleTableCellKeydown(event, this)&quot;&gt;Value 2&lt;/td&gt;
+                  &lt;td class=&quot;p-2 text-center&quot;&gt;&lt;button type=&quot;button&quot; onclick=&quot;tableDeleteRow(this)&quot; class=&quot;opacity-0 group-hover:opacity-100 text-destructive text-xs hover:underline&quot;&gt;🗑&lt;/button&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+      `;
+
+      document.execCommand('insertHTML', false, html);
+      initTableResizers(document.getElementById(tableId));
+      syncEditorState();
+    }
+
+    // --- Column and Row Drag-to-Resize Engine ---
+    function initTableResizers(table) {
+      if (!table) return;
+
+      // Column Width Resizing
+      table.querySelectorAll('.col-resize-handle').forEach(handle =&gt; {
+        handle.onmousedown = (e) =&gt; {
+          e.preventDefault();
+          e.stopPropagation();
+          const th = handle.closest('th');
+          const startX = e.clientX;
+          const startWidth = th.offsetWidth;
+
+          const onMouseMove = (moveEvent) =&gt; {
+            const dx = moveEvent.clientX - startX;
+            const newWidth = Math.max(60, startWidth + dx);
+            th.style.width = `${newWidth}px`;
+          };
+
+          const onMouseUp = () =&gt; {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            syncEditorState();
+          };
+
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        };
+      });
+
+      // Row Height Resizing
+      table.querySelectorAll('.row-resize-handle').forEach(handle =&gt; {
+        handle.onmousedown = (e) =&gt; {
+          e.preventDefault();
+          e.stopPropagation();
+          const tr = handle.closest('tr');
+          const startY = e.clientY;
+          const startHeight = tr.offsetHeight;
+
+          const onMouseMove = (moveEvent) =&gt; {
+            const dy = moveEvent.clientY - startY;
+            const newHeight = Math.max(28, startHeight + dy);
+            tr.style.height = `${newHeight}px`;
+          };
+
+          const onMouseUp = () =&gt; {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            syncEditorState();
+          };
+
+          document.addEventListener('mousemove', onMouseMove);
+          document.addEventListener('mouseup', onMouseUp);
+        };
+      });
+    }
+
+    // --- Right-Click Context Menu Engine ---
+    function handleCanvasContextMenu(e) {
+      e.preventDefault();
+      const menu = document.getElementById('editor-context-menu');
+      const tableGroup = document.getElementById('ctx-table-group');
+      if (!menu) return;
+
+      activeContextTd = e.target.closest('td') || e.target.closest('th');
+
+      if (activeContextTd &amp;&amp; activeContextTd.closest('table')) {
+        tableGroup.style.display = 'block';
+      } else {
+        tableGroup.style.display = 'none';
+      }
+
+      // Position context menu
+      const posX = Math.min(window.innerWidth - 240, e.clientX);
+      const posY = Math.min(window.innerHeight - 300, e.clientY);
+      menu.style.left = `${posX}px`;
+      menu.style.top = `${posY}px`;
+      menu.style.display = 'block';
+    }
+
+    function closeContextMenu() {
+      const menu = document.getElementById('editor-context-menu');
+      if (menu) menu.style.display = 'none';
+      activeContextTd = null;
+    }
+
+    function ctxTableAction(action) {
+      if (!activeContextTd) {
+        closeContextMenu();
+        return;
+      }
+
+      const cell = activeContextTd;
+      const tr = cell.closest('tr');
+      const table = cell.closest('table');
+      if (!table || !tr) {
+        closeContextMenu();
+        return;
+      }
+
+      const theadTr = table.querySelector('thead tr');
+      const tbody = table.querySelector('tbody');
+      if (!theadTr || !tbody) {
+        closeContextMenu();
+        return;
+      }
+
+      const allTrs = Array.from(tbody.children);
+      const rowIdx = allTrs.indexOf(tr);
+      const cellIndex = Array.from(tr.children).indexOf(cell);
+      const totalCols = theadTr.children.length; // #, data cols..., Action
+
+      if (action === 'row-above') {
+        insertRowAt(table, rowIdx &gt;= 0 ? rowIdx : 0);
+      } else if (action === 'row-below') {
+        insertRowAt(table, rowIdx &gt;= 0 ? rowIdx + 1 : allTrs.length);
+      } else if (action === 'col-left') {
+        const targetCol = Math.max(0, Math.min(totalCols - 2, cellIndex &gt; 0 ? cellIndex - 1 : 0));
+        insertColumnAt(table, targetCol);
+      } else if (action === 'col-right') {
+        const targetCol = Math.max(0, Math.min(totalCols - 2, cellIndex &gt; 0 ? cellIndex : 1));
+        insertColumnAt(table, targetCol);
+      } else if (action === 'del-row') {
+        if (allTrs.length &gt; 1) {
+          if (rowIdx &gt;= 0) {
+            tr.remove();
+          } else {
+            allTrs[0].remove();
+          }
+          renumberTableRows(table);
+          syncEditorState();
+        } else if (allTrs.length === 1) {
+          allTrs[0].querySelectorAll('td[contenteditable=&quot;true&quot;]').forEach(c =&gt; c.innerText = '-');
+          syncEditorState();
+        }
+      } else if (action === 'del-col') {
+        if (totalCols &lt;= 3) {
+          // Must keep at least 1 data column
+          closeContextMenu();
+          return;
+        }
+        let colToDelete = cellIndex;
+        if (colToDelete &lt; 1) colToDelete = 1;
+        if (colToDelete &gt;= totalCols - 1) colToDelete = totalCols - 2;
+
+        if (theadTr.children[colToDelete]) {
+          theadTr.children[colToDelete].remove();
+        }
+        tbody.querySelectorAll('tr').forEach(r =&gt; {
+          if (r.children[colToDelete]) {
+            r.children[colToDelete].remove();
+          }
+        });
+        initTableResizers(table);
+        syncEditorState();
+      }
+
+      closeContextMenu();
+    }
+
+    document.addEventListener('click', (e) =&gt; {
+      if (!e.target.closest('#editor-context-menu')) {
+        closeContextMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) =&gt; {
+      if (e.key === 'Escape') {
+        closeContextMenu();
+      }
+    });
+
+    // --- Levenshtein Auto-Fix &amp; Spellchecker Engine ---
+    function matchCasing(original, corrected) {
+      if (!corrected) return original;
+      if (original === original.toUpperCase()) return corrected.toUpperCase();
+      if (original[0] === original[0].toUpperCase() &amp;&amp; original.slice(1) === original.slice(1).toLowerCase()) {
+        return corrected.charAt(0).toUpperCase() + corrected.slice(1).toLowerCase();
+      }
+      return corrected.toLowerCase();
+    }
+
+    function correctWord(originalWord) {
+      if (!originalWord || originalWord.length &lt; 3) return originalWord;
+      if (originalWord.length &lt;= 5 &amp;&amp; originalWord === originalWord.toUpperCase()) return originalWord;
+
+      const lower = originalWord.toLowerCase();
+      if (DICTIONARY_WORDS.has(lower)) return originalWord;
+
+      for (let i = 0; i &lt; typoDictionary.length; i++) {
+        if (typoDictionary[i][0].test(originalWord)) {
+          return originalWord.replace(typoDictionary[i][0], typoDictionary[i][1]);
+        }
+      }
+
+      const deVoweled = lower.replace(/([aeiou])\1/g, '$1');
+      if (DICTIONARY_WORDS.has(deVoweled)) return matchCasing(originalWord, deVoweled);
+
+      const singleLetter = lower.replace(/(.)\1+/g, '$1');
+      if (DICTIONARY_WORDS.has(singleLetter)) return matchCasing(originalWord, singleLetter);
+
+      const len = lower.length;
+      let candidates = [];
+
+      for (let i = 0; i &lt; len; i++) {
+        const del = lower.slice(0, i) + lower.slice(i + 1);
+        if (DICTIONARY_WORDS.has(del)) candidates.push(del);
+      }
+
+      for (let i = 0; i &lt; len - 1; i++) {
+        const trans = lower.slice(0, i) + lower[i + 1] + lower[i] + lower.slice(i + 2);
+        if (DICTIONARY_WORDS.has(trans)) candidates.push(trans);
+      }
+
+      if (candidates.length === 0) {
+        for (let i = 0; i &lt; len; i++) {
+          for (let j = 0; j &lt; ALPHABET.length; j++) {
+            const sub = lower.slice(0, i) + ALPHABET[j] + lower.slice(i + 1);
+            if (DICTIONARY_WORDS.has(sub)) candidates.push(sub);
+          }
+        }
+      }
+
+      if (candidates.length &gt; 0) return matchCasing(originalWord, candidates[0]);
+      return originalWord;
+    }
+
+    function fixSpellingAndSpacing(text) {
+      if (!text) return '';
+      let res = text;
+      res = res.replace(/[ \t]{2,}/g, ' ');
+      res = res.replace(/ +([,\.!\?;:])/g, '$1');
+      res = res.replace(/\(\s+/g, '(').replace(/\s+\)/g, ')');
+      res = res.replace(/(\w)--(\w)/g, '$1—$2');
+      res = res.replace(/ -- /g, ' — ');
+      res = res.replace(/\.{3}/g, '…');
+      res = res.replace(/\b([a-zA-Z]{3,})\b/g, (match) =&gt; correctWord(match));
+      return res;
+    }
+
+    function formatBlock(tag) {
+      document.execCommand('formatBlock', false, tag);
+      syncEditorState();
+    }
+
+    function execStyle(cmd) {
+      document.execCommand(cmd, false, null);
+      syncEditorState();
+    }
+
+    function insertCodeInline() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      const text = selection.toString() || 'code';
+      document.execCommand('insertHTML', false, `&lt;code&gt;${text}&lt;/code&gt;`);
+      syncEditorState();
+    }
+
+    function insertCallout(type) {
+      const html = `&lt;div class=&quot;my-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-500 dark:text-emerald-400 text-sm&quot;&gt;💡 &lt;strong&gt;Callout:&lt;/strong&gt; Write your note here...&lt;/div&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;`;
+      document.execCommand('insertHTML', false, html);
+      syncEditorState();
+    }
+
+    function onEditorInput(el) {
+      syncEditorState();
+    }
+
+    function onEditorKeydown(e, el) {
+      const slashMenu = document.getElementById('slash-menu');
+      if (e.key === '/') {
+        const state = HxBolt.getState(document.body);
+        if (state) state.slashMenuOpen = true;
+        slashMenu.style.display = 'block';
+      } else if (e.key === 'Escape') {
+        const state = HxBolt.getState(document.body);
+        if (state) state.slashMenuOpen = false;
+        slashMenu.style.display = 'none';
+      }
+    }
+
+    function executeSlashCommand(cmd) {
+      const slashMenu = document.getElementById('slash-menu');
+      slashMenu.style.display = 'none';
+      const state = HxBolt.getState(document.body);
+      if (state) state.slashMenuOpen = false;
+
+      document.execCommand('delete', false, null);
+
+      if (cmd === 'h1') formatBlock('h1');
+      else if (cmd === 'h2') formatBlock('h2');
+      else if (cmd === 'table') insertInlineHyperSheetTable();
+      else if (cmd === 'bullet') execStyle('insertUnorderedList');
+      else if (cmd === 'callout') insertCallout('tip');
+    }
+
+    function syncEditorState() {
+      const canvas = document.getElementById('hypertext-canvas');
+      if (!canvas) return;
+      const html = canvas.innerHTML;
+      const text = canvas.innerText.trim();
+      
+      const hiddenInput = document.getElementById('hypertext-hidden-input');
+      if (hiddenInput) hiddenInput.value = html;
+
+      const words = text.length &gt; 0 ? text.split(/\s+/).length : 0;
+      const chars = text.length;
+      const readMin = Math.max(1, Math.ceil(words / 200));
+
+      const state = HxBolt.getState(document.body);
+      if (state) {
+        state.wordCount = words;
+        state.charCount = chars;
+        state.readingTime = `${readMin} min`;
+        state.saveStatus = 'Draft updated';
+      }
+    }
+
+    function autoFixTypography() {
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+      const undoBtn = document.getElementById('btn-undo-autofix');
+
+      let activeMode = 'visual';
+      if (mdArea &amp;&amp; mdArea.style.display !== 'none') activeMode = 'markdown';
+      else if (htmlArea &amp;&amp; htmlArea.style.display !== 'none') activeMode = 'html';
+
+      lastAutoFixSnapshot = {
+        mode: activeMode,
+        canvasHTML: canvas ? canvas.innerHTML : '',
+        mdValue: mdArea ? mdArea.value : '',
+        htmlValue: htmlArea ? htmlArea.value : ''
+      };
+
+      if (undoBtn) undoBtn.style.display = 'inline-flex';
+
+      if (activeMode === 'visual' &amp;&amp; canvas) {
+        const walker = document.createTreeWalker(canvas, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        const textNodes = [];
+        while ((node = walker.nextNode())) {
+          if (node.parentElement &amp;&amp; (node.parentElement.tagName === 'CODE' || node.parentElement.tagName === 'PRE')) continue;
+          textNodes.push(node);
+        }
+
+        textNodes.forEach(tNode =&gt; {
+          tNode.nodeValue = fixSpellingAndSpacing(tNode.nodeValue);
+        });
+
+        const paragraphs = Array.from(canvas.querySelectorAll('p'));
+        for (let i = paragraphs.length - 1; i &gt; 0; i--) {
+          const current = paragraphs[i];
+          const prev = paragraphs[i - 1];
+          if (current.textContent.trim() === '' &amp;&amp; prev.textContent.trim() === '' &amp;&amp; !current.querySelector('img, hr, iframe')) {
+            current.remove();
+          }
+        }
+      } else if (activeMode === 'markdown' &amp;&amp; mdArea) {
+        let lines = mdArea.value.split('\n');
+        let inCode = false;
+        lines = lines.map(line =&gt; {
+          if (line.trim().startsWith('```')) {
+            inCode = !inCode;
+            return line;
+          }
+          if (inCode) return line;
+          return fixSpellingAndSpacing(line);
+        });
+        mdArea.value = lines.join('\n').replace(/\n{3,}/g, '\n\n');
+      } else if (activeMode === 'html' &amp;&amp; htmlArea) {
+        const temp = document.createElement('div');
+        temp.innerHTML = htmlArea.value;
+        const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        const textNodes = [];
+        while ((node = walker.nextNode())) {
+          if (node.parentElement &amp;&amp; (node.parentElement.tagName === 'CODE' || node.parentElement.tagName === 'PRE')) continue;
+          textNodes.push(node);
+        }
+        textNodes.forEach(tNode =&gt; {
+          tNode.nodeValue = fixSpellingAndSpacing(tNode.nodeValue);
+        });
+        htmlArea.value = temp.innerHTML;
+      }
+
+      syncEditorState();
+
+      const state = HxBolt.getState(document.body);
+      if (state) {
+        state.saveStatus = '✨ Auto-fix applied (spacing, spelling, typography)';
+        setTimeout(() =&gt; {
+          if (state &amp;&amp; state.saveStatus &amp;&amp; state.saveStatus.includes('Auto-fix applied')) {
+            state.saveStatus = 'All changes saved';
+          }
+        }, 3500);
+      }
+    }
+
+    function undoAutoFix() {
+      if (!lastAutoFixSnapshot) return;
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+      const undoBtn = document.getElementById('btn-undo-autofix');
+
+      if (canvas &amp;&amp; lastAutoFixSnapshot.canvasHTML !== undefined) canvas.innerHTML = lastAutoFixSnapshot.canvasHTML;
+      if (mdArea &amp;&amp; lastAutoFixSnapshot.mdValue !== undefined) mdArea.value = lastAutoFixSnapshot.mdValue;
+      if (htmlArea &amp;&amp; lastAutoFixSnapshot.htmlValue !== undefined) htmlArea.value = lastAutoFixSnapshot.htmlValue;
+
+      lastAutoFixSnapshot = null;
+      if (undoBtn) undoBtn.style.display = 'none';
+
+      syncEditorState();
+    }
+
+    function onMarkdownInput(el) { syncEditorState(); }
+    function onHtmlInput(el) { syncEditorState(); }
+
+    // Bidirectional Markdown &lt;-&gt; HTML
+    function htmlToMarkdown(html) {
+      const container = document.createElement('div');
+      container.innerHTML = html;
+
+      function walk(node) {
+        if (node.nodeType === Node.TEXT_NODE) return node.nodeValue;
+        if (node.nodeType !== Node.ELEMENT_NODE) return '';
+
+        const tag = node.tagName.toLowerCase();
+        const children = Array.from(node.childNodes).map(walk).join('');
+
+        switch (tag) {
+          case 'h1': return `\n\n# ${children.trim()}\n\n`;
+          case 'h2': return `\n\n## ${children.trim()}\n\n`;
+          case 'h3': return `\n\n### ${children.trim()}\n\n`;
+          case 'p': return `\n\n${children.trim()}\n\n`;
+          case 'strong':
+          case 'b': return `**${children}**`;
+          case 'em':
+          case 'i': return `*${children}*`;
+          case 'code':
+            if (node.parentElement &amp;&amp; node.parentElement.tagName.toLowerCase() === 'pre') return children;
+            return `\`${children}\``;
+          case 'ul': {
+            const items = Array.from(node.children).filter(c =&gt; c.tagName.toLowerCase() === 'li').map(c =&gt; `- ${walk(c).trim()}`).join('\n');
+            return `\n\n${items}\n\n`;
+          }
+          case 'li': return children;
+          default: return children;
+        }
+      }
+
+      let res = walk(container);
+      return res.replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function inlineMd(str) {
+      let res = str;
+      res = res.replace(/\*\*(.*?)\*\*/g, '&lt;strong&gt;$1&lt;/strong&gt;');
+      res = res.replace(/\*([^\*]+)\*/g, '&lt;em&gt;$1&lt;/em&gt;');
+      res = res.replace(/`([^`]+)`/g, '&lt;code&gt;$1&lt;/code&gt;');
+      return res;
+    }
+
+    function markdownToHtml(md) {
+      if (!md) return '&lt;p&gt;&lt;br&gt;&lt;/p&gt;';
+      const lines = md.split('\n');
+      let html = '';
+      let inList = false;
+
+      const flushList = () =&gt; {
+        if (inList) { html += '&lt;/ul&gt;'; inList = false; }
+      };
+
+      for (let i = 0; i &lt; lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) { flushList(); continue; }
+
+        if (line.startsWith('# ')) { flushList(); html += `&lt;h1&gt;${inlineMd(line.slice(2))}&lt;/h1&gt;`; continue; }
+        if (line.startsWith('## ')) { flushList(); html += `&lt;h2&gt;${inlineMd(line.slice(3))}&lt;/h2&gt;`; continue; }
+        if (line.startsWith('### ')) { flushList(); html += `&lt;h3&gt;${inlineMd(line.slice(4))}&lt;/h3&gt;`; continue; }
+
+        if (/^[-*]\s+(.*)$/.test(line)) {
+          const match = line.match(/^[-*]\s+(.*)$/);
+          if (!inList) { html += '&lt;ul class=&quot;list-disc list-inside my-2 space-y-1&quot;&gt;'; inList = true; }
+          html += `&lt;li&gt;${inlineMd(match[1])}&lt;/li&gt;`;
+          continue;
+        }
+
+        flushList();
+        html += `&lt;p&gt;${inlineMd(line)}&lt;/p&gt;`;
+      }
+
+      flushList();
+      return html;
+    }
+
+    function switchEditorView(mode) {
+      const canvas = document.getElementById('hypertext-canvas');
+      const mdArea = document.getElementById('hypertext-markdown');
+      const htmlArea = document.getElementById('hypertext-html');
+
+      const btnVisual = document.getElementById('tab-btn-visual');
+      const btnMd = document.getElementById('tab-btn-markdown');
+      const btnHtml = document.getElementById('tab-btn-html');
+
+      if (mdArea &amp;&amp; mdArea.style.display !== 'none' &amp;&amp; mdArea.value !== undefined) {
+        canvas.innerHTML = markdownToHtml(mdArea.value);
+      } else if (htmlArea &amp;&amp; htmlArea.style.display !== 'none' &amp;&amp; htmlArea.value !== undefined) {
+        canvas.innerHTML = htmlArea.value;
+      }
+
+      if (mode === 'markdown') {
+        mdArea.value = htmlToMarkdown(canvas.innerHTML);
+        canvas.style.display = 'none';
+        htmlArea.style.display = 'none';
+        mdArea.style.display = 'block';
+        mdArea.focus();
+      } else if (mode === 'html') {
+        htmlArea.value = canvas.innerHTML.trim();
+        canvas.style.display = 'none';
+        mdArea.style.display = 'none';
+        htmlArea.style.display = 'block';
+        htmlArea.focus();
+      } else {
+        mdArea.style.display = 'none';
+        htmlArea.style.display = 'none';
+        canvas.style.display = 'block';
+        canvas.focus();
+      }
+
+      const activeClass = 'bg-primary text-primary-foreground shadow-sm';
+      const inactiveClass = 'text-muted-foreground hover:text-foreground';
+      [btnVisual, btnMd, btnHtml].forEach(btn =&gt; {
+        if (btn) btn.className = 'px-2.5 py-1 rounded-md transition-all ' + inactiveClass;
+      });
+      if (mode === 'visual' &amp;&amp; btnVisual) btnVisual.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+      if (mode === 'markdown' &amp;&amp; btnMd) btnMd.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+      if (mode === 'html' &amp;&amp; btnHtml) btnHtml.className = 'px-2.5 py-1 rounded-md transition-all ' + activeClass;
+
+      syncEditorState();
+    }
+
+    // Initialize resizers on load
+    document.addEventListener('DOMContentLoaded', () =&gt; {
+      document.querySelectorAll('table').forEach(t =&gt; initTableResizers(t));
+    });
+    setTimeout(() =&gt; {
+      document.querySelectorAll('table').forEach(t =&gt; initTableResizers(t));
+    }, 100);
+  &lt;/script&gt;
+
+  &lt;!-- Usage &amp; HTMX Integration Section --&gt;
+  &lt;div class=&quot;space-y-6 pt-6 border-t border-border&quot;&gt;
+    &lt;h2 class=&quot;text-xl font-bold tracking-tight&quot;&gt;HTMX Form Integration&lt;/h2&gt;
+    &lt;p class=&quot;text-sm text-muted-foreground leading-relaxed&quot;&gt;
+      Hypertext Editor connects directly to standard HTMX forms. It updates a hidden &lt;code class=&quot;bg-muted px-1.5 py-0.5 rounded text-xs font-mono&quot;&gt;content_html&lt;/code&gt; payload on every change.
+    &lt;/p&gt;
+
+    &lt;div class=&quot;code-block&quot;&gt;&lt;code&gt;&lt;pre&gt;&amp;lt;!-- HTMX Form Submission --&amp;gt;
+&amp;lt;form hx-post=&quot;/api/posts/create&quot; hx-target=&quot;#post-feedback&quot; class=&quot;space-y-4&quot;&amp;gt;
+  &amp;lt;input type=&quot;text&quot; name=&quot;title&quot; placeholder=&quot;Post Title...&quot; class=&quot;w-full px-4 py-2 border rounded-lg&quot;&amp;gt;
+  
+  &amp;lt;!-- Drop-in Hypertext Editor --&amp;gt;
+  &amp;lt;div hx-ext=&quot;reactive&quot; ...&amp;gt;
+    &amp;lt;input type=&quot;hidden&quot; name=&quot;content_html&quot; id=&quot;hypertext-hidden-input&quot;&amp;gt;
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;button type=&quot;submit&quot; class=&quot;px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold&quot;&amp;gt;
+    Publish Article →
+  &amp;lt;/button&amp;gt;
+&amp;lt;/form&amp;gt;&lt;/pre&gt;&lt;/code&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Go DSL Usage Section --&gt;
+  &lt;div class=&quot;space-y-4 pt-6 border-t border-border&quot;&gt;
+    &lt;h2 class=&quot;text-xl font-bold tracking-tight&quot;&gt;Go DSL Usage&lt;/h2&gt;
+    &lt;div class=&quot;code-block&quot;&gt;&lt;code&gt;&lt;pre&gt;import &quot;github.com/hyperlibs/HTMX PRO/go/components&quot;
+
+// Server-rendered Hypertext Editor with inline HyperSheet table
+editor := components.HypertextEditor(components.HypertextEditorProps{
+    Name:        &quot;article_body&quot;,
+    Placeholder: &quot;Write your document...&quot;,
+    InitialHTML: &quot;&amp;lt;h1&amp;gt;My Notes&amp;lt;/h1&amp;gt;&amp;lt;p&amp;gt;Start writing here...&amp;lt;/p&amp;gt;&quot;,
+    MinHeight:   &quot;350px&quot;,
+})&lt;/pre&gt;&lt;/code&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

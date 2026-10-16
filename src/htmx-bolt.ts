@@ -213,7 +213,7 @@ function levenshteinDistance(a: string, b: string): number {
         matrix[i][j] = Math.min(
           matrix[i - 1][j - 1] + 1,
           matrix[i][j - 1] + 1,
-          matrix[i - 1] + 1
+          matrix[i - 1][j] + 1
         );
       }
     }
@@ -856,7 +856,7 @@ export function enforceElementAuth(el: HTMLElement): boolean {
   if (!roleAttr && !permAttr && el.attributes) {
     const rawAttrs = (typeof (el.attributes as any)[Symbol.iterator] === 'function') ? 
       Array.from(el.attributes) : 
-      Object.entries(el.attributes).map(([name, value]) => ({ name, value: value as string }));
+      Object.entries(el.attributes).map(([name, value]) => ({ name, value: (value as any)?.value ?? String(value) }));
     for (const attr of rawAttrs) {
       if (attr.name === 'hx-role' || attr.name.startsWith('hx-role.')) {
         roleAttr = attr.value;
@@ -2534,7 +2534,7 @@ function startTickerLoop(): void {
         const state = elementStates.get(el as HTMLElement) || (el.closest('[hx-state]') ? elementStates.get(el.closest('[hx-state]') as HTMLElement) : null);
         if (expr && state) {
           try {
-            executeAction(expr, state, el as HTMLElement, { dt, time: now });
+            executeAction(expr, state, { $el: el as HTMLElement, dt, time: now });
           } catch (e) {}
         }
       });

@@ -11,6 +11,7 @@ blob-report/
 # Archives & Temporary Data
 scratch/
 .gemini/
+.freebuff/
 *.zip
 *.tar.gz
 *.log

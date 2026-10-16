@@ -27,7 +27,7 @@
       });
   };
 
-  // ../htmxpro/src/htmx-calc.ts
+  // src/htmx-calc.ts
   var exports_htmx_calc = {};
   __export(exports_htmx_calc, {
     expandRange: () => expandRange,

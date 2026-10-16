@@ -15,7 +15,14 @@ const COMPONENTS = [
   "time-picker","toast","toggle","toggle-group","toggle-switch","toolbar","tooltip","tree-view","user-card",
   "video-player","watermark","wizard","hx-wizard","date-range-picker","hx-grid","hx-virtual","hx-offline","hollywood-webfx",
   "block-pathology-lab","block-radiology-dicom","block-biology-atlas","block-crispr-studio","block-genomic-map",
-  "block-civil-architect","block-marine-navigation","block-agriculture-precision","block-energy-scada","block-pcb-semiconductor"
+  "block-civil-architect","block-marine-navigation","block-agriculture-precision","block-energy-scada","block-pcb-semiconductor",
+  "appz-gauge","appz-keypad","appz-statusbar","appz-swipeout","appz-thermostat","simulation","sortable-item",
+  "smart-air-quality-pill","smart-ambient-aod-clock","smart-car-cockpit-hud","smart-conveyor-belt",
+  "smart-drive-mode","smart-ev-battery-range","smart-forecast-daily","smart-heart-rate",
+  "smart-lighting-dimmer","smart-pos-cashier","smart-relay-switchboard","smart-rotary-volume",
+  "smart-smart-lock","smart-solar-power-flow","smart-step-activity-rings","smart-thermostat-dual-zone",
+  "smart-tire-pressure-tpms","smart-turn-by-turn-nav","smart-uv-index-dial","smart-weather-hero",
+  "smart-wind-compass"
 ];
 
 function formatName(slug: string): string {
@@ -41,7 +48,7 @@ function escapeHtml(str: string): string {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-import { DEMOS } from "./demos.ts";
+import { DEMOS } from "./demos";
 
 const NO_SCALE_UI = [
   "badge", "chip", "icon", "indicator", "kbd", "link", "tag", 
@@ -65,7 +72,7 @@ async function buildComponentPage(slug: string): Promise<string> {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${name} — HTMX PRO</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/vendor/htmx.min.js"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
   <script src="/htmx-form.js"></script>
@@ -228,7 +235,7 @@ const dashboardHtml = await Bun.file("views/layout-dashboard.html").text().catch
 
 const server = Bun.serve({
   port: 3000,
-  async fetch(req) {
+  async fetch(req: Request): Promise<Response> {
     const url = new URL(req.url);
     if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
       url.pathname = url.pathname.slice(0, -1);
@@ -241,7 +248,7 @@ const server = Bun.serve({
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTMX PRO — Hyper Reactive HTMX on Steroids</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/vendor/htmx.min.js"></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-background text-foreground antialiased selection:bg-primary selection:text-primary-foreground min-h-screen flex flex-col">
@@ -475,7 +482,8 @@ const server = Bun.serve({
     }
 
     if (url.pathname === "/schema/htmxpro.json" || url.pathname === "/schema/htmxui.json") {
-      const filePath = fs.existsSync("schema/htmxpro.json") ? "schema/htmxpro.json" : "schema/htmxui.json";
+      const proFile = Bun.file("schema/htmxpro.json");
+      const filePath = (await proFile.exists()) ? "schema/htmxpro.json" : "schema/htmxui.json";
       return new Response(Bun.file(filePath), { headers: { "Content-Type": "application/json" } });
     }
 
@@ -490,7 +498,16 @@ const server = Bun.serve({
       else if (url.pathname.endsWith(".html")) contentType = "text/html; charset=utf-8";
       else if (url.pathname.endsWith(".png")) contentType = "image/png";
       else if (url.pathname.endsWith(".svg")) contentType = "image/svg+xml";
-      return new Response(publicFile, { headers: { "Content-Type": contentType } });
+
+      const headers: Record<string, string> = {
+        "Content-Type": contentType,
+        "Cache-Control": url.pathname.startsWith("/vendor/") ? "public, max-age=31536000, immutable" : "public, max-age=3600",
+        "ETag": `"${publicFile.size}-${publicFile.lastModified}"`
+      };
+      if (req.headers.get("if-none-match") === headers["ETag"]) {
+        return new Response(null, { status: 304, headers });
+      }
+      return new Response(publicFile, { headers });
     }
 
     // Component doc pages

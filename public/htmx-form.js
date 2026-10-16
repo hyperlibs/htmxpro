@@ -27,7 +27,7 @@
       });
   };
 
-  // ../htmxpro/src/htmx-form.ts
+  // src/htmx-form.ts
   var exports_htmx_form = {};
   __export(exports_htmx_form, {
     validateInput: () => validateInput,
@@ -50,12 +50,14 @@
     },
     email: (val) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
     url: (val) => !val || /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(val),
-    min: (val, len) => !val || (typeof val === "number" ? val >= parseFloat(len) : val.length >= parseInt(len, 10)),
-    max: (val, len) => !val || (typeof val === "number" ? val <= parseFloat(len) : val.length <= parseInt(len, 10)),
+    min: (val, len) => !val || (typeof val === "number" ? val >= parseFloat(len || "0") : val.length >= parseInt(len || "0", 10)),
+    max: (val, len) => !val || (typeof val === "number" ? val <= parseFloat(len || "0") : val.length <= parseInt(len || "0", 10)),
     numeric: (val) => !val || /^-?\d+(\.\d+)?$/.test(val),
     alphanumeric: (val) => !val || /^[a-zA-Z0-9]+$/.test(val),
-    pattern: (val, regexStr) => !val || new RegExp(regexStr).test(val),
+    pattern: (val, regexStr) => !val || (regexStr ? new RegExp(regexStr).test(val) : true),
     match: (val, targetName, form) => {
+      if (!form || !targetName)
+        return true;
       const targetInput = form.querySelector(`[name="${targetName}"]`);
       return targetInput ? val === targetInput.value : true;
     }

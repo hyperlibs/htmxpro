@@ -15,7 +15,7 @@ const COMPONENTS = [
   "breadcrumb","button","button-group","calendar","card","carousel","checkbox","checkbox-group",
   "chip","collapsible","color-picker","combobox","command","container","context-menu","data-table",
   "date-picker","dialog","divider","drawer","dropdown-menu","empty-state","error-message",
-  "file-upload","flash-search","form","hover-card","icon","image","indicator","input","input-otp","kbd","label",
+  "file-upload","flash-search","form","gallery","hover-card","hypertext-editor","icon","image","indicator","input","input-otp","kbd","label",
   "layout-block","layout-canvas","layout-grid","layout-page","layout-print","layout-scaffold","layout-web","layout-mweb","layout-mapp",
   "link","list","list-item","loading-spinner","masonry-grid","menubar","message-bubble",
   "navigation-menu","notification","number-input","page-header","pagination","panel",
@@ -26,7 +26,14 @@ const COMPONENTS = [
   "time-picker","toast","toggle","toggle-group","toggle-switch","toolbar","tooltip","tree-view","user-card",
   "video-player","watermark","wizard","hx-wizard","date-range-picker","hx-grid","hx-virtual","hx-offline","hollywood-webfx","simulation",
   "block-pathology-lab","block-radiology-dicom","block-biology-atlas","block-crispr-studio","block-genomic-map",
-  "block-civil-architect","block-marine-navigation","block-agriculture-precision","block-energy-scada","block-pcb-semiconductor"
+  "block-civil-architect","block-marine-navigation","block-agriculture-precision","block-energy-scada","block-pcb-semiconductor",
+  "appz-gauge","appz-keypad","appz-statusbar","appz-swipeout","appz-thermostat","sortable-item",
+  "smart-air-quality-pill","smart-ambient-aod-clock","smart-car-cockpit-hud","smart-conveyor-belt",
+  "smart-drive-mode","smart-ev-battery-range","smart-forecast-daily","smart-heart-rate",
+  "smart-lighting-dimmer","smart-pos-cashier","smart-relay-switchboard","smart-rotary-volume",
+  "smart-smart-lock","smart-solar-power-flow","smart-step-activity-rings","smart-thermostat-dual-zone",
+  "smart-tire-pressure-tpms","smart-turn-by-turn-nav","smart-uv-index-dial","smart-weather-hero",
+  "smart-wind-compass"
 ];
 
 function formatName(slug: string): string {
@@ -64,7 +71,7 @@ function buildComponentPage(slug: string): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${name} — HTMX PRO</title>
-  <script src="https://unpkg.com/htmx.org@2.0.4" crossorigin="anonymous"></script>
+  <script src="/vendor/htmx.min.js"></script>
   <script src="/htmx-bolt.js"></script>
   <script src="/htmx-flash.js"></script>
   <script src="/htmx-form.js"></script>

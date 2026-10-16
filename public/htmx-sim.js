@@ -27,7 +27,7 @@
       });
   };
 
-  // ../htmxpro/src/htmx-sim.ts
+  // src/htmx-sim.ts
   var exports_htmx_sim = {};
   __export(exports_htmx_sim, {
     Vec2: () => Vec2,

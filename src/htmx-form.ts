@@ -20,12 +20,13 @@ export const defaultValidators: Record<string, ValidatorFn> = {
   },
   email: (val: any) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
   url: (val: any) => !val || /^(https?:\/\/)?[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(val),
-  min: (val: any, len: string) => !val || (typeof val === 'number' ? val >= parseFloat(len) : val.length >= parseInt(len, 10)),
-  max: (val: any, len: string) => !val || (typeof val === 'number' ? val <= parseFloat(len) : val.length <= parseInt(len, 10)),
+  min: (val: any, len?: string) => !val || (typeof val === 'number' ? val >= parseFloat(len || '0') : val.length >= parseInt(len || '0', 10)),
+  max: (val: any, len?: string) => !val || (typeof val === 'number' ? val <= parseFloat(len || '0') : val.length <= parseInt(len || '0', 10)),
   numeric: (val: any) => !val || /^-?\d+(\.\d+)?$/.test(val),
   alphanumeric: (val: any) => !val || /^[a-zA-Z0-9]+$/.test(val),
-  pattern: (val: any, regexStr: string) => !val || new RegExp(regexStr).test(val),
-  match: (val: any, targetName: string, form: HTMLFormElement) => {
+  pattern: (val: any, regexStr?: string) => !val || (regexStr ? new RegExp(regexStr).test(val) : true),
+  match: (val: any, targetName?: string, form?: HTMLFormElement) => {
+    if (!form || !targetName) return true;
     const targetInput = form.querySelector(`[name="${targetName}"]`) as HTMLInputElement;
     return targetInput ? val === targetInput.value : true;
   }
